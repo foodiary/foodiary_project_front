@@ -23,6 +23,6 @@
   },
   "include": [
     "src",
-    "craco.config.js",
+    "craco.config.js"
   ]
 }
