@@ -1,0 +1,17 @@
+@mixin text-style($size: $fs-15, $color: $white, $weight: 700, $align: center) {
+  @if (type-of($size) == number) {
+    font-size: $size;
+  }
+
+  @if (type-of($weight) ==number) {
+    font-weight: $weight;
+  }
+
+  @if (type-of($color) == color) {
+    color: $color;
+  }
+
+  @if (type-of($align) == string) {
+    text-align: $align;
+  }
+}
