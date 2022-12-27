@@ -1,7 +1,6 @@
-// Common....
 import React from 'react';
 
-const Common = () => {
+const NavBar = () => {
   return (
     <div>
       
@@ -9,4 +8,4 @@ const Common = () => {
   );
 };
 
-export default Common;
+export default NavBar;
