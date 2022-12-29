@@ -39,6 +39,12 @@ const Login = () => {
   //     data: {email: id, password: pwd}
   //   });
   // }
+  const handleAuthGoogle =()=>{
+    window.location.assign(googleAuthUrl);
+  }
+  const handleAuthNaver =()=>{
+    window.location.assign(naverAuthUrl);
+  }
   return (
     <div>
       <div>
@@ -60,12 +66,18 @@ const Login = () => {
         <button type='submit'>제출</button>
       </form> 
     </div>
-      <a href={googleAuthUrl}>
+    <button onClick={handleAuthGoogle}>
+      <FcGoogle/>
+    </button>
+    <button onClick={handleAuthNaver}>
+      <SiNaver/>
+    </button>
+      {/* <a href={googleAuthUrl}>
         <FcGoogle/>
-      </a>
-      <a href={naverAuthUrl}>
+      </a> */}
+      {/* <a href={naverAuthUrl}>
         <SiNaver/>
-      </a>
+      </a> */}
     </div>
   );
 };
