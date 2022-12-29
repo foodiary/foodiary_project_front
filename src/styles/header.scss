@@ -1,0 +1,67 @@
+@import "./constants/colors.module.scss";
+@import "./mixin/text_style.module.scss";
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+@function responsible-calc($x){
+  @return (100vw * $x)/1920;
+}
+
+.header{
+  padding: 0 responsible-calc(360);
+  height: 83px;
+  @include flex-row();
+
+  .main-logo{
+    width: fit-content;
+    height: 68px;
+    line-height: 68px;
+    letter-spacing: -0.19em;
+
+    // 여기 test-style 적용안돼서 넣어둔것
+    font-size: 28px;
+    text-align: center;
+    // 
+    margin: 7.5px 0;
+    margin-right: responsible-calc(80);
+    @include text-style($size: 28, $weight: 800, $color: $main, $align: "center");
+    // margin-left: 360px;
+    // margin-top: 7.5px; margin-bottom: 7.5px;
+  }
+  .navbar{
+    @include flex-row();
+    p{
+      margin: 17px responsible-calc(20);
+      line-height: 48.04px;
+      @include text-style($size: 18, $weight: 400, $color: $main, $align: "center");
+    }
+  }
+  .search-icon{
+    box-sizing: border-box;
+    width: responsible-calc(14.67);
+    height: 14.67px;
+    margin-left: responsible-calc(590);
+  }
+  .profile{
+    @include flex-row();
+    margin-left: responsible-calc(560);
+    button{
+      width: fit-content; height: fit-content;
+      padding: 0;
+      margin-top: responsible-calc(33.5);
+      font-size: 14px;
+      background: none;
+      border: none;
+    }
+    div{
+      width: 52px; height: 52px;
+      border-radius: 2em;
+      text-align: center;
+      border: 1px solid black;
+      margin-left: responsible-calc(33.33);
+      margin-top: responsible-calc(15.5);
+    }
+  }
+}
