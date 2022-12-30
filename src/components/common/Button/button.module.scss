@@ -1,0 +1,20 @@
+@import "../../../styles/main.module.scss";
+
+.button {
+  width: 76px;
+  height: 36px;
+  color: $gray_400;
+  border: 1px solid $gray_200;
+  border-radius: 7px;
+  background: $gray_100;
+}
+
+.buttonActive {
+  width: 76px;
+  height: 36px;
+  color: white;
+  font-weight: 700;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: $point;
+}
