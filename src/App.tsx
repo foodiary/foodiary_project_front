@@ -1,15 +1,15 @@
-import React from "react";
-import useStore from "@store/store";
+import "./styles/globals.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MainPage from "@pages/MainPage";
+import Header from "@components/common/Header";
 
 function App() {
-  const { bears, increasePopulation, decreasePopulation, removeAllBears } =
-    useStore();
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route></Route>
+        <Route element={<Header />}>
+          <Route path="/" element={<MainPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
