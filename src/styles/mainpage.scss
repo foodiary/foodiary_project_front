@@ -1,0 +1,6 @@
+@mixin pattern {
+  background: repeating-linear-gradient(white, white 82px #EFEFEF 83px);
+}
+.main-container{
+  @include pattern();
+}
