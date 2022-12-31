@@ -2,6 +2,8 @@ import { ButtonComp, buttonStyled, Card } from "@components/common";
 import { useState } from "react";
 import styled from "../styles/mainPage.module.scss";
 
+const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 const MainPage = () => {
   const [userName, setUserName] = useState("신소율");
 
@@ -20,7 +22,7 @@ const MainPage = () => {
             <div className={styled.recommendedBtn}>
               <ButtonComp
                 text="Good😘"
-                btnStyle={buttonStyled.button}
+                btnStyle={buttonStyled.buttonActive}
                 onClick={() => {
                   console.log("test");
                 }}
@@ -46,12 +48,49 @@ const MainPage = () => {
         />
       </div>
 
-      <article className={styled.rankingWrapper}>
-        <section className={styled.rankingContainer}>
+      <article className={styled.noBgContentsWrapper}>
+        <section className={styled.noBgContentsContainer}>
           <div className={styled.titleDiv}>
-            <p className={styled.rankingText}>
-              랭킹 <span className={styled.rankingEmoji}>👑</span>
+            <p className={styled.contentsText}>
+              랭킹 <span className={styled.contentsEmoji}>👑</span>
             </p>
+
+            <button className={styled.moreContents}>
+              {`더 많은 컨텐츠 보러가기 ->`}
+            </button>
+          </div>
+
+          <div className={styled.rankingContants}>
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+          </div>
+        </section>
+      </article>
+
+      <article className={styled.noBgContentsWrapper}>
+        <section className={styled.noBgContentsContainer}>
+          <div className={styled.titleDiv}>
+            <p className={styled.contentsText}>
+              식단 <span className={styled.contentsEmoji}>🍱</span>
+            </p>
+          </div>
+          <table className={styled.calendarTableWrapper}>
+            {DATE.map((date) => (
+              <th key={date} className={styled.calendarTableTh}>
+                {date}
+              </th>
+            ))}
+          </table>
+        </section>
+      </article>
+
+      <article className={styled.recipeWrapper}>
+        <section className={styled.recipeContainer}>
+          <div className={styled.titleDiv}>
+            <p className={styled.contentsText}>실시간 하루식단 / 레시피</p>
 
             <button className={styled.moreContents}>
               {`더 많은 컨텐츠 보러가기 ->`}
