@@ -1,4 +1,4 @@
-@mixin text-style($size: $fs-15, $color: $white, $weight: 700, $align: center) {
+@mixin text-style($size: $body1, $color: $main, $weight: 700, $align: center) {
   @if (type-of($size) == number) {
     font-size: $size;
   }

@@ -1,0 +1,131 @@
+@import "../styles/main.module.scss";
+
+.titleDiv {
+  display: flex;
+  margin-bottom: 42px;
+
+  .contentsText {
+    font-size: $h4;
+    font-weight: 600;
+    margin-right: auto;
+  }
+
+  .rankingEmoji {
+    margin-left: 8px;
+  }
+
+  .moreContents {
+    font-weight: 600;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 12px;
+    background: $gray_100;
+  }
+}
+
+.rankingContants {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 52px;
+  overflow-x: scroll;
+}
+
+.rankingContants::-webkit-scrollbar {
+  width: 100%;
+  height: 4px;
+}
+
+.rankingContants::-webkit-scrollbar-thumb {
+  background: $gray_200;
+}
+
+.rankingContants::-webkit-scrollbar-track {
+  background: $gray_100;
+}
+
+.mainWrapper {
+  display: flex;
+  max-width: 1200px;
+  margin: 72px auto 0 auto;
+
+  .mainTextContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mainText {
+    font-size: $h3;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .recommendedContainer {
+    display: flex;
+    align-items: center;
+
+    margin-top: 27px;
+
+    .recommended {
+      font-size: $body2;
+      color: $gray_400;
+      margin-right: 32px;
+    }
+
+    .recommendedBtn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
+
+.inputSection {
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 100px auto;
+
+  .input {
+    width: 70%;
+    padding: 14px 50px;
+    color: $gray_400;
+    border: 2px solid $main;
+    border-radius: 12px;
+    background: url("../../public/img/search.png") no-repeat;
+    background-color: white;
+    background-position: 25px 15px;
+  }
+}
+
+.noBgContentsWrapper {
+  background: white;
+
+  .noBgContentsContainer {
+    padding: 0 0 100px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .calendarTableWrapper {
+      width: 100%;
+      border: 1px solid $gray_200;
+
+      .calendarTableTh {
+      }
+    }
+  }
+}
+
+.recipeWrapper {
+  background: white;
+
+  .recipeContainer {
+    max-width: 1200px;
+    margin: 101px auto 0 auto;
+
+    .recipeTitle {
+      font-weight: 600;
+      font-size: $h4;
+      margin-bottom: 56px;
+    }
+  }
+}

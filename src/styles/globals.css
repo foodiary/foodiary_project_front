@@ -4,23 +4,28 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  background: linear-gradient(#ffffff 97%, #ebebeb 3%);
+  background-size: 100% 83px; 
+  /* 원래 간격 62px */
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 a {
   color: inherit;
   text-decoration: none;
 }
+a:hover{
+  transition: all 0.3s ease;
+  color: #ff4e16;
+}
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  -ms-overflow-style: none;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 ul,
