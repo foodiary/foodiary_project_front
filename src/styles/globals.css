@@ -4,6 +4,12 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  background: linear-gradient(#ffffff 97%, #ebebeb 3%);
+  background-size: 100% 62px;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 a {
@@ -12,15 +18,9 @@ a {
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  -ms-overflow-style: none;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 ul,

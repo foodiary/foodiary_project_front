@@ -1,0 +1,82 @@
+@import "./constants/colors.module.scss";
+@import "./mixin/text_style.module.scss";
+@import "./mixin/flexBox.module.scss";
+@import "./constants/responsive.module.scss";
+
+@mixin display-none {
+  @include mobile{
+    display:none;
+  };
+  @include tablet{
+    display:none;
+  };
+}
+
+@function responsible-calc($x){
+  @return (100vw * $x)/1920;
+  // @return ($x % 1920)/100;
+}
+
+.header{
+  padding: 0 responsible-calc(360);
+  height: 83px;
+  border-bottom: 1px solid #EFEFEF; 
+  @include row-flexBox();
+
+  .main_logo{
+    width: fit-content;
+    height: 68px;
+    line-height: 68px;
+    letter-spacing: -0.19em;
+
+    // 여기 text-style 적용안돼서 넣어둔것
+    font-size: 28px;
+    text-align: center;
+    // 
+    margin: 7.5px 0;
+    margin-right: responsible-calc(80);
+    @include text-style($size: 28, $weight: 800, $color: $main, $align: "center");
+    @include display-none();
+  }
+  .navbar{
+    @include display-none();
+    @include row-flexBox();
+
+    p{
+      margin: 17px responsible-calc(20);
+      line-height: 48.04px;
+      font-size: 18px;
+      @include text-style($size: 18, $weight: 400, $color: $main, $align: "center");
+    }
+  }
+  .profile{
+    @include row-flexBox();
+    @include desktop{
+      margin-left: responsible-calc(560);
+    }
+    margin-left: 83%;
+    button{
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+    button:first-child{
+      font-size: 15px;
+      @include display-none();
+    }
+    button:nth-child(2){
+      font-size: 20px;
+      display: none;
+      @include tablet{
+        display: block;
+      }
+    }
+    div{
+      font-size: 52px;
+      text-align: center;
+      margin-left: responsible-calc(33.33);
+      margin-top: responsible-calc(15.5);
+    }
+  }
+}
