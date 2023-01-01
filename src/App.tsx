@@ -1,9 +1,10 @@
 import Header from '@components/common/Header';
+import LoginPage from '@pages/LoginPage';
 import React from 'react';
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <LoginPage/>      
     </div>
   );
 }
