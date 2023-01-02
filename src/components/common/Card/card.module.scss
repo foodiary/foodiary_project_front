@@ -1,0 +1,80 @@
+@import "../../../styles/main.module.scss";
+
+.cardWrapper {
+  width: 384px;
+  height: 379px;
+  padding: 20px;
+  border: 1px solid $gray_200;
+  background: white;
+
+  .img {
+    max-width: 344px;
+    height: auto;
+  }
+
+  .tagContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-top: 12px;
+    margin-bottom: 20px;
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: $body2;
+      background: $gray_200;
+    }
+  }
+
+  .title {
+    width: 85%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+
+  .userInfoContainer {
+    display: flex;
+    align-self: center;
+    margin-top: 12px;
+    font-weight: 400;
+    color: $gray_400;
+    font-size: $body2;
+
+    .user {
+      display: flex;
+      align-items: center;
+      margin-right: auto;
+
+      .userImg {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+      }
+
+      .userName {
+        margin-left: 4px;
+      }
+    }
+
+    .info {
+      display: flex;
+      gap: 16px;
+
+      .infoContents {
+        display: flex;
+
+        .infoDeco {
+          width: 18px;
+          height: 18px;
+          margin-right: 4px;
+          border-radius: 50%;
+          background: $gray_200;
+        }
+      }
+    }
+  }
+}
