@@ -2,13 +2,8 @@
 @import "./globals.css";
 
 .header{
-  // @include desktop(){
-  //   padding: 0 responsible-calc(360);
-  // }
-  // height: 83px;
-  // border-bottom: 1px solid #EFEFEF; 
+  height: 62px;
   // @include row-flexBox();
-
   // .main_logo{
   //   width: fit-content;
   //   height: 68px;
@@ -22,9 +17,9 @@
   .navbar{
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 370px;
     background-color: white;
-    height: 90px;
+    height: 80px;
     padding: 0;
     @include flexBox($jc: around);
     @include row-flexBox();  
@@ -49,10 +44,9 @@
 
   .profile{
     @include row-flexBox();
-    @include flexBox();
-    float: right;
+    @include flexBox($jc:end);
     margin-right: 20px;
-    margin-top: 20px;
+    // margin-top: 5px;
     button{
       cursor: pointer;
       padding: 0;
@@ -69,6 +63,8 @@
     .login_btn{
       width: 58px;
       height: 49px;
+      margin-top: 5px;
+      // @include flexBox();
       @include text-style(18px, #2979FF, 700);
       // margin-left: 14px;
     }

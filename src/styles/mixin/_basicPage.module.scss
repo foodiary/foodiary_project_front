@@ -3,6 +3,9 @@
   height: 100vh;
   padding-bottom: 100px;
   margin: 0 auto;
-  // overflow-y: scroll;
+  overflow-y: scroll;
 
+}
+%page-base::-webkit-scrollbar{
+  display: none;
 }

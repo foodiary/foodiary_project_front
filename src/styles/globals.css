@@ -6,8 +6,6 @@ body {
   margin: 0;
   background: linear-gradient(#ffffff 97%, #ebebeb 3%);
   background-size: 100% 62px;
-  background-size: 100% 62px; 
-  /* 원래 간격 62px */
 }
 
 body::-webkit-scrollbar {

@@ -12,6 +12,7 @@ import SignUpProfileImage from '@pages/signup/SignUpProfileImage';
 import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
 import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
 import SignUpNickName from '@pages/signup/SignUpNickName';
+import MyPageMain from '@pages/mypage/MyPageMain';
 
 const AppRouter = () => {
   return (
@@ -29,6 +30,8 @@ const AppRouter = () => {
           <Route path='/signup/profileMsg' element={<SignUpProfileMsg/>}/>
           <Route path='/login' element={<LoginMainPage/>}/>
           <Route path='/login/other' element={<OtherLoginPage/>}/>
+
+          <Route path='/mypage' element={<MyPageMain/>}/>
           {/* /find/id   /find/pwd */}
         </Routes>
       </BrowserRouter>
