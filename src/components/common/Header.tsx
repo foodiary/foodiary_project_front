@@ -11,27 +11,31 @@ const Header = () => {
   const [user, setUser] = useState(false);
   return (
       <div className={styles.header}>
-        <div className={styles.main_logo}>
+        {/* <div className={styles.main_logo}>
           <Link to="/">Foodiary</Link>
-        </div>
-        <div className={styles.navbar}>
+        </div> */}
+        {/* <div className={styles.navbar}>
           <Link to="/">랭킹</Link>
           <Link to="/">식단</Link>
           <Link to="/">레시피</Link>
           <Link to="/">마이페이지</Link>
+        </div> */}
+        <div className={styles.profile}>
+          {/* <button><BsSearch/></button> */}
+          {/* <button className={styles.bell}><VscBell/></button> */}
+          {!user? <button className={styles.login_btn}>LOGIN</button>:
+          <>
+          <button className={styles.bell}><VscBell/></button> 
+          <div className={styles.user}><FaUserCircle/></div>
+          </>}
         </div>
-        <div className={styles.mobile_navbar}>
+        <div className={styles.navbar}>
           <Link to="/"><RiHome5Line/></Link>
           <Link to="/"><FaRegCompass/></Link>
           <Link to="/"><BsPlusSquare/></Link>
           <Link to="/"><HiOutlineUserCircle/></Link>
         </div>
-        <div className={styles.profile}>
-          <button><BsSearch/></button>
-          <button><VscBell/></button>
-          {!user? <button className={styles.login_btn}>LOGIN</button>: 
-          <div><FaUserCircle/></div>}
-        </div>
+        
       </div>
   );
 };

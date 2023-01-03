@@ -1,108 +1,81 @@
-// @import "./constants/colors.module.scss";
-// @import "./mixin/text_style.module.scss";
-// @import "./mixin/flexBox.module.scss";
-@import "./constants/responsive.module.scss";
 @import "./main.module.scss";
 @import "./globals.css";
 
-@mixin display-none {
-  @include mobile{
-    display:none;
-  };
-  @include tablet{
-    display:none;
-  };
-}
-@mixin mobile_navbar{
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: white;
-  height: 90px;
-  padding: 0;
-  @include flexBox($jc: around);
-  gap: 20px;
-  @include row-flexBox();  
-  @include text-style(40px, $main, 400); 
-}
-@function responsible-calc($x){
-  @return (100vw * $x)/1920;
-  // @return ($x % 1920)/100;
-}
-
 .header{
-  @include desktop(){
-    padding: 0 responsible-calc(360);
-  }
-  height: 83px;
-  border-bottom: 1px solid #EFEFEF; 
-  @include row-flexBox();
+  // @include desktop(){
+  //   padding: 0 responsible-calc(360);
+  // }
+  // height: 83px;
+  // border-bottom: 1px solid #EFEFEF; 
+  // @include row-flexBox();
 
-  .main_logo{
-    width: fit-content;
-    height: 68px;
-    line-height: 68px;
-    letter-spacing: -0.19em;
-    margin: 7.5px 0;
-    margin-right: responsible-calc(80);
-    @include text-style(28px, $main, 800);
-    @include display-none();
-  }
-
+  // .main_logo{
+  //   width: fit-content;
+  //   height: 68px;
+  //   line-height: 68px;
+  //   letter-spacing: -0.19em;
+  //   margin: 7.5px 0;
+  //   margin-right: responsible-calc(80);
+  //   @include text-style(28px, $main, 800);
+  //   @include display-none();
+  // }
   .navbar{
-    @include display-none();
-    @include row-flexBox();
-    @include flexBox();
-    @include text-style(18px, $main, 400);
-    gap: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    height: 90px;
+    padding: 0;
+    @include flexBox($jc: around);
+    @include row-flexBox();  
+    @include text-style(30px, $main, 400); 
   }
-  .mobile_navbar{
-    display: none;
-    @include tablet{
-      @include mobile_navbar();
-    }
-    @include mobile{
-      @include mobile_navbar();
-    }
-  }
+  // .navbar{
+  //   @include display-none();
+  //   @include row-flexBox();
+  //   @include flexBox();
+  //   @include text-style(18px, $main, 400);
+  //   gap: 40px;
+  // }
+  // .mobile_navbar{
+  //   display: none;
+  //   @include tablet{
+  //     @include mobile_navbar();
+  //   }
+  //   @include mobile{
+  //     @include mobile_navbar();
+  //   }
+  // }
 
   .profile{
     @include row-flexBox();
-    @include desktop{
-      margin-left: responsible-calc(560);
-    }
-    @include tablet{
-      margin-left: 75%;
-    }
+    @include flexBox();
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
     button{
       cursor: pointer;
       padding: 0;
       background: none;
       border: none;
     }
-    button:first-child{
-      font-size: 15px;
-      @include display-none();
-    }
-    button:nth-child(2){
-      font-size: 20px;
-      display: none;
-      @include tablet{
-        display: block;
-      }
+    .bell{
+      font-size: 22px;
+      width: fit-content; height: fit-content;
+      // @include flexBox();
+      // border: 1px solid red;
     }
     .login_btn{
       width: 58px;
       height: 49px;
       @include text-style(18px, #2979FF, 700);
-      margin-top: 17px;
-      margin-left: 25px;
+      // margin-left: 14px;
     }
-    div{
-      font-size: 52px;
+    .user{
+      font-size: 45px;
       text-align: center;
-      margin-left: responsible-calc(33.33);
-      margin-top: responsible-calc(15.5);
+      margin-left: 14px;
+      // margin-top: 15.5px;
     }
   }
 }
