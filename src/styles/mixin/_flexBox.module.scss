@@ -16,3 +16,15 @@ $flex-map: (
   align-items: getFlexValue($ai);
   justify-content: getFlexValue($jc);
 }
+@mixin column-flexBox() {
+  display: flex;
+  flex-direction: column;
+  // align-items: getFlexValue($ai);
+  // justify-content: getFlexValue($jc);
+}
+@mixin row-flexBox() {
+  display: flex;
+  flex-direction: row;
+  // align-items: getFlexValue($ai);
+  // justify-content: getFlexValue($jc);
+}

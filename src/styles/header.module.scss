@@ -1,82 +1,82 @@
-@import "./constants/colors.module.scss";
-@import "./mixin/text_style.module.scss";
-@import "./mixin/flexBox.module.scss";
-@import "./constants/responsive.module.scss";
-
-@mixin display-none {
-  @include mobile{
-    display:none;
-  };
-  @include tablet{
-    display:none;
-  };
-}
-
-@function responsible-calc($x){
-  @return (100vw * $x)/1920;
-  // @return ($x % 1920)/100;
-}
+@import "./main.module.scss";
+@import "./globals.css";
 
 .header{
-  padding: 0 responsible-calc(360);
-  height: 83px;
-  border-bottom: 1px solid #EFEFEF; 
-  @include row-flexBox();
+  // @include desktop(){
+  //   padding: 0 responsible-calc(360);
+  // }
+  // height: 83px;
+  // border-bottom: 1px solid #EFEFEF; 
+  // @include row-flexBox();
 
-  .main_logo{
-    width: fit-content;
-    height: 68px;
-    line-height: 68px;
-    letter-spacing: -0.19em;
-
-    // 여기 text-style 적용안돼서 넣어둔것
-    font-size: 28px;
-    text-align: center;
-    // 
-    margin: 7.5px 0;
-    margin-right: responsible-calc(80);
-    @include text-style($size: 28, $weight: 800, $color: $main, $align: "center");
-    @include display-none();
-  }
+  // .main_logo{
+  //   width: fit-content;
+  //   height: 68px;
+  //   line-height: 68px;
+  //   letter-spacing: -0.19em;
+  //   margin: 7.5px 0;
+  //   margin-right: responsible-calc(80);
+  //   @include text-style(28px, $main, 800);
+  //   @include display-none();
+  // }
   .navbar{
-    @include display-none();
-    @include row-flexBox();
-
-    p{
-      margin: 17px responsible-calc(20);
-      line-height: 48.04px;
-      font-size: 18px;
-      @include text-style($size: 18, $weight: 400, $color: $main, $align: "center");
-    }
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    height: 90px;
+    padding: 0;
+    @include flexBox($jc: around);
+    @include row-flexBox();  
+    @include text-style(30px, $main, 400); 
   }
+  // .navbar{
+  //   @include display-none();
+  //   @include row-flexBox();
+  //   @include flexBox();
+  //   @include text-style(18px, $main, 400);
+  //   gap: 40px;
+  // }
+  // .mobile_navbar{
+  //   display: none;
+  //   @include tablet{
+  //     @include mobile_navbar();
+  //   }
+  //   @include mobile{
+  //     @include mobile_navbar();
+  //   }
+  // }
+
   .profile{
     @include row-flexBox();
-    @include desktop{
-      margin-left: responsible-calc(560);
-    }
-    margin-left: 83%;
+    @include flexBox();
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
     button{
       cursor: pointer;
       padding: 0;
       background: none;
       border: none;
     }
-    button:first-child{
-      font-size: 15px;
-      @include display-none();
+  
+    .bell{
+      font-size: 22px;
+      width: fit-content; height: fit-content;
+      // @include flexBox();
+      // border: 1px solid red;
     }
-    button:nth-child(2){
-      font-size: 20px;
-      display: none;
-      @include tablet{
-        display: block;
-      }
+    .login_btn{
+      width: 58px;
+      height: 49px;
+      @include text-style(18px, #2979FF, 700);
+      // margin-left: 14px;
     }
-    div{
-      font-size: 52px;
+    .user{
+      font-size: 45px;
       text-align: center;
-      margin-left: responsible-calc(33.33);
-      margin-top: responsible-calc(15.5);
+      margin-left: 14px;
+      // margin-top: 15.5px;
     }
   }
 }

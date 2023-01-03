@@ -1,0 +1,62 @@
+@import './main.module.scss';
+
+.intro{
+  border: 1px solid red;
+  @include flexBox($jc: start, $ai: start);
+  @include column-flexBox();
+  width: fit-content;
+  margin-top: 174px;
+  margin-left: 20px;
+  letter-spacing: -0.025em;
+  p{
+    padding: 0; margin: 10px 0;
+    @include text-style(28px, $main, start);
+  }
+}
+.text_deco{
+  width: 30%;
+  height: 18px;
+  position: absolute;
+  top: 32%;
+  left: 20px;
+  background-color: #FFA68A;
+  transform: rotate(-3.07deg);
+  z-index: -1;
+}
+.input_form{
+  width: 90%;
+  margin: auto;
+    p{
+      @include text-style(12px, $main, 700, start);
+      // border: 1px solid blue;
+    }
+    input{
+      width: 100%;
+      height: 48px;
+      border-radius: 12px;
+      @include text-style(16px, #666666, 400, start);
+      text-indent: 20px;
+      // border: 1px solid blue;
+    }
+  // border: 1px solid red;
+}
+
+// Button.tsx에 적용한 css
+.login_btn{
+    width: 370px;
+    height: 56px;
+    border: none;
+    border-radius: 16px 16px 0px 0px;
+    background-color: $gray_100;
+    @include text-style(16px, #666666, 700);
+    cursor: pointer;
+}
+.dupliCheck_btn{
+  width: 72px;
+  height: 48px;
+  border: 1px solid $main;
+  background-color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 15px;
+}

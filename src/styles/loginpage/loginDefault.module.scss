@@ -1,0 +1,72 @@
+@import '../main.module.scss';
+@import '../globals.css';
+
+@mixin position-center($top:50%, $left:50%) {
+  position: absolute;
+  top: $top; left: $left;
+  transform: translate(-50%, -50%);
+}
+
+.login_container{
+  @extend %page-base;
+  border: 2px solid black;
+  @include position-center(61%);
+  border-radius: 1em;
+  .btn_container{
+    @include flexBox();
+    @include column-flexBox();
+    gap: 16px;
+    margin-top: 140px;
+    
+    .login_btn{
+      width: 330px;
+      height: 56px;
+      padding: 0 12px;
+      border-radius: 8px;
+      border: none;
+    }
+    .google{
+      background-color:  white;
+      border: 1px solid #757575;
+      @include text-style(14px, #757575, 500);
+      line-height: 16px;
+    }
+    .naver{
+      background-color:  #03C75A;
+      @include text-style(14px, white, 500);
+      line-height: 16px;
+    }
+    .other{
+      background-color: #FF4E16;
+      @include text-style(14px, white, 700);
+      line-height: 24px;
+    }
+    p{
+      @include text-style(12px, #666666, 400);
+      line-height: 20px;
+      margin-top: 31px;
+      margin-right: 11px;
+      a{
+        @include text-style(12px, #333333, 700);
+        letter-spacing: -0.025em;
+        text-decoration: underline;
+        background: none;
+        border: none;
+        margin-left: 8px;
+      }
+    }  
+  }
+}
+.signup{
+  margin-top: 32px;
+  margin-bottom: 8px;
+  @include flexBox();
+  p{
+    @include text-style(12px, #666666, 400, start);
+  }
+  a{
+    text-decoration: underline;
+    @include text-style(12px, #333333, 700);
+    margin-left: 8px;
+  }
+}
