@@ -3,7 +3,7 @@ import styled from "./card.module.scss";
 const Card = () => {
   return (
     <div className={styled.cardWrapper}>
-      <img src="/img/sample.png" className={styled.img} />
+      <div className={styled.img} />
       <div className={styled.tagContainer}>
         <p className={styled.tag}>TOP 100</p>
       </div>
@@ -13,8 +13,7 @@ const Card = () => {
 
       <div className={styled.userInfoContainer}>
         <div className={styled.user}>
-          <img src="/img/sample.png" className={styled.userImg} />
-          <p className={styled.userName}>배고픈밥풀</p>
+          <p>배고픈밥풀</p>
         </div>
         <div className={styled.info}>
           <div className={styled.infoContents}>

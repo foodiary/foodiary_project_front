@@ -1,6 +1,99 @@
 @import "../styles/main.module.scss";
 
+.displayNone {
+  display: none;
+}
+
 .mainPageWrapper {
   @extend %page-base;
+  padding: 0 20px;
   margin-top: 52px;
+
+  .mainPageTitleSection {
+    .title {
+      font-size: $h4;
+      font-weight: 400;
+    }
+  }
+
+  .recommendeSection {
+    padding: 22px 0;
+    display: flex;
+    align-items: center;
+
+    .recommende {
+      margin-right: auto;
+      font-size: $body2;
+      color: $gray_400;
+    }
+
+    .recommendedBtn {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  .searchSection {
+    padding-bottom: 20px;
+
+    input {
+      width: 100%;
+      padding: 18px 40px;
+      border: 2px solid $main;
+      border-radius: 12px;
+      background: url("/img/search.png") no-repeat;
+      background-position: center left 15px;
+
+      &::placeholder {
+        color: $gray_400;
+      }
+    }
+  }
+
+  .rankingSection {
+    padding-bottom: 20px;
+
+    .tabMenuContents {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rankingActiveTitle {
+      font-size: $h5;
+      font-weight: 700;
+    }
+
+    .rankingTitle {
+      font-weight: 700;
+      color: $gray_400;
+    }
+
+    .rankingContents {
+      .dayBtn {
+        display: flex;
+        justify-content: flex-end;
+        gap: 4px;
+        margin-bottom: 22px;
+      }
+
+      .rankingScroll {
+        display: flex;
+        gap: 8px;
+      }
+    }
+  }
+
+  .recipeSection {
+    padding-top: 58px;
+    .recipeTitle {
+      font-size: $h5;
+      font-weight: 500;
+    }
+
+    .recipeContents {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
 }

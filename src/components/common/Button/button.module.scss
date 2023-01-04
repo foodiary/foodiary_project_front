@@ -1,8 +1,7 @@
 @import "../../../styles/main.module.scss";
 
 .button {
-  width: 76px;
-  height: 36px;
+  padding:6px;
   color: $gray_400;
   border: 1px solid $gray_200;
   border-radius: 7px;
@@ -10,8 +9,7 @@
 }
 
 .buttonActive {
-  width: 76px;
-  height: 36px;
+  padding:6px;
   color: white;
   font-weight: 700;
   border: 1px solid transparent;
