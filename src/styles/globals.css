@@ -8,7 +8,7 @@ body {
   background-size: 100% 62px;
 }
 
-body::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
 }
 
