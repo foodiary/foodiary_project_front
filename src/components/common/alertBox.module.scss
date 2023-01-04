@@ -1,0 +1,54 @@
+@import '../../styles/main.module.scss';
+
+.modal_back{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  .alert_box, .warn_box{
+    border: 1px solid #000000;
+    border-radius: 12px;
+    background-color: white;
+    @include flexBox();
+    @include column-flexBox();
+    width: 252px; height: 174px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .check_icon, .x_icon, .warn_icon{
+      width: 46px; height: 46px;
+      margin-bottom: 16px;
+    }
+    .check_icon{
+      background-image: url('../../../public/img/check_icon.png');
+    }
+    .x_icon{
+      background-image: url('../../../public/img/x_icon.png');
+    }
+    .warn_icon{
+      background-image: url('../../../public/img/warn_icon.png');
+    }
+    p{
+      @include text-style(16px, #666666, 700);
+      padding: 0 45px;
+    }
+  }
+  .warn_box{
+    height: 202px;
+    // @include flexBox();
+    // p{
+    //   margin-bottom: px;
+    // }
+    .small_halfbtn{
+      position: absolute;
+      bottom: 0px;
+      width: inherit;
+      height: 40px;
+    }
+  }
+}

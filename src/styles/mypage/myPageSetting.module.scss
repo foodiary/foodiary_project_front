@@ -1,0 +1,55 @@
+@import './myPageMain.module.scss';
+
+.profile{
+  @extend %page-base;
+  border: 1px solid black;
+  position: relative;
+  .btn{
+    position: absolute;
+    bottom: 100px;
+  }
+}
+.profile_container{
+  @include column-flexBox();
+  .user_info{
+    margin-top: 55px;
+    margin-left: auto; 
+    margin-right: auto;
+    p{
+      @include flexBox();
+    }
+  }
+  .profile_msg{
+    width: 70%;
+  }
+}
+.btn_set{
+  .btn_container{
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    background-color: #EFEFEF;
+    border-radius: 8px;
+    .modify_btn{
+      width: 100%; height: 100%;
+      cursor: pointer;
+      background-image: url("../../../public/img/pencil_icon.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      border: none;
+    }
+  }
+  div:first-child{
+    top: 245px;
+    left: 203px;
+  }
+  div:nth-child(2){
+    top: 335px;
+    right: 15px;
+  }
+  div:nth-child(3){
+    top: 450px;
+    right: 15px;
+  }
+}

@@ -1,0 +1,65 @@
+@import '../main.module.scss';
+
+.comment_detail{
+  @extend %page-base;
+  border: 1px solid black;
+  
+  .writing{
+    margin-bottom: 100px;
+
+    .board_link{
+      @include text-style(20px, $main, 700);
+      margin-left: 20px;
+      margin-bottom: 25px;
+    }
+    .good_scrap{
+      @include row-flexBox();
+      width: fit-content;
+      margin-left: 20px;
+      margin-bottom: 40px;
+      button{
+        @include text-style(20px, $main, 700);
+      }
+      p{
+        @include text-style(14px, #999999, 500);
+        margin-right: 25px;
+      }
+    }
+  }
+  .comment_container{
+    border-bottom: 2px solid $gray-100;
+    background-color: white;
+    @include flexBox($jc:start, $ai: start);
+    // margin: 100px 20px 0 20px;
+    padding: 20px;
+
+    .profile_picture{
+      background-image: url('../../../public/img/basic_profile.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 32px; height: 32px;
+      border-radius: 50px;
+      margin-right: 8px;
+    }
+
+    .content{
+      @include column-flexBox();
+      width: 85%;
+      gap: 4px;
+      p:first-child{
+        @include text-style(14px, $main, 700, start);
+      }
+      p:nth-child(2){
+        @include text-style(16px, $main, 400, start);
+      }
+      p:nth-child(3){
+        @include text-style(12px, #666666, 400, start);
+      }
+    }
+  }
+  .view_btn{
+    position: absolute;
+    width: inherit;
+    bottom: 100px;
+  }
+}

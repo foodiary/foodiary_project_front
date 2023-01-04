@@ -1,0 +1,7 @@
+@import '../main.module.scss';
+@import '../globals.css';
+
+.mywriting{
+  @extend %page-base;
+  border: 1px solid black;
+}

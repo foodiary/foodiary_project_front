@@ -1,0 +1,56 @@
+@import '../main.module.scss';
+@import '../globals.css';
+
+button{
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+
+  .text_deco{
+    position: absolute;
+    width: 100%;
+    height: 13px;
+    top: 60%;
+    opacity: 0.5;
+    transform: rotate(-3.07deg);
+    // background-color: #FFA68A;
+    background-color: $point;
+  }
+}
+.mycomments{
+  @extend %page-base;
+  border: 1px solid black;
+  .tab{
+    margin-bottom: 85px;
+    width: 65%;
+    @include flexBox($jc:around);
+    .active{
+      // border: 1px solid red;
+      @include text-style(24px, $main, 700);
+    }
+    .non_active{
+      // border: 1px solid red;
+      @include text-style(18px, #666666, 700);
+    }
+  }
+  .board{
+    background-color: white;
+    .comment{
+      margin: 10px;
+      // border: 1px solid red;
+      border-bottom: 2px solid $gray-100;
+      padding: 10px;
+      background-color: white;
+      p{
+        @include text-style(16px, $main, 500, start);
+        &:nth-child(2){
+          @include text-style(12px, $main, 400, start);
+          margin-top: 8px;
+        }
+      }
+      
+    }
+    
+  }
+}
