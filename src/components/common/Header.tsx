@@ -8,32 +8,22 @@ import styles from '@styles/header.module.scss';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
   return (
       <div className={styles.header}>
-        {/* <div className={styles.main_logo}>
-          <Link to="/">Foodiary</Link>
-        </div> */}
-        {/* <div className={styles.navbar}>
-          <Link to="/">랭킹</Link>
-          <Link to="/">식단</Link>
-          <Link to="/">레시피</Link>
-          <Link to="/">마이페이지</Link>
-        </div> */}
         <div className={styles.profile}>
-          {/* <button><BsSearch/></button> */}
-          {/* <button className={styles.bell}><VscBell/></button> */}
           {!user? <button className={styles.login_btn}>LOGIN</button>:
-          <>
-          <button className={styles.bell}><VscBell/></button> 
-          <div className={styles.user}><FaUserCircle/></div>
-          </>}
+            <div className={styles.after_login}>
+              <button className={styles.bell}><VscBell/></button> 
+              <div className={styles.user}><FaUserCircle/></div>
+            </div>
+          }
         </div>
         <div className={styles.navbar}>
           <Link to="/"><RiHome5Line/></Link>
           <Link to="/"><FaRegCompass/></Link>
           <Link to="/"><BsPlusSquare/></Link>
-          <Link to="/"><HiOutlineUserCircle/></Link>
+          <Link to="/mypage"><HiOutlineUserCircle/></Link>
         </div>
         
       </div>
