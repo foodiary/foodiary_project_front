@@ -9,7 +9,7 @@ interface IntroType{
 interface InputType{ 
   id: string; //아이디, 비번, 이메일 중 뭔지 
   type: string; // text, password 뭔지
-  label: string; //아이디, 비번, 이메일 중 뭔지
+  label?: string; //아이디, 비번, 이메일 중 뭔지
   placeholder: string;
 }
 export const Intro = ({intro1, span, intro2}:IntroType)=>{

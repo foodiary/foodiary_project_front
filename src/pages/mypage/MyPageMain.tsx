@@ -14,12 +14,13 @@ const MyPageMain = () => {
         <div className={styles.profile_image}></div>
         <div className={styles.user_info}>
           <p>ffoodyy</p>
+          {/* <p>ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</p> */}
           <p>이메일</p>
         </div>
         {/* <div className={styles.setting}>
           <Link to="/"><AiOutlineSetting/></Link>
         </div> */}
-          <Link to="/">
+          <Link to="/mypage/setting">
             <div className={styles.setting}>
               <AiOutlineSetting/>
             </div>
@@ -28,6 +29,7 @@ const MyPageMain = () => {
       </div>
       <p className={styles.profile_msg}>
         맛집투어만큼 만들기를 좋아하는 ffoodyyyyy
+        {/* ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ */}
       </p>
       <div className={styles.myWriting_btns}>
         <div className={styles.myWriting}>

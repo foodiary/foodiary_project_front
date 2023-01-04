@@ -13,6 +13,11 @@ import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
 import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
 import SignUpNickName from '@pages/signup/SignUpNickName';
 import MyPageMain from '@pages/mypage/MyPageMain';
+import MyPageSetting from '@pages/mypage/MyPageSetting';
+import MyWriting from '@pages/mypage/MyWriting';
+import MyComments from '@pages/mypage/MyComments';
+import MyCommentsDetail from '@pages/mypage/MyCommentsDetail';
+import MyCommentsEdit from '@pages/mypage/MyCommentsEdit';
 
 const AppRouter = () => {
   return (
@@ -32,6 +37,12 @@ const AppRouter = () => {
           <Route path='/login/other' element={<OtherLoginPage/>}/>
 
           <Route path='/mypage' element={<MyPageMain/>}/>
+          <Route path='/mypage/setting' element={<MyPageSetting/>}/>
+          <Route path='/mypage/mywriting' element={<MyWriting/>}/>
+          <Route path='/mypage/mycomments' element={<MyComments/>}/>
+          <Route path='/mypage/mycomments/detail' element={<MyCommentsDetail/>}/>
+          <Route path='/mypage/mycomments/detail/edit' element={<MyCommentsEdit/>}/>
+
           {/* /find/id   /find/pwd */}
         </Routes>
       </BrowserRouter>
