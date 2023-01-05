@@ -20,7 +20,7 @@ const SignUpAuthMail = () => {
             <div>시간초</div>
           </div>
           <p className={styles.remail}>인증 메일을 받지 못하셨나요? <button>이메일 다시 보내기</button></p>
-          <LoginButton type="button" text='인증완료' url='/signup/nickname'/>
+          <LoginButton type="button" text='인증완료' active={true} url='/signup/nickname'/>
         {/* </form> */}
       
       {/* <div className={styles.login_container}>

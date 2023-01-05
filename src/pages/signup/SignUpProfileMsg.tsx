@@ -7,13 +7,20 @@ import { Input, Intro } from '@pages/Form';
 import { DuplicateCheckBtn, LoginButton } from '@components/common/Button';
 
 const SignUpProfileMsg = () => {
+  const navigate = useNavigate();
+  const onSubmit = (e:FormEvent)=>{
+    e.preventDefault();
+    navigate("/");
+    console.log("가입 완료");
+  }
   return (
       <div className={styles.login_container}>
-        <Intro intro1={"프로필 메세지를"} span={""} intro2={"적어주세요."}/>
+        <Intro span={"프로필 메세지를"} intro2={"적어주세요."}/>
         <p className={styles.omit_p}>(생략가능)</p>
                 {/* <form className={styles.login_form}> */}
         <div className={styles.profile}></div>
           <div className={styles.input_container}>
+            {/* <textarea></textarea> 로 구현하기*/}
             <Input 
               id={"message"} 
               type={"text"} 
@@ -21,7 +28,9 @@ const SignUpProfileMsg = () => {
               placeholder={"프로필 메세지를 입력해주세요"}
             />
           </div>
-          <LoginButton type="button" text='완료' url='/'/>
+          <form onSubmit={onSubmit}>
+            <LoginButton type="submit" text='완료' active={true}/>
+          </form>
         {/* </form> */}
         </div>
   );

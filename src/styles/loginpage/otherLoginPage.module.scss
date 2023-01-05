@@ -4,6 +4,10 @@
   margin-top: 99px;
   margin-bottom: 48px;
 }
+.add_margin{
+  margin-top: 60px;
+  border: 1px solid transparent;
+}
 .forget_account{
   @include flexBox();
   @include column-flexBox();

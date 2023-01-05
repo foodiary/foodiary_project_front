@@ -6,8 +6,6 @@ import OtherLoginPage from './login/OtherLoginPage';
 const MainPage = () => {
   return (
     <div>
-      <Header/>
-      <LoginMainPage/>
     </div>
   );
 };

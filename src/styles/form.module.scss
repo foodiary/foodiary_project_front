@@ -1,44 +1,114 @@
 @import './main.module.scss';
 
+// .intro{
+//   @include flexBox($jc: start, $ai: start);
+//   @include column-flexBox();
+//   width: 100%;
+//   margin-top: 110px;
+//   margin-left: 20px;
+//   letter-spacing: -0.025em;
+//   white-space: pre-line;
+//   p{
+//     padding: 0; margin: 10px 0;
+//     @include text-style(28px, $main, 400, start);
+//   div{
+//     position: relative;
+//     @include text-style(28px, $main, 400, start);
+//     .text_deco{
+//       position: absolute;
+//       width: 100%;
+//         height: 13px;
+//         top: 60%;
+//         opacity: 0.5;
+//         transform: rotate(-3.07deg);
+//         background-color: $point;
+//       }
+//   }
+//   }
+// }
+
 .intro{
-  border: 1px solid red;
-  @include flexBox($jc: start, $ai: start);
-  @include column-flexBox();
-  width: fit-content;
-  margin-top: 174px;
-  margin-left: 20px;
-  letter-spacing: -0.025em;
-  p{
-    padding: 0; margin: 10px 0;
-    @include text-style(28px, $main, start);
-  }
+    @include flexBox($jc: start, $ai: start);
+    @include column-flexBox();
+    width: 100%;
+    margin-top: 50px;
+    margin-left: 20px;
+    letter-spacing: -0.025em;
+    white-space: pre-line;
+    p{
+      padding: 0; margin: 10px 0;
+      position: relative;
+      @include text-style(28px, $main, start);
+      span{
+        position: relative;
+      }
+    }
 }
 .text_deco{
-  width: 30%;
-  height: 18px;
-  position: absolute;
-  top: 32%;
-  left: 20px;
-  background-color: #FFA68A;
-  transform: rotate(-3.07deg);
-  z-index: -1;
-}
+    width: 100%;
+    height: 13px;
+    position: absolute;
+    top: 20px; //32
+    // left: 20px; //20
+    background-color: $point;
+    opacity: 0.5;
+    transform: rotate(-3.07deg);
+  }
+      
+    // }
+    // .text_deco{
+    //   position: absolute;
+    //   width: 100%;
+    //   height: 13px;
+    //   top: 60%;
+    //   opacity: 0.5;
+    //   transform: rotate(-3.07deg);
+    //   background-color: $point;
+    //   }
+    
+  
 .input_form{
   width: 90%;
   margin: auto;
+  position: relative;
     p{
       @include text-style(12px, $main, 700, start);
-      // border: 1px solid blue;
     }
+    
     input{
       width: 100%;
       height: 48px;
       border-radius: 12px;
+
       @include text-style(16px, #666666, 400, start);
       text-indent: 20px;
       // border: 1px solid blue;
+      &:focus{
+        outline: none;
+      }
     }
+  
   // border: 1px solid red;
+}
+.init, .view_pwd{
+  position: absolute;
+  cursor: pointer;
+  left: 240px;
+  top: 29px;
+  background: none;
+  border: none;
+  width: 24px; height: 24px;
+  @include text-style(20px, #666666, );
+}
+.view_pwd{
+  left: 280px;
+}
+.err{
+  color: $point;
+}
+.no_err{
+  color: #1FD393;
+
 }
 
 // Button.tsx에 적용한 css

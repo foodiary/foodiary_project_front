@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: "https://4a75-182-220-207-61.jp.ngrok.io", //서버
+  headers:{
+    "Access-Control-Allow-Origin": "*",
+  }
 });
 
 instance.interceptors.request.use(
@@ -20,6 +24,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
+    console.log("인터셉트");
     return response;
   },
   (err) => {

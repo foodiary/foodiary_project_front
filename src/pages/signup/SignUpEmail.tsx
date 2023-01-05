@@ -5,11 +5,39 @@ import {IoMdEyeOff} from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { Input, Intro } from '@pages/Form';
 import { DuplicateCheckBtn, LoginButton } from '@components/common/Button';
+import { useUserStore } from '@store/userStore';
+import duplicateCheck from '../../core/apis/utils/duplicateCheck';
 
 const SignUpEmail = () => {
+  const email = useUserStore((state)=>state.email);
+  const [next, setNext] = useState(false);
+
+  const onSubmit = (e:FormEvent)=>{
+    e.preventDefault();
+    duplicateCheck.post("/member/check/email", {
+      email: email,
+    }).then(res=>{
+      setNext(true);
+      console.log(res); //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+    }).catch(err=>{
+      console.log(err);
+    })
+    console.log(`이메일: ${email}`);
+  }
   return (
     <div className={styles.login_container}>
       <Intro intro1={"본인인증을 위해"} span={"이메일"} intro2={"을 입력해주세요."}/>
+        <form onSubmit={onSubmit} className={styles.input_container}>
+          <Input 
+              id={"email"} 
+              type={"email"} 
+              label={"이메일"} 
+              placeholder={"이메일을 입력해주세요"}
+            />
+          <DuplicateCheckBtn active={email?true:false}/> 
+        </form>
+        <LoginButton type="button" text='확인' active={next?true:false} url="/signup/authmail"/>
+      {/* <Intro intro1={"본인인증을 위해"} span={"이메일"} intro2={"을 입력해주세요."}/>
           <div className={styles.input_container}>
             <Input 
               id={"email"} 
@@ -17,9 +45,9 @@ const SignUpEmail = () => {
               label={"이메일"} 
               placeholder={"이메일을 입력해주세요"}
             />
-            <DuplicateCheckBtn type="button"/>
+            <DuplicateCheckBtn/>
           </div>
-          <LoginButton type="button" text='확인' url='/signup/authmail'/>
+          <LoginButton type="button" text='확인' url='/signup/authmail'/> */}
 
       {/* <div className={styles.login_container}>
         <div className={styles.intro}>

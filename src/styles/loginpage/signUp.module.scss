@@ -8,7 +8,11 @@
 }
 .omit_p{
   position: absolute;
-  top: 50%;
+  top: 20%;
+}
+.pwd_container{
+  margin-top: 150px;
+  margin-bottom: 87px;
 }
 .basic_profile{
   width: 220px;
@@ -20,7 +24,7 @@
   @include flexBox();
   width: 330px;
   height: 56px;
-  margin-top: 102px;
+  margin: 102px 0 100px 20px;
   padding: 0 12px;
   border-radius: 8px;
   border: 3px solid black;
@@ -43,11 +47,14 @@
     margin-left: 8px;
   }
 }
-.success_logo{
-  position: absolute;
-  top: 235px;
-  left: 210px;
-  background-image: url('../../../public/img/success_logo.png');
-  width: 170px;
-  height: 170px;
+.login_container{
+  position: relative;
+  .success_logo{
+    position: absolute;
+    top: 70px;
+    left: 220px;
+    background-image: url('../../../public/img/success_logo.png');
+    width: 170px;
+    height: 170px;
+  }
 }
