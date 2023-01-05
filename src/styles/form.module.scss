@@ -42,7 +42,7 @@
 }
 
 // Button.tsx에 적용한 css
-.login_btn{
+.login_btn, .login_btn_active{
     width: 370px;
     height: 56px;
     border: none;
@@ -59,4 +59,26 @@
   border-radius: 12px;
   cursor: pointer;
   margin-top: 15px;
+}
+.login_btn_active{
+  background-color: $point;
+  color: white;
+}
+.half_btn{
+  width: 50%;
+  height: 56px;
+  border: none;
+  color: white;
+  &:nth-child(1){
+    background-color: $point;
+    border-radius: 16px 0px 0px 0px;
+  }
+  &:nth-child(2){
+    background-color: black;
+    border-radius: 0px 16px 0px 0px;
+  }
+}
+.half_container{
+  width: inherit;
+  height: inherit;
 }

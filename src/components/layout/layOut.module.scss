@@ -1,0 +1,9 @@
+@import '../../styles/main.module.scss';
+@import '../../styles/globals.css';
+
+.layout{
+    @extend %page-base;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+}

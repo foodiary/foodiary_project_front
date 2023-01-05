@@ -1,23 +1,45 @@
-import React from 'react';
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "",
-  headers: {
-    'Content-Type': 'application/json',
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers = {
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
+    return config;
   },
-});
+  (err) => Promise.reject(err)
+);
 
-instance.interceptors.request.use((req)=>{
-  return req;
-},(err)=>{  //요청 에러 캐치
-  return Promise.reject(err);
-});
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (err) => {
+    if (err.response.status === 401) {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        localStorage.removeItem("access_token");
+        return;
+      }
+      return;
+    }
+  }
+);
 
-instance.interceptors.response.use((res)=>{
-  return res;
-},(err)=>{  //응답 에러 캐치
-  return Promise.reject(err);
-});
+export const METHOD = {
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  PATCH: "PATCH",
+  DELETE: "DELETE",
+};
 
 export default instance;
