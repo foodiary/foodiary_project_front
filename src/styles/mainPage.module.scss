@@ -4,6 +4,22 @@
   display: none;
 }
 
+.tabMenuContents {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rankingActiveTitle {
+  font-size: $h5;
+  font-weight: 700;
+}
+
+.rankingTitle {
+  font-weight: 700;
+  color: $gray_400;
+}
+
 .mainPageWrapper {
   @extend %page-base;
   padding: 0 20px;
@@ -53,22 +69,6 @@
   .rankingSection {
     padding-bottom: 20px;
 
-    .tabMenuContents {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .rankingActiveTitle {
-      font-size: $h5;
-      font-weight: 700;
-    }
-
-    .rankingTitle {
-      font-weight: 700;
-      color: $gray_400;
-    }
-
     .rankingContents {
       .dayBtn {
         display: flex;
@@ -93,7 +93,7 @@
 
     .recipeContents {
       display: flex;
-      flex-wrap: wrap;
+      gap: 8px;
     }
   }
 }

@@ -7,6 +7,7 @@ const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MainPage = () => {
   const [userName, setUserName] = useState<string>("jetom");
   const [tabMenu, setTabMenu] = useState<string>("0");
+  const [recipeTab, setRecipeTab] = useState<string>("0");
 
   return (
     <article className={styled.mainPageWrapper}>
@@ -43,41 +44,13 @@ const MainPage = () => {
 
       <section className={styled.rankingSection}>
         <div className={styled.tabMenuContents}>
-          <h3
-            className={
-              tabMenu === "0"
-                ? `${styled.rankingActiveTitle}`
-                : `${styled.rankingTitle}`
-            }
-          >
+          <h3 className={tabMenu === "0" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>
             랭킹
-            <span
-              className={
-                tabMenu === "0"
-                  ? `${styled.rankingActiveTitle}`
-                  : `${styled.displayNone}`
-              }
-            >
-              👑
-            </span>
+            <span className={tabMenu === "0" ? `${styled.rankingActiveTitle}` : `${styled.displayNone}`}>👑</span>
           </h3>
-          <h3
-            className={
-              tabMenu === "1"
-                ? `${styled.rankingActiveTitle}`
-                : `${styled.rankingTitle}`
-            }
-          >
+          <h3 className={tabMenu === "1" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>
             식단
-            <span
-              className={
-                tabMenu === "1"
-                  ? `${styled.rankingActiveTitle}`
-                  : `${styled.displayNone}`
-              }
-            >
-              🍱
-            </span>
+            <span className={tabMenu === "1" ? `${styled.rankingActiveTitle}` : `${styled.displayNone}`}>🍱</span>
           </h3>
         </div>
 
@@ -110,8 +83,15 @@ const MainPage = () => {
       </section>
 
       <section className={styled.recipeSection}>
-        <h3 className={styled.recipeTitle}>실시간 하루식단 / 레시피</h3>
-        <div className={styled.recipeContents}></div>
+        <div className={styled.tabMenuContents}>
+          <h3 className={recipeTab === "0" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>랭킹</h3>
+          <h3 className={recipeTab === "1" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>식단</h3>
+        </div>
+        <div className={styled.recipeContents}>
+          <Card />
+          <Card />
+          <Card />
+        </div>
       </section>
     </article>
   );
