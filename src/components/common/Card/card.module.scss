@@ -1,18 +1,28 @@
 @import "../../../styles/main.module.scss";
 
+.feed {
+  width: 159px;
+  height: 154px;
+}
+
+.smallSize {
+  width: 156px;
+  height: 120px;
+}
+
+.mediumSize {
+  width: 234px;
+  height: 120px;
+}
+
+.largeSize {
+  width: 337px;
+  height: 300px;
+}
+
 .cardWrapper {
-  max-width: 250px;
-  max-height: 240px;
-  padding: 20px;
   border: 1px solid $gray_200;
   background: white;
-
-  .img {
-    height: 120px;
-    background-size: cover;
-    background-position: center;
-    background: content-box url("/img/sample.png") no-repeat;
-  }
 
   .tagContainer {
     display: flex;
@@ -31,7 +41,6 @@
   }
 
   .title {
-    width: 85%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

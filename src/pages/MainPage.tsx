@@ -1,4 +1,5 @@
-import { ButtonComp, buttonStyled, Card } from "@components/common";
+import { ButtonComp, buttonStyled } from "@components/common";
+import { MediumCard, SmallCard } from "@components/common/Card";
 import { useState } from "react";
 import styled from "../styles/mainPage.module.scss";
 
@@ -44,13 +45,41 @@ const MainPage = () => {
 
       <section className={styled.rankingSection}>
         <div className={styled.tabMenuContents}>
-          <h3 className={tabMenu === "0" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>
+          <h3
+            className={
+              tabMenu === "0"
+                ? `${styled.rankingActiveTitle}`
+                : `${styled.rankingTitle}`
+            }
+          >
             랭킹
-            <span className={tabMenu === "0" ? `${styled.rankingActiveTitle}` : `${styled.displayNone}`}>👑</span>
+            <span
+              className={
+                tabMenu === "0"
+                  ? `${styled.rankingActiveTitle}`
+                  : `${styled.displayNone}`
+              }
+            >
+              👑
+            </span>
           </h3>
-          <h3 className={tabMenu === "1" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>
+          <h3
+            className={
+              tabMenu === "1"
+                ? `${styled.rankingActiveTitle}`
+                : `${styled.rankingTitle}`
+            }
+          >
             식단
-            <span className={tabMenu === "1" ? `${styled.rankingActiveTitle}` : `${styled.displayNone}`}>🍱</span>
+            <span
+              className={
+                tabMenu === "1"
+                  ? `${styled.rankingActiveTitle}`
+                  : `${styled.displayNone}`
+              }
+            >
+              🍱
+            </span>
           </h3>
         </div>
 
@@ -74,9 +103,9 @@ const MainPage = () => {
             </div>
 
             <div className={styled.rankingScroll}>
-              <Card />
-              <Card />
-              <Card />
+              <MediumCard />
+              <MediumCard />
+              <MediumCard />
             </div>
           </div>
         )}
@@ -84,13 +113,30 @@ const MainPage = () => {
 
       <section className={styled.recipeSection}>
         <div className={styled.tabMenuContents}>
-          <h3 className={recipeTab === "0" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>랭킹</h3>
-          <h3 className={recipeTab === "1" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>식단</h3>
+          <h3
+            className={
+              recipeTab === "0"
+                ? `${styled.rankingActiveTitle}`
+                : `${styled.rankingTitle}`
+            }
+          >
+            랭킹
+          </h3>
+          <h3
+            className={
+              recipeTab === "1"
+                ? `${styled.rankingActiveTitle}`
+                : `${styled.rankingTitle}`
+            }
+          >
+            식단
+          </h3>
         </div>
         <div className={styled.recipeContents}>
-          <Card />
-          <Card />
-          <Card />
+          <SmallCard />
+          <SmallCard />
+          <SmallCard />
+          <SmallCard />
         </div>
       </section>
     </article>

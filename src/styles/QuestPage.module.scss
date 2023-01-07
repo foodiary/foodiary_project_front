@@ -1,5 +1,12 @@
 @import "../styles/main.module.scss";
 
+.btnDiv {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin: 20px 0;
+}
+
 .questWrapper {
   @extend %page-base;
   margin-top: 57px;
@@ -20,8 +27,27 @@
 
     .searchIcon {
       margin-left: auto;
-      background: transparent;
-      background-image: url("../");
+      padding: 15px;
+      border: 2px solid $main;
+      border-radius: 8px;
+      background: url("/img/search.png") no-repeat;
+      background-position: center;
+    }
+  }
+
+  .recipeSection {
+    .contents {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 8px;
+    }
+  }
+
+  .dailyDietSection {
+    .dailyDietContents {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
     }
   }
 }
