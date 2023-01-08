@@ -13,6 +13,10 @@ import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
 import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
 import SignUpNickName from '@pages/signup/SignUpNickName';
 import LayOut from './layout/LayOut';
+import FindId from '@pages/login/FindId';
+import FindPwd from '@pages/login/FindPwd';
+import SignUpAgreeDetail from '@pages/signup/SignUpAgreeDetail';
+import ModifyPwd from '@pages/login/ModifyPwd';
 
 const AppRouter = () => {
   return (
@@ -21,7 +25,10 @@ const AppRouter = () => {
         <Routes>
           <Route element={<LayOut/>}>
             <Route path='/' element={<MainPage/>}/>
+
             <Route path='/signup/agree' element={<SignUpAgree/>}/>
+            <Route path='/signup/agree/detail' element={<SignUpAgreeDetail/>}/>
+
             <Route path='/signup/id' element={<SignUpId/>}/>
             <Route path='/signup/pwd' element={<SignUpPwd/>}/>
             <Route path='/signup/email' element={<SignUpEmail/>}/>
@@ -29,10 +36,15 @@ const AppRouter = () => {
             <Route path='/signup/nickname' element={<SignUpNickName/>}/>
             <Route path='/signup/profileImage' element={<SignUpProfileImage/>}/>
             <Route path='/signup/profileMsg' element={<SignUpProfileMsg/>}/>
+            
             <Route path='/login' element={<LoginMainPage/>}/>
             <Route path='/login/other' element={<OtherLoginPage/>}/>
+            <Route path='/find/id' element={<FindId/>}/>
+            <Route path='/find/pwd' element={<FindPwd/>}/>
+
+            <Route path='/member/password/change' element={<ModifyPwd/>}/>
+
           </Route>
-          {/* /find/id   /find/pwd */}
         </Routes>
       </BrowserRouter>
     </div>

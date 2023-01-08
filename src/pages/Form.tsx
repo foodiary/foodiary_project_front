@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from "@styles/form.module.scss";
 import {MdOutlineCancel} from 'react-icons/md';
 import {IoMdEyeOff} from 'react-icons/io';
-import {useForm, useController, UseFormRegisterReturn, UseControllerProps, Controller, UseFormReset, FieldValues, UseFormResetField} from 'react-hook-form';
+import {useForm, useController, UseFormRegisterReturn, UseControllerProps, Controller, UseFormReset, FieldValues, UseFormResetField, FieldError} from 'react-hook-form';
 import { useUserStore } from '@store/userStore';
 import {BsFillCheckCircleFill} from 'react-icons/bs';
 import { schema } from '../hook/validationYup';
@@ -21,11 +21,16 @@ interface InputType{
   // reg: UseFormRegister<FieldValues>
 }
 interface Props extends InputType {
-  register?: UseFormRegisterReturn;
-  reset?: UseFormResetField<FieldValues>;
+  text?: string; // 유효성검사 텍스트
+  validate?: string; //유효성검사 하는지? 
+  // register?: UseFormRegisterReturn;
   // control: UseControllerProps;
 }
 interface ValidationType{
+  text?: string;
+  color?: string;
+}
+interface DuplicateTextType{
   text: string;
 }
 export const Intro = ({intro1, span, intro2}:IntroType)=>{
@@ -44,41 +49,60 @@ export const Input = React.forwardRef((props:Props, ref)=>{
       mode: "onChange",
       resolver: yupResolver(schema),     
     });
+
   const setId = useUserStore((state)=>state.setId);
   const setPwd = useUserStore((state)=>state.setPwd);
+  const setMorePwd = useUserStore((state)=>state.setMorePwd);
   const setNickName = useUserStore((state)=>state.setNickName);
   const setEmail = useUserStore((state)=>state.setEmail);
-  // const [err, setErr] = useState(true);
   const setValidationErr = useUserStore((state)=>state.setValidationErr);
+  const setMailAuth = useUserStore((state)=>state.setMailAuth);
 
-  const [view, setView] = useState(false);
-  const [pwdType, setPwdType] = useState(props.type);
+  let errMsg = errors[props.id]?.message
+  let inputValue:string = watch(props.id);
+  let valueLength = inputValue?.length;
 
+  const [view, setView] = useState(false); //패스워드 뷰하는지
+  const [pwdType, setPwdType] = useState(props.type);  //뷰했을때 패스워드 타입변경
   const handleViewPwd = ()=>{
     setView(prev=>!prev);
   }
 
-  useEffect(()=>{
+  const handleInputValueChange = ()=>{
     switch(props.id){
       case "id":
-        setId(watch(props.id));
-        setValidationErr(Boolean(errors.id));
+        setId(inputValue);
         break;
       case "pwd":
-        setPwd(watch(props.id));
-        setValidationErr(Boolean(errors.pwd));
+        setPwd(inputValue);
+        break;
+      case "more_pwd":
+        setMorePwd(inputValue);
         break;
       case "email":
-        setEmail(watch(props.id))
-        setValidationErr(Boolean(errors.email));
+        setEmail(inputValue);
         break;
       case "nickname":
-        setNickName(watch(props.id))
-        setValidationErr(Boolean(errors.nickname));
+        setNickName(inputValue);
         break;
+      case "mailauth":
+        setMailAuth(inputValue);
     }
-  },[watch(props.id)]);
+    // console.log(errMsg);
+    // if((valueLength > 0) && (errMsg === undefined)){
+    //   console.log("불린 바꿈 폴스");
+    //   setValidationErr(false);
+    // }
+    // else{
+    //   console.log("불린 바꿈 트루");
+    //   setValidationErr(true);
+    // }
+  }
+  useEffect(()=>{
+    handleInputValueChange();
+  },[inputValue]);
 
+  // console.log(`인풋길이: ${valueLength}`);
   useEffect(()=>{
     if(view){
       setPwdType("text");
@@ -87,8 +111,7 @@ export const Input = React.forwardRef((props:Props, ref)=>{
       setPwdType("password");
     }
   },[view]);
-  // console.log(errors.pwd.);
-  // console.log(Boolean(errors.pwd));
+  
   return(
     <div className={styles.input_form}>
       <p>{props.label}</p>
@@ -100,17 +123,26 @@ export const Input = React.forwardRef((props:Props, ref)=>{
         {...register(props.id)}
         // {...props.register}
       />  
-      {(props.type === "text"||"email") && watch(props.id) &&
+      {(props.type === "text"||"email") && inputValue &&
         <button type='button' className={styles.init} onClick={()=>resetField(props.id)}>
             <MdOutlineCancel/>
         </button>
       }
-      {props.type === "password" && watch(props.id) &&
+      {props.type === "password" && inputValue &&
         <button type='button' className={styles.view_pwd} onClick={handleViewPwd}>
             <IoMdEyeOff/>
         </button>
       }
-      {/* {err? "error": "non-error"} */}
+
+      {props.validate ? null:
+        <div className={styles.validation}>
+          {(valueLength === 0 || valueLength === undefined) && 
+            <ValidationText text={props.text} color="grey"/>}
+          {errMsg && (valueLength !== 0) && <ValidationText text= {String(errMsg)} color="red"/> }
+          {(valueLength > 0) && !errMsg && 
+            <ValidationText text={props.text} color="green"/>
+          }
+        </div>}
     </div>
   )
 });
@@ -157,14 +189,30 @@ export const Input = React.forwardRef((props:Props, ref)=>{
 //   )
     // }
     
-export const ValidationText = ({text}:ValidationType)=>{
-  const validationErr = useUserStore((state)=>state.validationErr);
-    return(
-      <>
-        <div className={validationErr? styles.err: styles.no_err}>
-          <BsFillCheckCircleFill/>
-        </div>
-        <p>{text}</p>
-      </>
-      )
+export const ValidationText = ({text, color}:ValidationType)=>{
+  const setValidationErr = useUserStore((state)=>state.setValidationErr);
+  useEffect(()=>{
+    if(color === "green"){
+    setValidationErr(false);
     }
+    else{
+      setValidationErr(true);
+    }
+  },[]);
+  return(
+      <div className={styles.validation_text}>
+        {text? <BsFillCheckCircleFill className={color==="grey" ? styles.grey: 
+          color==="red" ?styles.red: styles.green}/>: null}
+        <p className={color==="red" ? styles.red: ""}>{text}</p> 
+      </div>
+      )
+}
+    
+export const DuplicationText = ({text}:DuplicateTextType)=>{
+  return(
+      <div className={styles.duplicate_text}>
+        <BsFillCheckCircleFill/>
+        <p>{text}</p> 
+      </div>
+      )
+}

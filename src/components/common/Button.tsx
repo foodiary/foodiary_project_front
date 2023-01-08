@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/form.module.scss";
 import { useNavigate } from 'react-router-dom';
 import { WarnBox } from './AlertBox';
@@ -72,8 +72,10 @@ export const HalfButton = ({text, text2, type, type2, url, url2}:HalfBtn)=>{
   );
 }
 export const DuplicateCheckBtn = ({active=false}:DupliButton)=>{
-  // const value = useUserStore(state=>{state.{type}});
-
+  const setValidationErr = useUserStore((state)=>state.setValidationErr);
+  useEffect(()=>{
+    setValidationErr(true);
+  },[]);
   return(
     <div>
         <button 

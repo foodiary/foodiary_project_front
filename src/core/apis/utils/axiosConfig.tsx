@@ -1,10 +1,12 @@
 import axios from "axios";
+axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 
 const instance = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: "https://4a75-182-220-207-61.jp.ngrok.io", //서버
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: "https://b68c-182-220-207-61.jp.ngrok.io", //서버
   headers:{
     "Access-Control-Allow-Origin": "*",
+    'Access-Control-Allow-Credentials':"true"
   }
 });
 
@@ -25,6 +27,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     console.log("인터셉트");
+    console.log(`인터셉트 응답: ${response.config}`);
     return response;
   },
   (err) => {

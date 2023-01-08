@@ -2,81 +2,51 @@
 @import "./globals.css";
 
 .header{
-  // @include desktop(){
-  //   padding: 0 responsible-calc(360);
-  // }
-  // height: 83px;
-  // border-bottom: 1px solid #EFEFEF; 
-  // @include row-flexBox();
-
-  // .main_logo{
-  //   width: fit-content;
-  //   height: 68px;
-  //   line-height: 68px;
-  //   letter-spacing: -0.19em;
-  //   margin: 7.5px 0;
-  //   margin-right: responsible-calc(80);
-  //   @include text-style(28px, $main, 800);
-  //   @include display-none();
-  // }
+  z-index: 100;
+  position: relative;
   .navbar{
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: 372px;
     background-color: white;
-    height: 90px;
-    padding: 0;
+    height: 100px;
     @include flexBox($jc: around);
     @include row-flexBox();  
     @include text-style(30px, $main, 400); 
   }
-  // .navbar{
-  //   @include display-none();
-  //   @include row-flexBox();
-  //   @include flexBox();
-  //   @include text-style(18px, $main, 400);
-  //   gap: 40px;
-  // }
-  // .mobile_navbar{
-  //   display: none;
-  //   @include tablet{
-  //     @include mobile_navbar();
-  //   }
-  //   @include mobile{
-  //     @include mobile_navbar();
-  //   }
-  // }
-
+ 
   .profile{
     @include row-flexBox();
-    @include flexBox();
-    float: right;
+    @include flexBox($jc:end);
     margin-right: 20px;
-    margin-top: 20px;
+    // margin-top: 5px;
     button{
       cursor: pointer;
       padding: 0;
       background: none;
       border: none;
     }
-  
-    .bell{
-      font-size: 22px;
-      width: fit-content; height: fit-content;
-      // @include flexBox();
-      // border: 1px solid red;
-    }
+    
     .login_btn{
       width: 58px;
       height: 49px;
+      margin-top: 5px;
       @include text-style(18px, #2979FF, 700);
       // margin-left: 14px;
     }
-    .user{
-      font-size: 45px;
-      text-align: center;
-      margin-left: 14px;
-      // margin-top: 15.5px;
+    
+    .after_login{
+      @include flexBox($jc:end);
+      .bell{
+        font-size: 22px;
+        width: fit-content; height: fit-content;
+        // border: 1px solid red;
+      }
+      .user{
+        font-size: 45px;
+        margin-left: 14px;
+        margin-top: 10px;
+      }
     }
   }
 }

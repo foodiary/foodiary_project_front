@@ -1,37 +1,54 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/otherLoginPage.module.scss";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Input, Intro } from '@pages/Form';
 import { LoginButton } from '@components/common/Button';
 import axiosConfig from "../../core/apis/utils/axiosConfig";
 import { useUserStore } from '@store/userStore';
+import { AlertBox } from '@components/common/AlertBox';
+import axios from 'axios';
 
 const OtherLoginPage = () => {
+  const navigate = useNavigate();
   const id = useUserStore((state)=>state.id);
   const pwd = useUserStore((state)=>state.pwd);
-  const [confirm, setConfirm] = useState(false);
+  const [login, setLogin] = useState(false);
+  const [err, setErr] = useState(false);
 
   useEffect(()=>{
     if(id && pwd){
-      setConfirm(true);
+      setLogin(true);
     }
     else{
-      setConfirm(false);
+      setLogin(false);
     }
   },[id, pwd]);
 
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
-    axiosConfig.post("/member/login", {
+    axiosConfig.post("/login", {
       loginId: id,
       password: pwd,
     }).then(res=>{
-      console.log(res); //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+      console.log(res);
+      console.log("로그인 완료");
+      // navigate("/") //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{
       console.log(err);
+      setErr(true);
     })
     console.log(`통신중`);
-  }
+    // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
+    // axiosConfig.get("/rank/month").then(res=>{
+    //   console.log(res);
+    //   console.log("완료");
+    //   // navigate("/") //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+    // }).catch(err=>{
+    //   console.log(err);
+    //   setErr(true);
+    // })
+  
+}
   return (
     <div className={styles.login_container}>
       <div className={styles.add_margin}>
@@ -43,17 +60,15 @@ const OtherLoginPage = () => {
           type={"text"} 
           label={"아이디"} 
           placeholder={"아이디를 입력해주세요"}
+          validate="no"
         />
       </div>
-        {/* {id && 
-          <button type='button' className={styles.id_cancel} onClick={()=>setId("")}>
-            <MdOutlineCancel/>
-          </button>} */}
         <Input 
           id={"pwd"} 
           type={"password"} 
           label={"비밀번호"} 
           placeholder={"비밀번호를 입력해주세요"}
+          validate="no"
         />
 
         <div className={styles.forget_account}>
@@ -64,17 +79,16 @@ const OtherLoginPage = () => {
         </div>
 
         <form onSubmit={onSubmit}>
-          <LoginButton type="submit" text='로그인' active={confirm?true:false}/>
+          <LoginButton type="submit" text='로그인' active={login?true:false}/>
         </form>
         
         <div className={styles.signup}>
           <p>Foodiary가 처음이신가요? <Link to="/signup/agree">가입하기</Link></p>
         </div>
         
-        {/* {pwd && 
-          <button type='button' className={styles.pwd_eye} onClick={()=>setViewPwd(prev=>!prev)}>
-            <IoMdEyeOff/>
-          </button>} */}
+        {err && 
+          <AlertBox type={false} text="아이디 또는 비밀번호를 다시 확인해주세요."/>
+        }
       </div>
   );
 };
