@@ -1,5 +1,5 @@
 import { ButtonComp, buttonStyled } from "@components/common";
-import { FeedCard, SmallCard } from "@components/common/Card";
+import { LargeCard, SmallCard } from "@components/common/Card";
 import { useState } from "react";
 import styled from "../styles/QuestPage.module.scss";
 
@@ -16,7 +16,6 @@ const QuestPage = () => {
         </h3>
 
         <button
-          className={styled.searchIcon}
           onClick={() => {
             console.log("test");
           }}
@@ -57,15 +56,17 @@ const QuestPage = () => {
       )}
       {tab === "1" && (
         <section className={styled.dailyDietSection}>
-          <div className={styled.dailyDietContents}>
-            <FeedCard />
-            <FeedCard />
-            <FeedCard />
-            <FeedCard />
-          </div>
+          <div className={styled.dailyDietContents}></div>
         </section>
       )}
-      {<section></section>}
+      {
+        <section>
+          <LargeCard />
+          <LargeCard />
+          <LargeCard />
+          <LargeCard />
+        </section>
+      }
     </article>
   );
 };

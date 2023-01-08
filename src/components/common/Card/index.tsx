@@ -11,16 +11,6 @@ type cardStyleProps = {
   comment?: string;
 };
 
-export const FeedCard = () => {
-  return (
-    <div className={styled.cardWrapper} style={{ padding: "8px" }}>
-      <div className={styled.img}>
-        <img src="/img/sample.png" alt="img" className={styled.feed} />
-      </div>
-    </div>
-  );
-};
-
 export const SmallCard = ({
   tag,
   info,
