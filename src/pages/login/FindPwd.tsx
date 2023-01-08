@@ -34,7 +34,7 @@ const FindPwd = () => {
   return (
     <div className={styles.login_container}>
       <Intro intro1={"아이디와"} span={"이메일을"} intro2={"입력해주세요."}/>
-      <form onSubmit={onSubmit} className={styles.pwd_container}>
+      <form onSubmit={onSubmit} className={styles.findPwd_container}>
         <Input
           id={"id"} 
           type={"text"} 
@@ -49,7 +49,9 @@ const FindPwd = () => {
           placeholder={"이메일을 입력해주세요"}
           validate="no"
         />
-        <LoginButton type="submit" text='확인' active={(email&&id) ? true:false}/>
+        <div className={styles.findPwd_btn}>
+          <LoginButton type="submit" text='확인' active={(email&&id) ? true:false}/>
+        </div>
       </form>
         {send && 
           <AlertBox type={true} text="이메일 발송이 완료되었습니다. 이메일을 확인해주세요."/>

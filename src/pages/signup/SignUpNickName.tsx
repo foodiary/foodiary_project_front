@@ -10,6 +10,7 @@ const SignUpNickName = () => {
   const nickName = useUserStore((state)=>state.nickName);
   const validationErr = useUserStore((state)=>state.validationErr);
   const [next, setNext] = useState(false);
+  const [err, setErr] = useState(false);
 
   // const {register, handleSubmit, watch, resetField} = useForm();
   const onSubmit = (e:FormEvent)=>{
@@ -19,12 +20,13 @@ const SignUpNickName = () => {
     }).then(res=>{
       console.log(res);
       if(res === undefined){
-        return;
+        setErr(true);
+        // return;
       }
       else{
+        setErr(false);
         setNext(true);
       }
-      // setNext(true);
       //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{
       console.log(err);
@@ -43,9 +45,10 @@ const SignUpNickName = () => {
               text={'한글/영어/숫자로 2자리 이상 16자리 이하'}
             />
             <DuplicateCheckBtn active={!validationErr?true:false}/> 
-            {!next && <DuplicationText text='중복 닉네임입니다. 닉네임을 수정해주세요'/>}
+            {/* {err && <DuplicationText text='중복 닉네임입니다. 닉네임을 수정해주세요'/>} */}
 
           </form>
+          {err && <DuplicationText text='중복 닉네임입니다. 닉네임을 수정해주세요'/>}
         <LoginButton type="button" text='다음' 
           active={next?true:false} url="/signup/profileImage"/>
         {/* <Intro intro1={"환영합니다! 사용하실"} span={"닉네임"} intro2={"을 적어주세요!"}/>

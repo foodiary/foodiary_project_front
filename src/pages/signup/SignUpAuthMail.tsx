@@ -11,68 +11,41 @@ const SignUpAuthMail = () => {
   const mailauth = useUserStore((state)=>state.mailauth);
   const [next, setNext] = useState(false);
   const [err, setErr] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [timeout, setTimeout] = useState(false);
 
-  const [min, setMin] = useState(0);
-  const [sec, setSec] = useState(60);
-  const time = useRef(60);
-  let timerId = useRef<React.MutableRefObject<null>>(null);
-  // console.log(time.current--);
-  // console.log(timerId.current);
-  // const min = Math.floor(time/60);
-  // const sec = Math.floor(time%60);
-  // setTimeout(()=>{remainTime()}, 2000);
-  // let timerId:any;
-  
-  // console.log(min);
-  // let timerId:any;
-  // let timer = setInterval(()=>{remainTime()},1000);
+  const [seconds, setSeconds] = useState(300);
+  useEffect(()=>{
+    const interval = setInterval(()=>{
+      if(seconds === 0){
+        clearInterval(interval);
+      }
+      else{
+        setSeconds(seconds -1);
+      }
+    }, 1000);
+    return ()=> clearInterval(interval);
+  },[seconds]);
 
-  // useEffect(()=>{
-  //   // time.current--;
-  //   timerId.current = setInterval(()=>{
-  //     remainTime();
-  //   },1000);
-  //   return ()=>clearInterval(timerId);
-  //   // timer = setInterval(()=>{remainTime()},1000);
-  // },[]);
-
-  const remainTime = ()=>{
-    // time.current--;
-    // setMin(Math.floor(time.current / 60));
-    // setSec(time.current % 60);
-    // time.current -= 1;
-    // if(min === 0 && sec === 0){
-    //   // clearInterval(timer);
-    // }
-    // else{
-    //   if(sec < 1){
-    //     setSec(60);
-    //     setMin(prev=>prev-1)
-    //   }
-    //   else{
-    //     setSec(prev=>prev-1)
-    //   }
-    // }
-    // time--;
-    // const min = Math.floor(time/60);
-    // const sec = Math.floor(time%60);
-
-    // if(min === 0 && sec === 0){
-    //   clearInterval(timer);
-    // }
-    // else{
-    //   setMin(min);
-    //   setSec(sec);
-    // }
-    // console.log(min, sec);
+  const handleSendMailAgain = ()=>{
+    setErr(false);
+    setSeconds(300);
+    axiosConfig.post("/member/email/send",{
+      email: email
+    }).then(res=>{
+      if(res === undefined){
+        setAlert(false);
+        return;
+      }
+      else{
+        setAlert(true);
+      }
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+      setAlert(false);
+    })
   }
-  // timer = setInterval(()=>{remainTime()},1000);
-  // useEffect(()=>{
-  //   if(time.current <= 0){
-  //     clearInterval(timerId.current);
-  //   }
-  // },[sec]);
-
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     axiosConfig.post('/member/email/send/confirm',{
@@ -81,12 +54,13 @@ const SignUpAuthMail = () => {
     }).then(res=>{
       console.log(res);
       if(res === undefined){
+        setTimeout(true);
         return;
       }
       else{
+        setTimeout(false);
         setNext(true);
       }
-      // setNext(true);
 
     }).catch(err=>{
       console.log(err);
@@ -109,16 +83,27 @@ const SignUpAuthMail = () => {
               validate={"no"}
             />
             {/* <DuplicateCheckBtn type="button"/> */}
-            <div>{min}:{String(sec).padStart(2,"0")}</div>
+            <div className={styles.remain_time}>
+              {Math.floor(seconds/60)}:{String(Math.floor(seconds%60)).padStart(2,"0")}
+            </div>
           </div>
           <p className={styles.remail}>인증 메일을 받지 못하셨나요? 
-            <button type='button'>이메일 다시 보내기</button>
+            <button type='button' onClick={handleSendMailAgain}>이메일 다시 보내기</button>
           </p>
           <LoginButton type={next? "button" : "submit"} text={next? '인증완료': '인증하기'} 
             active={mailauth?true:false} url={next?'/signup/nickname':""}/>
         </form>
+        {next && 
+          <AlertBox type={true} text="이메일 인증이 완료되었습니다"/>
+        }
         {err && 
           <AlertBox type={false} text="인증번호가 일치하지 않습니다. 다시 확인해주세요"/>
+        }
+        {alert && 
+          <AlertBox type={true} text="인증메일이 재발송되었습니다"/>
+        }
+        {timeout && 
+          <AlertBox type={false} text="인증시간이 초과되었습니다. 메일을 다시 보내주세요"/>
         }
       {/* <div className={styles.login_container}>
         <div className={styles.intro}>

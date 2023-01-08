@@ -6,7 +6,8 @@ interface User{
   more_pwd: string;
   email: string;
   nickName: string;
-  profileImg: string;
+  profileImg: File | string;
+  // profileImg: Blob | string;
   profileMsg: string;
 
   choiceTerms: string; // Y or N

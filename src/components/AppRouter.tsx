@@ -17,6 +17,7 @@ import FindId from '@pages/login/FindId';
 import FindPwd from '@pages/login/FindPwd';
 import SignUpAgreeDetail from '@pages/signup/SignUpAgreeDetail';
 import ModifyPwd from '@pages/login/ModifyPwd';
+import SignUpWelcom from '@pages/signup/SignUpWelcom';
 
 const AppRouter = () => {
   return (
@@ -36,6 +37,7 @@ const AppRouter = () => {
             <Route path='/signup/nickname' element={<SignUpNickName/>}/>
             <Route path='/signup/profileImage' element={<SignUpProfileImage/>}/>
             <Route path='/signup/profileMsg' element={<SignUpProfileMsg/>}/>
+            <Route path='/signup/welcome' element={<SignUpWelcom/>}/>
             
             <Route path='/login' element={<LoginMainPage/>}/>
             <Route path='/login/other' element={<OtherLoginPage/>}/>

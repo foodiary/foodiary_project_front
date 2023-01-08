@@ -26,15 +26,17 @@ const FindId = () => {
   return (
     <div className={styles.login_container}>
       <Intro intro1={"가입하실때 사용하신"} span={"이메일을"} intro2={"입력해주세요."}/>
-      <form onSubmit={onSubmit} className={styles.pwd_container}>
+      <form onSubmit={onSubmit} className={styles.findId_container}>
           <Input 
               id={"email"} 
               type={"email"} 
               label={"이메일"} 
               placeholder={"이메일을 입력해주세요"}
-            />
+          />
+          <div className={styles.findId_btn}>
             <LoginButton type="submit" text='확인' 
               active={email? true:false}/>
+          </div>
         </form>
         {send && 
           <AlertBox type={true} text="이메일 발송이 완료되었습니다. 이메일을 확인해주세요."/>

@@ -24,8 +24,10 @@ const SignUpProfileMsg = () => {
     'profile': profileMsg,
   }
 
+  console.log(memberInfo);
+  
   let formData = new FormData();
-  formData.append('memberImage', "");
+  formData.append('memberImage', profileImg);
   formData.append('memberSignUpDto', new Blob([JSON.stringify(memberInfo)], {
     type: "application/json"
     }));
@@ -45,7 +47,7 @@ const SignUpProfileMsg = () => {
           return;
         }
         else{
-          navigate("/login");
+          navigate("/signup/welcome");
         }
         console.log("가입 완료");
         // navigate("/login");

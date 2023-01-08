@@ -13,26 +13,27 @@ import axiosConfig from '../../core/apis/utils/axiosConfig';
 const SignUpEmail = () => {
   const navigate = useNavigate();
   const email = useUserStore((state)=>state.email);
-  const validationErr = useUserStore((state)=>state.validationErr);
   const [send, setSend] = useState(false);
-
-  const [next, setNext] = useState(false);
+  const validationErr = useUserStore(state=>state.validationErr);
+  const [err, setErr] = useState(false);
   // console.log(email);
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
-    // axiosConfig.post("/email/auth",{
-    //   email: email
-    // }).then(res=>{
-    //   console.log(res);
-    // }).catch(err=>{
-    //   console.log(err);
-    // })
     duplicateCheck.post("/member/check/email", {
       email: email,
     }).then(res=>{
-      setSend(true);
-      console.log(res); //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+      console.log(`성공의 응답?: ${res}`);
+      if(res === undefined){
+        setErr(true);
+        return;
+      }
+      else{
+        setErr(false);
+        setSend(true);
+      }
+      //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{
+      setErr(true);
       console.log(err);
     })
     console.log(`이메일: ${email}`);
@@ -60,7 +61,7 @@ const SignUpEmail = () => {
             />
           <DuplicateCheckBtn active={!validationErr?true:false}/> 
       </form>
-      {!next && <DuplicationText text='중복 이메일입니다. 이메일을 수정해주세요'/>}
+      {err && <DuplicationText text='중복 이메일입니다. 이메일을 수정해주세요'/>}
 
         <form onSubmit={onEmailSend}>
           <LoginButton type="submit" text='이메일 발송하기' 

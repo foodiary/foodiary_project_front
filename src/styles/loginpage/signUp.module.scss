@@ -4,32 +4,37 @@
   @include flexBox();
   width: 95%;
   gap: 8px;
-  margin: 148px 0 87px 10px;
+  margin: 148px 0 200px 10px;
 }
 
 .pwd_container{
   margin-top: 150px;
-  margin-bottom: 87px;
+  margin-bottom: 235px;
 }
 .omit_p{
   position: absolute;
   top: 20%;
 }
-.basic_profile{
+.basic_profile, .preview{
   width: 220px;
   height: 220px;
   margin: 86px 0 0 36px;
   background-image: url('../../../public/img/basic_profile.png');
 }
+.preview{
+  border-radius: 12px;
+  border: 1px solid $main;
+}
 .file_container{
   @include flexBox();
-  width: 330px;
+  width: 330px; //330
   height: 56px;
   margin: 102px 0 100px 20px;
   padding: 0 12px;
   border-radius: 8px;
   border: 1px solid black;
   background-color: white;
+ 
   .camera_icon{
     width: 24px; height: 24px;
     margin-right: 15px;
@@ -38,6 +43,9 @@
   }
   input{
     display: none;
+    // border: 1px solid red;
+    cursor: pointer;
+
   }
   label{
     @include flexBox();
@@ -73,6 +81,17 @@
     width: 170px;
     height: 170px;
   }
+  .remain_time{
+    width: 72px;
+    height: 48px;
+    border: 1px solid $point;
+    background-color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    @include text-style(14px, $point, 500);
+    @include flexBox();
+  }
 }
 .msg_container{
   // border: 1px solid red;
@@ -98,5 +117,57 @@
     &:focus{
       outline: none;
     }
+  }
+}
+.init{
+  background: none;
+  border: none;
+  cursor: pointer;
+  // z-index: 2;
+  width: 30px; height: 30px;
+  font-size: 20px;
+  @include flexBox();
+  position: absolute;
+  top: 73.8%;
+  left: 80%;
+}
+.profile_container{
+  .text{
+    margin: 10px 0 0 35px;
+  }
+}
+
+// FindId.tsx
+.findId_container{
+  margin-top: 150px;
+  .findId_btn{
+    margin-top: 50%;
+    margin-bottom: 0;
+  }
+}
+//FindPwd.tsx
+.findPwd_container{
+  margin-top: 150px;
+  @include column-flexBox();
+  gap: 24px;
+  .findPwd_btn{
+    margin-top: 100px;
+  }
+}
+//SignUpWelcome.tsx
+.welcome_container{
+  position: relative;
+  height: 100vh;
+  background: url('../../../public/img/welcome_background.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  p{
+    @include text-style(28px, $main, 700);
+    position: absolute;
+    top: 40%; left: 40%;
+  }
+  button{
+    position: absolute;
+    bottom: 0;
   }
 }
