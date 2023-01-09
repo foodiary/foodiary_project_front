@@ -1,16 +1,18 @@
 import React, { FormEvent, useState } from 'react';
 import styles from "@styles/loginpage/signUp.module.scss";
-import { Input, Intro, ValidationText } from '@pages/Form';
-import { DuplicateCheckBtn, LoginButton } from '@components/common/Button';
+import { ValidationText, Intro } from '@components/common/Text/SignUpPageText';
+import Input from '@components/common/Input/Input';
+import { DuplicateCheckBtn, LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 
 const SignUpPwd = () => {
   // const pwd = useUserStore((state)=>state.pwd);
+  const oauthLogin = useUserStore(state=>state.oauthLogin);
   const validationErr = useUserStore((state)=>state.validationErr);
   // const [next, setNext] = useState(false);
 
   return (
-    <div className={styles.login_container}>
+    <div>
       <Intro span={"비밀번호를"} intro2={"입력해주세요."}/>
         <div className={styles.pwd_container}>
           <Input
@@ -22,7 +24,11 @@ const SignUpPwd = () => {
           />
         </div>
         {/* <ValidationText text="영문자/특수문자/숫자를 포함하여 8자리 이상 16자리 이하"/> */}
-        <LoginButton type="button" text='확인' active={validationErr?false:true} url="/signup/email"/>
+        <LoginButton 
+          type="button" 
+          text='확인' 
+          active={validationErr?false:true} 
+          url="/signup/pwd/confirm"/>
         
         {/* <Intro span={"비밀번호를"} intro2={"입력해주세요."}/>
          <div className={styles.input_container}>

@@ -1,7 +1,8 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/signUp.module.scss";
-import { DuplicationText, Input, Intro, ValidationText } from '@pages/Form';
-import { DuplicateCheckBtn, LoginButton } from '@components/common/Button';
+import { DuplicationText, Intro, ValidationText } from '@components/common/Text/SignUpPageText';
+import Input from '@components/common/Input/Input';
+import { DuplicateCheckBtn, LoginButton } from '@components/common/LoginButton/Button';
 import {FieldValues, useForm, UseFormResetField} from 'react-hook-form';
 import { useUserStore } from '@store/userStore';
 import duplicateCheck from '../../core/apis/utils/duplicateCheck';
@@ -14,29 +15,30 @@ const SignUpId = () => {
   const [err, setErr] = useState(false);
   // const {register, handleSubmit, watch, resetField} = useForm();
 
+  useEffect(()=>{
+    setErr(false);
+    setNext(false);
+  },[id]);
+
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     duplicateCheck.post("/member/check/loginid", {
       loginId: id,
     }).then(res=>{
       console.log(`성공의 응답?: ${res}`);
-      if(res === undefined){
-        setErr(true);
-        return;
-      }
-      else{
         setErr(false);
         setNext(true);
-      }
-      // setNext(true);
       //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{
+      if(err.response.data.msg === "아이디가 중복입니다"){
+        setErr(true);
+      }
       console.log(err);
     })
     console.log(`아이디: ${id}`);
   }
   return (
-    <div className={styles.login_container}>
+    <div>
       <Intro intro1={"감사합니다!"} span={"아이디를"} intro2={"입력해주세요."}/>
         <form onSubmit={onSubmit} className={styles.input_container}>
           <Input
@@ -62,7 +64,9 @@ const SignUpId = () => {
           <DuplicateCheckBtn active={!validationErr?true:false}/> 
           {/* {!next && <DuplicationText text='중복 아이디입니다. 아이디를 수정해주세요'/>} */}
         </form>
-        {err && <DuplicationText text='중복 아이디입니다. 아이디를 수정해주세요'/>}
+        {err && 
+            <DuplicationText text='중복 아이디입니다. 아이디를 수정해주세요'/>
+        }
 
         {/* <ValidationText text='영문 소문자/숫자를 이용하여 6자리 이상 13자리 이하'/> */}
         <LoginButton type="button" text='확인' 

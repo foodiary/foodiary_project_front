@@ -1,9 +1,10 @@
-import Header from '@components/common/Header';
+import Header from '@components/common/Header/Header';
+import LoginHeader from '@components/common/Header/LoginHeader';
 import React from 'react';
 import { LayoutRouteProps, Outlet } from 'react-router-dom';
 import styles from './layOut.module.scss';
 
-const LayOut = ({children}:LayoutRouteProps) => {
+export const MainLayOut = ({children}:LayoutRouteProps) => {
   return (
     <div className={styles.layout}>
       <Header/>
@@ -14,4 +15,13 @@ const LayOut = ({children}:LayoutRouteProps) => {
   );
 };
 
-export default LayOut;
+export const LoginLayout = ({children}:LayoutRouteProps) => {
+  return (
+    <div className={styles.layout}>
+      <LoginHeader/>
+      <main className={styles.main}>
+        {children || <Outlet/>}
+      </main>
+    </div>
+  );
+};

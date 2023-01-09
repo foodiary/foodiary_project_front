@@ -1,4 +1,4 @@
-import { LoginButton } from '@components/common/Button';
+import { LoginButton } from '@components/common/LoginButton/Button';
 import styles from "@styles/loginpage/signUp.module.scss";
 import React from 'react';
 

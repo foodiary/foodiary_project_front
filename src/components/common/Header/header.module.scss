@@ -1,0 +1,78 @@
+@import "../../../styles/main.module.scss";
+@import "../../../styles/globals.css";
+
+$grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(91%) contrast(87%);
+
+.header{
+  position: relative;
+  z-index: 100;
+
+  .navbar{
+    position: fixed;
+    bottom: 0;
+    width: 372px;
+    background-color: white;
+    height: 100px;
+    @include flexBox($jc: around);
+    @include row-flexBox();  
+    @include text-style(30px, $main, 400); 
+    .no_active{
+      filter: $grey-color;
+    }
+  }
+ 
+  .profile{
+    @include flexBox($jc:end);
+    margin-right: 20px;
+    position: relative;
+    button{
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+    
+    .before_login{
+      height: 62px;
+      @include flexBox();
+      .login_btn, .signup_btn{
+        width: fit-content; 
+        height: fit-content; 
+        @include text-style(16px, $main, 700);
+        margin-left: 12px;
+      }
+      .login_btn{
+        color: $point;
+      }
+    }
+    .after_login{
+      @include flexBox();
+      .user{
+        img{
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+  }
+}
+
+// LoginHeader.tsx
+.login_header{
+  // position: relative;
+  position: fixed;
+  // border: 1px solid red;
+  z-index: 100;
+  // width: 90%;
+  width: 350px;
+  height: 60px;
+  margin-left: 10px;
+  @include flexBox($jc: between);
+  background-color: white;
+
+  button{
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}

@@ -2,7 +2,6 @@
 @import '../globals.css';
 
   .login_container{
-    // position: relative;
     .add_margin{
       margin-top: 60px;
       border: 1px solid transparent;
@@ -12,7 +11,9 @@
       @include column-flexBox();
       gap: 16px;
       margin-top: 140px;
-      
+      button{
+        cursor:pointer;
+      }
       .login_btn{
         width: 330px;
         height: 56px;
@@ -31,11 +32,12 @@
         @include text-style(14px, white, 500);
         line-height: 16px;
       }
-      .other{
-        background-color: #FF4E16;
-        @include text-style(14px, white, 700);
-        line-height: 24px;
-      }
+      // .other{
+      //   // background-color: #FF4E16;
+      //   @include text-style(14px, red, 700);
+      //   line-height: 24px;
+      //   left: 0;
+      // }
       p{
         @include text-style(12px, #666666, 400);
         line-height: 20px;

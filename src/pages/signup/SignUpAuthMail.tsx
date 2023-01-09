@@ -1,10 +1,11 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import styles from "@styles/loginpage/signUp.module.scss";
-import { Input, Intro } from '@pages/Form';
-import { DuplicateCheckBtn, LoginButton } from '@components/common/Button';
+import { Intro } from '@components/common/Text/SignUpPageText';
+import Input from '@components/common/Input/Input';
+import { DuplicateCheckBtn, LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
-import { AlertBox } from '@components/common/AlertBox';
+import { AlertBox } from '@components/common/AlertBox/AlertBox';
 
 const SignUpAuthMail = () => {
   const email = useUserStore((state)=>state.email);
@@ -13,6 +14,14 @@ const SignUpAuthMail = () => {
   const [err, setErr] = useState(false);
   const [alert, setAlert] = useState(false);
   const [timeout, setTimeout] = useState(false);
+
+  const init = ()=>{
+    setErr(false);
+    setAlert(false);
+  };
+  useEffect(()=>{
+    init();
+  },[mailauth]);
 
   const [seconds, setSeconds] = useState(300);
   useEffect(()=>{
@@ -53,24 +62,30 @@ const SignUpAuthMail = () => {
       num: mailauth
     }).then(res=>{
       console.log(res);
-      if(res === undefined){
-        setTimeout(true);
-        return;
-      }
-      else{
+      // if(res === undefined){
+      //   setTimeout(true);
+      //   return;
+      // }
+      if(res){
         setTimeout(false);
         setNext(true);
       }
 
     }).catch(err=>{
-      console.log(err);
-      setErr(true);
+      const errMsg = err.response.data.msg;
+      console.log(`컴포넌트에서 : ${errMsg}`);
+      if(errMsg === "인증 시간을 초과하였습니다. 다시 시도해주세요"){
+        setTimeout(true);
+      }
+      else if(errMsg === "인증번호가 일치하지 않습니다."){
+        setErr(true);
+      }
     })
     console.log(mailauth);
   };
 
   return (
-    <div className={styles.login_container}>
+    <div className={styles.authmail_container}>
       <Intro intro1={"메일이 발송되었습니다."} span={"인증번호"} intro2={"를 입력해주세요!"}/>
       <div className={styles.success_logo}></div>
         <form className={styles.login_form} onSubmit={onSubmit}>

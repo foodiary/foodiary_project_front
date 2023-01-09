@@ -10,10 +10,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
+    const accessToken = localStorage.getItem("access_token");
+    if (accessToken) {
       config.headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       };
     }
 
@@ -24,22 +24,54 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    console.log(`인터셉터: ${response}`);
-    if(response.data.newUser === true){
-      // window.location.assign('/signup/nickname');
-      window.location.assign('/');
+    console.log(`인터셉트 응답: ${response}`);
+    const accessToken = response.data.accessToken;
+    const refreshToken = response.data.refreshToken;
+    const refreshExpired = response.data.refreshTokenExpirationMinutes;
+
+    if(accessToken && refreshToken){
+      console.log(response.data.accessToken.slice(7));
+      localStorage.setItem("access_token", accessToken);
+      localStorage.setItem("refresh_token", refreshToken);
+      localStorage.setItem("refresh_expired", refreshExpired);
     }
     return response;
+    // if(response.data.newUser === true){
+    //   window.location.assign('/signup/agree');
+    // }
   },
-  (err) => {
+  async (err) => {
+    const config = err.config;
+    console.log(`인터셉트 에러: ${err}`);
     if (err.response.status === 401) {
-      const token = localStorage.getItem("access_token");
-      if (token) {
+      const accessToken = localStorage.getItem("access_token");
+      const refreshToken = localStorage.getItem("refresh_token");
+
+      if (accessToken) {
         localStorage.removeItem("access_token");
-        return;
+        // return;
       }
-      return;
+      try{
+        const {data} = await axios.post('/member/reissue', {
+          accessToken, refreshToken
+        });
+        const newAccessToken = data.data.accessToken;
+        const newRefreshToken = data.data.refreshToken;
+
+        config.headers = {
+          Authorization: `Bearer ${accessToken}`,
+        };
+
+        localStorage.setItem("access_token", newAccessToken);
+        localStorage.setItem("refresh_token", newRefreshToken);
+        return await axios(config);
+
+      } catch(err){
+        return err;
+      }
     }
+    return Promise.reject(err);
+
   }
 );
 

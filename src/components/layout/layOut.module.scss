@@ -2,8 +2,11 @@
 @import '../../styles/globals.css';
 
 .layout{
-    @extend %page-base;
-    &::-webkit-scrollbar{
+  @extend %page-base;
+  &::-webkit-scrollbar{
       display: none;
-    }
+  }
+  .main{
+    margin-top: 150px;
+  }
 }

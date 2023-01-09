@@ -1,10 +1,11 @@
-import { Input, Intro } from '@pages/Form';
 import React, { FormEvent, useState } from 'react';
 import styles from '@styles/loginpage/signUp.module.scss';
 import { useUserStore } from '@store/userStore';
-import { LoginButton } from '@components/common/Button';
+import { LoginButton } from '@components/common/LoginButton/Button';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
-import { AlertBox } from '@components/common/AlertBox';
+import { AlertBox } from '@components/common/AlertBox/AlertBox';
+import { Intro } from '@components/common/Text/SignUpPageText';
+import Input from '@components/common/Input/Input';
 
 const FindId = () => {
   const email = useUserStore((state)=>state.email);

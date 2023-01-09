@@ -1,4 +1,4 @@
-@import '../../styles/main.module.scss';
+@import '../../../styles/main.module.scss';
 
 .modal_back{
   position: fixed;
@@ -25,13 +25,13 @@
       margin-bottom: 16px;
     }
     .check_icon{
-      background-image: url('../../../public/img/check_icon.png');
+      background-image: url('../../../img/check_icon.png');
     }
     .x_icon{
-      background-image: url('../../../public/img/x_icon.png');
+      background-image: url('../../../img/x_icon.png');
     }
     .warn_icon{
-      background-image: url('../../../public/img/warn_icon.png');
+      background-image: url('../../../img/warn_icon.png');
     }
     p{
       @include text-style(16px, #666666, 700);

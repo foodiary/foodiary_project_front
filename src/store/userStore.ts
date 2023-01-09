@@ -18,6 +18,8 @@ interface User{
   mailauth: string;
 
   duplicationErr: boolean;
+  oauthLogin: boolean;
+
 }
 interface SetUser{
   setId: (id:User['id'])=>void;
@@ -37,6 +39,7 @@ interface SetUser{
   // setInfo: (type:string, value:string)=>void;
   // setInfo: (type:User[{type}], value:string)=>void;
   setDuplicationErr: (duplicationErr:User['duplicationErr'])=>void;
+  setOAuthLogin: (oauthLogin:User['oauthLogin'])=>void;
 
 }
 export const useUserStore = create<User&SetUser>(set => ({
@@ -56,6 +59,7 @@ export const useUserStore = create<User&SetUser>(set => ({
   mailauth: "",
 
   duplicationErr: false,
+  oauthLogin: false,
 
   setId: (id)=> set(()=>({id: id})),
   setPwd: (pwd)=> set(()=>({pwd: pwd})),
@@ -72,5 +76,6 @@ export const useUserStore = create<User&SetUser>(set => ({
   setValidationErr: (err)=>set({validationErr:err}),
   setMailAuth: (num)=>set(()=>({mailauth:num})),
   setDuplicationErr: (bool)=>set(()=>({duplicationErr:bool})),
+  setOAuthLogin: (bool)=>set(()=>({oauthLogin:bool})),
 
 }));

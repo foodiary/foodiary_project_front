@@ -1,65 +1,52 @@
 import React, { useEffect } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
-import axiosOAuth from '@utils/axiosOAuth';
+// import axiosOAuth from '@utils/axiosOAuth';
+import axiosOAuth from '../core/apis/utils/axiosOAuth';
 import axios from 'axios';
+import { useUserStore } from '@store/userStore';
 
 const OAuthRedirect = () => {
+  const setOAuthLogin = useUserStore(state=>state.setOAuthLogin);
+  const setEmail = useUserStore(state=>state.setEmail);
+
   const navigate = useNavigate();
   const location = useLocation();
-  let googleCode = "";
-  let naverCode = "";
+
+  let authCode = location.search.slice(6);;
+  let url = "";
+
   if(location.pathname === "/oauth/google/callback"){
-    googleCode = location.search.slice(6);
+    url = `/oauth/google/callback?code=${authCode}`;
   }
   else if(location.pathname === "/oauth/naver/callback"){
-    naverCode = location.search.slice(6);
+    url = `/oauth/naver/callback?code=${authCode}`;
   }
   
-  const googleLogin = async(authCode:string)=>{
-    // axios.defaults.headers['Access-Control-Allow-Origin'] = "*";
-    // axiosOAuth.defaults.headers['Access-Control-Allow-Origin'] = "*";
-    // axios.defaults.withCredentials = true;
-
-    // axiosOAuth.interceptors.response.use((res)=>{
-    //   localStorage.setItem("test", "인터셉트");
-    //   localStorage.setItem("user", JSON.stringify(res.data));
-    //   return res;
-    // },(err)=>{
-    //     return Promise.reject(err);
-    // });
-    axiosOAuth.get(`/oauth/google/callback?code=${authCode}`)
+  const authLogin = async()=>{
+    axiosOAuth.get(url)
       .then(res=>{
         console.log(res);
-        // navigate('/');
+        if(res.data.body.newUser === true){
+          setOAuthLogin(true);
+          setEmail(res.data.body.email);
+          navigate('/signup/agree');
+        }
+        else{
+          setOAuthLogin(false);
+          navigate('/');
+        }
       }).catch(err=>{
         console.log(err);
       })
-    // const res= await axiosOAuth.get(`/oauth/google/callback?code=${authCode}`);
-    // return res;
   };
-  // const naverLogin = async(authCode:string)=>{
-  //   axios.defaults.headers['Access-Control-Allow-Origin'] = "*";
-  //   axiosOAuth.defaults.headers['Access-Control-Allow-Origin'] = "*";
-  //   axios.defaults.withCredentials = true;
 
-  //   const res= await axiosOAuth.get(`/oauth/naver/callback?code=${authCode}`);
-  //   return res;
-  // }
-  // useEffect(()=>{
-  //   googleLogin(googleCode).then((res)=>{
-  //     console.log(res.data);
-  //     navigate(-1);
-  //   })
-  // },[googleCode]);
+  useEffect(()=>{
+    authLogin();
+    console.log(`인증코드: ${authCode}`);
 
-  // useEffect(()=>{
-  //   naverLogin(naverCode).then((res)=>{
-  //     console.log(res.data);
-  //     navigate(-1);
-  //   })
-  // },[naverCode]);
-
+  },[authCode]);
+  
    return (
     <div>
       <Loading/>

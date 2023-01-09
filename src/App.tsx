@@ -1,5 +1,4 @@
 import AppRouter from '@components/AppRouter';
-import Header from '@components/common/Header';
 import React from 'react';
 function App() {
   return (

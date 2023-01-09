@@ -2,6 +2,7 @@
 
 .input_container{
   @include flexBox();
+  position: relative;
   width: 95%;
   gap: 8px;
   margin: 148px 0 200px 10px;
@@ -10,16 +11,25 @@
 .pwd_container{
   margin-top: 150px;
   margin-bottom: 235px;
+  position: relative;
+  .pwd_confirm{
+    position: absolute;
+    top: 100px;
+    left: 20px;
+  }
 }
+
+
 .omit_p{
-  position: absolute;
-  top: 20%;
+  position: relative;
+  margin-left: 150px;
+  // top: 20%;
 }
 .basic_profile, .preview{
   width: 220px;
   height: 220px;
   margin: 86px 0 0 36px;
-  background-image: url('../../../public/img/basic_profile.png');
+  // background-image: url('../../../public/img/basic_profile.png');
 }
 .preview{
   border-radius: 12px;
@@ -39,7 +49,7 @@
     width: 24px; height: 24px;
     margin-right: 15px;
     background-size: contain;
-    background-image: url('../../../public/img/camera.png');
+    // background-image: url('../../../public/img/camera.png');
   }
   input{
     display: none;
@@ -57,8 +67,9 @@
   width: 95px;
   height: 95px;
   margin: 52px 0 0 20px;
-  background-image: url('../../../public/img/basic_profile.png');
-  background-size: contain;
+  border-radius: 12px;
+  // background-image: url('../../../public/img/basic_profile.png');
+  // background-size: contain;
 }
 .remail{
   @include text-style(12px, #666666, 400);
@@ -71,13 +82,13 @@
     margin-left: 8px;
   }
 }
-.login_container{
+.authmail_container{
   position: relative;
   .success_logo{
     position: absolute;
     top: 70px;
     left: 220px;
-    background-image: url('../../../public/img/success_logo.png');
+    background-image: url('../../img/success_logo.png');
     width: 170px;
     height: 170px;
   }
@@ -93,6 +104,7 @@
     @include flexBox();
   }
 }
+
 .msg_container{
   // border: 1px solid red;
   width: 90%;
@@ -119,21 +131,34 @@
     }
   }
 }
-.init{
-  background: none;
-  border: none;
-  cursor: pointer;
-  // z-index: 2;
-  width: 30px; height: 30px;
-  font-size: 20px;
-  @include flexBox();
-  position: absolute;
-  top: 73.8%;
-  left: 80%;
-}
+// .init{
+//   background: none;
+//   border: none;
+//   cursor: pointer;
+//   // z-index: 2;
+//   width: 30px; height: 30px;
+//   font-size: 20px;
+//   @include flexBox();
+//   position: absolute;
+//   top: 73.8%;
+//   left: 80%;
+// }
 .profile_container{
+  position: relative;
   .text{
     margin: 10px 0 0 35px;
+  }
+  .init{
+    background: none;
+    border: none;
+    cursor: pointer;
+    // z-index: 2;
+    width: 30px; height: 30px;
+    font-size: 20px;
+    @include flexBox();
+    position: absolute;
+    top: 74.5%;
+    left: 80%;
   }
 }
 
@@ -158,7 +183,7 @@
 .welcome_container{
   position: relative;
   height: 100vh;
-  background: url('../../../public/img/welcome_background.svg');
+  background: url('../../img/welcome_background.svg');
   background-size: contain;
   background-repeat: no-repeat;
   p{

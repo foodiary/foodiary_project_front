@@ -1,10 +1,11 @@
-import React, { ChangeEventHandler, FormEvent, useState } from 'react';
+import React, { ChangeEventHandler, FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/signUp.module.scss";
 import {MdOutlineCancel} from 'react-icons/md';
 import {IoMdEyeOff} from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
-import { DuplicationText, Input, Intro } from '@pages/Form';
-import { DuplicateCheckBtn, LoginButton } from '@components/common/Button';
+import { Intro, DuplicationText } from '@components/common/Text/SignUpPageText';
+import Input from '@components/common/Input/Input';
+import { DuplicateCheckBtn, LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 import duplicateCheck from '../../core/apis/utils/duplicateCheck';
 import axios from 'axios';
@@ -16,7 +17,13 @@ const SignUpEmail = () => {
   const [send, setSend] = useState(false);
   const validationErr = useUserStore(state=>state.validationErr);
   const [err, setErr] = useState(false);
-  // console.log(email);
+
+  
+  useEffect(()=>{
+    setErr(false);
+    setSend(false);
+  },[email]);
+
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     duplicateCheck.post("/member/check/email", {
@@ -50,7 +57,7 @@ const SignUpEmail = () => {
     navigate("/signup/authmail");
   }
   return (
-    <div className={styles.login_container}>
+    <div>
       <Intro intro1={"본인인증을 위해"} span={"이메일을"} intro2={"입력해주세요."}/>
       <form onSubmit={onSubmit} className={styles.input_container}>
           <Input 

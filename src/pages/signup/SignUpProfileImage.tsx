@@ -1,10 +1,12 @@
-import React, { ChangeEventHandler, FormEvent, useState } from 'react';
+import React, { ChangeEventHandler, FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/signUp.module.scss";
 import {MdOutlineCancel} from 'react-icons/md';
-import { Intro, ValidationText } from '@pages/Form';
-import { LoginButton } from '@components/common/Button';
+import { Intro, ValidationText } from '@components/common/Text/SignUpPageText';
+import { LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 import { useNavigate } from 'react-router-dom';
+import camera_icon from '@img/camera_icon.svg';
+import basic_profile from '@img/basic_profile.svg';
 
 const SignUpProfileImage = () => {
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ const SignUpProfileImage = () => {
   const handleFile = (e:FormEvent)=>{
     e.preventDefault();
     setProfileImg(img!);
-    navigate('/signup/profileMsg');
+    navigate('/signup/profileMsg', {state: fileURL});
     // const blob = new Blob([new ArrayBuffer(data)],{type: 'image/jpg'});
   }
   const initFile = ()=>{
@@ -42,7 +44,7 @@ const SignUpProfileImage = () => {
     setImg(undefined);
   }
   return (
-      <div className={styles.login_container}>
+      <div>
         <div className={styles.profile_container}>
           <Intro intro1={"대표 할"} span={"프로필 이미지를"} intro2={"입력해주세요."}/>
           <p className={styles.omit_p}>(생략가능)</p>
@@ -53,7 +55,7 @@ const SignUpProfileImage = () => {
               <div className={styles.text}><ValidationText text='png/jpeg/jpg 용량 3MB 이하' color={err? 'red': 'green'}/></div>
             </>:
             <>
-              <div className={styles.basic_profile}></div>
+              <img alt='기본이미지' src={basic_profile} className={styles.basic_profile}/>
               <div className={styles.text}><ValidationText text='png/jpeg/jpg 용량 3MB 이하' color='grey'/></div>
             </>
           }
@@ -63,15 +65,11 @@ const SignUpProfileImage = () => {
               <label htmlFor='file'>
                 {img === undefined ? 
                   <>
-                    <div className={styles.camera_icon}></div>
+                    <img src={camera_icon} alt="카메라아이콘" className={styles.camera_icon}/>
                     <p>사진 등록하기</p>
                   </>:
                   <>
-                    {/* <p>{img?.name}</p> */}
                     <p>{img?.name}</p>
-                    {/* <button type='button' className={styles.init} onClick={initFile}>
-                        <MdOutlineCancel/>
-                    </button> */}
                   </>
                 }
               </label>
@@ -87,7 +85,6 @@ const SignUpProfileImage = () => {
             <LoginButton type="submit" text='다음' active={true}/>
           </form>
         </div>
-        {/* <LoginButton type="submit" text='다음' active={true}/> */}
       </div>
   );
 };

@@ -1,16 +1,23 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/signUp.module.scss";
-import { DuplicationText, Input, Intro } from '@pages/Form';
-import { DuplicateCheckBtn, LoginButton } from '@components/common/Button';
+import { DuplicationText, Intro } from '@components/common/Text/SignUpPageText';
+import Input from '@components/common/Input/Input';
+import { DuplicateCheckBtn, LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 import duplicateCheck from '../../core/apis/utils/duplicateCheck';
-import { AlertBox } from '@components/common/AlertBox';
+import { AlertBox } from '@components/common/AlertBox/AlertBox';
 
 const SignUpNickName = () => {
   const nickName = useUserStore((state)=>state.nickName);
   const validationErr = useUserStore((state)=>state.validationErr);
   const [next, setNext] = useState(false);
   const [err, setErr] = useState(false);
+
+  
+  useEffect(()=>{
+    setErr(false);
+    setNext(false);
+  },[nickName]);
 
   // const {register, handleSubmit, watch, resetField} = useForm();
   const onSubmit = (e:FormEvent)=>{
@@ -19,22 +26,24 @@ const SignUpNickName = () => {
       nickName: nickName,
     }).then(res=>{
       console.log(res);
-      if(res === undefined){
-        setErr(true);
-        // return;
-      }
-      else{
+      // if(res === undefined){
+      //   setErr(true);
+      // }
+      if(res){
         setErr(false);
         setNext(true);
       }
       //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{
+      if(err.response.data.msg === "닉네임이 중복입니다"){
+        setErr(true);
+      }
       console.log(err);
     })
     console.log(`닉네임: ${nickName}`);
   }
   return (
-      <div className={styles.login_container}>
+      <div>
         <Intro intro1={"환영합니다! 사용하실"} span={"닉네임을"} intro2={"적어주세요!"}/>
           <form onSubmit={onSubmit} className={styles.input_container}>
             <Input 

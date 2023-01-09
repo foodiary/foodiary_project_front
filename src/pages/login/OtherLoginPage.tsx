@@ -1,17 +1,19 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/otherLoginPage.module.scss";
 import { Link, useNavigate } from 'react-router-dom';
-import { Input, Intro } from '@pages/Form';
-import { LoginButton } from '@components/common/Button';
+import { Intro } from '@components/common/Text/SignUpPageText';
+import Input from '@components/common/Input/Input';import { LoginButton } from '@components/common/LoginButton/Button';
 import axiosConfig from "../../core/apis/utils/axiosConfig";
 import { useUserStore } from '@store/userStore';
-import { AlertBox } from '@components/common/AlertBox';
+import { useLoginUserStore } from '@store/loginUserStore';
+import { AlertBox } from '@components/common/AlertBox/AlertBox';
 import axios from 'axios';
 
 const OtherLoginPage = () => {
   const navigate = useNavigate();
   const id = useUserStore((state)=>state.id);
   const pwd = useUserStore((state)=>state.pwd);
+
   const [login, setLogin] = useState(false);
   const [err, setErr] = useState(false);
 
@@ -26,28 +28,19 @@ const OtherLoginPage = () => {
 
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
+    console.log(id, pwd);
     axiosConfig.post("/login", {
       loginId: id,
       password: pwd,
     }).then(res=>{
       console.log(res);
       console.log("로그인 완료");
-      // navigate("/") //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+      navigate("/") ;
     }).catch(err=>{
       console.log(err);
       setErr(true);
     })
     console.log(`통신중`);
-    // axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
-    // axiosConfig.get("/rank/month").then(res=>{
-    //   console.log(res);
-    //   console.log("완료");
-    //   // navigate("/") //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
-    // }).catch(err=>{
-    //   console.log(err);
-    //   setErr(true);
-    // })
-  
 }
   return (
     <div className={styles.login_container}>

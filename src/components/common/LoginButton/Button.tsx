@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import styles from "@styles/form.module.scss";
+import styles from "./button.module.scss";
 import { useNavigate } from 'react-router-dom';
-import { WarnBox } from './AlertBox';
+import { WarnBox } from '@components/common/AlertBox/AlertBox';
 import { useUserStore } from '@store/userStore';
 
 interface Button{

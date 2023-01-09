@@ -1,18 +1,13 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import styles from "@styles/form.module.scss";
+import React, { useEffect, useState } from 'react';
+import styles from "./input.module.scss";
 import {MdOutlineCancel} from 'react-icons/md';
 import {IoMdEyeOff} from 'react-icons/io';
 import {useForm, useController, UseFormRegisterReturn, UseControllerProps, Controller, UseFormReset, FieldValues, UseFormResetField, FieldError} from 'react-hook-form';
 import { useUserStore } from '@store/userStore';
-import {BsFillCheckCircleFill} from 'react-icons/bs';
-import { schema } from '../hook/validationYup';
+import { schema } from '../../../hook/validationYup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ValidationText } from '../Text/SignUpPageText';
 
-interface IntroType{
-  intro1?: string
-  span: string
-  intro2: string
-}
 interface InputType{ 
   id: string; //아이디, 비번, 이메일 중 뭔지 
   type: string; // text, password 뭔지
@@ -26,24 +21,8 @@ interface Props extends InputType {
   // register?: UseFormRegisterReturn;
   // control: UseControllerProps;
 }
-interface ValidationType{
-  text?: string;
-  color?: string;
-}
-interface DuplicateTextType{
-  text: string;
-}
-export const Intro = ({intro1, span, intro2}:IntroType)=>{
-  return(
-    <div className={styles.intro}>
-      <p>{intro1}</p> 
-      {/* <div className={styles.text_deco}></div> */}
-      <p><span><div className={styles.text_deco}></div>{span}</span> {intro2}</p>
-    </div>
-  )
-}
 
-export const Input = React.forwardRef((props:Props, ref)=>{
+const Input = React.forwardRef((props:Props, ref)=>{
   const {watch, register, resetField, formState: { errors }} = 
     useForm({
       mode: "onChange",
@@ -188,31 +167,4 @@ export const Input = React.forwardRef((props:Props, ref)=>{
 //     </div>
 //   )
     // }
-    
-export const ValidationText = ({text, color}:ValidationType)=>{
-  const setValidationErr = useUserStore((state)=>state.setValidationErr);
-  useEffect(()=>{
-    if(color === "green"){
-    setValidationErr(false);
-    }
-    else{
-      setValidationErr(true);
-    }
-  },[]);
-  return(
-      <div className={styles.validation_text}>
-        {text? <BsFillCheckCircleFill className={color==="grey" ? styles.grey: 
-          color==="red" ?styles.red: styles.green}/>: null}
-        <p className={color==="red" ? styles.red: ""}>{text}</p> 
-      </div>
-      )
-}
-    
-export const DuplicationText = ({text}:DuplicateTextType)=>{
-  return(
-      <div className={styles.duplicate_text}>
-        <BsFillCheckCircleFill/>
-        <p>{text}</p> 
-      </div>
-      )
-}
+    export default Input;

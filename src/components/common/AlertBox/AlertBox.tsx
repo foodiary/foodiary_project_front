@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './alertBox.module.scss';
-import { HalfButton } from './Button';
-
+import {HalfButton} from '../LoginButton/Button';
 interface AlertType{
   type: boolean; // x박스(false)인지 체크박스(true)인지
   text: string;

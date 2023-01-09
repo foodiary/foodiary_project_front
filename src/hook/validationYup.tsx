@@ -1,4 +1,3 @@
-import { ValidationText } from "@pages/Form";
 import * as yup from "yup";
 
 export const schema = yup.object().shape({
@@ -11,6 +10,13 @@ export const schema = yup.object().shape({
       '영문 소문자/숫자를 이용하여 6자리 이상 13자리 이하'),
     // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
   pwd: yup
+    .string()
+    .min(8, '영문자/특수문자/숫자를 포함하여 8자리 이상 16자리 이하')
+    .max(16, '영문자/특수문자/숫자를 포함하여 8자리 이상 16자리 이하')
+    .matches(
+      /^(?=.*[a-zA-ZS])(?=.*?[#?!@$%^&*-])(?=.*\d)/,
+      '영문자/특수문자/숫자를 포함하여 8자리 이상 16자리 이하'),
+  more_pwd: yup
     .string()
     .min(8, '영문자/특수문자/숫자를 포함하여 8자리 이상 16자리 이하')
     .max(16, '영문자/특수문자/숫자를 포함하여 8자리 이상 16자리 이하')

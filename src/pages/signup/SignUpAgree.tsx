@@ -1,8 +1,8 @@
 import React, { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/signUpAgree.module.scss";
 import { useNavigate } from 'react-router-dom';
-import { Intro } from '@pages/Form';
-import { LoginButton } from '@components/common/Button';
+import { Intro } from '@components/common/Text/SignUpPageText';
+import { LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 
 const SignUpAgree = () => {
@@ -11,9 +11,9 @@ const SignUpAgree = () => {
   const setRequiredTerms= useUserStore(state=>state.setRequiredTerms);
 
   const [checkedList, setCheckedList] = useState<string[]>([]);
-  useEffect(()=>{
-    setCheckedList(JSON.parse(localStorage.getItem("checkedList")!));
-  },[]);
+  // useEffect(()=>{
+  //   setCheckedList(JSON.parse(localStorage.getItem("checkedList")!));
+  // },[]);
 
   const idArr = ['cb1', 'cb2', 'cb3', 'cb4'];
   const [allChecked, setAllChecked] = useState(false);
@@ -67,7 +67,7 @@ const SignUpAgree = () => {
   }
 
   return (
-      <div className={styles.login_container}>
+      <div>
         <Intro intro1={"함께 하기 위해,"} span={"약관동의"} intro2={"가 필요합니다!"}/>
         <form className={styles.agree_check} onSubmit={onSubmit}>
           <div>
