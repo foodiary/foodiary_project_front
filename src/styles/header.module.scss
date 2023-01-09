@@ -1,14 +1,15 @@
 @import "./main.module.scss";
 @import "./globals.css";
 
+$grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(91%) contrast(87%);
+
 .header{
   @extend %page-base;
   &::-webkit-scrollbar {
     display: none;
   }
-  // position: relative;
   z-index: 1;
-  
+
   .navbar{
     position: fixed;
     bottom: 0;
@@ -18,13 +19,15 @@
     @include flexBox($jc: around);
     @include row-flexBox();  
     @include text-style(30px, $main, 400); 
+    .no_active{
+      filter: $grey-color;
+    }
   }
  
   .profile{
-    @include row-flexBox();
     @include flexBox($jc:end);
     margin-right: 20px;
-    // margin-top: 5px;
+    position: relative;
     button{
       cursor: pointer;
       padding: 0;
@@ -32,25 +35,27 @@
       border: none;
     }
     
-    .login_btn{
-      width: 58px;
-      height: 49px;
-      margin-top: 5px;
-      @include text-style(18px, #2979FF, 700);
-      // margin-left: 14px;
-    }
-    
-    .after_login{
-      @include flexBox($jc:end);
-      .bell{
-        font-size: 22px;
-        width: fit-content; height: fit-content;
-        // border: 1px solid red;
+    .before_login{
+      height: 62px;
+      @include flexBox();
+      .login_btn, .signup_btn{
+        width: fit-content; 
+        height: fit-content; 
+        @include text-style(16px, $main, 700);
+        margin-left: 12px;
       }
+      .login_btn{
+        color: $point;
+      }
+    }
+    .after_login{
+      border: 1px solid red;
+      @include flexBox();
       .user{
-        font-size: 45px;
-        margin-left: 14px;
-        margin-top: 10px;
+        img{
+          width: 50px;
+          height: 50px;
+        }
       }
     }
   }
