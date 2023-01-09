@@ -1,29 +1,54 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const instance = axios.create({
-  baseURL: "https://84ad-211-58-204-152.jp.ngrok.io", // 백엔드 url
+  baseURL: process.env.REACT_APP_API_URL,
   headers:{
     "ngrok-skip-browser-warning": "12345",
+    'Access-Control-Allow-Origin': '*',
   },
 });
 
-// instance.interceptors.request.use((req)=>{
-//   return req;
-// },(err)=>{  //요청 에러 캐치
-//   return Promise.reject(err);
-// });
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers = {
+        Authorization: `Bearer ${token}`,
+      };
+    }
 
-// instance.interceptors.response.use((res)=>{
-//   console.log("로그인 완료");
-//   // localStorage.setItem("user", res.data.token);
-//   console.log(res);
-//   // redirect();
-//   return res;
-// },(err)=>{  //응답 에러 캐치
-//   console.log(`에러 status는: ${err.response.status}`);
-//   console.log(`에러는: ${err.response.data.error}`);
-//   return Promise.reject(err);
-// });
+    return config;
+  },
+  (err) => Promise.reject(err)
+);
+
+instance.interceptors.response.use(
+  (response) => {
+    console.log(`인터셉터: ${response}`);
+    if(response.data.newUser === true){
+      // window.location.assign('/signup/nickname');
+      window.location.assign('/');
+    }
+    return response;
+  },
+  (err) => {
+    if (err.response.status === 401) {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        localStorage.removeItem("access_token");
+        return;
+      }
+      return;
+    }
+  }
+);
+
+export const METHOD = {
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  PATCH: "PATCH",
+  DELETE: "DELETE",
+};
 
 export default instance;

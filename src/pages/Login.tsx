@@ -20,25 +20,7 @@ const Login = () => {
   }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
-    // if(toggle){
-    //   loginApi();
-    // }
-    // else{registerApi();}
   }
-  // const registerApi = async()=>{
-  //   await axiosConfig({
-  //     url: "/api/register",
-  //     method: "post",
-  //     data: {email: id, password: pwd}
-  //   });
-  // }
-  // const loginApi = async()=>{
-  //   await axiosConfig({
-  //     url: "/api/login",
-  //     method: "post",
-  //     data: {email: id, password: pwd}
-  //   });
-  // }
   const handleAuthGoogle =()=>{
     window.location.assign(googleAuthUrl);
   }
@@ -47,11 +29,11 @@ const Login = () => {
   }
   return (
     <div>
-      <div>
       <button onClick={()=>setToggle(prev=>!prev)}>
         {toggle? "Sign Up": "Login"}
       </button>
       {toggle? <h1>Login</h1>: <h1>Sign Up</h1>}
+
       <form onSubmit={onSubmit}>
         <input type="email" 
           placeholder='ID' 
@@ -65,19 +47,12 @@ const Login = () => {
         />
         <button type='submit'>제출</button>
       </form> 
-    </div>
-    <button onClick={handleAuthGoogle}>
-      <FcGoogle/>
-    </button>
-    <button onClick={handleAuthNaver}>
-      <SiNaver/>
-    </button>
-      {/* <a href={googleAuthUrl}>
+      <button onClick={handleAuthGoogle}>
         <FcGoogle/>
-      </a> */}
-      {/* <a href={naverAuthUrl}>
+      </button>
+      <button onClick={handleAuthNaver}>
         <SiNaver/>
-      </a> */}
+      </button>
     </div>
   );
 };
