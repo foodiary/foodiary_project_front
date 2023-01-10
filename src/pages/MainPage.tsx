@@ -1,4 +1,4 @@
-import { ButtonComp, buttonStyled, Card } from "@components/common";
+import { ButtonComp, buttonStyled } from "@components/common";
 import axiosConfig from "../core/apis/utils/axiosConfig";
 
 import { useCallback, useEffect, useState } from "react";
@@ -132,13 +132,11 @@ const MainPage = () => {
                 scrollbar={{ draggable: true, dragSize: 300 }}
               >
                 {getRank.map((recipe) => (
-                  <SwiperSlide key={recipe}>
-                    <Card />
-                  </SwiperSlide>
+                  <SwiperSlide key={recipe}></SwiperSlide>
                 ))}
-                {/* {[1, 2, 3, 4, 5].map((slide, idx) => (
+                {[1, 2, 3, 4, 5].map((slide, idx) => (
                   <SwiperSlide key={idx}>1</SwiperSlide>
-                ))} */}
+                ))}
               </Swiper>
             </div>
           </div>
@@ -166,11 +164,7 @@ const MainPage = () => {
             식단
           </h3>
         </div>
-        <div className={styled.recipeContents}>
-          <Card />
-          <Card />
-          <Card />
-        </div>
+        <div className={styled.recipeContents}></div>
       </section>
     </article>
   );
