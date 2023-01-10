@@ -1,8 +1,10 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
-const instance = axios.create({
+const axiosConfig: AxiosRequestConfig = {
   baseURL: process.env.REACT_APP_API_URL,
-});
+};
+
+const instance = axios.create(axiosConfig);
 
 instance.interceptors.request.use(
   (config) => {

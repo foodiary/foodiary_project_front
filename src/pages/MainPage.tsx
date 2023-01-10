@@ -1,5 +1,7 @@
 import { ButtonComp, buttonStyled, Card } from "@components/common";
-import { useState } from "react";
+import axiosConfig from "../core/apis/utils/axiosConfig";
+
+import { useCallback, useEffect, useState } from "react";
 import styled from "../styles/mainPage.module.scss";
 
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -8,6 +10,21 @@ const MainPage = () => {
   const [userName, setUserName] = useState<string>("jetom");
   const [tabMenu, setTabMenu] = useState<string>("0");
   const [recipeTab, setRecipeTab] = useState<string>("0");
+
+  const [getRank, setGetRank] = useState([]);
+
+  // const getMonth = useCallback(async () => {
+  //   try {
+  //     const res: any = await axiosConfig.get("/rank/month");
+  //     setGetRank(res);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    axiosConfig.get("/rank/month");
+  }, []);
 
   return (
     <article className={styled.mainPageWrapper}>
