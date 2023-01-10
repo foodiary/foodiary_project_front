@@ -4,6 +4,11 @@ import axiosConfig from "../core/apis/utils/axiosConfig";
 import { useCallback, useEffect, useState } from "react";
 import styled from "../styles/mainPage.module.scss";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar } from "swiper";
+import "swiper/css";
+import "swiper/css/scrollbar";
+
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const MainPage = () => {
@@ -13,17 +18,17 @@ const MainPage = () => {
 
   const [getRank, setGetRank] = useState([]);
 
-  // const getMonth = useCallback(async () => {
-  //   try {
-  //     const res: any = await axiosConfig.get("/rank/month");
-  //     setGetRank(res);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }, []);
+  const getMonth = useCallback(async () => {
+    try {
+      const res: any = await axiosConfig.get("/rank/month");
+      setGetRank(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   useEffect(() => {
-    axiosConfig.get("/rank/month");
+    getMonth();
   }, []);
 
   return (
@@ -61,13 +66,41 @@ const MainPage = () => {
 
       <section className={styled.rankingSection}>
         <div className={styled.tabMenuContents}>
-          <h3 className={tabMenu === "0" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>
+          <h3
+            className={
+              tabMenu === "0"
+                ? `${styled.rankingActiveTitle}`
+                : `${styled.rankingTitle}`
+            }
+          >
             랭킹
-            <span className={tabMenu === "0" ? `${styled.rankingActiveTitle}` : `${styled.displayNone}`}>👑</span>
+            <span
+              className={
+                tabMenu === "0"
+                  ? `${styled.rankingActiveTitle}`
+                  : `${styled.displayNone}`
+              }
+            >
+              👑
+            </span>
           </h3>
-          <h3 className={tabMenu === "1" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>
+          <h3
+            className={
+              tabMenu === "1"
+                ? `${styled.rankingActiveTitle}`
+                : `${styled.rankingTitle}`
+            }
+          >
             식단
-            <span className={tabMenu === "1" ? `${styled.rankingActiveTitle}` : `${styled.displayNone}`}>🍱</span>
+            <span
+              className={
+                tabMenu === "1"
+                  ? `${styled.rankingActiveTitle}`
+                  : `${styled.displayNone}`
+              }
+            >
+              🍱
+            </span>
           </h3>
         </div>
 
@@ -90,10 +123,23 @@ const MainPage = () => {
               />
             </div>
 
-            <div className={styled.rankingScroll}>
-              <Card />
-              <Card />
-              <Card />
+            <div>
+              <Swiper
+                modules={[Scrollbar]}
+                speed={500}
+                spaceBetween={24}
+                slidesPerView={"auto"}
+                scrollbar={{ draggable: true, dragSize: 300 }}
+              >
+                {getRank.map((recipe) => (
+                  <SwiperSlide key={recipe}>
+                    <Card />
+                  </SwiperSlide>
+                ))}
+                {/* {[1, 2, 3, 4, 5].map((slide, idx) => (
+                  <SwiperSlide key={idx}>1</SwiperSlide>
+                ))} */}
+              </Swiper>
             </div>
           </div>
         )}
@@ -101,8 +147,24 @@ const MainPage = () => {
 
       <section className={styled.recipeSection}>
         <div className={styled.tabMenuContents}>
-          <h3 className={recipeTab === "0" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>랭킹</h3>
-          <h3 className={recipeTab === "1" ? `${styled.rankingActiveTitle}` : `${styled.rankingTitle}`}>식단</h3>
+          <h3
+            className={
+              recipeTab === "0"
+                ? `${styled.rankingActiveTitle}`
+                : `${styled.rankingTitle}`
+            }
+          >
+            랭킹
+          </h3>
+          <h3
+            className={
+              recipeTab === "1"
+                ? `${styled.rankingActiveTitle}`
+                : `${styled.rankingTitle}`
+            }
+          >
+            식단
+          </h3>
         </div>
         <div className={styled.recipeContents}>
           <Card />
