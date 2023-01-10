@@ -1,19 +1,19 @@
-import OtherLoginPage from '@pages/login/OtherLoginPage';
+// import OtherLoginPage from '@pages/login/OtherLoginPage';
 import MainPage from '@pages/MainPage';
-import LoginMainPage from '@pages/login/LoginMainPage';
-import SignUpAgree from '@pages/signup/SignUpAgree';
-import SignUpEmail from '@pages/signup/SignUpEmail';
-import SignUpSetProfile from '@pages/signup/SignUpProfileImage';
+// import LoginMainPage from '@pages/login/LoginMainPage';
+// import SignUpAgree from '@pages/signup/SignUpAgree';
+// import SignUpEmail from '@pages/signup/SignUpEmail';
+// import SignUpSetProfile from '@pages/signup/SignUpProfileImage';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SignUpId from '@pages/signup/SignUpId';
-import SignUpPwd from '@pages/signup/SignUpPwd';
-import SignUpProfileImage from '@pages/signup/SignUpProfileImage';
-import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
-import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
-import SignUpNickName from '@pages/signup/SignUpNickName';
+// import SignUpId from '@pages/signup/SignUpId';
+// import SignUpPwd from '@pages/signup/SignUpPwd';
+// import SignUpProfileImage from '@pages/signup/SignUpProfileImage';
+// import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
+// import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
+// import SignUpNickName from '@pages/signup/SignUpNickName';
 import MyPageMain from '@pages/mypage/MyPageMain';
-import MyPageSetting from '@pages/mypage/MyPageSetting';
+import MyPageSetting from '@pages/mypage/setting/MyPageSetting';
 import MyWriting from '@pages/mypage/MyWriting';
 import MyComments from '@pages/mypage/MyComments';
 import MyCommentsDetail from '@pages/mypage/MyCommentsDetail';
@@ -24,7 +24,7 @@ const AppRouter = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<MainPage/>}/>
+          {/* <Route path='/' element={<MainPage/>}/>
           <Route path='/signup/agree' element={<SignUpAgree/>}/>
           <Route path='/signup/id' element={<SignUpId/>}/>
           <Route path='/signup/pwd' element={<SignUpPwd/>}/>
@@ -34,7 +34,7 @@ const AppRouter = () => {
           <Route path='/signup/profileImage' element={<SignUpProfileImage/>}/>
           <Route path='/signup/profileMsg' element={<SignUpProfileMsg/>}/>
           <Route path='/login' element={<LoginMainPage/>}/>
-          <Route path='/login/other' element={<OtherLoginPage/>}/>
+          <Route path='/login/other' element={<OtherLoginPage/>}/> */}
 
           <Route path='/mypage' element={<MyPageMain/>}/>
           <Route path='/mypage/setting' element={<MyPageSetting/>}/>

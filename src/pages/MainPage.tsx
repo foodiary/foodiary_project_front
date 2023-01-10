@@ -1,13 +1,12 @@
-import Header from '@components/common/Header';
+import Header from '@components/common/Header/Header';
 import React from 'react';
-import LoginMainPage from './login/LoginMainPage';
-import OtherLoginPage from './login/OtherLoginPage';
+import MyPageMain from './mypage/MyPageMain';
 
 const MainPage = () => {
   return (
     <div>
       <Header/>
-      <LoginMainPage/>
+      <MyPageMain/>
     </div>
   );
 };

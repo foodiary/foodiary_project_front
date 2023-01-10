@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '@styles/mypage/myCommentsEdit.module.scss';
-import Header from '@components/common/Header';
-import { LoginButton } from '@components/common/Button';
+import Header from '@components/common/Header/Header';
+import { LoginButton } from '@components/common/LoginButton/Button';
 
 const MyCommentsEdit = () => {
   return (

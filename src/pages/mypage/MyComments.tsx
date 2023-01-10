@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from '@styles/mypage/myComments.module.scss';
-import Header from '@components/common/Header';
+import Header from '@components/common/Header/Header';
 
 const MyComments = () => {
   const [day, setDay] = useState(true);

@@ -1,12 +1,12 @@
 import { Input } from '@pages/Form';
 import React, { useState } from 'react';
 import styles from '@styles/mypage/myCommentsDetail.module.scss';
-import Header from '@components/common/Header';
+import Header from '@components/common/Header/Header';
 import {FiMoreVertical} from 'react-icons/fi';
 import {AiOutlineHeart} from 'react-icons/ai';
 import {FaRegBookmark} from 'react-icons/fa';
-import { HalfButton, LoginButton } from '@components/common/Button';
-import {AlertBox, WarnBox} from '@components/common/AlertBox';
+import { HalfButton, LoginButton } from '@components/common/LoginButton/Button';
+import {AlertBox, WarnBox} from '@components/common/AlertBox/AlertBox';
 
 const MyCommentsDetail = () => {
   const [viewBtn, setViewBtn] = useState(false);

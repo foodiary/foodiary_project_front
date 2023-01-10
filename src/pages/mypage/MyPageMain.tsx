@@ -1,9 +1,14 @@
-import Header from '@components/common/Header';
 import React from 'react';
 import {AiOutlineSetting} from 'react-icons/ai';
 import {BiChevronRight} from 'react-icons/bi';
 import styles from '@styles/mypage/myPageMain.module.scss';
 import { Link } from 'react-router-dom';
+import Header from '@components/common/Header/Header';
+import basic_profile from '@img/basic_profile.svg';
+import myComments from '@img/myComments.png';
+import myGood from '@img/myGood.png';
+import myWriting from '@img/myWriting.png';
+import myScrap from '@img/myScrap.png';
 
 const MyPageMain = () => {
   return (
@@ -11,7 +16,8 @@ const MyPageMain = () => {
       <Header/>
       {/* <div className={styles.mypage}> */}
       <div className={styles.profile_container}>
-        <div className={styles.profile_image}></div>
+        {/* <div className={styles.profile_image}></div> */}
+        <img src={basic_profile} alt="기본이미지" className={styles.profile_image}/>
         <div className={styles.user_info}>
           <p>ffoodyy</p>
           {/* <p>ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</p> */}
@@ -33,47 +39,65 @@ const MyPageMain = () => {
       </p>
       <div className={styles.myWriting_btns}>
         <div className={styles.myWriting}>
-          <Link to="/mypage/mywriting"></Link>
+          <Link to="/mypage/mywriting">
+            <img src={myWriting} alt="이미지"/>
+          </Link>
           <p>내가 쓴 글</p>
         </div>
         <div className={styles.myComments}>
-          <Link to="/mypage/mycomment"></Link>
+          <Link to="/mypage/mycomment">
+            <img src={myComments} alt="이미지"/>
+          </Link>
           <p>내가 쓴 댓글</p>
         </div>
         <div className={styles.myGood}>
-          <Link to="/mypage/mygood"></Link>
+          <Link to="/mypage/mygood">
+            <img src={myGood} alt="이미지"/>
+
+          </Link>
           <p>좋아요 글</p>
         </div>
         <div className={styles.myScrap}>
-          <Link to="/mypage/myscrap"></Link>
+          <Link to="/mypage/myscrap">
+            <img src={myScrap} alt="이미지"/>
+          </Link>
           <p>스크랩 글</p>
         </div>
       </div>
 
+      <div className={styles.recommend_service}>
+        <Link to="/" className={styles.menu}>
+          <p>나의 추천메뉴</p>
+          <BiChevronRight/>
+        </Link>
+      </div>
+
       <div className={styles.customer_service}>
-        <p>고객센터</p>
-        <p>공지사항 <Link to="/"><BiChevronRight/></Link></p>
-        <p>1:1 문의하기 <Link to="/"><BiChevronRight/></Link></p>
-        <p>FAQ <Link to="/"><BiChevronRight/></Link></p>
+        <p className={styles.title}>고객센터</p>
+        <Link to="/" className={styles.menu}>
+          <p>공지사항</p>
+          <BiChevronRight/>
+        </Link>
+        <Link to="/" className={styles.menu}>
+          <p>1:1 문의하기</p>
+          <BiChevronRight/>
+        </Link>
+        <Link to="/" className={styles.menu}>
+          <p>FAQ</p>
+          <BiChevronRight/>
+        </Link>
       </div>
 
       <div className={styles.account_manage}>
-        <p>계정관리</p>
-        <button>로그아웃</button>
+        <p className={styles.title}>계정관리</p>
+        <Link to="/" className={styles.menu}>
+          <p>비밀번호 변경</p>
+          <BiChevronRight/>
+        </Link>
+        <button >로그아웃</button>
         <button>탈퇴하기</button>
       </div>
 
-      {/* <div className={styles.myWriting_btns}>
-        {btnList.map((title, index)=>{
-          let name = `${btnImgList[index]}`;
-          return(
-            <div className={styles.btn}>
-              <p>{title}</p>
-            </div>
-          )
-        })}
-      </div> */}
-      {/* </div> */}
     </div>
   );
 };

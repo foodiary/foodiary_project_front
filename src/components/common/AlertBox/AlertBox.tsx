@@ -1,28 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './alertBox.module.scss';
-import { HalfButton } from './Button';
-
+import {HalfButton} from '../LoginButton/Button';
 interface AlertType{
   type: boolean; // x박스(false)인지 체크박스(true)인지
   text: string;
 };
 
 export const AlertBox = ({type, text}:AlertType) => {
+  const [timeout, setTimeOut] = useState(false); //true일때 꺼지면 됨
+  // useEffect(()=>{
+  //   setTimeout(()=>{setTimeOut(true)}, 2000);
+  // },[]);
+  setTimeout(()=>{setTimeOut(true)}, 2000);
   return (
     <div>
-      {type ?
+      {!timeout ?
         <div className={styles.modal_back}>
           <div className={styles.alert_box}>
-            <div className={styles.check_icon}></div>
+            <div className={type? styles.check_icon: styles.x_icon}></div>
             <p>{text}</p>
           </div>
-        </div>:
-        <div className={styles.modal_back}>
-          <div className={styles.alert_box}>
-            <div className={styles.x_icon}></div>
-            <p>{text}</p>
-          </div>
-        </div>
+        </div>: null
       }
     </div>
   );

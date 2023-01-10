@@ -9,14 +9,28 @@
     bottom: 100px;
   }
 }
+
 .profile_container{
   @include column-flexBox();
-  .user_info{
+
+  .profile_img{
+    width: 96px;
+    height: 96px;
+  }
+  .user_nickname{
     margin-top: 55px;
-    margin-left: auto; 
-    margin-right: auto;
-    p{
-      @include flexBox();
+    @include text-style(24px, $main, 700);
+  }
+  .user{
+    width: 90%;
+    margin-top: 10px;
+    .info{
+      @include row-flexBox();
+      @include flexBox($jc: between);
+      margin-top: 20px;
+      p{
+        @include text-style(14px, #666666, 400);
+      }
     }
   }
   .profile_msg{
@@ -24,32 +38,20 @@
   }
 }
 .btn_set{
-  .btn_container{
+  .modify_btn{
     position: absolute;
-    width: 32px;
-    height: 32px;
-    padding: 5px;
-    background-color: #EFEFEF;
-    border-radius: 8px;
-    .modify_btn{
-      width: 100%; height: 100%;
-      cursor: pointer;
-      background-image: url("../../../public/img/pencil_icon.png");
-      background-repeat: no-repeat;
-      background-size: contain;
-      border: none;
-    }
+    cursor: pointer;
   }
-  div:first-child{
-    top: 245px;
+  a:first-child{
+    top: 205px;
     left: 203px;
   }
-  div:nth-child(2){
-    top: 335px;
+  a:nth-child(2){
+    top: 295px;
     right: 15px;
   }
-  div:nth-child(3){
-    top: 450px;
+  a:nth-child(3){
+    top: 455px;
     right: 15px;
   }
 }

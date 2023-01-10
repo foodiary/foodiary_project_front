@@ -1,8 +1,6 @@
 @import '../main.module.scss';
 @import '../globals.css';
 
-$btnImg_list: (myWriting, myComments, myGood, myScrap);
-
 .mypage{
   @extend %page-base;
   border: 1px solid $main;
@@ -13,8 +11,6 @@ $btnImg_list: (myWriting, myComments, myGood, myScrap);
   .profile_image{
     width: 96px;
     height: 96px;
-    background-image: url('../../../public/img/basic_profile.png');
-    background-size: contain;
   }
   .user_info{
     @include column-flexBox();
@@ -48,56 +44,58 @@ $btnImg_list: (myWriting, myComments, myGood, myScrap);
 .myWriting_btns{
   @include flexBox($jc: around);
   background-color: white;
-  @each $title in $btnImg_list{
-    .#{$title}{
-      a{
-        width: 76px;
-        height: 65px;
-        @include column-flexBox();
-        background-image: url('../../../public/img/#{$title}.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-      }
-      p{
-        margin-top: 9px;
-        text-align: center;
-      }
-    }
-  }
+  // @each $title in $btnImg_list{
+  //   .#{$title}{
+  //     a{
+  //       width: 76px;
+  //       height: 65px;
+  //       @include column-flexBox();
+  //       // background-image: url('../../../public/img/#{$title}.png');
+  //       background-size: contain;
+  //       background-repeat: no-repeat;
+  //     }
+  //     p{
+  //       margin-top: 9px;
+  //       text-align: center;
+  //     }
+  //   }
+  // }
 }
-.customer_service{
-  margin-left: 20px;
-  margin-top: 90px;
+.recommend_service{
+  margin-top: 60px;
+}
+.menu{
+  @include flexBox($jc: between);
+  // border: 1px solid red;
+  width: 90%;
+  margin: auto;
+  font-size: 25px;
+  margin-top: 12px;
+
   p{
     @include text-style(16px, $main, 700, start);
-    @include flexBox($jc:between);
-    margin-top: 11px;
-    &:first-child{
+  }
+  
+}
+.customer_service, .account_manage{
+  @include column-flexBox();
+  margin-top: 90px;
+  .title{
       @include text-style(14px, #333333, 400, start);
-      margin: 0;
-    }
-    a{
-      font-size: 25px;
-    }
+      margin-left: 20px;
   }
 }
 .account_manage{
-  margin-left: 20px;
   margin-top: 90px;
-  p{
-    @include text-style(14px, #333333, 400, start);
-  }
+
   button{
     @include text-style(16px, $main, 700, start);
     @include column-flexBox();
     background: none;
     border: none;
-    margin-top: 11px;
+    margin-top: 12px;
     cursor: pointer;
-    &:first-child{
-      @include text-style(14px, #333333, 400, start);
-      margin: 0;
-    }
+    margin-left: 20px;
   }
   button:last-child{
     color: $point;
