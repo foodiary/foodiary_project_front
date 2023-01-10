@@ -67,14 +67,14 @@
   .rankingSection {
     padding-bottom: 20px;
 
-    .rankingContents {
-      .dayBtn {
-        display: flex;
-        justify-content: flex-end;
-        gap: 4px;
-        margin-bottom: 22px;
-      }
+    .dayBtn {
+      display: flex;
+      justify-content: flex-end;
+      gap: 4px;
+      margin-bottom: 22px;
+    }
 
+    .rankingContents {
       .rankingScroll {
         display: flex;
         gap: 8px;
@@ -84,9 +84,11 @@
 
   .recipeSection {
     padding-top: 58px;
+
     .recipeTitle {
-      font-size: $h5;
-      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .recipeContents {

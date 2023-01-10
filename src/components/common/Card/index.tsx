@@ -7,8 +7,9 @@ type cardStyleProps = {
   title?: string;
   userId?: string;
   scrap?: string;
-  like?: string;
-  comment?: string;
+  like?: string | number;
+  comment?: string | number | undefined;
+  none?: boolean;
 };
 
 export const SmallCard = ({
@@ -19,6 +20,7 @@ export const SmallCard = ({
   scrap,
   like,
   comment,
+  none,
 }: cardStyleProps) => {
   return (
     <div className={styled.cardWrapper} style={{ padding: "8px" }}>
@@ -30,6 +32,7 @@ export const SmallCard = ({
           <p className={styled.tag}>{tag}</p>
         </div>
       )}
+      {none && <div className={styled.margin} />}
       <p className={styled.title}>{title}</p>
 
       {info && (
@@ -72,15 +75,19 @@ export const MediumCard = ({
   scrap,
   like,
   comment,
+  none,
 }: cardStyleProps) => {
   return (
     <div className={styled.cardWrapper} style={{ padding: "20px" }}>
       <div className={styled.img}>
         <img src="/img/sample.png" alt="img" className={styled.mediumSize} />
       </div>
-      <div className={styled.tagContainer}>
-        <p className={styled.tag}>{tag}</p>
-      </div>
+      {tag && (
+        <div className={styled.tagContainer}>
+          <p className={styled.tag}>{tag}</p>
+        </div>
+      )}
+      {none && <div className={styled.margin} />}
       <p className={styled.title}>{title}</p>
 
       {info && (
@@ -123,15 +130,19 @@ export const LargeCard = ({
   scrap,
   like,
   comment,
+  none,
 }: cardStyleProps) => {
   return (
     <div className={styled.cardWrapper} style={{ padding: "8px" }}>
       <div className={styled.img}>
         <img src="/img/sample.png" alt="img" className={styled.largeSize} />
       </div>
-      <div className={styled.tagContainer}>
-        <p className={styled.tag}>{tag}</p>
-      </div>
+      {tag && (
+        <div className={styled.tagContainer}>
+          <p className={styled.tag}>{tag}</p>
+        </div>
+      )}
+      {none && <div className={styled.margin} />}
       <p className={styled.title}>{title}</p>
 
       {info && (
