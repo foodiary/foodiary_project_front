@@ -1,0 +1,22 @@
+@import '../main.module.scss';
+
+.faq_container{
+  @extend %page-base;
+  border: 1px solid black;
+  .board{
+    background-color: white;
+  }
+  .q_container{
+    width: 90%;
+    height: 70px;
+    margin: auto;
+    @include flexBox($jc: between);
+    border-bottom: 2px solid $gray-100;
+    .num{
+      @include text-style(12px, $point, 700);
+    }
+    .question{
+      @include text-style(16px, $main, 500);
+    }
+  }
+}

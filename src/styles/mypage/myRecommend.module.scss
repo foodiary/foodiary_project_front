@@ -1,0 +1,32 @@
+@import '../main.module.scss';
+@import '../globals.css';
+
+.recommend{
+  @extend %page-base;
+  border: 1px solid black;
+  position: relative;
+  .explain{
+    @include text-style(16px, #666666, 500, start);
+    margin: 20px 0 65px 24px;
+    margin-left:24px;
+  }
+  img{
+    position: absolute;
+    top: 22%;
+    left: 70%;
+  }
+  .menu_list{
+    @include column-flexBox();
+    background-color: white;
+  }
+  .menu{
+    width: 90%;
+    height: 58px;
+    margin: auto;
+    @include flexBox($jc: between);
+    border-bottom: 2px solid $gray-100;
+    p{
+      @include text-style(16px, $main, 500, start);
+    }
+  }
+}

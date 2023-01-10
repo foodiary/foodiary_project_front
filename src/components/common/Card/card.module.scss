@@ -1,15 +1,17 @@
 @import "../../../styles/main.module.scss";
 
 .cardWrapper {
-  width: 384px;
-  height: 379px;
+  max-width: 250px;
+  max-height: 240px;
   padding: 20px;
   border: 1px solid $gray_200;
   background: white;
 
   .img {
-    max-width: 344px;
-    height: auto;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    background: content-box url("/img/sample.png") no-repeat;
   }
 
   .tagContainer {
@@ -17,8 +19,8 @@
     justify-content: flex-start;
     align-items: center;
 
-    margin-top: 12px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 12px;
 
     .tag {
       padding: 2px 8px;
@@ -39,7 +41,7 @@
   .userInfoContainer {
     display: flex;
     align-self: center;
-    margin-top: 12px;
+    margin-top: 8px;
     font-weight: 400;
     color: $gray_400;
     font-size: $body2;
@@ -53,10 +55,6 @@
         width: 18px;
         height: 18px;
         border-radius: 50%;
-      }
-
-      .userName {
-        margin-left: 4px;
       }
     }
 

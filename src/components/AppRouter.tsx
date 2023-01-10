@@ -18,6 +18,14 @@ import MyWriting from '@pages/mypage/MyWriting';
 import MyComments from '@pages/mypage/MyComments';
 import MyCommentsDetail from '@pages/mypage/MyCommentsDetail';
 import MyCommentsEdit from '@pages/mypage/MyCommentsEdit';
+import MyRecommend from '@pages/mypage/MyRecommend';
+import MyGood from '@pages/mypage/MyGood';
+import MyScrap from '@pages/mypage/MyScrap';
+import Notice from '@pages/mypage/notice/Notice';
+import NoticeDetail from '@pages/mypage/notice/NoticeDetail';
+import FAQ from '@pages/mypage/FAQ';
+import Contact from '@pages/mypage/contact/Contact';
+import ContactDetail from '@pages/mypage/contact/ContactDetail';
 
 const AppRouter = () => {
   return (
@@ -39,9 +47,21 @@ const AppRouter = () => {
           <Route path='/mypage' element={<MyPageMain/>}/>
           <Route path='/mypage/setting' element={<MyPageSetting/>}/>
           <Route path='/mypage/mywriting' element={<MyWriting/>}/>
+          <Route path='/mypage/mygood' element={<MyGood/>}/>
+          <Route path='/mypage/myscrap' element={<MyScrap/>}/>
+
           <Route path='/mypage/mycomments' element={<MyComments/>}/>
           <Route path='/mypage/mycomments/detail' element={<MyCommentsDetail/>}/>
-          <Route path='/mypage/mycomments/detail/edit' element={<MyCommentsEdit/>}/>
+          <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
+          <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
+
+          <Route path='/mypage/notice' element={<Notice/>}/>
+          <Route path='/mypage/notice/detail' element={<NoticeDetail/>}/>
+          <Route path='/mypage/faq' element={<FAQ/>}/>
+          <Route path='/mypage/contact' element={<Contact/>}/>
+          <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
+
+
 
           {/* /find/id   /find/pwd */}
         </Routes>

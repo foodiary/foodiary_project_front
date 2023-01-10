@@ -30,18 +30,19 @@
     border-bottom: 2px solid $gray-100;
     background-color: white;
     @include flexBox($jc:start, $ai: start);
-    // margin: 100px 20px 0 20px;
     padding: 20px;
 
     .profile_picture{
-      // background-image: url('../../../public/img/basic_profile.png');
-      background-repeat: no-repeat;
-      background-size: contain;
       width: 32px; height: 32px;
       border-radius: 50px;
       margin-right: 8px;
     }
-
+    .more_btn{
+      @include row-flexBox();
+      border: 1px solid red;
+      width: 100%;
+      justify-content: space-between;
+    }
     .content{
       @include column-flexBox();
       width: 85%;

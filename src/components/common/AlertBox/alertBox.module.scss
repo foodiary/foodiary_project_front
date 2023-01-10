@@ -40,15 +40,15 @@
   }
   .warn_box{
     height: 202px;
-    // @include flexBox();
-    // p{
-    //   margin-bottom: px;
-    // }
+
     .small_halfbtn{
+      // border: 1px solid blue;
+      background-color: $point;
+      border-radius: 8px;
       position: absolute;
       bottom: 0px;
-      width: inherit;
-      height: 40px;
+      @include flexBox();
+      width: 100%;
     }
   }
 }

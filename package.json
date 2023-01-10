@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,6 +20,7 @@
     "react-scripts": "5.0.1",
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.4",
+    "yup": "^0.32.11",
     "zustand": "^4.1.5"
   },
   "scripts": {
@@ -48,5 +50,6 @@
   "devDependencies": {
     "@craco/craco": "^7.0.0",
     "craco-alias": "^3.0.1"
-  }
+  },
+  "proxy": "https://7d61-211-58-204-152.jp.ngrok.io"
 }

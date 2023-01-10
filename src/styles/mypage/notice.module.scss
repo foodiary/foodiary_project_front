@@ -1,0 +1,24 @@
+@import '../main.module.scss';
+
+.notice_detail{
+  @extend %page-base;
+  border: 1px solid black;
+  // margin-top: 62px;
+  .title{
+    // border: 1px solid red;
+    width: 245px;
+    height: fit-content;
+    @include text-style(20px, $main, 700, start);
+    margin-top: 62px;
+    margin-left: 20px; //나중에 notice_detail에 적용할 것
+  }
+  .date{
+    @include text-style(12px, #666666, 400, start);
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+  .content{
+    @include text-style(14px, $main, 400, start);
+    margin-top: 35px;
+  }
+}

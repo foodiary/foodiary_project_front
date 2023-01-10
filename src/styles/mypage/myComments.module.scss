@@ -36,12 +36,16 @@ button{
   }
   .board{
     background-color: white;
-    .comment{
+    .comment_container{
       margin: 10px;
+      @include flexBox($jc: between);
       // border: 1px solid red;
       border-bottom: 2px solid $gray-100;
       padding: 10px;
       background-color: white;
+      .comment{
+        @include column-flexBox();
+      }
       p{
         @include text-style(16px, $main, 500, start);
         &:nth-child(2){

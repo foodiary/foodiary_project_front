@@ -15,10 +15,16 @@ interface DupliButton{
   // value: string; //id, pwd, email 등등
   active?: boolean;
 }
-interface HalfBtn extends Button{
-  text2: string;
-  type2: 'button' | 'submit' ;
-  url2?: string;
+// interface HalfBtn extends Button{
+//   text2: string;
+//   type2: 'button' | 'submit' ;
+//   url2?: string;
+//   color1?: string;
+//   color2?: string;
+// }
+interface HalfBtn{
+  btn_txt?: string;
+  type?: 'button' | 'submit' ;
 }
 interface AlertType{
   type: string;
@@ -47,27 +53,45 @@ export const LoginButton = ({text, type, url, active=false}:Button) => {
     </div>
   );
 };
-export const HalfButton = ({text, text2, type, type2, url, url2}:HalfBtn)=>{
+// export const HalfButton = ({text, text2, type, type2, url, url2, color1, color2}:HalfBtn)=>{
+//   const navigate = useNavigate();
+//   const [warn, setWarn] = useState(false);
+
+//   return (
+//     <div>
+//       <div className={styles.half_container}>
+//         <button
+//           type={type} 
+//           className={styles.half_btn}
+//           onClick={()=>{navigate(url!)}}
+//         >
+//           {text}
+//         </button>
+//         <button
+//           type={type2} 
+//           className={styles.half_btn}
+//           onClick={()=>{setWarn(true)}}
+//         >
+//           {text2}
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+export const HalfButton = ({btn_txt, type}:HalfBtn)=>{
   const navigate = useNavigate();
   const [warn, setWarn] = useState(false);
+
   return (
     <div>
-      <div className={styles.half_container}>
+      {/* <div className={styles.half_container}> */}
         <button
           type={type} 
           className={styles.half_btn}
-          onClick={()=>{navigate(url!)}}
         >
-          {text}
+          {btn_txt}
         </button>
-        <button
-          type={type2} 
-          className={styles.half_btn}
-          onClick={()=>{setWarn(true)}}
-        >
-          {text2}
-        </button>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {AiOutlineSetting} from 'react-icons/ai';
 import {BiChevronRight} from 'react-icons/bi';
 import styles from '@styles/mypage/myPageMain.module.scss';
@@ -9,8 +9,12 @@ import myComments from '@img/myComments.png';
 import myGood from '@img/myGood.png';
 import myWriting from '@img/myWriting.png';
 import myScrap from '@img/myScrap.png';
+import { LoginButton } from '@components/common/LoginButton/Button';
+import { WarnBox } from '@components/common/AlertBox/AlertBox';
 
 const MyPageMain = () => {
+  const [logout, setLogOut] = useState(false);
+
   return (
     <div className={styles.mypage}>
       <Header/>
@@ -66,7 +70,7 @@ const MyPageMain = () => {
       </div>
 
       <div className={styles.recommend_service}>
-        <Link to="/" className={styles.menu}>
+        <Link to="/mypage/myrecommend" className={styles.menu}>
           <p>나의 추천메뉴</p>
           <BiChevronRight/>
         </Link>
@@ -82,7 +86,7 @@ const MyPageMain = () => {
           <p>1:1 문의하기</p>
           <BiChevronRight/>
         </Link>
-        <Link to="/" className={styles.menu}>
+        <Link to="/faq" className={styles.menu}>
           <p>FAQ</p>
           <BiChevronRight/>
         </Link>
@@ -90,14 +94,17 @@ const MyPageMain = () => {
 
       <div className={styles.account_manage}>
         <p className={styles.title}>계정관리</p>
-        <Link to="/" className={styles.menu}>
+        <Link to="/member/password/change" className={styles.menu}>
           <p>비밀번호 변경</p>
           <BiChevronRight/>
         </Link>
-        <button >로그아웃</button>
-        <button>탈퇴하기</button>
+        <button onClick={()=>setLogOut(true)}>로그아웃</button> {/*로그아웃하시겠습니까? 알럿창 */}
+        <button>탈퇴하기</button> {/*탈퇴하시겠습니까? 알럿창 */}
       </div>
-
+      {logout && 
+        <div className={styles.alert}>
+          <WarnBox text='정말 로그아웃하시겠습니까?'/>
+        </div>}
     </div>
   );
 };

@@ -1,7 +1,63 @@
 @import '../main.module.scss';
 @import '../globals.css';
+// @import './myComments.module.scss';
 
 .mywriting{
   @extend %page-base;
   border: 1px solid black;
+  position: relative;
+  .tab{
+    margin-top: 67px;
+    margin-bottom: 85px;
+    width: 65%;
+    @include flexBox($jc:around);
+    border: 1px solid red;
+
+    .active{
+      // border: 1px solid red;
+      @include text-style(24px, $main, 700);
+    }
+    .non_active{
+      // border: 1px solid red;
+      @include text-style(18px, #666666, 700);
+    }
+    
+  }
+  button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+  
+    .text_deco{
+      position: absolute;
+      width: 100%;
+      height: 13px;
+      top: 60%;
+      opacity: 0.5;
+      transform: rotate(-3.07deg);
+      // background-color: #FFA68A;
+      background-color: $point;
+    }
+  }
+  .card_container{
+    display: grid;
+    background-color: white;
+    grid-template-columns: repeat(2, 1fr);
+    div{
+      width: 160px;
+      margin: auto;
+    }
+  }
+
+}
+.empty{
+  @include text-style(14px, $main, 400);
+  @include flexBox();
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100px;
+  background-color: white;
 }
