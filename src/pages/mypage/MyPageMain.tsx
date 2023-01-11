@@ -1,67 +1,103 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import {AiOutlineSetting} from 'react-icons/ai';
 import {BiChevronRight} from 'react-icons/bi';
 import styles from '@styles/mypage/myPageMain.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '@components/common/Header/Header';
 import basic_profile from '@img/basic_profile.svg';
 import myComments from '@img/myComments.png';
 import myGood from '@img/myGood.png';
 import myWriting from '@img/myWriting.png';
 import myScrap from '@img/myScrap.png';
-import { LoginButton } from '@components/common/LoginButton/Button';
-import { WarnBox } from '@components/common/AlertBox/AlertBox';
+import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
+import { btnStateStore } from '@store/btnStateStore';
 
 const MyPageMain = () => {
-  const [logout, setLogOut] = useState(false);
+  const navigate = useNavigate();
 
+  const logout = btnStateStore(state=>state.logout);
+  const setLogout = btnStateStore(state=>state.setLogout);
+  // const cancel = btnStateStore(state=>state.cancel);
+  // const setCancel = btnStateStore(state=>state.setCancel);
+  const withdraw = btnStateStore(state=>state.withdraw);
+  const setWithdraw = btnStateStore(state=>state.setWithdraw);
+  const [alert, setAlert] = useState(false);
+  const [cancel, setCancel] = useState(false);
+
+  useEffect(()=>{
+    setLogout(false);
+    setWithdraw(false);
+    setCancel(false);
+  },[]);
+
+  const handleLogout = ()=>{
+    setLogout(true);
+    setWithdraw(false);
+    setCancel(false);
+  }
+  const handleWithdraw = ()=>{
+    setLogout(false);
+    setWithdraw(true);
+    setCancel(false);
+  }
+  // const onClick = ()=>{
+  //   console.log("클릭됨"); //취소 버튼
+  //   setCancel(true);
+  //   if(logout){
+  //     setLogout(false);
+  //   }
+  //   else if(withdraw){
+  //     setWithdraw(false);
+  //   }
+  // }
+  const onSubmit = (e:FormEvent)=>{
+    e.preventDefault();
+      //api 응답 후
+      setAlert(true);
+      
+      // navigate("/");
+  }
+  console.log(logout);
   return (
     <div className={styles.mypage}>
       <Header/>
-      {/* <div className={styles.mypage}> */}
       <div className={styles.profile_container}>
-        {/* <div className={styles.profile_image}></div> */}
         <img src={basic_profile} alt="기본이미지" className={styles.profile_image}/>
         <div className={styles.user_info}>
           <p>ffoodyy</p>
-          {/* <p>ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ</p> */}
           <p>이메일</p>
         </div>
-        {/* <div className={styles.setting}>
-          <Link to="/"><AiOutlineSetting/></Link>
-        </div> */}
+
           <Link to="/mypage/setting">
             <div className={styles.setting}>
               <AiOutlineSetting/>
             </div>
           </Link>
-        {/* </div> */}
       </div>
       <p className={styles.profile_msg}>
         맛집투어만큼 만들기를 좋아하는 ffoodyyyyy
-        {/* ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ */}
       </p>
       <div className={styles.myWriting_btns}>
-        <div className={styles.myWriting}>
+        <div className={styles.link}>
           <Link to="/mypage/mywriting">
             <img src={myWriting} alt="이미지"/>
           </Link>
           <p>내가 쓴 글</p>
         </div>
-        <div className={styles.myComments}>
+        <div className={styles.link}>
           <Link to="/mypage/mycomment">
             <img src={myComments} alt="이미지"/>
           </Link>
           <p>내가 쓴 댓글</p>
         </div>
-        <div className={styles.myGood}>
+        <div className={styles.link}>
           <Link to="/mypage/mygood">
             <img src={myGood} alt="이미지"/>
 
           </Link>
           <p>좋아요 글</p>
         </div>
-        <div className={styles.myScrap}>
+        <div className={styles.link}>
           <Link to="/mypage/myscrap">
             <img src={myScrap} alt="이미지"/>
           </Link>
@@ -78,15 +114,15 @@ const MyPageMain = () => {
 
       <div className={styles.customer_service}>
         <p className={styles.title}>고객센터</p>
-        <Link to="/" className={styles.menu}>
+        <Link to="/mypage/notice" className={styles.menu}>
           <p>공지사항</p>
           <BiChevronRight/>
         </Link>
-        <Link to="/" className={styles.menu}>
+        <Link to="/mypage/contact" className={styles.menu}>
           <p>1:1 문의하기</p>
           <BiChevronRight/>
         </Link>
-        <Link to="/faq" className={styles.menu}>
+        <Link to="/mypage/faq" className={styles.menu}>
           <p>FAQ</p>
           <BiChevronRight/>
         </Link>
@@ -98,13 +134,24 @@ const MyPageMain = () => {
           <p>비밀번호 변경</p>
           <BiChevronRight/>
         </Link>
-        <button onClick={()=>setLogOut(true)}>로그아웃</button> {/*로그아웃하시겠습니까? 알럿창 */}
-        <button>탈퇴하기</button> {/*탈퇴하시겠습니까? 알럿창 */}
+        <button onClick={handleLogout}>로그아웃</button> 
+        <button onClick={handleWithdraw}>탈퇴하기</button> {/*탈퇴하시겠습니까? 알럿창 */}
       </div>
-      {logout && 
-        <div className={styles.alert}>
-          <WarnBox text='정말 로그아웃하시겠습니까?'/>
-        </div>}
+      {logout && !cancel &&
+        <form className={styles.alert} onSubmit={onSubmit}>
+          <WarnBox text='정말 로그아웃하시겠습니까?' btn_txt={'확인'}/>
+        </form>}
+      {withdraw && !cancel &&
+        <form className={styles.alert} onSubmit={onSubmit}>
+          <WarnBox text='정말 탈퇴하시겠습니까?' btn_txt={'확인'}/>
+        </form>}
+      
+      {alert && logout && 
+        <div><AlertBox text='로그아웃 되었습니다.' type={true}/></div>
+      }
+      {alert && withdraw && 
+        <div><AlertBox text='탈퇴 되셨습니다.' type={true}/></div>
+      }
     </div>
   );
 };

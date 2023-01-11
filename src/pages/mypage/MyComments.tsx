@@ -3,6 +3,7 @@ import styles from '@styles/mypage/myComments.module.scss';
 import Header from '@components/common/Header/Header';
 import { Link } from 'react-router-dom';
 import {BiChevronRight} from 'react-icons/bi';
+import WritingLink from '@components/common/WritingLink/WritingLink';
 
 const Notice = () => {
   const [day, setDay] = useState(true);
@@ -26,58 +27,12 @@ const Notice = () => {
         </button>
       </div>
       <div className={styles.board}>
-        <Link to="/mypage/mycomments/detail" className={styles.comment_container}>
-          <div className={styles.comment}> {/*넘길때 ??? */}
-            <p>다이어터인데 불닭볶ㅇ면ㅁ?!</p>
-            <p>오늘 다이어터 하루 식단 구경하세용</p>
-          </div>
-          <BiChevronRight/>
-        </Link>
-
-        <Link to="/mypage/mycomments/detail" className={styles.comment_container}>
-          <div className={styles.comment}>
-            <p>헐 맛집이 문닫아서 슬프시겠어욤,,,,,,,,,,,,,,,,</p>
-            <p>저희 집 근처 곱창집 마지막 식사입니다....</p>
-          </div>
-          <BiChevronRight/>
-        </Link>
-
-        <Link to="/mypage/mycomments/detail" className={styles.comment_container}>
-          <div className={styles.comment}>
-            <p>아보카도 맛있나요? 아무맛도 안나던데</p>
-            <p>아보카도 팡인의 하루식단!</p>
-          </div>
-          <BiChevronRight/>
-        </Link>
-        <Link to="/mypage/mycomments/detail" className={styles.comment_container}>
-          <div className={styles.comment}>
-            <p>와 그냥 금손이신거같아요 진짜 카페 음식이라고 해...</p>
-            <p>인스타 맛집st 오픈 샌드위치 만들었어요!</p>
-          </div>
-          <BiChevronRight/>
-          </Link>
-        <Link to="/mypage/mycomments/detail" className={styles.comment_container}>
-          <div className={styles.comment}>
-            <p>계란후라이 올라간 간짜장</p>
-            <p>오늘 점메추 부탁드려요~~</p>
-          </div>
-          <BiChevronRight/>
-        </Link>
-        <Link to="/mypage/mycomments/detail" className={styles.comment_container}>
-          <div className={styles.comment}>
-            <p>치킨 is 언제든</p>
-            <p>지금 치킨 먹는거 추천? 비추천?</p>
-          </div>
-          <BiChevronRight/>
-        </Link>
-        <Link to="/mypage/mycomments/detail" className={styles.comment_container}>
-        <div className={styles.comment}>
-          <p>혜자 도시락 추천드립니다</p>
-          <p>저 오늘 편의점에서 먹어야하는데 뭐 먹을까요ㅠㅠ</p>
+        <WritingLink url="/mypage/mycomments/detail" text1='다이어터인데 불닭볶ㅇ면ㅁ?!' text2='오늘 다이어터 하루 식단 구경하세용'/>      
+        <WritingLink url="/mypage/mycomments/detail" text1='헐 맛집이 문닫아서 슬프시겠어욤,,,,,,,,,,,,,,,,' text2='저희 집 근처 곱창집 마지막 식사입니다....'/>      
+        <WritingLink url="/mypage/mycomments/detail" text1='아보카도 맛있나요? 아무맛도 안나던데' text2='아보카도 팡인의 하루식단!'/>      
+        <WritingLink url="/mypage/mycomments/detail" text1='와 그냥 금손이신거같아요 진짜 카페 음식이라고 해...' text2='인스타 맛집st 오픈 샌드위치 만들었어요!'/>      
+        <WritingLink url="/mypage/mycomments/detail" text1='ㅎㅎㅎ그래요?' text2='제발 돼라...'/>      
         </div>
-        <BiChevronRight/>
-        </Link>
-      </div>
     </div>
   );
 };

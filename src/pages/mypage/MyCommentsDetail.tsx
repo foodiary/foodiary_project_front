@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import styles from '@styles/mypage/myCommentsDetail.module.scss';
 import Header from '@components/common/Header/Header';
 import {FiMoreVertical} from 'react-icons/fi';
 import {AiOutlineHeart} from 'react-icons/ai';
 import {FaRegBookmark} from 'react-icons/fa';
-import { HalfButton, LoginButton } from '@components/common/LoginButton/Button';
+import { HalfAlertButton, HalfButton, LoginButton } from '@components/common/LoginButton/Button';
 import {AlertBox, WarnBox} from '@components/common/AlertBox/AlertBox';
 import { Input } from '@pages/Form';
 import basic_profile from '@img/basic_profile.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { btnStateStore } from '@store/btnStateStore';
 
 const MyCommentsDetail = () => {
   const [viewBtn, setViewBtn] = useState(false);
+  const cancel = btnStateStore(state=>state.cancel);
+  const setCancel = btnStateStore(state=>state.setCancel);
+  useEffect(()=>{
+    setCancel(true);
+  },[]);
+
+  const navigate = useNavigate();
+
+  const onClick = (e:React.MouseEvent<HTMLDivElement>)=>{
+    // console.log(e.currentTarget.innerText);
+    console.log(e.currentTarget);
+
+  }
+  const onSubmit = (e:FormEvent)=>{
+    e.preventDefault();
+    setCancel(true);
+    setViewBtn(false);
+    console.log("삭제ㅇㅇ"); //알럿창
+  }
+
   return (
     <div className={styles.comment_detail}>
       <Header/>
@@ -45,6 +66,14 @@ const MyCommentsDetail = () => {
           </div>
       </div>
 
+      {viewBtn && <div className={styles.view_btn}>
+        <div className={styles.black} onClick={()=>{navigate("/mypage/mycomments/edit")}}>
+          <HalfButton type='button' text='수정'/>
+        </div>
+        <div className={styles.red} onClick={()=>{setCancel(false)}}>
+          <HalfButton type='button' text='삭제'/>
+        </div>
+      </div>}
       {/* {viewBtn && <div className={styles.view_btn}>
         <HalfButton 
           type='button' 
@@ -53,8 +82,16 @@ const MyCommentsDetail = () => {
           type2='button'
           text2='삭제'/>
       </div>} */}
-      {/* <WarnBox/> */}
-
+      {/* {!cancel && 
+      <div onClick={onClick}>
+        <WarnBox text='정말 삭제하시겠습니까?' btn_txt='삭제'/>
+      </div>
+      } */}
+      {!cancel && 
+      <form onSubmit={onSubmit}>
+        <WarnBox text='정말 삭제하시겠습니까?' btn_txt='삭제'/>
+      </form>
+      }
       {/* <AlertBox text='아이디 또는 비밀번호를 다시 확인해주세요.' type={false}/> */}
       {/* <div className={styles.modal_back}>
         <AlertBox text='인증메일이 재발송되었습니다' type={true}/>

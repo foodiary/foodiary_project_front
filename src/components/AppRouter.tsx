@@ -26,6 +26,8 @@ import NoticeDetail from '@pages/mypage/notice/NoticeDetail';
 import FAQ from '@pages/mypage/FAQ';
 import Contact from '@pages/mypage/contact/Contact';
 import ContactDetail from '@pages/mypage/contact/ContactDetail';
+import ModifyNickName from '@pages/mypage/setting/ModifyNickName';
+import ModifyProfileMsg from '@pages/mypage/setting/ModifyProfileMsg';
 
 const AppRouter = () => {
   return (
@@ -48,7 +50,11 @@ const AppRouter = () => {
           <Route path='/mypage/setting' element={<MyPageSetting/>}/>
           <Route path='/mypage/mywriting' element={<MyWriting/>}/>
           <Route path='/mypage/mygood' element={<MyGood/>}/>
-          <Route path='/mypage/myscrap' element={<MyScrap/>}/>
+
+          <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
+          <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
+
+          <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
 
           <Route path='/mypage/mycomments' element={<MyComments/>}/>
           <Route path='/mypage/mycomments/detail' element={<MyCommentsDetail/>}/>
@@ -60,7 +66,7 @@ const AppRouter = () => {
           <Route path='/mypage/faq' element={<FAQ/>}/>
           <Route path='/mypage/contact' element={<Contact/>}/>
           <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
-
+          
 
 
           {/* /find/id   /find/pwd */}

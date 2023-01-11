@@ -23,8 +23,13 @@ interface DupliButton{
 //   color2?: string;
 // }
 interface HalfBtn{
+  text: string; //버튼 텍스트
+  type: 'button' | 'submit' ;
+}
+interface HalfAlertBtn{
   btn_txt?: string;
   type?: 'button' | 'submit' ;
+  // color: 'red' | 'black';
 }
 interface AlertType{
   type: string;
@@ -53,45 +58,56 @@ export const LoginButton = ({text, type, url, active=false}:Button) => {
     </div>
   );
 };
-// export const HalfButton = ({text, text2, type, type2, url, url2, color1, color2}:HalfBtn)=>{
-//   const navigate = useNavigate();
-//   const [warn, setWarn] = useState(false);
-
-//   return (
-//     <div>
-//       <div className={styles.half_container}>
-//         <button
-//           type={type} 
-//           className={styles.half_btn}
-//           onClick={()=>{navigate(url!)}}
-//         >
-//           {text}
-//         </button>
-//         <button
-//           type={type2} 
-//           className={styles.half_btn}
-//           onClick={()=>{setWarn(true)}}
-//         >
-//           {text2}
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-export const HalfButton = ({btn_txt, type}:HalfBtn)=>{
+export const HalfButton = ({text, type}:HalfBtn)=>{
   const navigate = useNavigate();
   const [warn, setWarn] = useState(false);
 
   return (
     <div>
-      {/* <div className={styles.half_container}> */}
+      <div className={styles.half_container}>
+        <button
+          type={type} 
+          className={styles.half_btn}
+        >
+          {text}
+        </button>
+        {/* <button
+          type={type2} 
+          className={styles.half_btn}
+        >
+          {text2}
+        </button> */}
+      </div>
+    </div>
+  );
+}
+export const HalfAlertButton = ({btn_txt, type}:HalfAlertBtn)=>{
+  const navigate = useNavigate();
+  const [warn, setWarn] = useState(false);
+
+  return (
+    <div>
+      {/* <div className={styles.half_container}>
         <button
           type={type} 
           className={styles.half_btn}
         >
           {btn_txt}
         </button>
-      {/* </div> */}
+      </div> */}
+      <div className={styles.half_alert_container}>
+         <button
+          type={type} 
+          className={styles.half_alert_btn}>
+          {btn_txt}
+        </button>
+        {/* <button
+          type='button'
+          className={styles.half_alert_btn}
+        >
+          취소
+        </button> */}
+      </div>
     </div>
   );
 }

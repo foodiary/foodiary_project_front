@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './alertBox.module.scss';
-import {HalfButton, LoginButton} from '../LoginButton/Button';
+import {HalfAlertButton, HalfButton, LoginButton} from '../LoginButton/Button';
+import { btnStateStore } from '@store/btnStateStore';
 
 interface AlertType{
   type: boolean; // x박스(false)인지 체크박스(true)인지
@@ -8,7 +9,7 @@ interface AlertType{
 };
 interface WarnType{
   text: string;
-  // btn_txt: string;
+  btn_txt: string;
   // type: 'button' | 'submit'; // 버튼 타입
 };
 
@@ -50,22 +51,26 @@ export const AlertBox = ({type, text}:AlertType) => {
 //     </div>
 //   )
 // }
-export const WarnBox = ({text}:WarnType)=>{
-  const [cancle, setCancle] = useState(false);
+export const WarnBox = ({text, btn_txt}:WarnType)=>{
+  // const [cancle, setCancle] = useState(false);
+  const setCancel = btnStateStore(state=>state.setCancel);
+
   return(
     <>
-    {!cancle && <div className={styles.modal_back}>
+    <div className={styles.modal_back}>
       <div className={styles.warn_box}>
         <div className={styles.warn_icon}></div>
         <p>{text}</p>
         <div className={styles.small_halfbtn}>
-          <HalfButton btn_txt='확인' type='submit'/>
-          <div onClick={()=>{setCancle(true)}}>
-            <HalfButton btn_txt='취소' type='button'/>
+          <div className={styles.red}>
+            <HalfAlertButton btn_txt={btn_txt} type='submit'/>
+          </div>
+          <div onClick={()=>{setCancel(true)}} className={styles.black}>
+            <HalfAlertButton btn_txt='취소' type='button'/>
           </div>
         </div>
       </div>
-    </div>}
+    </div>
     </>
   )
 }

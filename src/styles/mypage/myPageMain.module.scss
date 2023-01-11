@@ -43,23 +43,20 @@
 }
 .myWriting_btns{
   @include flexBox($jc: around);
+  // display: grid;
+  // grid-template-columns: repeat(4, 1fr);
   background-color: white;
-  // @each $title in $btnImg_list{
-  //   .#{$title}{
-  //     a{
-  //       width: 76px;
-  //       height: 65px;
-  //       @include column-flexBox();
-  //       // background-image: url('../../../public/img/#{$title}.png');
-  //       background-size: contain;
-  //       background-repeat: no-repeat;
-  //     }
-  //     p{
-  //       margin-top: 9px;
-  //       text-align: center;
-  //     }
-  //   }
-  // }
+  width: 95%;
+  margin: auto;
+  img{
+    height: 70px;
+  }
+  .link{
+    p{
+      @include text-style(14px, $main, 400);
+    }
+  }
+  
 }
 .recommend_service{
   margin-top: 60px;

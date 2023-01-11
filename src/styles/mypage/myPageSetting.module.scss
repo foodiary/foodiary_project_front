@@ -8,6 +8,12 @@
     position: absolute;
     bottom: 100px;
   }
+  .btn_container{
+    @include flexBox();
+    position: absolute;
+    bottom: 100px;
+    // left: 90px; //90
+  }
 }
 
 .profile_container{
@@ -36,6 +42,7 @@
   .profile_msg{
     width: 70%;
   }
+  
 }
 .btn_set{
   .modify_btn{
@@ -54,4 +61,37 @@
     top: 455px;
     right: 15px;
   }
+}
+// .btn_container{
+//   @include flexBox();
+//   position: absolute;
+//   bottom: 100px;
+//   left: 90px;
+// }
+.black{
+  background-color: black;
+  border-radius: 16px 0 0 0;
+  input{
+    border: 2px solid red;
+    display: none;
+  }
+  label{
+    width: 100px;
+    // z-index: 2;
+    border: 2px solid red;
+
+  }
+}
+.red{
+  background-color: $point;
+  border-radius: 0 16px 0 0;
+
+}
+.modal_back{
+  // position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
 }
