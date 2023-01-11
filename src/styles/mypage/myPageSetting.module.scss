@@ -1,0 +1,97 @@
+@import './myPageMain.module.scss';
+
+.profile{
+  @extend %page-base;
+  border: 1px solid black;
+  position: relative;
+  .btn{
+    position: absolute;
+    bottom: 100px;
+  }
+  .btn_container{
+    @include flexBox();
+    position: absolute;
+    bottom: 100px;
+    // left: 90px; //90
+  }
+}
+
+.profile_container{
+  @include column-flexBox();
+
+  .profile_img{
+    width: 96px;
+    height: 96px;
+  }
+  .user_nickname{
+    margin-top: 55px;
+    @include text-style(24px, $main, 700);
+  }
+  .user{
+    width: 90%;
+    margin-top: 10px;
+    .info{
+      @include row-flexBox();
+      @include flexBox($jc: between);
+      margin-top: 20px;
+      p{
+        @include text-style(14px, #666666, 400);
+      }
+    }
+  }
+  .profile_msg{
+    width: 70%;
+  }
+  
+}
+.btn_set{
+  .modify_btn{
+    position: absolute;
+    cursor: pointer;
+  }
+  button:first-child{
+    top: 205px;
+    left: 203px;
+  }
+  a:nth-child(2){
+    top: 295px;
+    right: 15px;
+  }
+  a:nth-child(3){
+    top: 455px;
+    right: 15px;
+  }
+}
+// .btn_container{
+//   @include flexBox();
+//   position: absolute;
+//   bottom: 100px;
+//   left: 90px;
+// }
+.black{
+  background-color: black;
+  border-radius: 16px 0 0 0;
+  input{
+    border: 2px solid red;
+    display: none;
+  }
+  label{
+    width: 100px;
+    // z-index: 2;
+    border: 2px solid red;
+
+  }
+}
+.red{
+  background-color: $point;
+  border-radius: 0 16px 0 0;
+
+}
+.modal_back{
+  // position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}

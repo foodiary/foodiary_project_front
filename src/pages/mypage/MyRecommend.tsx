@@ -1,0 +1,36 @@
+import React from 'react';
+import { Intro } from '@components/common/Text/SignUpPageText';
+import Header from '@components/common/Header/Header';
+import arrow_icon from '@img/arrow_icon.svg';
+import styles from '@styles/mypage/myRecommend.module.scss';
+
+const MyRecommend = () => {
+  return (
+    <div className={styles.recommend}>
+      <Header/>
+      <Intro span="나의 추천 메뉴" intro2=''/>
+      <p className={styles.explain}>버튼을 눌러 상태값을 변경해보세요!</p>
+      <img src={arrow_icon} alt="화살표"/>
+      <div className={styles.menu_list}>
+        <div className={styles.menu}>
+          <p>간짜장</p>
+          <button>Good</button>
+        </div>
+        <div className={styles.menu}>
+          <p>해파리냉채</p>
+          <button>Nope</button>
+        </div>
+        <div className={styles.menu}>
+          <p>잔치국수</p>
+          <button>Nope</button>
+        </div>
+        <div className={styles.menu}>
+          <p>김치삼겹찜</p>
+          <button>Good</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MyRecommend;

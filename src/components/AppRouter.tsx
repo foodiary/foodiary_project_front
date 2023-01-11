@@ -5,12 +5,28 @@ import SignUpAgree from '@pages/signup/SignUpAgree';
 import SignUpEmail from '@pages/signup/SignUpEmail';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SignUpId from '@pages/signup/SignUpId';
-import SignUpPwd from '@pages/signup/SignUpPwd';
-import SignUpProfileImage from '@pages/signup/SignUpProfileImage';
-import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
-import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
-import SignUpNickName from '@pages/signup/SignUpNickName';
+// import SignUpId from '@pages/signup/SignUpId';
+// import SignUpPwd from '@pages/signup/SignUpPwd';
+// import SignUpProfileImage from '@pages/signup/SignUpProfileImage';
+// import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
+// import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
+// import SignUpNickName from '@pages/signup/SignUpNickName';
+import MyPageMain from '@pages/mypage/MyPageMain';
+import MyPageSetting from '@pages/mypage/setting/MyPageSetting';
+import MyWriting from '@pages/mypage/MyWriting';
+import MyComments from '@pages/mypage/MyComments';
+import MyCommentsDetail from '@pages/mypage/MyCommentsDetail';
+import MyCommentsEdit from '@pages/mypage/MyCommentsEdit';
+import MyRecommend from '@pages/mypage/MyRecommend';
+import MyGood from '@pages/mypage/MyGood';
+import MyScrap from '@pages/mypage/MyScrap';
+import Notice from '@pages/mypage/notice/Notice';
+import NoticeDetail from '@pages/mypage/notice/NoticeDetail';
+import FAQ from '@pages/mypage/FAQ';
+import Contact from '@pages/mypage/contact/Contact';
+import ContactDetail from '@pages/mypage/contact/ContactDetail';
+import ModifyNickName from '@pages/mypage/setting/ModifyNickName';
+import ModifyProfileMsg from '@pages/mypage/setting/ModifyProfileMsg';
 import { LoginLayout, MainLayOut } from './layout/LayOut';
 import FindId from '@pages/login/FindId';
 import FindPwd from '@pages/login/FindPwd';
@@ -41,7 +57,7 @@ const AppRouter = () => {
         <Routes>
           <Route element={<MainLayOut/>}>
             {/* {loginUser && <Route path='/' element={<MainPage/>}/>} */}
-            <Route path='/' element={<MainPage/>}/>
+            {/* <Route path='/' element={<MainPage/>}/>
 
           {/* </Route> */}
             {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
@@ -65,7 +81,31 @@ const AppRouter = () => {
 
           {/* <Route> */}
             <Route path='/login' element={<LoginMainPage/>}/>
-            <Route path='/login/other' element={<OtherLoginPage/>}/>
+            <Route path='/login/other' element={<OtherLoginPage/>}/> */}
+
+          <Route path='/mypage' element={<MyPageMain/>}/>
+          <Route path='/mypage/setting' element={<MyPageSetting/>}/>
+          <Route path='/mypage/mywriting' element={<MyWriting/>}/>
+          <Route path='/mypage/mygood' element={<MyGood/>}/>
+
+          <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
+          <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
+
+          <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
+
+          <Route path='/mypage/mycomments' element={<MyComments/>}/>
+          <Route path='/mypage/mycomments/detail' element={<MyCommentsDetail/>}/>
+          <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
+          <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
+
+          <Route path='/mypage/notice' element={<Notice/>}/>
+          <Route path='/mypage/notice/detail' element={<NoticeDetail/>}/>
+          <Route path='/mypage/faq' element={<FAQ/>}/>
+          <Route path='/mypage/contact' element={<Contact/>}/>
+          <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
+          
+
+
             <Route path='/find/id' element={<FindId/>}/>
             <Route path='/find/pwd' element={<FindPwd/>}/>
 

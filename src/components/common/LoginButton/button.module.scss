@@ -28,21 +28,28 @@ cursor: pointer;
 margin-top: 15px;
 }
 
-.half_btn{
-width: 50%;
-height: 56px;
-border: none;
+// .half_alert_container{
+//   width: 100%;
+//   border: 1px solid red;
+// }
+.half_alert_btn{
+width: 125px; //125(alert)
+height: 40px;
+// background-color: $point;
 color: white;
-&:nth-child(1){
-  background-color: $point;
-  border-radius: 16px 0px 0px 0px;
+border-radius: 8px;
 }
-&:nth-child(2){
-  background-color: black;
-  border-radius: 0px 16px 0px 0px;
-}
-}
-.half_container{
-width: inherit;
-height: inherit;
+// .red{
+//   background-color: $point;
+// }
+// .black{
+//   background-color: $main;
+// }
+
+.half_btn{
+  width: 187px; //125(alert)
+  height: 56px;
+  // color: white;
+  border-radius: 8px;
+  @include text-style(16px, white, 700);
 }

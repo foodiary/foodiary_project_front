@@ -1,0 +1,115 @@
+@import './myWriting.module.scss';
+@import './myComments.module.scss';
+
+.contact_container{
+  @include column-flexBox();
+  gap: 25px;
+  width: 90%;
+  margin: auto;
+  p{
+    @include text-style(12px, #333333, 700, start);
+    margin-bottom: 5px;
+  }
+  input, textarea{
+    width: 100%;
+    border: 1px solid $main;
+    border-radius: 12px;
+    text-indent: 20px;
+    &::placeholder{
+      text-indent: 20px;
+      font-size: 14px;
+    }
+  }
+  .title{
+    input{
+      height: 40px;
+    }
+  }
+  .content{
+    position: relative;
+    textarea{
+      height: 290px;
+      resize: none;
+      &::placeholder{
+        width: 67%;
+        text-align: center;
+      }
+    }
+    .maxlength{
+      @include text-style(14px, #666666, 400);
+      position: absolute;
+      top: 90%;
+      left: 82%;
+    }
+  }
+  .file{
+    position: relative;
+    input{
+      display: none;
+    }
+    .add_img{
+      @include flexBox($jc: start);
+      @include text-style(16px, #666666, 400, start);
+      height: 50px;
+      border: 1px solid $main;
+      border-radius: 12px;
+      text-indent: 20px;
+    }
+    img{
+      position: absolute;
+      left: 85%;
+      top: 45%;
+    }
+  }
+}
+.board{
+  border: 1px solid red;
+  width: 90%;
+  margin: auto;
+}
+.comment_container{
+  @include flexBox($jc: between);
+  background-color: white;
+  height: 80px;
+  border-bottom: 2px solid $gray-100;
+  .comment{
+    @include column-flexBox();
+  }
+}
+.status{
+  @include row-flexBox();
+  margin-top: 10px;
+  p{
+    @include text-style(12px, #666666, 400, start);
+  }
+  .state{
+    color: $point;
+    margin-right: 12px;
+  }
+}
+.detail{
+  background-color: white;
+}
+.detail_container, .answer_container{
+  border-bottom: 2px solid $gray-100;
+  width: 90%;
+  margin: auto;
+  .detail_title{
+    @include text-style(16px, $main, 700, start);
+    padding: 16px 0 16px 0;
+  }
+  .detail_content{
+    @include text-style(14px, $main, 400, start);
+  }
+  .status{
+    margin-bottom: 10px;
+  }
+}
+.answer_container{
+  position: relative;
+
+  .detail_content{
+    margin-left: 25px;
+    margin-bottom: 20px;
+  }
+}
