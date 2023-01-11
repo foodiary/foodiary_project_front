@@ -1,35 +1,59 @@
+import { object } from 'yup';
 import create from 'zustand';
-
+// object를 한번에 저장해서 접근하는 방법이 없을까...?
 interface User{
-  id: string;
+  memberLoginId: string; //로그인 아이디
+  memberId: number; //api 요청시 필요한 멤버시퀀스
   // pwd: string;
-  email: string;
-  nickName: string;
-  profileImg: File | string;
-  profileMsg: string;
+  memberEmail: string;
+  memberNickName: string;
+  memberPath: string; //이미지
+  memberProfile: string; //프메
 
+  userInfo: object; //응답값 객체 전부 저장
 }
 interface SetUser{
-  setId: (id:User['id'])=>void;
+  setMemberLoginId: (id:User['memberLoginId'])=>void;
+  setMemberId: (id:User['memberId'])=>void;
+
   // setPwd: (pwd:User['pwd'])=>void;
-  setEmail: (email:User['email'])=>void;
-  setNickName: (nickname:User['nickName'])=>void;
-  setProfileImg: (img:User['profileImg'])=>void;
-  setProfileMsg: (msg:User['profileMsg'])=>void;
+  setMemberEmail: (email:User['memberEmail'])=>void;
+  setMemberNickName: (nickname:User['memberNickName'])=>void;
+  setMemberPath: (img:User['memberPath'])=>void;
+  setMemberProfile: (msg:User['memberProfile'])=>void;
+  // userInfo: User;
+  setUserInfo: (object: User['userInfo'])=> void;
+  // setUserInfo: (object: SetUser['userInfo'])=> void;
+
 }
 
-export const useLoginUserStore = create<User&SetUser>(set => ({
-  id: "",
-  // pwd: "",
-  email: "",
-  nickName: "",
-  profileImg: "",
-  profileMsg: "",
+export const useLoginUserStore = create<User &SetUser>(set => ({
+  memberLoginId: "test", //로그인 아이디
+  memberId: 0, //api 요청시 필요한 멤버시퀀스
+  memberEmail: "test@naver.com",
+  memberNickName: "text1",
+  memberPath: "", //이미지
+  memberProfile: "testtesttest", //프메
 
-  setId: (id)=> set(()=>({id: id})),
-  // setPwd: (pwd)=> set(()=>({pwd: pwd})),
-  setEmail: (em)=> set(()=>({email: em})),
-  setNickName: (name)=> set(()=>({nickName: name})),
-  setProfileImg: (img)=> set(()=>({profileImg: img})),
-  setProfileMsg: (msg)=> set(()=>({profileMsg: msg})),
+
+  userInfo: {},
+  setMemberLoginId: (id)=> set(()=>({memberLoginId: id})),
+  setMemberId: (sid)=> set(()=>({memberId: sid})),
+
+  // setPwd: (pwd:User['pwd'])=>void;
+  setMemberEmail: (email)=> set(()=>({memberEmail: email})),
+  setMemberNickName: (nn)=> set(()=>({memberNickName: nn})),
+  setMemberPath: (img)=> set(()=>({memberPath: img})),
+  setMemberProfile: (msg)=> set(()=>({memberProfile: msg})),
+  // userInfo: '',
+  // setId: (id)=> set(()=>({id: id})),
+  // setSequenceId: (sid)=> set(()=>({sequenceId: sid})),
+
+  // // setPwd: (pwd)=> set(()=>({pwd: pwd})),
+  // setEmail: (em)=> set(()=>({email: em})),
+  // setNickName: (name)=> set(()=>({nickName: name})),
+  // setProfileImg: (img)=> set(()=>({profileImg: img})),
+  // setProfileMsg: (msg)=> set(()=>({profileMsg: msg})),
+
+  setUserInfo: (obj)=> set(()=>({userInfo: obj})),
 }));

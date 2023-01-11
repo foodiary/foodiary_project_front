@@ -3,15 +3,13 @@
 // @import './myComments.module.scss';
 
 .mywriting{
-  @extend %page-base;
-  border: 1px solid black;
   position: relative;
+  height: 75vh;
+  margin-top: 135px;
   .tab{
-    margin-top: 67px;
-    margin-bottom: 85px;
     width: 65%;
+    margin: 100px 0 85px 20px;
     @include flexBox($jc:around);
-    border: 1px solid red;
 
     .active{
       // border: 1px solid red;
@@ -44,20 +42,20 @@
     display: grid;
     background-color: white;
     grid-template-columns: repeat(2, 1fr);
-    div{
+    .card{
       width: 160px;
       margin: auto;
     }
+    // .empty{
+    //   @include text-style(14px, $main, 400);
+    //   @include flexBox();
+    //   position: absolute;
+    //   // top: 50%; left: 50%;
+    //   // transform: translate(-50%, -50%);
+    //   width: 100%;
+    //   height: 100px;
+    //   background-color: white;
+    // }
   }
 
-}
-.empty{
-  @include text-style(14px, $main, 400);
-  @include flexBox();
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100px;
-  background-color: white;
 }

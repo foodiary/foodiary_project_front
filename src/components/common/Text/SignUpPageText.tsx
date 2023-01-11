@@ -20,7 +20,6 @@ export const Intro = ({intro1, span, intro2}:IntroType)=>{
   return(
     <div className={styles.intro}>
       <p>{intro1}</p> 
-      {/* <div className={styles.text_deco}></div> */}
       <p><span><div className={styles.text_deco}></div>{span}</span> {intro2}</p>
     </div>
   )
@@ -40,7 +39,8 @@ export const ValidationText = ({text, color}:ValidationType)=>{
       <div className={styles.validation_text}>
         {text? <BsFillCheckCircleFill className={color==="grey" ? styles.grey: 
           color==="red" ?styles.red: styles.green}/>: null}
-        <p className={color==="red" ? styles.red: ""}>{text}</p> 
+        <p className={color==="grey" ? styles.grey: 
+          color==="red" ?styles.red: styles.green}>{text}</p> 
       </div>
       )
 }

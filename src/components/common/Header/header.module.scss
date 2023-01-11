@@ -6,23 +6,28 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
 .header{
   position: relative;
   z-index: 100;
+  position: fixed;
+  top: 0;
+  width: 372px;
+  border-bottom: 2px solid $gray-100;
+  background-color: white;
 
-  .navbar{
-    position: fixed;
-    bottom: 0;
-    width: 372px;
-    background-color: white;
-    height: 100px;
-    @include flexBox($jc: around);
-    @include row-flexBox();  
-    @include text-style(30px, $main, 400); 
-    .no_active{
-      filter: $grey-color;
-    }
-  }
+  // .navbar{
+  //   position: fixed;
+  //   bottom: 0;
+  //   width: 372px;
+  //   background-color: white;
+  //   height: 100px;
+  //   @include flexBox($jc: around);
+  //   @include row-flexBox();  
+  //   @include text-style(30px, $main, 400); 
+  //   .no_active{
+  //     filter: $grey-color;
+  //   }
+  // }
  
   .profile{
-    @include flexBox($jc:end);
+    // @include flexBox();
     margin-right: 20px;
     position: relative;
     button{
@@ -34,7 +39,7 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
     
     .before_login{
       height: 62px;
-      @include flexBox();
+      @include flexBox($jc:end);
       .login_btn, .signup_btn{
         width: fit-content; 
         height: fit-content; 
@@ -46,11 +51,22 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
       }
     }
     .after_login{
-      @include flexBox();
+      @include flexBox($jc:between);
+      
+      .go_back_btn{
+        img{
+          width: 30px;
+          height: 30px;
+          margin-left: 5px;
+        }
+        
+      }
       .user{
         img{
           width: 50px;
           height: 50px;
+          border-radius: 50px;
+          margin-top: 5px;
         }
       }
     }

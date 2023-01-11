@@ -19,10 +19,10 @@ button{
   }
 }
 .mycomments{
-  @extend %page-base;
-  border: 1px solid black;
+  margin-top: 135px;
   .tab{
     margin-bottom: 85px;
+    margin-left: 20px;
     width: 65%;
     @include flexBox($jc:around);
     .active{

@@ -3,7 +3,6 @@ import {AiOutlineSetting} from 'react-icons/ai';
 import {BiChevronRight} from 'react-icons/bi';
 import styles from '@styles/mypage/myPageMain.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import Header from '@components/common/Header/Header';
 import basic_profile from '@img/basic_profile.svg';
 import myComments from '@img/myComments.png';
 import myGood from '@img/myGood.png';
@@ -11,18 +10,23 @@ import myWriting from '@img/myWriting.png';
 import myScrap from '@img/myScrap.png';
 import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
 import { btnStateStore } from '@store/btnStateStore';
+import { useLoginUserStore } from '@store/loginUserStore';
+import axiosConfig from '../../core/apis/utils/axiosConfig';
 
 const MyPageMain = () => {
   const navigate = useNavigate();
+  const {memberId, memberEmail, memberPath, memberProfile, memberNickName} = useLoginUserStore();
 
-  const logout = btnStateStore(state=>state.logout);
-  const setLogout = btnStateStore(state=>state.setLogout);
-  // const cancel = btnStateStore(state=>state.cancel);
-  // const setCancel = btnStateStore(state=>state.setCancel);
-  const withdraw = btnStateStore(state=>state.withdraw);
-  const setWithdraw = btnStateStore(state=>state.setWithdraw);
+  const [logout, setLogout] = useState(false);
+  const [withdraw, setWithdraw] = useState(false);
+  // const logout = btnStateStore(state=>state.logout);
+  // const setLogout = btnStateStore(state=>state.setLogout);
+  const cancel = btnStateStore(state=>state.cancel);
+  const setCancel = btnStateStore(state=>state.setCancel);
+  // const withdraw = btnStateStore(state=>state.withdraw);
+  // const setWithdraw = btnStateStore(state=>state.setWithdraw);
   const [alert, setAlert] = useState(false);
-  const [cancel, setCancel] = useState(false);
+  // const [cancel, setCancel] = useState(false);
 
   useEffect(()=>{
     setLogout(false);
@@ -50,22 +54,39 @@ const MyPageMain = () => {
   //     setWithdraw(false);
   //   }
   // }
-  const onSubmit = (e:FormEvent)=>{
-    e.preventDefault();
-      //api 응답 후
-      setAlert(true);
-      
-      // navigate("/");
+  const afterRes = ()=>{
+    setAlert(true);
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("refresh_expired");
+    setTimeout(()=>navigate("/"),2000);
   }
-  console.log(logout);
+  const onSubmit = (e:FormEvent)=>{
+    let url="";
+    if(logout){
+      url = '/auth/logout'
+    }
+    else if(withdraw){
+      url= `/member/${memberId}`
+    }
+    setAlert(true);
+    setTimeout(()=>navigate("/"),2000);
+    e.preventDefault();
+    // axiosConfig.get(url).then(res=>{
+    //   console.log(res);
+      // afterRes();
+    // }).catch(err=>{
+    //   console.log(err);
+    // })
+  }
+  // console.log(logout);
   return (
     <div className={styles.mypage}>
-      <Header/>
       <div className={styles.profile_container}>
-        <img src={basic_profile} alt="기본이미지" className={styles.profile_image}/>
+      <img src={memberPath? memberPath: basic_profile} alt="기본이미지" className={styles.profile_image}/>
         <div className={styles.user_info}>
-          <p>ffoodyy</p>
-          <p>이메일</p>
+          <p>{memberNickName}</p>
+          <p>{memberEmail}</p>
         </div>
 
           <Link to="/mypage/setting">
@@ -75,7 +96,7 @@ const MyPageMain = () => {
           </Link>
       </div>
       <p className={styles.profile_msg}>
-        맛집투어만큼 만들기를 좋아하는 ffoodyyyyy
+        {memberProfile}
       </p>
       <div className={styles.myWriting_btns}>
         <div className={styles.link}>
@@ -85,7 +106,7 @@ const MyPageMain = () => {
           <p>내가 쓴 글</p>
         </div>
         <div className={styles.link}>
-          <Link to="/mypage/mycomment">
+          <Link to="/mypage/mycomments">
             <img src={myComments} alt="이미지"/>
           </Link>
           <p>내가 쓴 댓글</p>

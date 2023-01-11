@@ -1,9 +1,16 @@
 @import '../main.module.scss';
+@import '../globals.css';
+
+.notice{
+  margin-top: 100px;
+}
+.board{
+  margin-top: 60px;
+  background-color: white;
+}
 
 .notice_detail{
-  @extend %page-base;
-  border: 1px solid black;
-  // margin-top: 62px;
+  margin-top: 140px;
   .title{
     // border: 1px solid red;
     width: 245px;
@@ -15,10 +22,11 @@
   .date{
     @include text-style(12px, #666666, 400, start);
     margin-left: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
   }
   .content{
     @include text-style(14px, $main, 400, start);
-    margin-top: 35px;
+    width: 90%;
+    margin: 35px auto 0 auto;
   }
 }

@@ -1,26 +1,107 @@
-import Card from '@components/common/Card';
-import React, { useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import styles from '@styles/mypage/contact.module.scss';
-import Header from '@components/common/Header/Header';
 import clip_icon from '@img/clip_icon.svg';
-import { Link } from 'react-router-dom';
-import {BiChevronRight} from 'react-icons/bi';
+import axiosConfig from '../../../core/apis/utils/axiosConfig';
+import { useLoginUserStore } from '@store/loginUserStore';
+import { HalfButton } from '@components/common/LoginButton/Button';
+import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
+import MyContact from './MyContact';
+import { btnStateStore } from '@store/btnStateStore';
+import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
-  const [write, setWrite] = useState(true);
-  const [length, setLength] = useState(0);
-  const [img, setImg] = useState<File>();
+  const memberId = useLoginUserStore(state=>state.memberId); //멤버시퀀스
+  const navigate = useNavigate();
 
-  const onChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
+  const [write, setWrite] = useState(true); //탭 모드
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [length, setLength] = useState(0); //내용 길이
+
+  const FILE_SIZE_MAX_LIMIT = 3 * 1024 * 1024;  //3MB
+  const [img, setImg] = useState<File|string>(); //첨부파일
+  const [fileURL, setFileURL] = useState(""); //파일 미리보기
+
+  const cancel = btnStateStore(state=>state.cancel); //작성취소의 취소
+  const setCancel = btnStateStore(state=>state.setCancel); //작성취소의 취소
+
+  const questionInfo = {
+    memberId: memberId,
+    questionContent: content,
+    questionTitle: title,
+  }
+  let formData = new FormData();
+  formData.append('memberImage', img!);
+  formData.append('memberQuestionWriteResponseDto', new Blob([JSON.stringify(questionInfo)], {
+    type: "application/json"
+  }));
+  
+  const [alert, setAlert] = useState(false); //작성취소 알럿창
+  const [forbidden, setForbidden] = useState(false); //내용이 비었을때 경고창
+
+  useEffect(()=>{
+    let id:ReturnType<typeof setTimeout>;
+    if(forbidden){
+      id = setTimeout(()=>setForbidden(false),2000);
+      // return clearTimeout(id);
+    }
+    
+  },[forbidden]);
+
+  const onTitleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+    const {value} = e.target;
+    setTitle(value);
+  }
+  const onContentChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     const {value} = e.target;
     setLength(value.length);
+    setContent(value);
   }
   const onFileChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-    setImg(e.currentTarget.files![0]);
+    const file = e.currentTarget.files![0];
+    if(file.size > FILE_SIZE_MAX_LIMIT){
+      setImg(undefined);
+      // setErr(true);
+      // alert("파일용량제한"); //경고문구로 변경하기
+    }  
+    else{
+      // setErr(false);
+      setFileURL(URL.createObjectURL(file));
+      setImg(e.currentTarget.files![0]); 
+    }
+    e.target.value = "";
+  }
+
+  const onCancel = ()=>{
+    setCancel(false);
+    setAlert(true);
+  }
+
+  const onSubmit = (e:FormEvent)=>{
+    e.preventDefault();
+    if(!title || !content){
+      setForbidden(true);
+      console.log("제출");
+    }
+    else{
+      const headers = {"Content-Type": "multipart/form-data"};
+      axiosConfig.post("/question", formData ,{headers})
+        .then(res=>{
+          console.log(res);
+          if(res){
+            window.alert("완료되었습니다");
+          }
+        }).catch(err=>{
+          console.log(err);
+      })
+    }
+  }
+  const onWriteCancel = (e:FormEvent)=>{
+    e.preventDefault();
+    navigate("/mypage");
   }
   return (
     <div className={styles.mywriting}>
-      <Header/>
       <div className={styles.tab}>
         <button 
           className={write? styles.active: styles.non_active}
@@ -39,55 +120,50 @@ const Contact = () => {
       </div>
 
       {write? 
-      <div className={styles.contact_container}>
-        <div className={styles.title}>
-          <p>제목</p>
-          <input type="text" maxLength={50}
-            placeholder="제목을 입력해주세요."/>
-        </div>
-        <div className={styles.content}>
-          <p>문의 내용</p>
-          <textarea maxLength={1000} onChange={onChange}
-            placeholder="오류화면 캡쳐, PC 정보 제공과 함께 오류 현상을 자세히 기재해 주세요."/>
-          <p className={styles.maxlength}>{length}/1000</p>
+        <div className={styles.contact_container}>
+          <div className={styles.title}>
+            <p>제목</p>
+            <input type="text" maxLength={50} onChange={onTitleChange}
+              placeholder="제목을 입력해주세요."/>
+          </div>
+          <div className={styles.content}>
+            <p>문의 내용</p>
+            <textarea maxLength={1000} onChange={onContentChange}
+              placeholder="오류화면 캡쳐, PC 정보 제공과 함께 오류 현상을 자세히 기재해 주세요."/>
+            <p className={styles.maxlength}>{length}/1000</p>
 
-        </div>
-        <div className={styles.file}>
-          <p>파일 첨부</p>
-          <label htmlFor='file'>
-            <p className={styles.add_img}>+ 파일 첨부</p>
-          </label>
-          <input type="file" id='file'
-            accept='.jpg, .jpeg, .png'
-            onChange={onFileChange}
-          />
-          <img src={clip_icon} alt="첨부파일"/>
-        </div>
-      </div>:
-        <div className={styles.board}>
-        <Link to="/mypage/contact/detail" className={styles.comment_container}>
-          <div className={styles.comment}> {/*넘길때 ??? */}
-            <p>문의 제목이 들어가는 공간입니다.</p>
-            <div className={styles.status}>
-              <p className={styles.state}>답변대기</p>
-              <p>2022.12.30</p>
+          </div>
+          <div className={styles.file}>
+            <p>파일 첨부</p>
+            <label htmlFor='file'>
+              <p className={styles.add_img}>+ 파일 첨부</p>
+            </label>
+            <input type="file" id='file'
+              accept='.jpg, .jpeg, .png'
+              onChange={onFileChange}
+            />
+            <img src={clip_icon} alt="첨부파일"/>
+            {fileURL && 
+              <img alt='첨부사진' src={fileURL} className={styles.preview}/>
+            }
+          </div>
+          <div className={styles.btn_container}>
+            <form onClick={onSubmit} className={styles.red}>
+              <HalfButton text='작성완료' type='submit'/>
+            </form>
+            <div onClick={onCancel} className={styles.black}>
+              <HalfButton text='취소' type='button'/>
             </div>
           </div>
-          <BiChevronRight/>
-        </Link>
-
-        <Link to="/mypage/contact/detail" className={styles.comment_container}>
-        <div className={styles.comment}> {/*넘길때 ??? */}
-            <p>문의 제목이 들어가는 공간입니다.</p>
-            <div className={styles.status}>
-              <p className={styles.state}>답변완료</p>
-              <p>2022.12.30</p>
-            </div>
-          </div>
-          <BiChevronRight/>
-        </Link>
-      </div>
+        </div>:
+        <MyContact/>
       }
+      {alert && !cancel &&
+        <form onSubmit={onWriteCancel}>
+          <WarnBox text='작성을 취소하시겠습니까?' btn_txt='예'/>
+        </form>
+      }
+      {forbidden && <AlertBox text='내용을 작성해주세요' type={false}/>}
     </div>
   );
 };

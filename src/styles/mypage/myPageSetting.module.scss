@@ -1,17 +1,15 @@
 @import './myPageMain.module.scss';
 
 .profile{
-  @extend %page-base;
-  border: 1px solid black;
   position: relative;
-  .btn{
-    position: absolute;
+  .btn, .btn_container{
+    position: fixed;
     bottom: 100px;
   }
   .btn_container{
     @include flexBox();
-    position: absolute;
-    bottom: 100px;
+    // position: absolute;
+    // bottom: 100px;
     // left: 90px; //90
   }
 }
@@ -41,6 +39,7 @@
   }
   .profile_msg{
     width: 70%;
+    @include flexBox();
   }
   
 }
@@ -50,15 +49,15 @@
     cursor: pointer;
   }
   button:first-child{
-    top: 205px;
+    top: 64px;
     left: 203px;
   }
   a:nth-child(2){
-    top: 295px;
+    top: 155px;
     right: 15px;
   }
   a:nth-child(3){
-    top: 455px;
+    top: 315px;
     right: 15px;
   }
 }

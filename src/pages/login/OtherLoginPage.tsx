@@ -13,6 +13,8 @@ const OtherLoginPage = () => {
   const navigate = useNavigate();
   const id = useUserStore((state)=>state.id);
   const pwd = useUserStore((state)=>state.pwd);
+  // const {setId, setSequenceId, setEmail, setNickName, setProfileImg, setProfileMsg} = useLoginUserStore();
+  const setUserInfo = useLoginUserStore((state)=>state.setUserInfo);
 
   const [login, setLogin] = useState(false);
   const [err, setErr] = useState(false);
@@ -29,13 +31,18 @@ const OtherLoginPage = () => {
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     console.log(id, pwd);
-    axiosConfig.post("/login", {
+    axiosConfig.post("/auth/login", {
       loginId: id,
       password: pwd,
     }).then(res=>{
       console.log(res);
       console.log("로그인 완료");
-      navigate("/") ;
+      axiosConfig.get(`/member/85`).then(res=>{
+        setUserInfo(res.data);
+        navigate("/") ;
+      }).catch(err=>{
+        console.log(err);
+      })
     }).catch(err=>{
       console.log(err);
       setErr(true);

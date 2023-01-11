@@ -17,6 +17,7 @@ instance.interceptors.request.use(
     if (accessToken) {
       config.headers = {
         Authorization: `Bearer ${accessToken}`,
+        // Authorization: accessToken,
       };
     }
 
@@ -27,13 +28,14 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    console.log(`인터셉트 응답: ${response}`);
+    // console.log(response);
+    console.log('인터셉트 응답:' + response.data);
     const accessToken = response.data.accessToken;
     const refreshToken = response.data.refreshToken;
     const refreshExpired = response.data.refreshTokenExpirationMinutes;
 
     if(accessToken && refreshToken){
-      console.log(response.data.accessToken.slice(7));
+      // console.log(response.data.accessToken.slice(7));
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
       localStorage.setItem("refresh_expired", refreshExpired);
@@ -53,11 +55,10 @@ instance.interceptors.response.use(
         // return;
       }
       try{
-        const {data} = await axios.post('/member/reissue', {
-          accessToken, refreshToken
-        });
+        const headers = {Refresh: `${refreshToken}`};
+        const {data} = await axios.get('/auth/reissue', {headers}); //refresh로 access 토큰 재발급
         const newAccessToken = data.data.accessToken;
-        const newRefreshToken = data.data.refreshToken;
+        const newRefreshToken = data.data.refreshToken; //??
 
         config.headers = {
           Authorization: `Bearer ${accessToken}`,

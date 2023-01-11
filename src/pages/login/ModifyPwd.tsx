@@ -1,5 +1,6 @@
 import { Intro } from '@components/common/Text/SignUpPageText';
-import Input from '@components/common/Input/Input';import React, { FormEvent, useState } from 'react';
+import Input from '@components/common/Input/Input';
+import React, { FormEvent, useState } from 'react';
 import styles from '@styles/loginpage/signUp.module.scss';
 import { useUserStore } from '@store/userStore';
 import { LoginButton } from '@components/common/LoginButton/Button';
@@ -53,7 +54,7 @@ const ModifyPwd = () => {
   return (
     <div className={styles.login_container}>
       <Intro intro1={""} span={"비밀번호변경"} intro2={""}/>
-      <form onSubmit={onSubmit} className={styles.pwd_container}>
+      <form onSubmit={onSubmit} className={styles.new_pwd_container}>
         <Input
           id={"pwd"} 
           type={"password"} 
@@ -67,7 +68,9 @@ const ModifyPwd = () => {
           placeholder={"비밀번호를 입력해주세요"}
           validate="no"
         />
-        <LoginButton type="submit" text='확인' active={(pwd===more_pwd) ? true:false}/>
+        <div className={styles.confirm}>
+          <LoginButton type="submit" text='확인' active={(pwd===more_pwd) ? true:false}/>
+        </div>
       </form>
         {alert && 
           <AlertBox type={true} text="비밀번호가 변경되었습니다. 다시 로그인해주세요."/>

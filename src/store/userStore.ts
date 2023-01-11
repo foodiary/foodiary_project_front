@@ -20,6 +20,9 @@ interface User{
   duplicationErr: boolean;
   oauthLogin: boolean;
 
+  newProfileMsg: string;
+  newNickName: string;
+  newProfileImg: File | string;
 }
 interface SetUser{
   setId: (id:User['id'])=>void;
@@ -41,6 +44,9 @@ interface SetUser{
   setDuplicationErr: (duplicationErr:User['duplicationErr'])=>void;
   setOAuthLogin: (oauthLogin:User['oauthLogin'])=>void;
 
+  setNewProfileMsg: (newmsg:User['newProfileMsg'])=>void;
+  setNewNickName: (newnn:User['newNickName'])=>void;
+  setNewProfileImg: (newimg:User['newProfileImg'])=>void;
 }
 export const useUserStore = create<User&SetUser>(set => ({
   id: "",
@@ -61,6 +67,10 @@ export const useUserStore = create<User&SetUser>(set => ({
   duplicationErr: false,
   oauthLogin: false,
 
+  newProfileMsg: "",
+  newNickName: "",
+  newProfileImg: "",
+
   setId: (id)=> set(()=>({id: id})),
   setPwd: (pwd)=> set(()=>({pwd: pwd})),
   setMorePwd: (more_pwd)=> set(()=>({more_pwd: more_pwd})),
@@ -78,4 +88,7 @@ export const useUserStore = create<User&SetUser>(set => ({
   setDuplicationErr: (bool)=>set(()=>({duplicationErr:bool})),
   setOAuthLogin: (bool)=>set(()=>({oauthLogin:bool})),
 
+  setNewProfileMsg: (msg)=>set(()=>({newProfileMsg:msg})),
+  setNewNickName: (name)=>set(()=>({newNickName: name})),
+  setNewProfileImg: (img)=>set(()=>({newProfileImg:img})),
 }));

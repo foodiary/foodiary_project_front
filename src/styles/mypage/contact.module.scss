@@ -3,8 +3,10 @@
 
 .contact_container{
   @include column-flexBox();
+  position: relative;
   gap: 25px;
   width: 90%;
+  height: 90vh;
   margin: auto;
   p{
     @include text-style(12px, #333333, 700, start);
@@ -41,6 +43,7 @@
       top: 90%;
       left: 82%;
     }
+    
   }
   .file{
     position: relative;
@@ -61,15 +64,29 @@
       top: 45%;
     }
   }
+  .btn_container{
+    @include flexBox();
+    // position: absolute;
+    // bottom: 100px;
+    // left: 0;
+    margin: 50px 0 0 0;
+    .red{
+      background-color: $point;
+      border-radius: 16px 0 0 0;
+    }
+    .black{
+      background-color: $main;
+      border-radius: 0 16px 0 0;
+    }
+  }
 }
 .board{
-  border: 1px solid red;
   width: 90%;
   margin: auto;
 }
 .comment_container{
   @include flexBox($jc: between);
-  background-color: white;
+  // background-color: white;
   height: 80px;
   border-bottom: 2px solid $gray-100;
   .comment{
@@ -113,3 +130,14 @@
     margin-bottom: 20px;
   }
 }
+// .btn_container{
+//   @include flexBox();
+//   position: fixed;
+//   bottom: 100px;
+//   .red{
+//     background-color: $point;
+//   }
+//   .black{
+//     background-color: $main;
+//   }
+// }

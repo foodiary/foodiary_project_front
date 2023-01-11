@@ -31,6 +31,7 @@ const SignUpProfileImage = () => {
       setFileURL(URL.createObjectURL(file));
       setImg(e.currentTarget.files![0]); //-> formData에 바로 올리면 됨
     }
+    e.target.value = "";
     // console.log(e.currentTarget.files![0].size);
   }
   const handleFile = (e:FormEvent)=>{
@@ -43,6 +44,8 @@ const SignUpProfileImage = () => {
     setFileURL('');
     setImg(undefined);
   }
+  console.log(img);
+  console.log(fileURL);
   return (
       <div>
         <div className={styles.profile_container}>

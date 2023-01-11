@@ -5,12 +5,12 @@ import SignUpAgree from '@pages/signup/SignUpAgree';
 import SignUpEmail from '@pages/signup/SignUpEmail';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import SignUpId from '@pages/signup/SignUpId';
-// import SignUpPwd from '@pages/signup/SignUpPwd';
-// import SignUpProfileImage from '@pages/signup/SignUpProfileImage';
-// import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
-// import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
-// import SignUpNickName from '@pages/signup/SignUpNickName';
+import SignUpId from '@pages/signup/SignUpId';
+import SignUpPwd from '@pages/signup/SignUpPwd';
+import SignUpProfileImage from '@pages/signup/SignUpProfileImage';
+import SignUpProfileMsg from '@pages/signup/SignUpProfileMsg';
+import SignUpAuthMail from '@pages/signup/SignUpAuthMail';
+import SignUpNickName from '@pages/signup/SignUpNickName';
 import MyPageMain from '@pages/mypage/MyPageMain';
 import MyPageSetting from '@pages/mypage/setting/MyPageSetting';
 import MyWriting from '@pages/mypage/MyWriting';
@@ -36,6 +36,7 @@ import SignUpWelcom from '@pages/signup/SignUpWelcom';
 import OAuthRedirect from '@pages/OAuthRedirect';
 import { useUserStore } from '@store/userStore';
 import SignUpPwdConfirm from '@pages/signup/SignUpPwdConfirm';
+import ModifyProfileImg from '@pages/mypage/setting/ModifyProfileImg';
 
 const AppRouter = () => {
   const [loginUser, setLoginUser] = useState(false);
@@ -56,12 +57,35 @@ const AppRouter = () => {
       <BrowserRouter>
         <Routes>
           <Route element={<MainLayOut/>}>
-            {/* {loginUser && <Route path='/' element={<MainPage/>}/>} */}
-            {/* <Route path='/' element={<MainPage/>}/>
+            <Route path='/' element={<MainPage/>}/>
 
           {/* </Route> */}
-            {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
-            {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
+          {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
+          {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
+          
+          <Route path='/mypage' element={<MyPageMain/>}/>
+          <Route path='/mypage/setting' element={<MyPageSetting/>}/>
+          <Route path='/mypage/mywriting' element={<MyWriting/>}/>
+          <Route path='/mypage/mygood' element={<MyGood/>}/>
+          <Route path='/mypage/myscrap' element={<MyScrap/>}/>
+
+          <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
+          <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
+          <Route path='/member/img/change' element={<ModifyProfileImg/>}/>
+
+          <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
+
+          <Route path='/mypage/mycomments' element={<MyComments/>}/>
+          <Route path='/mypage/mycomments/detail/:id' element={<MyCommentsDetail/>}/>
+          <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
+
+          <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
+
+          <Route path='/mypage/notice' element={<Notice/>}/>
+          <Route path='/mypage/notice/detail/:id' element={<NoticeDetail/>}/>
+          <Route path='/mypage/faq' element={<FAQ/>}/>
+          <Route path='/mypage/contact' element={<Contact/>}/>
+          <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
           </Route>
 
           <Route element={<LoginLayout/>}>
@@ -81,9 +105,9 @@ const AppRouter = () => {
 
           {/* <Route> */}
             <Route path='/login' element={<LoginMainPage/>}/>
-            <Route path='/login/other' element={<OtherLoginPage/>}/> */}
+            <Route path='/login/other' element={<OtherLoginPage/>}/> 
 
-          <Route path='/mypage' element={<MyPageMain/>}/>
+          {/* <Route path='/mypage' element={<MyPageMain/>}/>
           <Route path='/mypage/setting' element={<MyPageSetting/>}/>
           <Route path='/mypage/mywriting' element={<MyWriting/>}/>
           <Route path='/mypage/mygood' element={<MyGood/>}/>
@@ -102,7 +126,7 @@ const AppRouter = () => {
           <Route path='/mypage/notice/detail' element={<NoticeDetail/>}/>
           <Route path='/mypage/faq' element={<FAQ/>}/>
           <Route path='/mypage/contact' element={<Contact/>}/>
-          <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
+          <Route path='/mypage/contact/detail' element={<ContactDetail/>}/> */}
           
 
 

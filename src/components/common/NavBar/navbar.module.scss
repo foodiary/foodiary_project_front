@@ -1,0 +1,17 @@
+@import "../../../styles/main.module.scss";
+@import "../../../styles/globals.css";
+$grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(91%) contrast(87%);
+
+.navbar{
+  position: fixed;
+  bottom: 0;
+  width: 372px;
+  background-color: white;
+  height: 100px;
+  @include flexBox($jc: around);
+  @include row-flexBox();  
+  @include text-style(30px, $main, 400); 
+  .no_active{
+    filter: $grey-color;
+  }
+}

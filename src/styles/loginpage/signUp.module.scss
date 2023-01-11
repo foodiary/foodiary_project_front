@@ -8,7 +8,7 @@
   margin: 148px 0 200px 10px;
 }
 
-.pwd_container{
+.pwd_container, .new_pwd_container{
   margin-top: 150px;
   margin-bottom: 235px;
   position: relative;
@@ -19,6 +19,14 @@
   }
 }
 
+.new_pwd_container{
+  @include column-flexBox();
+  gap: 50px;
+  .confirm{
+    margin-top: 50px;
+    margin-bottom: 0;
+  }
+}
 
 .omit_p{
   position: relative;

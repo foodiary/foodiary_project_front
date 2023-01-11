@@ -1,10 +1,10 @@
 @import '../main.module.scss';
 
 .faq_container{
-  @extend %page-base;
-  border: 1px solid black;
+  margin-top: 100px;
   .board{
     background-color: white;
+    margin-top: 60px;
   }
   .q_container{
     width: 90%;
@@ -15,8 +15,15 @@
     .num{
       @include text-style(12px, $point, 700);
     }
-    .question{
+    .title{
       @include text-style(16px, $main, 500);
     }
   }
+}
+.content{
+  @include column-flexBox();
+  width: 90%;
+  margin: 10px auto ;
+  border: 1px solid red;
+  
 }

@@ -1,16 +1,13 @@
 @import '../main.module.scss';
 @import '../globals.css';
 
-.mypage{
-  @extend %page-base;
-  border: 1px solid $main;
-}
 .profile_container{
   @include flexBox();
-  margin-top: 80px;
+  margin-top: 135px;
   .profile_image{
     width: 96px;
     height: 96px;
+    border-radius: 10px;
   }
   .user_info{
     @include column-flexBox();

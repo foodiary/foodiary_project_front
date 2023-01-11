@@ -6,10 +6,10 @@ import {AiOutlineHeart} from 'react-icons/ai';
 import {FaRegBookmark} from 'react-icons/fa';
 import { HalfAlertButton, HalfButton, LoginButton } from '@components/common/LoginButton/Button';
 import {AlertBox, WarnBox} from '@components/common/AlertBox/AlertBox';
-import { Input } from '@pages/Form';
 import basic_profile from '@img/basic_profile.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { btnStateStore } from '@store/btnStateStore';
+import Input from '@components/common/Input/Input';
 
 const MyCommentsDetail = () => {
   const [viewBtn, setViewBtn] = useState(false);
@@ -44,7 +44,8 @@ const MyCommentsDetail = () => {
           <button><FaRegBookmark/></button>
           <p>10</p>
         </div>
-        <Input id='comment' type='text' placeholder='댓글을 남겨보세요.'/> 
+        <input type="text" id='comment' placeholder='댓글을 남겨보세요.'/>
+        {/* <Input id='comment' type='text' placeholder='댓글을 남겨보세요.'/>  */}
       </div>
 
       <div className={styles.comment_container}>
