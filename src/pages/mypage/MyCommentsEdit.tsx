@@ -2,14 +2,21 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import styles from '@styles/mypage/myCommentsEdit.module.scss';
 import Header from '@components/common/Header/Header';
 import { LoginButton } from '@components/common/LoginButton/Button';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axiosConfig from '@utils/axiosConfig';
+import { AlertBox } from '@components/common/AlertBox/AlertBox';
 
 const MyCommentsEdit = () => {
+  const {state} = useLocation();
+  const navigate = useNavigate();
   const [value, setValue] = useState("");
-  // const value = "기존에 있던 댓글 내용~~"
+  const [alert, setAlert] = useState(false);
+  const memberId = 76;
 
   useEffect(()=>{
-    setValue("기존내용아아");
+    setValue(state.content);
   },[]);
+
   const [msgLength, setMsgLength] = useState(0);
   const onChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     const {value} = e.target;
@@ -19,10 +26,17 @@ const MyCommentsEdit = () => {
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     console.log("등록"); //응답 후 이전페이지이동
+    axiosConfig.patch(`/daily/comment/${state.dailyId}/${memberId}/${state.commentId}`)
+    .then(res=>{
+      console.log(res);
+      setAlert(true);
+      setTimeout(()=>navigate(-1),2000);
+    }).catch(err=>{
+      console.log(err);
+    })
   }
   return (
     <div className={styles.edit}>
-      <Header/>
       <div className={styles.rewrite}>
         <textarea
           value={value}
@@ -37,6 +51,7 @@ const MyCommentsEdit = () => {
       <form className={styles.btn} onSubmit={onSubmit}>
         <LoginButton text='등록' type='submit' active={true}/>
       </form>
+      {alert&&<AlertBox text='댓글이 수정되었습니다.' type={true}/>}
     </div>
   );
 };

@@ -1,33 +1,180 @@
 import styled from "./card.module.scss";
+import sample_img from '@img/sample.png';
 
-const Card = () => {
+type cardStyleProps = {
+  img?: string; //수정예정
+  tag?: string;
+  info?: boolean;
+  title?: string;
+  userId?: string;
+  scrap?: string;
+  like?: string | number;
+  comment?: string | number | undefined;
+  none?: boolean;
+};
+
+export const SmallCard = ({
+  img,
+  tag,
+  info,
+  userId,
+  title,
+  scrap,
+  like,
+  comment,
+  none,
+}: cardStyleProps) => {
   return (
-    <div className={styled.cardWrapper}>
-      <div className={styled.img} />
-      <div className={styled.tagContainer}>
-        <p className={styled.tag}>TOP 100</p>
+    <div className={styled.cardWrapper} style={{ padding: "8px" }}>
+      <div className={styled.img}>
+        <img src={img} alt="img" className={styled.smallSize} />
       </div>
-      <p className={styled.title}>
-        백종원 만능소스장으로 실패없는 꼬막비빔밥 ㅁㅁㅁ
-      </p>
+      {tag && (
+        <div className={styled.tagContainer}>
+          <p className={styled.tag}>{tag}</p>
+        </div>
+      )}
+      {none && <div className={styled.margin} />}
+      <p className={styled.title}>{title}</p>
 
-      <div className={styled.userInfoContainer}>
-        <div className={styled.user}>
-          <p>배고픈밥풀</p>
-        </div>
-        <div className={styled.info}>
-          <div className={styled.infoContents}>
-            <div className={styled.infoDeco} />
-            <p>48</p>
+      {info && (
+        <div className={styled.userInfoContainer}>
+          <div className={styled.user}>
+            <p>{userId}</p>
           </div>
-          <div className={styled.infoContents}>
-            <div className={styled.infoDeco} />
-            <p>24</p>
+          <div className={styled.info}>
+            {scrap && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{scrap}</p>
+              </div>
+            )}
+
+            {like && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{like}</p>
+              </div>
+            )}
+            {comment && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{comment}</p>
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
 
-export default Card;
+export const MediumCard = ({
+  tag,
+  info,
+  userId,
+  title,
+  scrap,
+  like,
+  comment,
+  none,
+}: cardStyleProps) => {
+  return (
+    <div className={styled.cardWrapper} style={{ padding: "20px" }}>
+      <div className={styled.img}>
+        <img src={sample_img} alt="img" className={styled.mediumSize} />
+      </div>
+      {tag && (
+        <div className={styled.tagContainer}>
+          <p className={styled.tag}>{tag}</p>
+        </div>
+      )}
+      {none && <div className={styled.margin} />}
+      <p className={styled.title}>{title}</p>
+
+      {info && (
+        <div className={styled.userInfoContainer}>
+          <div className={styled.user}>
+            <p>{userId}</p>
+          </div>
+          <div className={styled.info}>
+            {scrap && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{scrap}</p>
+              </div>
+            )}
+
+            {like && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{like}</p>
+              </div>
+            )}
+            {comment && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{comment}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const LargeCard = ({
+  tag,
+  info,
+  userId,
+  title,
+  scrap,
+  like,
+  comment,
+  none,
+}: cardStyleProps) => {
+  return (
+    <div className={styled.cardWrapper} style={{ padding: "8px" }}>
+      <div className={styled.img}>
+        <img src={sample_img} alt="img" className={styled.largeSize} />
+      </div>
+      {tag && (
+        <div className={styled.tagContainer}>
+          <p className={styled.tag}>{tag}</p>
+        </div>
+      )}
+      {none && <div className={styled.margin} />}
+      <p className={styled.title}>{title}</p>
+
+      {info && (
+        <div className={styled.userInfoContainer}>
+          <div className={styled.user}>
+            <p>{userId}</p>
+          </div>
+          <div className={styled.info}>
+            {scrap && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{scrap}</p>
+              </div>
+            )}
+
+            {like && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{like}</p>
+              </div>
+            )}
+            {comment && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{comment}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

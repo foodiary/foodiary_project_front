@@ -69,7 +69,7 @@ instance.interceptors.response.use(
         return await axios(config);
 
       } catch(err){
-        return err;
+        return Promise.reject(err);
       }
     }
     return Promise.reject(err);

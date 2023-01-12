@@ -8,6 +8,7 @@ import { useUserStore } from '@store/userStore';
 import { useLoginUserStore } from '@store/loginUserStore';
 import { AlertBox } from '@components/common/AlertBox/AlertBox';
 import axios from 'axios';
+import Loading from '@pages/Loading';
 
 const OtherLoginPage = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const OtherLoginPage = () => {
   const pwd = useUserStore((state)=>state.pwd);
   // const {setId, setSequenceId, setEmail, setNickName, setProfileImg, setProfileMsg} = useLoginUserStore();
   const setUserInfo = useLoginUserStore((state)=>state.setUserInfo);
-
+  const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState(false);
   const [err, setErr] = useState(false);
 
@@ -31,18 +32,21 @@ const OtherLoginPage = () => {
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     console.log(id, pwd);
+    setLoading(true);
     axiosConfig.post("/auth/login", {
       loginId: id,
       password: pwd,
     }).then(res=>{
       console.log(res);
       console.log("로그인 완료");
-      axiosConfig.get(`/member/85`).then(res=>{
-        setUserInfo(res.data);
-        navigate("/") ;
-      }).catch(err=>{
-        console.log(err);
-      })
+      setLoading(false);
+      // navigate("/");
+      // axiosConfig.get(`/member/76`).then(res=>{
+      //   // setUserInfo(res.data);
+      //   navigate("/") ;
+      // }).catch(err=>{
+      //   console.log(err);
+      // })
     }).catch(err=>{
       console.log(err);
       setErr(true);
@@ -89,6 +93,8 @@ const OtherLoginPage = () => {
         {err && 
           <AlertBox type={false} text="아이디 또는 비밀번호를 다시 확인해주세요."/>
         }
+        {loading && <Loading/>}
+
       </div>
   );
 };

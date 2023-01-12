@@ -1,10 +1,16 @@
-import Card from '@components/common/Card';
+import { SmallCard } from '@components/common/Card';
 import React, { useEffect, useState } from 'react';
 import styles from '@styles/mypage/myGood.module.scss';
 import Header from '@components/common/Header/Header';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import EmptyText from '@components/common/Text/EmptyText';
+import { Link } from 'react-router-dom';
+
+interface ResType{
+    dailyId: 0;
+    dailyPath: string;
+}
 
 const MyGood = () => {
   const memberId = useLoginUserStore(state=>state.memberId);
@@ -12,7 +18,7 @@ const MyGood = () => {
   const page = 1;
 
   useEffect(()=>{
-    axiosConfig.get(`/member/like/${memberId}`,{
+    axiosConfig.get(`/member/like/daily/${memberId}`,{
       params: {page: page}
     }).then(res=>{
       console.log(res);
@@ -29,9 +35,11 @@ const MyGood = () => {
       </p>
 
       <div className={styles.card_container}>
-        {likeList.length > 0 ? likeList.map(item=>{
+        {likeList.length > 0 ? likeList.map((item:ResType)=>{
           return(
-            <div className={styles.card}><Card/></div>
+            <Link to="/daily/detail" className={styles.card}>
+              <SmallCard img={item.dailyPath}/>
+            </Link>
           )
         }):
             <EmptyText text='내가 좋아요한 글이 없습니다.'/>

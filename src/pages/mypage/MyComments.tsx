@@ -10,6 +10,10 @@ interface ResType{
   dailyCommentId: 0;
   dailyId: 0;
   dailyTitle: string;
+  recipeCommentBody: string;
+  recipeCommentId: 0;
+  recipeId: 0;
+  recipeTitle: string;
 }
 const Notice = () => {
   const [day, setDay] = useState(true);
@@ -56,20 +60,21 @@ const Notice = () => {
       <div className={styles.board}>
         {commentList.length > 0 ? 
           commentList.map((item:ResType)=>{
+            let url = "";
+            if(day){
+              url = `/mypage/mycomments/detail/${item.dailyId}/${item.dailyCommentId}`;
+            }else{
+              url= `/mypage/mycomments/detail/${item.recipeCommentId}`
+            }
             return(
               <WritingLink 
-                url={`/mypage/mycomments/detail/${item.dailyCommentId}`} 
+                url={url} 
                 text1={item.dailyCommentBody} 
                 text2={item.dailyTitle}/>      
             )
           }):
           <EmptyText text='내가 작성한 댓글이 없습니다.'/>
         }
-        {/* <WritingLink url="/mypage/mycomments/detail" text1='다이어터인데 불닭볶ㅇ면ㅁ?!' text2='오늘 다이어터 하루 식단 구경하세용'/>      
-        <WritingLink url="/mypage/mycomments/detail" text1='헐 맛집이 문닫아서 슬프시겠어욤,,,,,,,,,,,,,,,,' text2='저희 집 근처 곱창집 마지막 식사입니다....'/>      
-        <WritingLink url="/mypage/mycomments/detail" text1='아보카도 맛있나요? 아무맛도 안나던데' text2='아보카도 팡인의 하루식단!'/>      
-        <WritingLink url="/mypage/mycomments/detail" text1='와 그냥 금손이신거같아요 진짜 카페 음식이라고 해...' text2='인스타 맛집st 오픈 샌드위치 만들었어요!'/>      
-        <WritingLink url="/mypage/mycomments/detail" text1='ㅎㅎㅎ그래요?' text2='제발 돼라...'/>       */}
         </div>
     </div>
   );

@@ -62,6 +62,9 @@ const SignUpAgree = () => {
     if(checkedList.includes("cb4")){
       setChoiceTerms("Y");
     }
+    else{
+      setChoiceTerms("N");
+    }
     setRequiredTerms("Y");
     navigate("/signup/id");
   }

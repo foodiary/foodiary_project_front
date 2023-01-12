@@ -6,7 +6,7 @@
   position: relative;
   gap: 25px;
   width: 90%;
-  height: 90vh;
+  height: 100%;
   margin: auto;
   p{
     @include text-style(12px, #333333, 700, start);

@@ -19,6 +19,7 @@
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.7",
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11",
@@ -52,5 +53,5 @@
     "@craco/craco": "^7.0.0",
     "craco-alias": "^3.0.1"
   },
-  "proxy": "https://d1f9-182-220-207-61.jp.ngrok.io"
+  "proxy": "https://5c6e-182-220-207-61.jp.ngrok.io"
 }

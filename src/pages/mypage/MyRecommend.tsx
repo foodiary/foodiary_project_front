@@ -6,6 +6,14 @@ import styles from '@styles/mypage/myRecommend.module.scss';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import EmptyText from '@components/common/Text/EmptyText';
+
+interface ResType{
+  foodId: number;
+  foodName: number;
+  memberFoodId: number;
+  memberFoodLike: string;
+  memberId: number;
+}
 const MyRecommend = () => {
   const memberId = useLoginUserStore(state=>state.memberId);
   const page = 1;
@@ -27,10 +35,10 @@ const MyRecommend = () => {
       <img src={arrow_icon} alt="화살표"/>
       <div className={styles.menu_list}>
         {menuList.length > 0 ? 
-          menuList.map((menu)=>{
+          menuList.map((menu:ResType)=>{
             return(
               <div className={styles.menu}>
-                <p>간짜장</p>
+                <p>{menu.foodName}</p>
                 <button>Good</button>
               </div>
             )

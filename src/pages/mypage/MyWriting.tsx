@@ -1,17 +1,26 @@
-import Card from '@components/common/Card';
 import React, { useEffect, useState } from 'react';
 import styles from '@styles/mypage/myWriting.module.scss';
 import Header from '@components/common/Header/Header';
 import { useLoginUserStore } from '@store/loginUserStore';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
 import EmptyText from '@components/common/Text/EmptyText';
+import { LargeCard, MediumCard, SmallCard } from '@components/common/Card';
+import { Link } from 'react-router-dom';
 
+interface WritingRes{
+  dailyPath?: string; //이미지
+  dailyId?: number; //글 아이디
+  recipeId?: number;
+  recipePath?: string | null;
+}
 const MyWriting = () => {
   const [day, setDay] = useState(true);
   const [writingList, setWritingList] = useState([]);
   const page = 1;
   const memberId = useLoginUserStore(state=>state.memberId);
   let url = '';
+  // const navigate = 
+
   useEffect(()=>{
     if(day){
       url = `/member/post/daily/${memberId}`
@@ -29,7 +38,10 @@ const MyWriting = () => {
     });
 
   },[day]);
-
+  // const onClick = ()=>{
+  //   navigat
+  //   /dailys/datils parmas dailyId
+  // }
   return (
     <div className={styles.mywriting}>
       <div className={styles.tab}>
@@ -49,27 +61,24 @@ const MyWriting = () => {
         </button>
       </div>
       <div className={styles.card_container}>
-        {writingList.length > 0 ? writingList.map(item=>{
+        {writingList.length > 0 ? writingList.map((item:WritingRes)=>{
+          let url = ''
+          if(day){
+            url = `/mypage/daily/details/${item.dailyId}`
+          }
+          else{ url = `/mypage/recipe/details/${item.recipeId}`}
           return(
-            <div className={styles.card}><Card/></div>
+            <Link to={url} 
+              key={item.dailyId} 
+              className={styles.card}>
+              <SmallCard img={item.dailyPath}/>
+            </Link>
           )
-        }):
-          // <div className={styles.empty}>
+        }): 
             <EmptyText text='내가 작성한 글이 없습니다.'/>
-          // </div>
         }
-        {/* <div><Card/></div>
-        <div><Card/></div>
-        <div><Card/></div>
-        <div><Card/></div>
-        <div><Card/></div>
-        <div><Card/></div>
-        <div><Card/></div>
-        <div><Card/></div> */}
-
-
-      
       </div>
+      
     </div>
       // {/* 게시판 완성 후 가져오기 */}
   );

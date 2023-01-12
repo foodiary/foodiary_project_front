@@ -59,83 +59,61 @@ const AppRouter = () => {
           <Route element={<MainLayOut/>}>
             <Route path='/' element={<MainPage/>}/>
 
-          {/* </Route> */}
-          {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
-          {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
-          
-          <Route path='/mypage' element={<MyPageMain/>}/>
-          <Route path='/mypage/setting' element={<MyPageSetting/>}/>
-          <Route path='/mypage/mywriting' element={<MyWriting/>}/>
-          <Route path='/mypage/mygood' element={<MyGood/>}/>
-          <Route path='/mypage/myscrap' element={<MyScrap/>}/>
+            {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
+            {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
+            
+            <Route path='/mypage' element={<MyPageMain/>}/>
+            <Route path='/mypage/setting' element={<MyPageSetting/>}/>
+            <Route path='/mypage/mywriting' element={<MyWriting/>}/>
+            <Route path='/mypage/mygood' element={<MyGood/>}/>
+            <Route path='/mypage/myscrap' element={<MyScrap/>}/>
 
-          <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
-          <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
-          <Route path='/member/img/change' element={<ModifyProfileImg/>}/>
+            <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
+            <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
+            <Route path='/member/img/change' element={<ModifyProfileImg/>}/>
 
-          <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
+            <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
 
-          <Route path='/mypage/mycomments' element={<MyComments/>}/>
-          <Route path='/mypage/mycomments/detail/:id' element={<MyCommentsDetail/>}/>
-          <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
+            <Route path='/mypage/mycomments' element={<MyComments/>}/>
+            <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/>
+            <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
 
-          <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
+            <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
 
-          <Route path='/mypage/notice' element={<Notice/>}/>
-          <Route path='/mypage/notice/detail/:id' element={<NoticeDetail/>}/>
-          <Route path='/mypage/faq' element={<FAQ/>}/>
-          <Route path='/mypage/contact' element={<Contact/>}/>
-          <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
-          </Route>
-
-          <Route element={<LoginLayout/>}>
-            <Route path='/signup/agree' element={<SignUpAgree/>}/>
-            <Route path='/signup/agree/detail' element={<SignUpAgreeDetail/>}/>
-
-            <Route path='/signup/id' element={<SignUpId/>}/>
-            <Route path='/signup/pwd' element={<SignUpPwd/>}/>
-            <Route path='/signup/pwd/confirm' element={<SignUpPwdConfirm/>}/>
-            <Route path='/signup/email' element={<SignUpEmail/>}/>
-            <Route path='/signup/authmail' element={<SignUpAuthMail/>}/>
-            <Route path='/signup/nickname' element={<SignUpNickName/>}/>
-            <Route path='/signup/profileImage' element={<SignUpProfileImage/>}/>
-            <Route path='/signup/profileMsg' element={<SignUpProfileMsg/>}/>
-            <Route path='/signup/welcome' element={<SignUpWelcom/>}/>
-          {/* </Route> */}
-
-          {/* <Route> */}
-            <Route path='/login' element={<LoginMainPage/>}/>
-            <Route path='/login/other' element={<OtherLoginPage/>}/> 
-
-          {/* <Route path='/mypage' element={<MyPageMain/>}/>
-          <Route path='/mypage/setting' element={<MyPageSetting/>}/>
-          <Route path='/mypage/mywriting' element={<MyWriting/>}/>
-          <Route path='/mypage/mygood' element={<MyGood/>}/>
-
-          <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
-          <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
-
-          <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
-
-          <Route path='/mypage/mycomments' element={<MyComments/>}/>
-          <Route path='/mypage/mycomments/detail' element={<MyCommentsDetail/>}/>
-          <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
-          <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
-
-          <Route path='/mypage/notice' element={<Notice/>}/>
-          <Route path='/mypage/notice/detail' element={<NoticeDetail/>}/>
-          <Route path='/mypage/faq' element={<FAQ/>}/>
-          <Route path='/mypage/contact' element={<Contact/>}/>
-          <Route path='/mypage/contact/detail' element={<ContactDetail/>}/> */}
-          
-
-
-            <Route path='/find/id' element={<FindId/>}/>
-            <Route path='/find/pwd' element={<FindPwd/>}/>
+            <Route path='/mypage/notice' element={<Notice/>}/>
+            <Route path='/mypage/notice/detail/:id' element={<NoticeDetail/>}/>
+            <Route path='/mypage/faq' element={<FAQ/>}/>
+            <Route path='/mypage/contact' element={<Contact/>}/>
+            <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
 
             <Route path='/member/password/change' element={<ModifyPwd/>}/>
 
           </Route>
+
+          {!token && 
+            <Route element={<LoginLayout/>}>
+              <Route path='/signup/agree' element={<SignUpAgree/>}/>
+              <Route path='/signup/agree/detail' element={<SignUpAgreeDetail/>}/>
+
+              <Route path='/signup/id' element={<SignUpId/>}/>
+              <Route path='/signup/pwd' element={<SignUpPwd/>}/>
+              <Route path='/signup/pwd/confirm' element={<SignUpPwdConfirm/>}/>
+              <Route path='/signup/email' element={<SignUpEmail/>}/>
+              <Route path='/signup/authmail' element={<SignUpAuthMail/>}/>
+              <Route path='/signup/nickname' element={<SignUpNickName/>}/>
+              <Route path='/signup/profileImage' element={<SignUpProfileImage/>}/>
+              <Route path='/signup/profileMsg' element={<SignUpProfileMsg/>}/>
+              <Route path='/signup/welcome' element={<SignUpWelcom/>}/>
+
+              <Route path='/login' element={<LoginMainPage/>}/>
+              <Route path='/login/other' element={<OtherLoginPage/>}/> 
+
+              <Route path='/find/id' element={<FindId/>}/>
+              <Route path='/find/pwd' element={<FindPwd/>}/>
+
+              {/* <Route path='/member/password/change' element={<ModifyPwd/>}/> */}
+            </Route>
+          }
 
         </Routes>
       </BrowserRouter>

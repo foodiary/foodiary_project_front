@@ -6,10 +6,12 @@ import { LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
 import basic_profile from '@img/basic_profile.svg';
+import Loading from '@pages/Loading';
 
 const SignUpProfileMsg = () => {
   const navigate = useNavigate();
   const {state} = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const setProfileMsg = useUserStore((state)=>state.setProfileMsg);
   const [msgLength, setMsgLength] = useState(0);
@@ -40,10 +42,12 @@ const SignUpProfileMsg = () => {
     console.log(memberInfo);
     const headers = {"Content-Type": "multipart/form-data"};
       e.preventDefault();
+      setLoading(true);
       axiosConfig.post("/member/signup", formData ,{headers})
       .then(res=>{
         console.log(res);
         if(res){
+          setLoading(false);
           navigate("/signup/welcome");
         }
         console.log("가입 완료");
@@ -51,7 +55,6 @@ const SignUpProfileMsg = () => {
       }).catch(err=>{
         console.log(err);
       })
-      console.log(`닉네임: ${nickName}`);
     //유저 전체 정보 전송
   }
   return (
@@ -62,7 +65,7 @@ const SignUpProfileMsg = () => {
             <img alt='첨부사진' src={state} className={styles.profile}/>:
 
             <img alt='첨부사진' src={basic_profile} className={styles.profile}/>
-          }
+        }
 
         <div className={styles.msg_container}>
           <p>프로필 메세지</p>
@@ -73,10 +76,12 @@ const SignUpProfileMsg = () => {
           </textarea>
           <p className={styles.msg_length}>{msgLength}/100</p>
         </div>
-          <form onSubmit={onSubmit}>
-            <LoginButton type="submit" text='완료' active={true}/>
-          </form>
-        </div>
+        <form onSubmit={onSubmit}>
+          <LoginButton type="submit" text='완료' active={true}/>
+        </form>
+
+        {loading && <Loading/>}
+      </div>
   );
 };
 

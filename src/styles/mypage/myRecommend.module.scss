@@ -3,7 +3,7 @@
 
 .recommend{
   position: relative;
-  height: 75vh;
+  height: 100%;
   margin-top: 100px;
   .explain{
     @include text-style(16px, #666666, 500, start);

@@ -1,30 +1,63 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import styles from '@styles/mypage/myCommentsDetail.module.scss';
-import Header from '@components/common/Header/Header';
 import {FiMoreVertical} from 'react-icons/fi';
 import {AiOutlineHeart} from 'react-icons/ai';
 import {FaRegBookmark} from 'react-icons/fa';
 import { HalfAlertButton, HalfButton, LoginButton } from '@components/common/LoginButton/Button';
 import {AlertBox, WarnBox} from '@components/common/AlertBox/AlertBox';
 import basic_profile from '@img/basic_profile.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { btnStateStore } from '@store/btnStateStore';
 import Input from '@components/common/Input/Input';
+import CommentBox from '@components/common/CommentBox/CommentBox';
+import axiosConfig from '@utils/axiosConfig';
+
 
 const MyCommentsDetail = () => {
+  const {pathname} = useLocation();
+  const url = pathname.slice(26);
+
   const [viewBtn, setViewBtn] = useState(false);
   const cancel = btnStateStore(state=>state.cancel);
   const setCancel = btnStateStore(state=>state.setCancel);
+  const memberId = 76; //저장된 멤버아이디
+  const [dailyTitle, setDailyTitle] = useState("");
+  const [like, setLike] = useState(0);
+  const [scrap, setScrap] = useState(0);
+
+  const [commentContent, setCommentContent] = useState("");
+  const [writer, setWriter] = useState("");
+  const [date, setDate] = useState("");
+  const [dailyId, setDailyId] = useState(0);
+  const [commentId, setCommentId] = useState(0);
+
   useEffect(()=>{
     setCancel(true);
+    axiosConfig.get(`/member/comment/daily/${memberId}/${url}`)
+    .then(res=>{
+      const data = res.data;
+      console.log(res);
+      setDailyTitle(data.dailyTitle);
+      setLike(data.dailyLike);
+      setScrap(data.dailyScrap);
+      setCommentContent(data.dailyCommentBody);
+      setWriter(data.dailyCommentWriter);
+      setDate(data.dailyCommentCreate);
+      setDailyId(data.dailyId);
+      setCommentId(data.dailyComment);
+
+    }).catch(err=>console.log(err));
   },[]);
 
   const navigate = useNavigate();
 
   const onClick = (e:React.MouseEvent<HTMLDivElement>)=>{
     // console.log(e.currentTarget.innerText);
-    console.log(e.currentTarget);
-
+    navigate("/mypage/mycomments/edit", {state:{
+      content: commentContent,
+      dailyId: dailyId,
+      commentId: commentId,
+    }});
   }
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
@@ -35,40 +68,28 @@ const MyCommentsDetail = () => {
 
   return (
     <div className={styles.comment_detail}>
-      <Header/>
       <div className={styles.writing}>
-        <button className={styles.board_link}>오늘 다이어터 하루 식단 구경하세용</button>
+        <Link to="" className={styles.board_link}>
+          {dailyTitle}
+        </Link>
         <div className={styles.good_scrap}>
           <button><AiOutlineHeart/></button>
-          <p>10</p>
+          <p>{like}</p>
           <button><FaRegBookmark/></button>
-          <p>10</p>
+          <p>{scrap}</p>
         </div>
         <input type="text" id='comment' placeholder='댓글을 남겨보세요.'/>
-        {/* <Input id='comment' type='text' placeholder='댓글을 남겨보세요.'/>  */}
+        {/* <Input label= '' validate='no' id='comment' type='text' placeholder='댓글을 남겨보세요.'/>  */}
       </div>
 
-      <div className={styles.comment_container}>
-        <img src={basic_profile} className={styles.profile_picture} alt="프사"/>
-        <button className={styles.more_btn} onClick={()=>{setViewBtn(prev=>!prev)}}>
-          <div className={styles.content}>
-            <p>dieat</p>
-            <p>아 맛잘알 인정입니다;</p>
-            <p>2022.12.31</p>
-          </div>
-          <div>
-            <FiMoreVertical/>
-          </div>
-        </button>
+      <div className={styles.comment_box} onClick={()=>{setViewBtn(prev=>!prev)}}>
+        <CommentBox 
+          dailyCommentWriter={writer} 
+          dailyCommentBody={commentContent} 
+          dailyCommentCreate={date}/>
       </div>
-      <div className={styles.comment_container}>
-          <div className={styles.content}>
-            <p>삭제된 댓글입니다.</p>
-          </div>
-      </div>
-
       {viewBtn && <div className={styles.view_btn}>
-        <div className={styles.black} onClick={()=>{navigate("/mypage/mycomments/edit")}}>
+        <div className={styles.black} onClick={onClick}>
           <HalfButton type='button' text='수정'/>
         </div>
         <div className={styles.red} onClick={()=>{setCancel(false)}}>
@@ -93,10 +114,6 @@ const MyCommentsDetail = () => {
         <WarnBox text='정말 삭제하시겠습니까?' btn_txt='삭제'/>
       </form>
       }
-      {/* <AlertBox text='아이디 또는 비밀번호를 다시 확인해주세요.' type={false}/> */}
-      {/* <div className={styles.modal_back}>
-        <AlertBox text='인증메일이 재발송되었습니다' type={true}/>
-      </div> */}
 
     </div>
   );

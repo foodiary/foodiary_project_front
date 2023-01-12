@@ -20,6 +20,7 @@
 }
 
 .new_pwd_container{
+  margin-top: 135px;
   @include column-flexBox();
   gap: 50px;
   .confirm{

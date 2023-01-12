@@ -1,0 +1,33 @@
+@import '../../../styles/main.module.scss';
+
+.comment_container{
+  border-bottom: 2px solid $gray-100;
+  background-color: white;
+  @include flexBox($jc:start, $ai: start);
+  padding: 20px;
+
+  .profile_picture{
+    width: 32px; height: 32px;
+    border-radius: 50px;
+    margin-right: 8px;
+  }
+  .more_btn{
+    @include row-flexBox();
+    width: 100%;
+    justify-content: space-between;
+  }
+  .content{
+    @include column-flexBox();
+    width: 85%;
+    gap: 4px;
+    p:first-child{
+      @include text-style(14px, $main, 700, start);
+    }
+    p:nth-child(2){
+      @include text-style(16px, $main, 400, start);
+    }
+    p:nth-child(3){
+      @include text-style(12px, #666666, 400, start);
+    }
+  }
+}

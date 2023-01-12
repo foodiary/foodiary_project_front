@@ -56,9 +56,7 @@ const MyPageMain = () => {
   // }
   const afterRes = ()=>{
     setAlert(true);
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("refresh_expired");
+    localStorage.clear();
     setTimeout(()=>navigate("/"),2000);
   }
   const onSubmit = (e:FormEvent)=>{

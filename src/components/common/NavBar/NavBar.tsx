@@ -12,8 +12,8 @@ const NavBar = () => {
   return (
     <div className={styles.navbar}>
       <Link to="/"><img src={home_icon} alt="홈" className={pathname==="/" ? "": styles.no_active}/></Link>  
-      <Link to="/"><img src={hot_icon} alt="랭킹" className={pathname==="/" ? "": styles.no_active}/></Link>
-      <Link to="/"><img src={explore_icon} alt="탐색" className={pathname==="/" ?  "": styles.no_active}/></Link>
+      <Link to="/rank"><img src={hot_icon} alt="랭킹" className={pathname==="/rank" ? "": styles.no_active}/></Link>
+      <Link to="/search"><img src={explore_icon} alt="탐색" className={pathname==="/search" ?  "": styles.no_active}/></Link>
       <Link to="/mypage"><img src={mypage_icon} alt="마이페이지" className={pathname.includes("/mypage") ? "": styles.no_active}/></Link>
     </div>
   );

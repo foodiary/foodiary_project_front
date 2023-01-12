@@ -18,6 +18,7 @@ const Header = () => {
   // const userInfo = useLoginUserStore((state)=>state.userInfo);
   const [profileImg, setProfileImg] = useState(false);
 
+  console.log(memberPath);
   const token = localStorage.getItem("access_token");
   useEffect(()=>{
     if(token){
@@ -51,7 +52,7 @@ const Header = () => {
               </button>
               <div className={styles.user}>
                 <Link to="/mypage">
-                  {memberPath !=="" ?
+                  {memberPath !==null ?
                     <img src={memberPath} alt="프로필"/>: 
                     <img src={basic_profile} alt="프로필사진"/>
                   }

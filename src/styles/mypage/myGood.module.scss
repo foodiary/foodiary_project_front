@@ -2,7 +2,6 @@
 
 .good{
   width: fit-content;
-  border: 1px solid red;
   @include text-style(24px, $main, 700, start);
   margin: 67px 0 85px 24px;
   position: relative;
