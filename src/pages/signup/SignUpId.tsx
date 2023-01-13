@@ -38,7 +38,7 @@ const SignUpId = () => {
     console.log(`아이디: ${id}`);
   }
   return (
-    <div>
+    <div className={styles.login_container}>
       <Intro intro1={"감사합니다!"} span={"아이디를"} intro2={"입력해주세요."}/>
         <form onSubmit={onSubmit} className={styles.input_container}>
           <Input

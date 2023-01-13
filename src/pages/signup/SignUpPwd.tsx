@@ -12,7 +12,7 @@ const SignUpPwd = () => {
   // const [next, setNext] = useState(false);
 
   return (
-    <div>
+    <div className={styles.login_container}>
       <Intro span={"비밀번호를"} intro2={"입력해주세요."}/>
         <div className={styles.pwd_container}>
           <Input

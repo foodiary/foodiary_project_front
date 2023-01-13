@@ -1,6 +1,6 @@
 import { object } from 'yup';
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import create, { StateCreator } from 'zustand';
+import { persist, PersistOptions } from 'zustand/middleware';
 
 // object를 한번에 저장해서 접근하는 방법이 없을까...?
 interface User{
@@ -29,39 +29,7 @@ interface SetUser{
 
 }
 
-export const useLoginUserStore = create<User &SetUser>(set => ({
-  memberLoginId: "", //로그인 아이디
-  memberId: 0, //api 요청시 필요한 멤버시퀀스
-  memberEmail: "",
-  memberNickName: "",
-  memberPath: "", //이미지
-  memberProfile: "", //프메
-
-
-  userInfo: {},
-  setMemberLoginId: (id)=> set(()=>({memberLoginId: id})),
-  setMemberId: (sid)=> set(()=>({memberId: sid})),
-
-  // setPwd: (pwd:User['pwd'])=>void;
-  setMemberEmail: (email)=> set(()=>({memberEmail: email})),
-  setMemberNickName: (nn)=> set(()=>({memberNickName: nn})),
-  setMemberPath: (img)=> set(()=>({memberPath: img})),
-  setMemberProfile: (msg)=> set(()=>({memberProfile: msg})),
-  // userInfo: '',
-  // setId: (id)=> set(()=>({id: id})),
-  // setSequenceId: (sid)=> set(()=>({sequenceId: sid})),
-
-  // // setPwd: (pwd)=> set(()=>({pwd: pwd})),
-  // setEmail: (em)=> set(()=>({email: em})),
-  // setNickName: (name)=> set(()=>({nickName: name})),
-  // setProfileImg: (img)=> set(()=>({profileImg: img})),
-  // setProfileMsg: (msg)=> set(()=>({profileMsg: msg})),
-
-  setUserInfo: (obj)=> set(()=>({userInfo: obj})),
-}));
-// export const useLoginUserStore = create<User &SetUser>(
-//   persist(
-//     (set) => ({
+// export const useLoginUserStore = create<User &SetUser>(set => ({
 //   memberLoginId: "", //로그인 아이디
 //   memberId: 0, //api 요청시 필요한 멤버시퀀스
 //   memberEmail: "",
@@ -80,17 +48,43 @@ export const useLoginUserStore = create<User &SetUser>(set => ({
 //   setMemberPath: (img)=> set(()=>({memberPath: img})),
 //   setMemberProfile: (msg)=> set(()=>({memberProfile: msg})),
 //   // userInfo: '',
-//   // setId: (id)=> set(()=>({id: id})),
-//   // setSequenceId: (sid)=> set(()=>({sequenceId: sid})),
-
-//   // // setPwd: (pwd)=> set(()=>({pwd: pwd})),
-//   // setEmail: (em)=> set(()=>({email: em})),
-//   // setNickName: (name)=> set(()=>({nickName: name})),
-//   // setProfileImg: (img)=> set(()=>({profileImg: img})),
-//   // setProfileMsg: (msg)=> set(()=>({profileMsg: msg})),
 
 //   setUserInfo: (obj)=> set(()=>({userInfo: obj})),
-// }),
-// {name: "login-user-store"}
-// )
-// );
+// }));
+type UserPersist = (
+  config: StateCreator<User&SetUser>,
+  options: PersistOptions<User&SetUser>,
+)=>StateCreator<User&SetUser>
+
+// interface UserPersist{
+//   config: StateCreator<User&SetUser>;
+//   options: PersistOptions<User&SetUser>;
+// }=>StateCreator<User&SetUser>
+
+export const useLoginUserStore = create<User &SetUser>(
+  (persist as UserPersist)(
+    (set) => ({
+  memberLoginId: "", //로그인 아이디
+  memberId: 0, //api 요청시 필요한 멤버시퀀스
+  memberEmail: "",
+  memberNickName: "",
+  memberPath: "", //이미지
+  memberProfile: "", //프메
+
+
+  userInfo: {},
+  setMemberLoginId: (id)=> set(()=>({memberLoginId: id})),
+  setMemberId: (sid)=> set(()=>({memberId: sid})),
+
+  // setPwd: (pwd:User['pwd'])=>void;
+  setMemberEmail: (email)=> set(()=>({memberEmail: email})),
+  setMemberNickName: (nn)=> set(()=>({memberNickName: nn})),
+  setMemberPath: (img)=> set(()=>({memberPath: img})),
+  setMemberProfile: (msg)=> set(()=>({memberProfile: msg})),
+  // userInfo: '',
+
+  setUserInfo: (obj)=> set(()=>({userInfo: obj})),
+}),
+{name: "LoginUserStore"}
+)
+);

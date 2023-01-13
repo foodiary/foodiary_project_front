@@ -43,7 +43,7 @@ const SignUpNickName = () => {
     console.log(`닉네임: ${nickName}`);
   }
   return (
-      <div>
+      <div className={styles.login_container}>
         <Intro intro1={"환영합니다! 사용하실"} span={"닉네임을"} intro2={"적어주세요!"}/>
           <form onSubmit={onSubmit} className={styles.input_container}>
             <Input 

@@ -3,7 +3,7 @@
 
 .contact_container{
   @include column-flexBox();
-  position: relative;
+  // position: relative;
   gap: 25px;
   width: 90%;
   height: 100%;
@@ -64,6 +64,27 @@
       top: 45%;
     }
   }
+.preview_container{
+  position: relative;
+  @include flexBox();
+  .preview{
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    // margin: auto;
+  }
+  button{
+    position: absolute;
+    cursor: pointer;
+    width: 30px; height: 30px;
+    font-size: 20px;
+    color: $point;
+    top: 3%;
+    left: 62%;
+  }
+}
+
+
   .btn_container{
     @include flexBox();
     // position: absolute;

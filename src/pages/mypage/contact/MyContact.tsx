@@ -37,7 +37,7 @@ const MyContact = () => {
                   text1={item.questionTitle} 
                   text2={item.questionAnswerYn + item.questionCreate} 
                   url='/mypage/contact/detail' 
-                  state={{questionId: 1}}/>
+                  state={{questionId: item.questionId}}/>
               )
             }):
             <EmptyText text='문의 내역이 없습니다.'/>

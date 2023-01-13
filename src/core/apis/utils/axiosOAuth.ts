@@ -25,20 +25,16 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     console.log(`인터셉트 응답: ${response}`);
-    const accessToken = response.data.accessToken;
-    const refreshToken = response.data.refreshToken;
-    const refreshExpired = response.data.refreshTokenExpirationMinutes;
+    const accessToken = response.data.body.accessToken;
+    const refreshToken = response.data.body.refreshToken;
+    const refreshExpired = response.data.body.refreshTokenExpirationMinutes;
 
     if(accessToken && refreshToken){
-      console.log(response.data.accessToken.slice(7));
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
       localStorage.setItem("refresh_expired", refreshExpired);
     }
     return response;
-    // if(response.data.newUser === true){
-    //   window.location.assign('/signup/agree');
-    // }
   },
   async (err) => {
     const config = err.config;

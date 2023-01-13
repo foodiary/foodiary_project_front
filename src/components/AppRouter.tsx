@@ -37,6 +37,8 @@ import OAuthRedirect from '@pages/OAuthRedirect';
 import { useUserStore } from '@store/userStore';
 import SignUpPwdConfirm from '@pages/signup/SignUpPwdConfirm';
 import ModifyProfileImg from '@pages/mypage/setting/ModifyProfileImg';
+import PrivateRouter from './PrivateRouter';
+import ScrollRestoration from './ScrollRestoration';
 
 const AppRouter = () => {
   const [loginUser, setLoginUser] = useState(false);
@@ -55,6 +57,7 @@ const AppRouter = () => {
   return (
     <div>
       <BrowserRouter>
+        <ScrollRestoration/>
         <Routes>
           <Route element={<MainLayOut/>}>
             <Route path='/' element={<MainPage/>}/>
@@ -63,28 +66,33 @@ const AppRouter = () => {
             {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
             
             <Route path='/mypage' element={<MyPageMain/>}/>
-            <Route path='/mypage/setting' element={<MyPageSetting/>}/>
-            <Route path='/mypage/mywriting' element={<MyWriting/>}/>
-            <Route path='/mypage/mygood' element={<MyGood/>}/>
-            <Route path='/mypage/myscrap' element={<MyScrap/>}/>
+            <Route element={<PrivateRouter/>}>
+              <Route path='/mypage/setting' element={<MyPageSetting/>}/>
+              <Route path='/mypage/mywriting' element={<MyWriting/>}/>
+              <Route path='/mypage/mygood' element={<MyGood/>}/>
+              <Route path='/mypage/myscrap' element={<MyScrap/>}/>
+              <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
+              <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
+              <Route path='/member/img/change' element={<ModifyProfileImg/>}/>
 
-            <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
-            <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
-            <Route path='/member/img/change' element={<ModifyProfileImg/>}/>
+              <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
 
+              <Route path='/mypage/mycomments' element={<MyComments/>}/>
+              <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/>
+              <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
+
+              <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
+              {/* <Route path='/mypage/contact' element={<Contact/>}/>
+              <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/> */}
+            </Route>
+           
+            
+            <Route path='/mypage/contact' element={<Contact/>}/>
             <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
-
-            <Route path='/mypage/mycomments' element={<MyComments/>}/>
-            <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/>
-            <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
-
-            <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
 
             <Route path='/mypage/notice' element={<Notice/>}/>
             <Route path='/mypage/notice/detail/:id' element={<NoticeDetail/>}/>
             <Route path='/mypage/faq' element={<FAQ/>}/>
-            <Route path='/mypage/contact' element={<Contact/>}/>
-            <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
 
             <Route path='/member/password/change' element={<ModifyPwd/>}/>
 
@@ -111,7 +119,6 @@ const AppRouter = () => {
               <Route path='/find/id' element={<FindId/>}/>
               <Route path='/find/pwd' element={<FindPwd/>}/>
 
-              {/* <Route path='/member/password/change' element={<ModifyPwd/>}/> */}
             </Route>
           }
 
