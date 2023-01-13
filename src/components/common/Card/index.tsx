@@ -6,7 +6,7 @@ type cardStyleProps = {
   info?: boolean;
   title?: string;
   userId?: string;
-  scrap?: string;
+  scrap?: number;
   like?: string | number;
   comment?: string | number | undefined;
   none?: boolean;

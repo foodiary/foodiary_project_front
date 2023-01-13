@@ -19,64 +19,96 @@ enum days {
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const MainPage = () => {
-  const [userName, setUserName] = useState<string>("jetom");
-  const [tabMenu, setTabMenu] = useState<string>("0");
+  const [userName, setUserName] = useState<string>("푸디어리");
+  // const [tabMenu, setTabMenu] = useState<string>("0");
   const [daysBtn, setDaysBtn] = useState(days.month);
-  const [recipeTab, setRecipeTab] = useState<string>("0");
+  const memberId = 1;
+  // const [recipeTab, setRecipeTab] = useState<string>("0");
 
-  const [getRank, setGetRank] = useState([]);
-  const [getWeekRank, setGetWeekRank] = useState([]);
+  // const [getRank, setGetRank] = useState([]);
+  // const [getWeekRank, setGetWeekRank] = useState([]);
 
-  const getMonth = useCallback(async () => {
-    try {
-      const res = await axiosConfig.get("/rank/month");
-      setGetRank(res.data);
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
+  // const getMonth = useCallback(async () => {
+  //   try {
+  //     const res = await axiosConfig.get("/rank/month");
+  //     console.log(res);
+  //     setGetRank(res.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
 
-  const getWeek = useCallback(async () => {
-    try {
-      const res = await axiosConfig.get("/rank/week");
-      setGetWeekRank(res.data);
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
+  // const getWeek = useCallback(async () => {
+  //   try {
 
+  //     const res = await axiosConfig.get("/rank/week");
+  //     setGetWeekRank(res.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
+  const [menuList, setMenuList] = useState([]);
+  const [recommenu, setRecomMenu] = useState([]);
+
+  const recommendMenu = ()=>{
+    axiosConfig.get(`/food`).then(res=>{
+      console.log(res);
+      setRecomMenu(res.data);
+    }).catch(err=>{
+      console.log(err);
+    });
+  };
+  const weekMenu = ()=>{
+    axiosConfig.get(`/food/menu?${memberId}`).then(res=>{
+      console.log(res);
+      setMenuList(res.data);
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
   useEffect(() => {
-    getMonth();
-    getWeek();
+    // getMonth();
+    // getWeek();
+    recommendMenu();
+    weekMenu();
   }, []);
 
-  console.log(getWeekRank, "test");
-
+  const onFoodLike = ()=>{
+    // axiosConfig.post(`/food/like`).then(res=>{
+    //   console.log(res);
+    // }).catch(err=>{
+    //   console.log(err);
+    // });
+    return(alert("반영되었습니다")); //알럿박스로 바꾸기
+  };
+  const onFoodHate = ()=>{
+    axiosConfig.post(`/food/hate`).then(res=>{
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
   return (
     <article className={styled.mainPageWrapper}>
       <section className={styled.mainPageTitleSection}>
         <h2 className={styled.title}>
-          안녕하세요, {userName}님! <br /> 오늘 메뉴 어떠세요?{" "}
+          안녕하세요, {userName}님! <br /> 오늘 이 메뉴 어떠세요?{" "}
         </h2>
       </section>
 
       <section className={styled.recommendeSection}>
-        <p className={styled.recommende}>추천메뉴를 좋아하시나요?</p>
+        <p className={styled.recommend}>추천메뉴를 좋아하시나요?</p>
 
         <div className={styled.recommendedBtn}>
           <ButtonComp
             text="Good😘"
             btnStyle={buttonStyled.buttonActive}
-            onClick={() => {
-              console.log("test");
-            }}
+            onClick={onFoodLike}
           />
           <ButtonComp
             text="No, thanks"
             btnStyle={buttonStyled.button}
-            onClick={() => {
-              console.log("test");
-            }}
+            onClick={onFoodHate}
           />
         </div>
       </section>
@@ -84,8 +116,39 @@ const MainPage = () => {
       <section className={styled.searchSection}>
         <input placeholder="장칼국수 레시피를 검색해보세요!" />
       </section>
-
-      <section className={styled.rankingSection}>
+      
+      <section>
+        <div className={styled.main}>
+          <h3>식단</h3>
+          <h2>1월 2주차</h2>
+              <div className={styled.week_menu}>
+                <table>
+                  <tr>
+                    <td rowSpan={2}>Mon</td>
+                    <td rowSpan={2}>1</td>
+                    <td className={styled.menu}>☀️ 김치찌개</td>
+                  </tr>
+                  <tr>
+                    <td className={styled.menu}>🌛 카레</td>
+                  </tr>
+                  
+                </table>
+              </div>
+          {/* {menuList.map((item)=>{
+            return(
+              <div>
+                <table>
+                  <tr>
+                    <td>월욜</td>
+                    <td>음식</td>
+                  </tr>
+                </table>
+              </div>
+            )
+          })} */}
+        </div>
+      </section>
+      {/* <section className={styled.rankingSection}>
         <div className={styled.tabMenuContents}>
           <h3
             className={
@@ -221,7 +284,7 @@ const MainPage = () => {
             </div>
           </>
         )}
-      </section>
+      </section> */}
     </article>
   );
 };

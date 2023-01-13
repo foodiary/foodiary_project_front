@@ -4,6 +4,29 @@
   display: none;
 }
 
+.main{
+  h3{
+    margin: 50px 0 50px 0;
+  }
+}
+.week_menu{
+  width: 100%;
+  table{
+      display: table;   
+      border-collapse: collapse;    
+      border-spacing: 100%;
+      // border: 2px solid red;
+      td{
+        padding: 20px;
+        vertical-align: top;
+        border: 2px solid red;
+        font-weight: 700;
+      }
+      .menu{
+        width: 100%;
+      }
+  }
+}
 .tabMenuContents {
   display: flex;
   align-items: center;
@@ -22,6 +45,7 @@
 
 .mainPageWrapper {
   @extend %page-base;
+  border: 1px solid black;
   padding: 0 20px;
   margin-top: 52px;
 
@@ -37,7 +61,7 @@
     display: flex;
     align-items: center;
 
-    .recommende {
+    .recommend {
       margin-right: auto;
       font-size: $body2;
       color: $gray_400;

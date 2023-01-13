@@ -3,11 +3,12 @@ axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["Referrer-Policy"] = "no-referrer-when-downgrade";
 
-const axiosConfig: AxiosRequestConfig = {
+const axiosConfig = {
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": "true",
+    "ngrok-skip-browser-warning": "12345",
   },
 };
 

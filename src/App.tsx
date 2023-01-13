@@ -3,7 +3,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "@pages/MainPage";
 import Header from "@components/common/Header";
 import QuillEditor from "@pages/QuillEditor";
-import QuestPage from "@pages/QuestPage";
+import RankingPage from "@pages/RankingPage";
+import ExplorePage from "@pages/ExplorePage";
+import ExploreDetail from "@pages/ExploreDetail";
+import WritingDetails from "@pages/WritingDetails";
+import Search from "@pages/Search";
+import SearchResult from "@pages/SearchResult";
 
 function App() {
   return (
@@ -11,8 +16,14 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/test" element={<QuillEditor />} />
-        <Route path="/quest" element={<QuestPage />} />
+        <Route path="/explore" element={<ExplorePage />} />
+        <Route path="/explore/details" element={<ExploreDetail />} />
+        <Route path="/writing/details/:id" element={<WritingDetails />} /> 
+        <Route path="/search" element={<Search />} /> 
+        <Route path="/search/result" element={<SearchResult />} /> 
+
         <Route element={<Header />}></Route>
+        <Route path="/hot" element={<RankingPage />} />
       </Routes>
     </BrowserRouter>
   );

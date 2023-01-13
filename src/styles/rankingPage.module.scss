@@ -1,0 +1,10 @@
+@import './main.module.scss';
+
+.ranking{
+  @extend %page-base;
+  border: 1px solid black;
+  .card_container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
