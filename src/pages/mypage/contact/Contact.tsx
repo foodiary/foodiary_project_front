@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import {MdCancel} from 'react-icons/md';
 
 const Contact = () => {
-  const memberId = useLoginUserStore(state=>state.memberId); //멤버시퀀스
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId); //멤버시퀀스
   const navigate = useNavigate();
 
   const [write, setWrite] = useState(true); //탭 모드

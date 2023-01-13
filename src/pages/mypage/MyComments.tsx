@@ -19,7 +19,7 @@ const Notice = () => {
   const [day, setDay] = useState(true);
   const [commentList, setCommentList] = useState([]);
   const page = 1;
-  const memberId = useLoginUserStore(state=>state.memberId);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   let url = '';
 
   useEffect(()=>{

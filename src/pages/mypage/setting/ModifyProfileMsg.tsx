@@ -13,7 +13,7 @@ const ModifyProfileMsg = () => {
   const [msgLength, setMsgLength] = useState(0);
   const newProfileMsg = useUserStore((state)=>state.newProfileMsg);
   const setNewProfileMsg = useUserStore((state)=>state.setNewProfileMsg);
-  const memberProfile = useLoginUserStore(state=>state.memberProfile);
+  const memberProfile = useLoginUserStore(state=>state.userInfo.memberProfile);
 
   useEffect(()=>{
     if(newProfileMsg){

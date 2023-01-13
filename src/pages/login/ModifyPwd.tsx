@@ -21,7 +21,7 @@ const ModifyPwd = () => {
   // const jwt = location.search.slice(5);
   const pwd = useUserStore((state)=>state.pwd);
   const more_pwd = useUserStore((state)=>state.more_pwd);
-  const memberId = useLoginUserStore(state=>state.memberId);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   let url = "";
 

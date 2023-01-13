@@ -37,24 +37,23 @@ const OtherLoginPage = () => {
       loginId: id,
       password: pwd,
     }).then(res=>{
-      // const memberId = res.data.body.memberId;
+      // const memberId = res.data.memberId;
+      const memberId = 76;
       console.log(res);
-      console.log("로그인 완료");
       setLoading(false);
-      // navigate("/");
       
-      // axiosConfig.get(`/member/${76}`).then(res=>{
-      //   console.log(res);
-      //   setUserInfo(res.data);
-      //   navigate("/") ;
-      // }).catch(err=>{
-      //   console.log(err);
-      // })
+      axiosConfig.get(`/member/${memberId}`).then(res=>{
+        console.log(res);
+        setUserInfo(res.data);
+        navigate("/") ;
+      }).catch(err=>{
+        console.log(err);
+      })
     }).catch(err=>{
+      setLoading(false);
       console.log(err);
       setErr(true);
     })
-    console.log(`통신중`);
 }
   return (
     <div className={styles.login_container}>

@@ -19,12 +19,13 @@ const MyPageSetting = () => {
   const cancel = btnStateStore(state=>state.cancel);
   const setCancel = btnStateStore(state=>state.setCancel);
 
-  const {memberLoginId, memberId, memberEmail, memberPath, memberProfile, memberNickName} = useLoginUserStore();
+  // const {memberLoginId, memberId, memberEmail, memberPath, memberProfile, memberNickName} = useLoginUserStore();
+  const userInfo = useLoginUserStore(state=>state.userInfo);
   const profileMsg = useUserStore(state=>state.profileMsg);
   const setProfileMsg = useUserStore(state=>state.setProfileMsg);
   const newNickName = useUserStore(state=>state.newNickName);
   const newProfileMsg = useUserStore(state=>state.newProfileMsg);
-  console.log(memberLoginId, memberEmail, memberPath, memberProfile, memberNickName);
+  // console.log(memberLoginId, memberEmail, memberPath, memberProfile, memberNickName);
   // useEffect(()=>{
   //   setProfileMsg("");
   // },[]);
@@ -61,27 +62,27 @@ const MyPageSetting = () => {
       <div className={styles.profile_container}>
         {basicImg? 
           <img src={basic_profile} alt="기본이미지"/>:
-          <img src={memberPath? memberPath: basic_profile} alt="기본이미지" 
+          <img src={userInfo.memberPath? userInfo.memberPath: basic_profile} alt="기본이미지" 
             className={styles.profile_img}/>
         }
 
         <div className={styles.user_nickname}>
-          <p>{newNickName? newNickName: memberNickName}</p>
+          <p>{newNickName? newNickName: userInfo.memberNickName}</p>
         </div>
 
         <div className={styles.user}>
           <div className={styles.info}>
             <p>아이디</p>
-            <p>{memberLoginId}</p>
+            <p>{userInfo.memberLoginId}</p>
           </div>
           <div className={styles.info}>
             <p>이메일</p>
-            <p>{memberEmail}</p>
+            <p>{userInfo.memberEmail}</p>
           </div>
         </div>
 
         <p className={styles.profile_msg}>
-          {newProfileMsg? newProfileMsg : memberProfile}
+          {newProfileMsg? newProfileMsg : userInfo.memberProfile}
         </p>    
       </div>
       

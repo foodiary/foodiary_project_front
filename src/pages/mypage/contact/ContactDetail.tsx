@@ -22,7 +22,7 @@ const ContactDetail = () => {
   const [write, setWrite] = useState(false);
   const navigate = useNavigate();
   const {state} = useLocation();
-  const memberId = useLoginUserStore(state=>state.memberId);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const [content, setContent] = useState<Obj>();
 
   useEffect(()=>{

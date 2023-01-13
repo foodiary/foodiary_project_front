@@ -57,6 +57,7 @@ instance.interceptors.response.use(
       try{
         const headers = {Refresh: `${refreshToken}`};
         const {data} = await axios.get('/auth/reissue', {headers}); //refresh로 access 토큰 재발급
+        console.log(data);
         const newAccessToken = data.data.accessToken;
         const newRefreshToken = data.data.refreshToken; //??
 

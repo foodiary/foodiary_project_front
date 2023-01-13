@@ -9,25 +9,25 @@ const MainPage = () => {
 
   const userInfo = useLoginUserStore((state)=>state.userInfo);
   const setUserInfo = useLoginUserStore((state)=>state.setUserInfo);
-  const memberId = useLoginUserStore((state)=>state.memberId);
+  const memberId = useLoginUserStore((state)=>state.userInfo.memberId);
   // const memberId = 76; //미주님 아이디
   // const userInfo = {id: 1, name: "MIjin", age: 15};
 
   console.log(userInfo);
-  const {setMemberLoginId, setMemberId, setMemberEmail, setMemberNickName, setMemberPath, setMemberProfile} = useLoginUserStore();
+  // const {setMemberLoginId, setMemberId, setMemberEmail, setMemberNickName, setMemberPath, setMemberProfile} = useLoginUserStore();
 
   // const getMemberInfo = useCallback(()=>{
   //   if(token){
   //     axiosConfig.get(`/member/${memberId}`).then(res=>{
   //     // console.log(`유저받아오기: ${res.data.memberEmail}`);
   //     const data = res.data;
-  //     setUserInfo(res.data);
-  //     setMemberLoginId(data.memberLoginId);
-  //     setMemberEmail(data.memberEmail);
-  //     setMemberNickName(data.memberNickName);
-  //     setMemberPath(data.memberPath);
-  //     setMemberId(data.memberId);
-  //     setMemberProfile(data.memberProfile);
+  //     setUserInfo(data);
+  //     // setMemberLoginId(data.memberLoginId);
+  //     // setMemberEmail(data.memberEmail);
+  //     // setMemberNickName(data.memberNickName);
+  //     // setMemberPath(data.memberPath);
+  //     // setMemberId(data.memberId);
+  //     // setMemberProfile(data.memberProfile);
 
   //     // navigate("/") ;
   //   }).catch(err=>{

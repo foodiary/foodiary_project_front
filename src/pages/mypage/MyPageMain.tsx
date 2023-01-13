@@ -15,8 +15,8 @@ import axiosConfig from '../../core/apis/utils/axiosConfig';
 
 const MyPageMain = () => {
   const navigate = useNavigate();
-  const {memberId, memberEmail, memberPath, memberProfile, memberNickName} = useLoginUserStore();
-
+  // const {memberId, memberEmail, memberPath, memberProfile, memberNickName} = useLoginUserStore();
+  const userInfo = useLoginUserStore(state=>state.userInfo);
   const [logout, setLogout] = useState(false);
   const [withdraw, setWithdraw] = useState(false);
   // const logout = btnStateStore(state=>state.logout);
@@ -65,7 +65,7 @@ const MyPageMain = () => {
       url = '/auth/logout'
     }
     else if(withdraw){
-      url= `/member/${memberId}`
+      url= `/member/${userInfo.memberId}`
     }
     setAlert(true);
     setTimeout(()=>navigate("/"),2000);
@@ -81,10 +81,10 @@ const MyPageMain = () => {
   return (
     <div className={styles.mypage}>
       <div className={styles.profile_container}>
-      <img src={memberPath? memberPath: basic_profile} alt="기본이미지" className={styles.profile_image}/>
+      <img src={userInfo.memberPath? userInfo.memberPath: basic_profile} alt="기본이미지" className={styles.profile_image}/>
         <div className={styles.user_info}>
-          <p>{memberNickName}</p>
-          <p>{memberEmail}</p>
+          <p>{userInfo.memberNickName}</p>
+          <p>{userInfo.memberEmail}</p>
         </div>
 
           <Link to="/mypage/setting">
@@ -94,7 +94,7 @@ const MyPageMain = () => {
           </Link>
       </div>
       <p className={styles.profile_msg}>
-        {memberProfile}
+        {userInfo.memberProfile}
       </p>
       <div className={styles.myWriting_btns}>
         <div className={styles.link}>

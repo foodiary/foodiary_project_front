@@ -14,7 +14,7 @@ import axiosConfig from "../../../core/apis/utils/axiosConfig";
 const Header = () => {
   const navigate = useNavigate();
   const [loginUser, setLoginUser] = useState(false);
-  const memberPath = useLoginUserStore(state=>state.memberPath);
+  const memberPath = useLoginUserStore(state=>state.userInfo.memberPath);
   // const userInfo = useLoginUserStore((state)=>state.userInfo);
   const [profileImg, setProfileImg] = useState(false);
 

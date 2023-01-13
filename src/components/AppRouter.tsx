@@ -39,6 +39,7 @@ import SignUpPwdConfirm from '@pages/signup/SignUpPwdConfirm';
 import ModifyProfileImg from '@pages/mypage/setting/ModifyProfileImg';
 import PrivateRouter from './PrivateRouter';
 import ScrollRestoration from './ScrollRestoration';
+import WritingPage from '@pages/WritingPage';
 
 const AppRouter = () => {
   const [loginUser, setLoginUser] = useState(false);
@@ -95,6 +96,7 @@ const AppRouter = () => {
             <Route path='/mypage/faq' element={<FAQ/>}/>
 
             <Route path='/member/password/change' element={<ModifyPwd/>}/>
+            <Route path='/write' element={<WritingPage/>}/>
 
           </Route>
 

@@ -13,7 +13,7 @@ interface ResType{
 }
 
 const MyGood = () => {
-  const memberId = useLoginUserStore(state=>state.memberId);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const [likeList, setLikeList] = useState([]);
   const page = 1;
 

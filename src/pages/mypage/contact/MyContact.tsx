@@ -15,7 +15,7 @@ interface ResType{
 const MyContact = () => {
   const page = 1;
   const [myQ, setMyQ] = useState([]); //내 문의내역
-  const memberId = useLoginUserStore(state=>state.memberId); //멤버시퀀스
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId); //멤버시퀀스
 
   useEffect(()=>{
       axiosConfig.get(`/question/${memberId}`,{

@@ -15,7 +15,7 @@ interface ResType{
   memberId: number;
 }
 const MyRecommend = () => {
-  const memberId = useLoginUserStore(state=>state.memberId);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const page = 1;
   const [menuList, setMenuList] = useState([]);
 

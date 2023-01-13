@@ -13,8 +13,8 @@ import { useLoginUserStore } from '@store/loginUserStore';
 const ModifyProfileImg = () => {
   const navigate = useNavigate();
   // const setNewProfileImg= useUserStore(state=>state.setNewProfileImg);
-  const memberId = useLoginUserStore(state=>state.memberId);
-  const memberProfile = useLoginUserStore(state=>state.memberProfile);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
+  const memberProfile = useLoginUserStore(state=>state.userInfo.memberProfile);
 
   const FILE_SIZE_MAX_LIMIT = 3 * 1024 * 1024;  //3MB
   const [img, setImg] = useState<File>();

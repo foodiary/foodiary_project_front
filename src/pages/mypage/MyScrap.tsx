@@ -13,7 +13,7 @@ interface ResType{
 }
 
 const MyScrap = () => {
-  const memberId = useLoginUserStore(state=>state.memberId);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const [scrapList, setScrapList] = useState([]);
   const page = 1;
 
