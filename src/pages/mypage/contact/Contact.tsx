@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import styles from '@styles/mypage/contact.module.scss';
 import clip_icon from '@img/clip_icon.svg';
 import axiosConfig from '../../../core/apis/utils/axiosConfig';
@@ -8,6 +8,7 @@ import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
 import MyContact from './MyContact';
 import { btnStateStore } from '@store/btnStateStore';
 import { useNavigate } from 'react-router-dom';
+import {MdCancel} from 'react-icons/md';
 
 const Contact = () => {
   const memberId = useLoginUserStore(state=>state.memberId); //멤버시퀀스
@@ -100,6 +101,10 @@ const Contact = () => {
     e.preventDefault();
     navigate("/mypage");
   }
+  const onFileInit = ()=>{
+    setFileURL("");
+  }
+  
   return (
     <div className={styles.mywriting}>
       <div className={styles.tab}>
@@ -118,7 +123,7 @@ const Contact = () => {
           {!write && <div className={styles.text_deco}></div>}
         </button>
       </div>
-
+      
       {write? 
         <div className={styles.contact_container}>
           <div className={styles.title}>
@@ -143,10 +148,15 @@ const Contact = () => {
               onChange={onFileChange}
             />
             <img src={clip_icon} alt="첨부파일"/>
-            {fileURL && 
-              <img alt='첨부사진' src={fileURL} className={styles.preview}/>
-            }
           </div>
+          {fileURL && 
+            <div className={styles.preview_container}>
+              <img alt='첨부사진' src={fileURL} className={styles.preview}/>
+              <button onClick={onFileInit}>
+                <MdCancel/>
+              </button>
+            </div>
+          }
           <div className={styles.btn_container}>
             <form onClick={onSubmit} className={styles.red}>
               <HalfButton text='작성완료' type='submit'/>

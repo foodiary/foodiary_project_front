@@ -14,7 +14,7 @@ const OtherLoginPage = () => {
   const navigate = useNavigate();
   const id = useUserStore((state)=>state.id);
   const pwd = useUserStore((state)=>state.pwd);
-  // const {setId, setSequenceId, setEmail, setNickName, setProfileImg, setProfileMsg} = useLoginUserStore();
+  // const {setMemberLoginId, setMemberId, setMemberEmail, setMemberNickName, setMemberPath, setMemberProfile} = useLoginUserStore();
   const setUserInfo = useLoginUserStore((state)=>state.setUserInfo);
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState(false);
@@ -37,12 +37,15 @@ const OtherLoginPage = () => {
       loginId: id,
       password: pwd,
     }).then(res=>{
+      // const memberId = res.data.body.memberId;
       console.log(res);
       console.log("로그인 완료");
       setLoading(false);
       // navigate("/");
-      // axiosConfig.get(`/member/76`).then(res=>{
-      //   // setUserInfo(res.data);
+      
+      // axiosConfig.get(`/member/${76}`).then(res=>{
+      //   console.log(res);
+      //   setUserInfo(res.data);
       //   navigate("/") ;
       // }).catch(err=>{
       //   console.log(err);

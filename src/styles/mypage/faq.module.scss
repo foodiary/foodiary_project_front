@@ -21,9 +21,12 @@
   }
 }
 .content{
-  @include column-flexBox();
-  width: 90%;
-  margin: 10px auto ;
-  border: 1px solid red;
-  
+  display: none;
+}
+.active{
+    @include column-flexBox();
+    width: 90%;
+    margin: 10px auto ;
+    border: 1px solid red;
+    padding: 10px;
 }

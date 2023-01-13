@@ -17,6 +17,7 @@ const ModifyPwd = () => {
   if(location.search.includes("jwt")){
     jwt = location.search.slice(5);
   }
+
   // const jwt = location.search.slice(5);
   const pwd = useUserStore((state)=>state.pwd);
   const more_pwd = useUserStore((state)=>state.more_pwd);
@@ -51,31 +52,61 @@ const ModifyPwd = () => {
       })
     }
     else{
-      url = `/member/password/${memberId}`;
-      axiosConfig.patch(url, {
-        password: pwd,
-        more_password: more_pwd,
-      }).then(res=>{
-        if(res === undefined){
-          return;
-        }
-        else{
-          setAlert(true);
-          //로그인 저장된 기록 지우기, 토큰도 지워
-          setTimeout(()=>{navigate("/login")},3000);
-        }
-        // if(res.status === 404){
-        //   setErr(true);
-        // }
-        // else{
-        //   setAlert(true);
-        //   setTimeout(()=>{navigate("/login")},3000);
-        // }
-        console.log(res); //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
-      }).catch(err=>{
-        console.log(err);
-        // setErr(true);
-      })
+      if(!memberId){
+        return(<AlertBox text='로그인된 유저가 아닙니다.' type={false}/>)
+      }
+      else{
+        url = `/member/password/${memberId}`;
+        axiosConfig.patch(url, {
+          password: pwd,
+          more_password: more_pwd,
+        }).then(res=>{
+          if(res === undefined){
+            return;
+          }
+          else{
+            setAlert(true);
+            //로그인 저장된 기록 지우기, 토큰도 지워
+            setTimeout(()=>{navigate("/login")},3000);
+          }
+          // if(res.status === 404){
+          //   setErr(true);
+          // }
+          // else{
+          //   setAlert(true);
+          //   setTimeout(()=>{navigate("/login")},3000);
+          // }
+          console.log(res); //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+        }).catch(err=>{
+          console.log(err);
+          // setErr(true);
+        })
+      }
+      // url = `/member/password/${memberId}`;
+      // axiosConfig.patch(url, {
+      //   password: pwd,
+      //   more_password: more_pwd,
+      // }).then(res=>{
+      //   if(res === undefined){
+      //     return;
+      //   }
+      //   else{
+      //     setAlert(true);
+      //     //로그인 저장된 기록 지우기, 토큰도 지워
+      //     setTimeout(()=>{navigate("/login")},3000);
+      //   }
+      //   // if(res.status === 404){
+      //   //   setErr(true);
+      //   // }
+      //   // else{
+      //   //   setAlert(true);
+      //   //   setTimeout(()=>{navigate("/login")},3000);
+      //   // }
+      //   console.log(res); //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+      // }).catch(err=>{
+      //   console.log(err);
+      //   // setErr(true);
+      // })
     }
     console.log(`비밀번호: ${pwd}`);
     console.log(`확인비번: ${more_pwd}`);

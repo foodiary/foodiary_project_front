@@ -1,15 +1,42 @@
 import Header from '@components/common/Header/Header';
 import styles from '@styles/mypage/contact.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import answer_icon from '@img/answer_icon.svg';
 import { useNavigate } from 'react-router';
+import {useLocation} from 'react-router-dom';
+import { useLoginUserStore } from '@store/loginUserStore';
+import axiosConfig from '@utils/axiosConfig';
 
+interface ResType{
+  answerContent: string;
+  answerCreate: string;
+  answerTitle: string;
+  questionContent: string;
+  questionCreate: string;
+  questionTitle: string;
+}
+interface Obj{
+  resobj: ResType
+}
 const ContactDetail = () => {
   const [write, setWrite] = useState(false);
   const navigate = useNavigate();
+  const {state} = useLocation();
+  const memberId = useLoginUserStore(state=>state.memberId);
+  const [content, setContent] = useState<Obj>();
+
+  useEffect(()=>{
+    axiosConfig.get(`/question/${memberId}/${state.questionId}`)
+    .then(res=>{
+      console.log(res);
+      setContent(res.data);
+    }).catch(err=>{
+      console.log(err);
+    })
+  },[]);
+
   return (
     <div className={styles.mywriting}>
-      <Header/>
       <div className={styles.tab}>
         <button 
           className={write? styles.active: styles.non_active}

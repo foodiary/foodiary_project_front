@@ -57,7 +57,7 @@ const SignUpEmail = () => {
     navigate("/signup/authmail");
   }
   return (
-    <div>
+    <div className={styles.login_container}>
       <Intro intro1={"본인인증을 위해"} span={"이메일을"} intro2={"입력해주세요."}/>
       <form onSubmit={onSubmit} className={styles.input_container}>
           <Input 

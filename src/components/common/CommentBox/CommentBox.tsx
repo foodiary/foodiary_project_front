@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './commentBox.module.scss';
 import basic_profile from '@img/basic_profile.svg';
 import {FiMoreVertical} from 'react-icons/fi';
+import { useLoginUserStore } from '@store/loginUserStore';
 
 interface ResType{
   dailyCommentBody: string;
@@ -20,10 +21,15 @@ const CommentBox = ({
   dailyCommentWriter,
 }:ResType) => {
   const date = dailyCommentCreate.slice(0,10).replaceAll("-","/");
+  const memberPath = useLoginUserStore(state=>state.memberPath);
+
   return (
     <div>
       <div className={styles.comment_container}>
-        <img src={basic_profile} className={styles.profile_picture} alt="프사"/>
+        <img 
+          src={memberPath === null? basic_profile: memberPath} 
+          className={styles.profile_picture} 
+          alt="프사"/>
         <button className={styles.more_btn}>
           <div className={styles.content}>
             <p>{dailyCommentWriter}</p>

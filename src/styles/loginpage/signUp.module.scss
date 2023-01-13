@@ -20,7 +20,7 @@
 }
 
 .new_pwd_container{
-  margin-top: 135px;
+  margin-top: 230px; //135
   @include column-flexBox();
   gap: 50px;
   .confirm{
@@ -93,6 +93,7 @@
 }
 .authmail_container{
   position: relative;
+  height: 65vh;
   .success_logo{
     position: absolute;
     top: 70px;

@@ -40,7 +40,7 @@ const OAuthRedirect = () => {
         }
         else{
           setOAuthLogin(false);
-          axiosOAuth.get(`/oauth/${provider_id}/callback`).then(res=>{
+          axiosOAuth.get(`/oauth/${provider_id}/callback?code=${authCode}`).then(res=>{
             console.log(`oauth로그인: ${res}`);
           }).catch(err=>{
             console.log(err);
