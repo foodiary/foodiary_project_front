@@ -89,7 +89,7 @@ const AppRouter = () => {
            
             
             <Route path='/mypage/contact' element={<Contact/>}/>
-            <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
+            <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
 
             <Route path='/mypage/notice' element={<Notice/>}/>
             <Route path='/mypage/notice/detail/:id' element={<NoticeDetail/>}/>

@@ -11,7 +11,8 @@
   p{
     padding: 0; margin: 10px 0;
     position: relative;
-    @include text-style(28px, $main, start);
+    @include text-style(28px, $main, 600, start);
+    // @include text-style(28px, $main, start);
     span{
       position: relative;
     }

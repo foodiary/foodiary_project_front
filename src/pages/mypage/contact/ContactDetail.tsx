@@ -14,6 +14,7 @@ interface ResType{
   questionContent: string;
   questionCreate: string;
   questionTitle: string;
+  questionAnswerYn: string;
 }
 interface Obj{
   resobj: ResType
@@ -22,14 +23,16 @@ const ContactDetail = () => {
   const [write, setWrite] = useState(false);
   const navigate = useNavigate();
   const {state} = useLocation();
+  const {search} = useLocation();
+  
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
-  const [content, setContent] = useState<Obj>();
+  const [res, setRes] = useState<ResType>();
 
   useEffect(()=>{
-    axiosConfig.get(`/question/${memberId}/${state.questionId}`)
+    axiosConfig.get(`/question/${memberId}/${search.slice(1)}`)
     .then(res=>{
       console.log(res);
-      setContent(res.data);
+      setRes(res.data);
     }).catch(err=>{
       console.log(err);
     })
@@ -37,7 +40,7 @@ const ContactDetail = () => {
 
   return (
     <div className={styles.mywriting}>
-      <div className={styles.tab}>
+      <div className={`${styles.tab} ${styles.contact_tab}`}>
         <button 
           className={write? styles.active: styles.non_active}
           onClick={()=>{navigate(-1)}}
@@ -55,35 +58,31 @@ const ContactDetail = () => {
 
     <div className={styles.detail}>
       <div className={styles.detail_container}>
+       
         <p className={styles.detail_title}>
-          문의 제목이 들어가는 공간입니다.
+          {res?.questionTitle}
         </p>
         <p className={styles.detail_content}>
-          문의 내용이 들어가는 공간입니다.
-          문의 내용이 들어가는 공간입니다.
-          문의 내용이 들어가는 공간입니다.
-          문의 내용이 들어가는 공간입니다.
-          문의 내용이 들어가는 공간입니다.
+          {res?.questionContent}
         </p>
         <div className={styles.status}>
-          <p className={styles.state}>답변완료</p>
-          <p>2022.12.30</p>
+          <p className={styles.state}>
+            {res?.questionAnswerYn==="Y"? "답변완료": "답변대기"}
+          </p>
+          <p>{res?.questionCreate.slice(2,10).replaceAll("-","/")}</p>
         </div>
       </div>
-      <div className={styles.answer_container}>
-        {/* <img src={answer_icon} alt="화살표"/> */}
-        <p className={styles.detail_title}>
-          <img src={answer_icon} alt="화살표"/>
-          답변 제목이 들어가는 공간입니다.
-        </p>
-        <p className={styles.detail_content}>
-          답변내용이 들어가는 공간입니다.
-          답변내용이 들어가는 공간입니다.
-          답변내용이 들어가는 공간입니다.
-          답변내용이 들어가는 공간입니다.
-          답변내용이 들어가는 공간입니다.
-        </p>
-      </div>
+
+      {res?.answerTitle && 
+        <div className={styles.answer_container}>
+          <p className={styles.detail_title}>
+            <img src={answer_icon} alt="화살표"/>
+            {res?.answerTitle}
+          </p>
+          <p className={styles.detail_content}>
+            {res?.answerContent}
+          </p>
+        </div>}
       </div>
     </div>
   );

@@ -37,9 +37,12 @@ const MyRecommend = () => {
         {menuList.length > 0 ? 
           menuList.map((menu:ResType)=>{
             return(
-              <div className={styles.menu}>
+              <div className={styles.menu} key={menu.memberFoodId}>
                 <p>{menu.foodName}</p>
-                <button>Good</button>
+                <button>
+                  {menu.memberFoodLike==="N"?
+                  "Nope": "Good"}
+                </button>
               </div>
             )
           }):

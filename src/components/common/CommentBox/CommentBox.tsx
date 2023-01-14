@@ -13,12 +13,14 @@ interface ResType{
   // dailyLike: number;
   // dailyScrap: number;
   // dailyTitle: string;
+  isMine?: boolean; // 댓글이 본인 것인지(true)
 }
 
 const CommentBox = ({
   dailyCommentBody,
   dailyCommentCreate,
   dailyCommentWriter,
+  isMine,
 }:ResType) => {
   const date = dailyCommentCreate.slice(0,10).replaceAll("-","/");
   const memberPath = useLoginUserStore(state=>state.userInfo.memberPath);
@@ -36,9 +38,9 @@ const CommentBox = ({
             <p>{dailyCommentBody}</p>
             <p>{date}</p>
           </div>
-          <div>
+          {isMine && <div>
             <FiMoreVertical/>
-          </div>
+          </div>}
         </button>
       </div>
       {/* <div className={styles.comment_container}>

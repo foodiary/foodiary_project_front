@@ -1,9 +1,10 @@
-import React, { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useRef, useState } from 'react';
 import styles from "@styles/loginpage/signUpAgree.module.scss";
 import { useNavigate } from 'react-router-dom';
 import { Intro } from '@components/common/Text/SignUpPageText';
 import { LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
+import {AiFillCheckCircle, AiOutlineCheckCircle} from 'react-icons/ai';
 
 const SignUpAgree = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const SignUpAgree = () => {
   const idArr = ['cb1', 'cb2', 'cb3', 'cb4'];
   const [allChecked, setAllChecked] = useState(false);
   const [next, setNext] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const handleAllCheck = (e:React.ChangeEvent<HTMLInputElement>)=>{
     setAllChecked(prev=>!prev);
@@ -68,38 +70,61 @@ const SignUpAgree = () => {
     setRequiredTerms("Y");
     navigate("/signup/id");
   }
+  const clickedRef = useRef<HTMLInputElement>(null);
 
   return (
       <div>
         <Intro intro1={"함께 하기 위해,"} span={"약관동의"} intro2={"가 필요합니다!"}/>
         <form className={styles.agree_check} onSubmit={onSubmit}>
-          <div>
+          <div className={styles.text_container}>
             <input type="checkbox" id="cb1" name="all" 
               checked={checkedList.length === idArr.length ? true : false}
-              onChange={handleAllCheck}/>
-            <label htmlFor='cb1'>약관 전체 동의</label>
+              onChange={handleAllCheck}
+            />
+            <label htmlFor='cb1' onClick={()=>setChecked(prev=>!prev)}>
+              <div className={styles.check_btn} >
+                {checkedList.length === idArr.length ? <AiFillCheckCircle/>: <AiOutlineCheckCircle/>}
+              </div>
+              <p>약관 전체 동의</p>
+            </label>
           </div>
 
-          <div>
+          <div className={styles.text_container}>
             <input type="checkbox" id="cb2" name="confirm" 
               checked={checkedList.includes('cb2') ? true : false}
-              onChange={handleCheck}/>
-            <label htmlFor='cb2'>이용약관 동의(필수)</label>
+              onChange={handleCheck}
+            />
+            <label htmlFor='cb2' onClick={()=>setChecked(prev=>!prev)}>
+              <div className={styles.check_btn}>
+                {checkedList.includes('cb2')? <AiFillCheckCircle/>: <AiOutlineCheckCircle/>}
+              </div>
+              <p>이용약관 동의(필수)</p>
+            </label>
           </div>
 
-          <div>
+          <div className={styles.text_container}>
             <input type="checkbox" id="cb3" name="personal_info" 
               checked={checkedList.includes('cb3') ? true : false}
               onChange={handleCheck}/>
-            <label htmlFor='cb3'>개인정보 수집 및 이용동의(필수) </label>
+            <label htmlFor='cb3' onClick={()=>setChecked(prev=>!prev)}> 
+              <div className={styles.check_btn}>
+                {checkedList.includes('cb3') ? <AiFillCheckCircle/>: <AiOutlineCheckCircle/>}
+              </div>
+              <p>개인정보 수집 및 이용동의(필수)</p> 
+            </label>
           </div>
 
-          <div>
+          <div className={styles.text_container}>
             <input type="checkbox" id="cb4" name="advertise" 
               checked={checkedList.includes('cb4') ? true : false}
               onChange={handleCheck}/>
-            <label htmlFor='cb4'>E-mail 및 SMS 광고성 정보 수신동의(선택)</label>
-            <p>다양한 프로모션 소식 및 신규 정보를 보내드립니다.</p>
+            <label htmlFor='cb4' onClick={()=>setChecked(prev=>!prev)}>
+              <div className={styles.check_btn}>
+                {checkedList.includes('cb4') ? <AiFillCheckCircle/>: <AiOutlineCheckCircle/>}
+              </div>
+              <p>E-mail 및 SMS 광고성 정보 수신동의(선택)</p>
+            </label>
+            <p className={styles.more}>다양한 프로모션 소식 및 신규 정보를 보내드립니다.</p>
           </div>
         {/* </form> */}
 

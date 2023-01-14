@@ -27,14 +27,13 @@ const ModifyProfileMsg = () => {
   const onChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     const {value} = e.target;
     setValue(value);
-    // setProfileMsg(value);
+    setNewProfileMsg(value);
     setMsgLength(value.length);  
   }
   const onClick = ()=>{
-    console.log("백");
     setNewProfileMsg(value);
     // navigate("/mypage/setting",{state: {newMsg: value}} );
-    navigate("/mypage/setting");
+    navigate("/mypage/setting", {state: {msg: newProfileMsg}});
 
   }
   return (

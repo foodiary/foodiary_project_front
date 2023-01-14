@@ -13,7 +13,17 @@ const MainPage = () => {
   // const memberId = 76; //미주님 아이디
   // const userInfo = {id: 1, name: "MIjin", age: 15};
 
-  console.log(userInfo);
+  // useEffect(()=>{
+  //   axiosConfig.get('/member/76').then(res=>{
+  //     console.log(res);
+  //     setUserInfo(res.data);
+  //     // navigate("/") ;
+  //   }).catch(err=>{
+  //     console.log(err);
+  //   })
+  // },[]);
+
+  // console.log(userInfo);
   // const {setMemberLoginId, setMemberId, setMemberEmail, setMemberNickName, setMemberPath, setMemberProfile} = useLoginUserStore();
 
   // const getMemberInfo = useCallback(()=>{

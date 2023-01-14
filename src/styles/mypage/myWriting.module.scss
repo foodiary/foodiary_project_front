@@ -8,10 +8,10 @@
   // margin-bottom: 100px;
   margin-top: 135px;
   .tab{
-    width: 65%;
+    // width: 65%;
     margin: 100px 0 85px 20px;
-    @include flexBox($jc:around);
-
+    @include flexBox($jc:start);
+    // border: 1px solid red;
     .active{
       // border: 1px solid red;
       @include text-style(24px, $main, 700);
@@ -25,7 +25,7 @@
   button{
     background: none;
     border: none;
-    cursor: pointer;
+    // cursor: pointer;
     position: relative;
   
     .text_deco{
@@ -45,7 +45,7 @@
     grid-template-columns: repeat(2, 1fr);
     width: 95%;
     margin: auto;
-    gap: 5px;
+    gap: 10px;
     .card{
       // margin: 10px;
       width: 98%;

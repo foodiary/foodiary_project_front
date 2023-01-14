@@ -13,12 +13,18 @@ const ModifyNickName = () => {
   const nickName = useUserStore(state=>state.nickName);
   // const newNickName = useUserStore(state=>state.newNickName);
   const setNewNickName = useUserStore(state=>state.setNewNickName);
+  const newProfileMsg = useUserStore((state)=>state.newProfileMsg);
+
+
   const validationErr = useUserStore((state)=>state.validationErr);
-  const [next, setNext] = useState(true);
+  const [next, setNext] = useState(false);
   const [err, setErr] = useState(false);
 
   const onClick = ()=>{
-    navigate(-1);
+    navigate('/mypage/setting',{state: {
+      nickName: nickName,
+      msg: newProfileMsg
+    }});
     setNewNickName(nickName);
   }
   const onSubmit = (e:FormEvent)=>{

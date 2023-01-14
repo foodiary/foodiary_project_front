@@ -42,13 +42,15 @@ const OtherLoginPage = () => {
       console.log(res);
       setLoading(false);
       
-      axiosConfig.get(`/member/${memberId}`).then(res=>{
+      axiosConfig.get(`/member/${memberId}`)
+      .then(res=>{
         console.log(res);
         setUserInfo(res.data);
         navigate("/") ;
       }).catch(err=>{
         console.log(err);
-      })
+      });
+
     }).catch(err=>{
       setLoading(false);
       console.log(err);

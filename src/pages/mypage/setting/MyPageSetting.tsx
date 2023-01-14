@@ -1,11 +1,11 @@
 import { HalfButton, LoginButton } from '@components/common/LoginButton/Button';
 import Header from '@components/common/Header/Header';
 import styles from '@styles/mypage/myPageSetting.module.scss';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import pen_icon from '@img/pen_icon.svg';
 import basic_profile from '@img/basic_profile.svg';
-import { WarnBox } from '@components/common/AlertBox/AlertBox';
+import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
 import { btnStateStore } from '@store/btnStateStore';
 import { useLoginUserStore } from '@store/loginUserStore';
 import { useUserStore } from '@store/userStore';
@@ -13,21 +13,52 @@ import axiosConfig from '../../../core/apis/utils/axiosConfig';
 
 const MyPageSetting = () => {
   const navigate = useNavigate();
+  const {state} = useLocation();
+  console.log(state);
   const [viewBtn, setViewBtn] = useState(false);
+
   const [alert, setAlert] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   const [basicImg, setBasicImg] = useState(false);
+
   const cancel = btnStateStore(state=>state.cancel);
   const setCancel = btnStateStore(state=>state.setCancel);
 
-  // const {memberLoginId, memberId, memberEmail, memberPath, memberProfile, memberNickName} = useLoginUserStore();
   const userInfo = useLoginUserStore(state=>state.userInfo);
-  const profileMsg = useUserStore(state=>state.profileMsg);
-  const setProfileMsg = useUserStore(state=>state.setProfileMsg);
-  const newNickName = useUserStore(state=>state.newNickName);
-  const newProfileMsg = useUserStore(state=>state.newProfileMsg);
-  // console.log(memberLoginId, memberEmail, memberPath, memberProfile, memberNickName);
+  const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
+
+  const [newNickName, setNewNickName] = useState("");
+  const [newProfileMsg, setNewProfileMsg] = useState("");
+
+  // let newNickName ="";
+  // let newProfileMsg = "";
+  // const newNickName = useUserStore(state=>state.newNickName);
+  useEffect(()=>{
+    if(state){
+      if(state.nickName){
+        setNewNickName(state.nickName);
+      }
+      else{
+        setNewProfileMsg(state.msg);
+      }
+    }
+  },[]);
+
+  
+
+  // const newProfileMsg = useUserStore(state=>state.newProfileMsg);
+  // const setNewNickName = useUserStore(state=>state.setNewNickName);
+  // const setNewProfileMsg = useUserStore(state=>state.setNewProfileMsg);
+
+  const [img, setImg] = useState<File>();
+
+  const [modify, setModify] = useState(false);
+  // const [, setFileURL] = useState(""); //파일 미리보기
+
   // useEffect(()=>{
-  //   setProfileMsg("");
+  //   setNewProfileMsg("");
+  //   setNewNickName("");
   // },[]);
 
   const onClick = ()=>{
@@ -35,28 +66,70 @@ const MyPageSetting = () => {
     setAlert(true);
   }
 
-  const onModifyImg = ()=>{
-    navigate("/member/img/change");
+  // useEffect(()=>{
+  //   if(modify){
+  //     axiosConfig.get(`/member/${userInfo.memberId}`)
+  //     .then(res=>{
+  //       console.log(res);
+  //       setUserInfo(res.data);
+  //     })
+  //   }
+    
+  // },[modify]);
+
+  const onModifyImg = (e:React.ChangeEvent<HTMLInputElement>)=>{
+    const img = e.currentTarget.files![0];
+    // console.log(img);
+    // setImg(e.currentTarget.files![0]);
+    console.log(img);
+    let formData = new FormData();
+    formData.append('memberImage', img!);
+    const headers = {"Content-Type": "multipart/form-data"};
+
+    axiosConfig.patch(`/member/image/${userInfo.memberId}`, formData, {headers})
+    .then(res=>{
+      console.log(res);
+      setModify(true);
+      return(<AlertBox type={true} text='변경되었습니다'/>)
+    }).catch(err=>{
+      console.log(err);
+    })
+    e.target.value = "";
   }
+  console.log(modify);
   const removeImg = ()=>{
     setCancel(true);
     setViewBtn(false);
     setBasicImg(true);
-    console.log("이미지 삭제 기본이미지로 대체");
+
+    axiosConfig.delete(`/member/image/${userInfo.memberId}`)
+    .then(res=>{
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    })
   }
+
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
-    console.log("제출");
-    // axiosConfig.patch(`/member/${memberId}`, {
-    //   nickName: newNickName,
-    //   profile: newProfileMsg,
-    // }).then(res=>{
-    //   console.log(res);
-    // }).catch(err=>{
-    //   console.log(err);
-    // })
-    //서버에 수정된 프로필 전체 내용 넘기기
+    const nickName = newNickName? newNickName: userInfo.memberNickName;
+    const profile = newProfileMsg? newProfileMsg : userInfo.memberProfile;
+
+    axiosConfig.patch(`/member/${userInfo.memberId}`, {
+      nickName: nickName,
+      profile: profile,
+    }).then(res=>{
+      console.log(res);
+      setSuccess(true);
+      setTimeout(()=>{navigate('/mypage')},2000);
+
+    }).catch(err=>{
+      console.log(err);
+    })
   }
+
+  const clickRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className={styles.profile}>
       <div className={styles.profile_container}>
@@ -103,12 +176,15 @@ const MyPageSetting = () => {
         <div className={styles.modal_back}>
           <div className={styles.btn_container}>
             <div className={styles.black}>
-              {/* <label htmlFor='img'>
-                dkgkgk
-                <div><HalfButton text='수정' type='button'/></div>
+              <label htmlFor='img'>
+                <div onClick={()=>clickRef.current?.click()}>
+                  <HalfButton text='수정' type='button'/>
+                </div>
               </label>
-              <input type="file" id='img'/> */}
-              <div onClick={onModifyImg}><HalfButton text='수정' type='button'/></div>
+              <input type="file" id='img' ref={clickRef} onChange={onModifyImg}/>
+              {/* <div onClick={onModifyImg}>
+                <HalfButton text='수정' type='button'/>
+              </div> */}
             </div>
             <div className={styles.red} onClick={onClick}>
               <HalfButton text='삭제' type='submit'/>
@@ -122,8 +198,9 @@ const MyPageSetting = () => {
         <form className={styles.btn} onSubmit={onSubmit}>
           <LoginButton type='submit' text='완료' active={true}/>
         </form>
-
       }
+
+      {success && <AlertBox text='프로필이 변경되었습니다' type={true}/>}
     </div>
   );
 };

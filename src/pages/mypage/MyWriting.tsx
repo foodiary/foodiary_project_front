@@ -10,24 +10,27 @@ import { Link } from 'react-router-dom';
 interface WritingRes{
   dailyPath?: string; //이미지
   dailyId?: number; //글 아이디
-  recipeId?: number;
-  recipePath?: string | null;
+  // recipeId?: number;
+  // recipePath?: string | null;
 }
 const MyWriting = () => {
-  const [day, setDay] = useState(true);
+  // const [day, setDay] = useState(true);
   const [writingList, setWritingList] = useState([]);
   const page = 1;
-  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
+  // const memberId = useLoginUserStore(state=>state.userInfo.memberId);
+  const memberId = 76;
+
   let url = '';
   // const navigate = 
 
   useEffect(()=>{
-    if(day){
-      url = `/member/post/daily/${memberId}`
-    }
-    else{
-      url = `/member/post/recipe/${memberId}`
-    }
+    url = `/member/post/daily/${memberId}`;
+    // if(day){
+    //   url = `/member/post/daily/${memberId}`
+    // }
+    // else{
+    //   url = `/member/post/recipe/${memberId}`
+    // }
     axiosConfig.get(url, {
       params: {page: page}
     }).then(res=>{
@@ -37,15 +40,16 @@ const MyWriting = () => {
       console.log(err);
     });
 
-  },[day]);
-  // const onClick = ()=>{
-  //   navigat
-  //   /dailys/datils parmas dailyId
-  // }
+  },[]);
+ 
   return (
     <div className={styles.mywriting}>
       <div className={styles.tab}>
         <button 
+          className={styles.active}
+        >
+          하루 식단
+        {/* <button 
           className={day? styles.active: styles.non_active}
           onClick={()=>{setDay(true)}}
         >
@@ -56,17 +60,17 @@ const MyWriting = () => {
           className={!day? styles.active: styles.non_active}
           onClick={()=>{setDay(false)}}
         >
-          레시피 공유
-          {!day && <div className={styles.text_deco}></div>}
+          레시피 공유 */}
+          {<div className={styles.text_deco}></div>} 
         </button>
       </div>
       <div className={styles.card_container}>
         {writingList.length > 0 ? writingList.map((item:WritingRes)=>{
-          let url = ''
-          if(day){
-            url = `/mypage/daily/details/${item.dailyId}`
-          }
-          else{ url = `/mypage/recipe/details/${item.recipeId}`}
+          const url = `/mypage/daily/details/${item.dailyId}`;
+          // if(day){
+          //   url = `/mypage/daily/details/${item.dailyId}`
+          // }
+          // else{ url = `/mypage/recipe/details/${item.recipeId}`}
           return(
             <Link to={url} 
               key={item.dailyId} 

@@ -36,8 +36,9 @@ const MyContact = () => {
                 <WritingLink 
                   text1={item.questionTitle} 
                   text2={item.questionAnswerYn + item.questionCreate} 
-                  url='/mypage/contact/detail' 
-                  state={{questionId: item.questionId}}/>
+                  url={`/mypage/contact/detail?${item.questionId}`}
+                  state={{questionId: item.questionId}}
+                />
               )
             }):
             <EmptyText text='문의 내역이 없습니다.'/>

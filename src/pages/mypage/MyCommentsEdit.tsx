@@ -5,13 +5,14 @@ import { LoginButton } from '@components/common/LoginButton/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axiosConfig from '@utils/axiosConfig';
 import { AlertBox } from '@components/common/AlertBox/AlertBox';
+import { useLoginUserStore } from '@store/loginUserStore';
 
 const MyCommentsEdit = () => {
   const {state} = useLocation();
   const navigate = useNavigate();
   const [value, setValue] = useState("");
   const [alert, setAlert] = useState(false);
-  const memberId = 76;
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   useEffect(()=>{
     setValue(state.content);
@@ -25,8 +26,16 @@ const MyCommentsEdit = () => {
   }
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
+    const data = {
+      commentId: state.commentId,
+      content: value,
+      dailyId: state.dailyId,
+      memberId: memberId,
+    }
     console.log("등록"); //응답 후 이전페이지이동
-    axiosConfig.patch(`/daily/comment/${state.dailyId}/${memberId}/${state.commentId}`)
+    axiosConfig.patch(
+      `/daily/comment/${state.dailyId}/${memberId}/${state.commentId}`,
+      data)
     .then(res=>{
       console.log(res);
       setAlert(true);

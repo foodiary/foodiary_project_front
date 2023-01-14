@@ -17,6 +17,8 @@ const MyPageMain = () => {
   const navigate = useNavigate();
   // const {memberId, memberEmail, memberPath, memberProfile, memberNickName} = useLoginUserStore();
   const userInfo = useLoginUserStore(state=>state.userInfo);
+  const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
+
   const [logout, setLogout] = useState(false);
   const [withdraw, setWithdraw] = useState(false);
   // const logout = btnStateStore(state=>state.logout);
@@ -27,6 +29,15 @@ const MyPageMain = () => {
   // const setWithdraw = btnStateStore(state=>state.setWithdraw);
   const [alert, setAlert] = useState(false);
   // const [cancel, setCancel] = useState(false);
+
+  useEffect(()=>{
+      axiosConfig.get(`/member/${userInfo.memberId}`)
+      .then(res=>{
+        console.log(res);
+        setUserInfo(res.data);
+      })
+  
+  },[]);
 
   useEffect(()=>{
     setLogout(false);

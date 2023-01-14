@@ -44,10 +44,12 @@ const MyCommentsDetail = () => {
       setWriter(data.dailyCommentWriter);
       setDate(data.dailyCommentCreate);
       setDailyId(data.dailyId);
-      setCommentId(data.dailyComment);
+      setCommentId(data.dailyCommentId);
 
     }).catch(err=>console.log(err));
   },[]);
+
+
 
   const navigate = useNavigate();
 
@@ -64,12 +66,21 @@ const MyCommentsDetail = () => {
     setCancel(true);
     setViewBtn(false);
     console.log("삭제ㅇㅇ"); //알럿창
+    axiosConfig.delete(
+      `/daily/comment/${dailyId}/${memberId}/${commentId}`)
+    .then(res=>{
+      console.log(res);
+      setTimeout(()=>navigate(-1),2000);
+      return(<AlertBox type={true} text='삭제되었습니다'/>)
+    }).catch(err=>{
+      console.log(err);
+    })
   }
 
   return (
     <div className={styles.comment_detail}>
       <div className={styles.writing}>
-        <Link to="" className={styles.board_link}>
+        <Link to={`/daily/details/${dailyId}`} className={styles.board_link}>
           {dailyTitle}
         </Link>
         <div className={styles.good_scrap}>
@@ -86,7 +97,8 @@ const MyCommentsDetail = () => {
         <CommentBox 
           dailyCommentWriter={writer} 
           dailyCommentBody={commentContent} 
-          dailyCommentCreate={date}/>
+          dailyCommentCreate={date}
+          isMine={true}/>
       </div>
       {viewBtn && <div className={styles.view_btn}>
         <div className={styles.black} onClick={onClick}>
