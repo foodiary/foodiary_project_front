@@ -22,7 +22,14 @@ const MainPage = () => {
   const [userName, setUserName] = useState<string>("푸디어리");
   // const [tabMenu, setTabMenu] = useState<string>("0");
   const [daysBtn, setDaysBtn] = useState(days.month);
-  const memberId = 1;
+  const memberId = 76;
+  useEffect(()=>{
+    axiosConfig.get('/member/76').then(res=>{
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    });
+  },[]);
   // const [recipeTab, setRecipeTab] = useState<string>("0");
 
   // const [getRank, setGetRank] = useState([]);

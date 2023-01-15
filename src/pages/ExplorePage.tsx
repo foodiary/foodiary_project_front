@@ -41,9 +41,7 @@ const ExplorePage = () => {
   return (
     <article className={styled.questWrapper}>
       <div className={styled.titleDiv}>
-        {/* <h3 className={tab === "0" ? styled.activeTitle : styled.title}>
-          레시피
-        </h3> */}
+ 
         {/* <h3 className={tab === "1" ? styled.activeTitle : styled.title}>
           하루식단
         </h3> */}

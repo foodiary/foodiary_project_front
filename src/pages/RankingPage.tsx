@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from '@styles/rankingPage.module.scss';
-import { MediumCard } from '@components/common/Card';
+import { MediumCard, SmallCard } from '@components/common/Card';
 import { Link } from 'react-router-dom';
 import axiosConfig from '@utils/axiosConfig';
 import { useState } from 'react';
@@ -32,7 +32,16 @@ const RankingPage = () => {
     <div className={styles.ranking}>
       <h3>랭킹</h3>
       <div className={styles.card_container}>
+        {/* {rankingList.map((item)=>{
+          return(
+            <Link to="/detail"> 
+              <SmallCard/>
+
+              </Link>
+          )
+        })} */}
         <Link to="/detail">  {/**글 상세보기로 넘어가기*/}
+          <SmallCard/>
           <MediumCard 
             tag='top 20' 
             title='이야 타이틀' 
