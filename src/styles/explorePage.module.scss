@@ -1,0 +1,70 @@
+@import "../styles/main.module.scss";
+
+.btnDiv {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin: 50px 0;
+  margin-right: 20px;
+}
+
+.questWrapper {
+  @extend %page-base;
+  border: 1px solid black;
+  margin-top: 57px;
+
+  .titleDiv {
+    display: flex;
+    @include flexBox($jc: between);
+    width: 90%;
+    gap: 16px;
+    align-items: center;
+
+
+    .activeTitle {
+      font-size: $h5;
+      margin-left: 20px; 
+    }
+
+    .title {
+      font-size: 1.125rem;
+      color: $gray_400;
+    }
+
+    .searchIcon {
+      margin-left: auto;
+      padding: 15px;
+      border: 2px solid $main;
+      border-radius: 8px;
+    }
+  }
+
+  .recipeSection {
+    .contents {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      // display: flex;
+      width: 95%;
+      margin: 70px auto 0 auto;
+
+      // flex-wrap: wrap;
+      gap: 20px 8px;
+    }
+  }
+
+  .dailyDietSection {
+    .dailyDietContents {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+  }
+}
+.card_container{
+  width: 90%;
+  margin: 100px auto 0 auto;
+  .card{
+    @include flexBox();
+    margin-bottom: 20px;
+  }
+}
