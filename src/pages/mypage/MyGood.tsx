@@ -6,6 +6,7 @@ import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import EmptyText from '@components/common/Text/EmptyText';
 import { Link } from 'react-router-dom';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 interface ResType{
     dailyId: 0;
@@ -30,9 +31,9 @@ const MyGood = () => {
 
   return (
     <div className={styles.mywriting}>
-      <p className={styles.good}>좋아요 글 
-        <div className={styles.text_deco}></div>
-      </p>
+      <div className={styles.title}>
+        <DecoTitle title='좋아요 글'/>
+      </div>
 
       <div className={styles.card_container}>
         {likeList.length > 0 ? likeList.map((item:ResType)=>{

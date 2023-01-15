@@ -43,12 +43,12 @@ import RankingPage from '@pages/RankingPage';
 import ExplorePage from '@pages/ExplorePage';
 import ExploreDetail from '@pages/ExploreDetail';
 import WritingDetails from '@pages/WritingDetails';
+import WritingPage from '@pages/WritingPage';
 
 const AppRouter = () => {
   const [loginUser, setLoginUser] = useState(false);
   const token = localStorage.getItem("access_token");
   useEffect(()=>{
-    // console.log("AppRouter 컴포넌트: ", token);
     if(token){
       setLoginUser(true);
     }
@@ -103,7 +103,6 @@ const AppRouter = () => {
             <Route path='/mypage/contact' element={<Contact/>}/>
             <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
 
->>>>>>> origin/feat/signup
             <Route path='/mypage/notice' element={<Notice/>}/>
             <Route path='/mypage/notice/detail/:id' element={<NoticeDetail/>}/>
             <Route path='/mypage/faq' element={<FAQ/>}/>

@@ -4,40 +4,10 @@
 
 .mywriting{
   position: relative;
-  // height: 100%;
-  // margin-bottom: 100px;
   margin-top: 135px;
-  .tab{
-    // width: 65%;
-    margin: 100px 0 85px 20px;
-    @include flexBox($jc:start);
-    // border: 1px solid red;
-    .active{
-      // border: 1px solid red;
-      @include text-style(24px, $main, 700);
-    }
-    .non_active{
-      // border: 1px solid red;
-      @include text-style(18px, #666666, 700);
-    }
-    
-  }
-  button{
-    background: none;
-    border: none;
-    // cursor: pointer;
-    position: relative;
-  
-    .text_deco{
-      position: absolute;
-      width: 100%;
-      height: 13px;
-      top: 60%;
-      opacity: 0.5;
-      transform: rotate(-3.07deg);
-      // background-color: #FFA68A;
-      background-color: $point;
-    }
+
+  .title{
+    margin: 135px 0 30px 20px;
   }
   .card_container{
     display: grid;

@@ -4,6 +4,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '@styles/mypage/faq.module.scss';
 import top_arrow from '@img/top_arrow.svg';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
+import EmptyText from '@components/common/Text/EmptyText';
 
 interface FAQ{
   faqContent: string;
@@ -36,27 +38,30 @@ const FAQ = () => {
   return (
     <div>
       <div className={styles.faq_container}>
-        <Intro span="FAQ" intro2=''/>
+        <div className={styles.title}>
+          <DecoTitle title='FAQ'/>
+        </div>
 
         <div className={styles.board}>
-          {faqList.map((item:FAQ, index:number)=>{
-            const faqId = String(item.faqId).padStart(2, "0");
-            const active = (index === clicked) ? styles.active: '';
+          {faqList.length>0?
+            faqList.map((item:FAQ, index:number)=>{
+              const faqId = String(item.faqId).padStart(2, "0");
+              const active = (index === clicked) ? styles.active: '';
 
-            return(
-              <>
-              <button className={styles.q_container} key={index} onClick={()=>{onTitleClick(index);}}>
-                <p className={styles.num}>{faqId}</p>
-                <p className={styles.title}>{item.faqTitle}</p>
-                {/* <button> */}
-                  <img src={top_arrow} alt="화살표"/>
-                {/* </button> */}
-              </button>
-              {open && 
-                <p className={`${styles.content} ${active}`}>{item.faqContent}</p>}
-              </>
-            )
-          })}
+              return(
+                <>
+                <button className={styles.q_container} key={index} onClick={()=>{onTitleClick(index);}}>
+                  <p className={styles.num}>{faqId}</p>
+                  <p className={styles.title}>{item.faqTitle}</p>
+                    <img src={top_arrow} alt="화살표"/>
+                </button>
+                {open && 
+                  <p className={`${styles.content} ${active}`}>{item.faqContent}</p>}
+                </>
+              )
+            }):
+            <EmptyText text='등록된 질문이 없습니다'/>
+          }
         </div>
       </div>
     </div>

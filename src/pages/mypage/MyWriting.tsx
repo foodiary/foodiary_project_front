@@ -6,6 +6,7 @@ import axiosConfig from '../../core/apis/utils/axiosConfig';
 import EmptyText from '@components/common/Text/EmptyText';
 import { LargeCard, MediumCard, SmallCard } from '@components/common/Card';
 import { Link } from 'react-router-dom';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 interface WritingRes{
   dailyPath?: string; //이미지
@@ -44,25 +45,8 @@ const MyWriting = () => {
  
   return (
     <div className={styles.mywriting}>
-      <div className={styles.tab}>
-        <button 
-          className={styles.active}
-        >
-          하루 식단
-        {/* <button 
-          className={day? styles.active: styles.non_active}
-          onClick={()=>{setDay(true)}}
-        >
-          하루 식단
-          {day && <div className={styles.text_deco}></div>}
-        </button>
-        <button 
-          className={!day? styles.active: styles.non_active}
-          onClick={()=>{setDay(false)}}
-        >
-          레시피 공유 */}
-          {<div className={styles.text_deco}></div>} 
-        </button>
+      <div className={styles.title}>
+        <DecoTitle title='하루 식단'/>
       </div>
       <div className={styles.card_container}>
         {writingList.length > 0 ? writingList.map((item:WritingRes)=>{
@@ -84,7 +68,6 @@ const MyWriting = () => {
       </div>
       
     </div>
-      // {/* 게시판 완성 후 가져오기 */}
   );
 };
 

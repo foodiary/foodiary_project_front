@@ -5,6 +5,11 @@
   position: relative;
   height: 100%;
   margin-top: 100px;
+
+  .title{
+    margin: 135px 0 30px 20px;
+  }
+
   .explain{
     @include text-style(16px, #666666, 500, start);
     margin: 20px 0 65px 24px;
@@ -12,7 +17,7 @@
   }
   img{
     position: absolute;
-    top: 100px;
+    top: 80px;
     left: 70%;
   }
   .menu_list{

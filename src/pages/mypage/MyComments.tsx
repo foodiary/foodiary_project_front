@@ -4,6 +4,7 @@ import WritingLink from '@components/common/WritingLink/WritingLink';
 import { useLoginUserStore } from '@store/loginUserStore';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
 import EmptyText from '@components/common/Text/EmptyText';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 interface ResType{
   dailyCommentBody: string;
@@ -43,25 +44,8 @@ const MyComments = () => {
   },[]);
   return (
     <div className={styles.mycomments}>
-      <div className={styles.tab}>
-        <div className={styles.title}>
-          하루 식단
-          {<div className={styles.text_deco}></div>}
-        </div>
-        {/* <button 
-          className={day? styles.active: styles.non_active}
-          onClick={()=>{setDay(true)}}
-        >
-          하루 공유 
-          {day && <div className={styles.text_deco}></div>}
-        </button>
-        <button 
-          className={!day? styles.active: styles.non_active}
-          onClick={()=>{setDay(false)}}
-        >
-          레시피 공유 */}
-          {/* {!day && <div className={styles.text_deco}></div>} */}
-        {/* </button> */}
+      <div className={styles.title}>
+        <DecoTitle title='하루 식단'/>
       </div>
       <div className={styles.board}>
         {commentList.length > 0 ? 

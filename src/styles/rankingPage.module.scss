@@ -1,6 +1,9 @@
 @import './main.module.scss';
 
 .ranking{
+  .title{
+    margin: 135px 0 30px 20px;
+  }
   .tab{
     @include flexBox($jc: end);
     padding: 0 20px;

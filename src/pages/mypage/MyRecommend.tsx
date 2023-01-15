@@ -6,6 +6,7 @@ import styles from '@styles/mypage/myRecommend.module.scss';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import EmptyText from '@components/common/Text/EmptyText';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 interface ResType{
   foodId: number;
@@ -30,7 +31,9 @@ const MyRecommend = () => {
   console.log(Boolean(menuList));
   return (
     <div className={styles.recommend}>
-      <Intro span="나의 추천 메뉴" intro2=''/>
+      <div className={styles.title}>
+        <DecoTitle title='나의 추천 메뉴'/>
+      </div>      
       <p className={styles.explain}>버튼을 눌러 상태값을 변경해보세요!</p>
       <img src={arrow_icon} alt="화살표"/>
       <div className={styles.menu_list}>
@@ -49,23 +52,6 @@ const MyRecommend = () => {
           <EmptyText text='내가 추천받은 메뉴가 없습니다.'/>
       }
 
-
-        {/* <div className={styles.menu}>
-          <p>간짜장</p>
-          <button>Good</button>
-        </div>
-        <div className={styles.menu}>
-          <p>해파리냉채</p>
-          <button>Nope</button>
-        </div>
-        <div className={styles.menu}>
-          <p>잔치국수</p>
-          <button>Nope</button>
-        </div>
-        <div className={styles.menu}>
-          <p>김치삼겹찜</p>
-          <button>Good</button>
-        </div> */}
       </div>
     </div>
   );

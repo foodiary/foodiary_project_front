@@ -132,7 +132,7 @@ const Contact = () => {
       
       {write? 
         <div className={styles.contact_container}>
-          <div className={styles.title}>
+          <div className={styles.contact_title}>
             <p>제목</p>
             <input type="text" maxLength={50} onChange={onTitleChange}
               placeholder="제목을 입력해주세요."/>

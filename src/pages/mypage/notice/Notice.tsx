@@ -6,6 +6,7 @@ import { Intro } from '@components/common/Text/SignUpPageText';
 import axiosConfig from '../../../core/apis/utils/axiosConfig';
 import EmptyText from '@components/common/Text/EmptyText';
 import WritingLink from '@components/common/WritingLink/WritingLink';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 interface ResType{
   noticeCreate: string;
@@ -30,8 +31,9 @@ const Notice= () => {
 
   return (
     <div className={styles.notice}>
-      <div className={styles.intro}><Intro span="공지사항" intro2=''/></div>
-
+      <div className={styles.title}>
+        <DecoTitle title='공지사항'/>
+      </div>
       <div className={styles.board}>
         {noticeList.length >0 ?
           noticeList.map((item:ResType)=>{

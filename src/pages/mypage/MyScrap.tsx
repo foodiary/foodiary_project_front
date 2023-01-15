@@ -6,6 +6,7 @@ import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import { SmallCard } from '@components/common/Card';
 import { Link } from 'react-router-dom';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 interface ResType{
   dailyId: 0;
@@ -30,9 +31,9 @@ const MyScrap = () => {
 
   return (
     <div className={styles.mywriting}>
-      <p className={styles.good}>내 스크랩
-        <div className={styles.text_deco}></div>
-      </p>
+      <div className={styles.title}>
+        <DecoTitle title='내 스크랩'/>
+      </div>
 
       <div className={styles.card_container}>
         {scrapList.length > 0 ? scrapList.map((item:ResType)=>{

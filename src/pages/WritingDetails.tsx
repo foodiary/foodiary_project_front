@@ -31,7 +31,7 @@ const WritingDetails = () => {
 
   const {pathname} = useLocation();
   const id = pathname.slice(8); // 글 아이디
-  const memberId = useLoginUserStore(state=>state.memberId);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   const [contents, setContents] = useState<ResType>();
   const [comments, setComments] = useState([]);

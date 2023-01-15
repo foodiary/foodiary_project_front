@@ -45,8 +45,9 @@ const RankingPage = () => {
   
   return (
     <div className={styles.ranking}>
-      <DecoTitle title='랭킹'/>
-
+      <div className={styles.title}>
+        <DecoTitle title='랭킹'/>
+      </div>
       <div className={styles.tab}>
           <ButtonComp
            text={"1달"}

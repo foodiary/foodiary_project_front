@@ -8,16 +8,11 @@ import {GoSearch} from 'react-icons/go';
 import { useNavigate } from "react-router-dom";
 import dessert from '@img/dessert.png';
 
-enum days {
-  month = "0",
-  week = "1",
-}
-
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const nickName = useLoginUserStore(state=>state.memberNickName); //userInfo로 변경
+  const nickName = useLoginUserStore(state=>state.userInfo.memberNickName);
 
   const [userName, setUserName] = useState<string>("푸디어리");
   
