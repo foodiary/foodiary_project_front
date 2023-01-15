@@ -4,10 +4,19 @@
   display: none;
 }
 
+
 .main{
-  h3{
+  .main_title{
+    position: relative;
+    width: fit-content;
+    @include text-style(30px, 600);
     margin: 50px 0 50px 0;
+
+    .text_deco{
+      @include text-deco();
+    }
   }
+
 }
 .week_menu{
   width: 100%;
@@ -44,41 +53,62 @@
 }
 
 .mainPageWrapper {
-  @extend %page-base;
-  border: 1px solid black;
   padding: 0 20px;
-  margin-top: 52px;
+  margin-top: 135px;
 
   .mainPageTitleSection {
     .title {
-      font-size: $h4;
-      font-weight: 400;
+      @include text-style(30px, 500, start);
     }
   }
 
   .recommendeSection {
     padding: 22px 0;
-    display: flex;
+    @include column-flexBox();
+    // display: flex;
     align-items: center;
 
-    .recommend {
-      margin-right: auto;
-      font-size: $body2;
-      color: $gray_400;
+    .random_food{
+      border: 1px solid red;
+      width: 100%;
+      padding: 50px;
+      @include flexBox();
+
+      .food_card{
+        border: 1px solid green;
+        width: 150px;
+        height: 50px;
+      }
+      img{
+        width: 100px;
+        height: 80px;
+      }
     }
 
-    .recommendedBtn {
-      display: flex;
-      gap: 8px;
+    .q_btn{
+      @include flexBox($jc: around);
+      gap: 10px;
+      .recommend {
+        margin-right: auto;
+        font-size: $body2;
+        color: $gray_400;
+      }
+  
+      .recommendedBtn {
+        display: flex;
+        gap: 8px;
+      }
     }
+    
   }
 
   .searchSection {
+    margin-top: 50px;
     padding-bottom: 20px;
-
+    @include flexBox();
     input {
-      width: 100%;
-      padding: 18px 40px;
+      width: 90%;
+      padding: 15px 30px;
       border: 2px solid $main;
       border-radius: 12px;
 
@@ -86,38 +116,43 @@
         color: $gray_400;
       }
     }
-  }
-
-  .rankingSection {
-    padding-bottom: 20px;
-
-    .dayBtn {
-      display: flex;
-      justify-content: flex-end;
-      gap: 4px;
-      margin-bottom: 22px;
-    }
-
-    .rankingContents {
-      .rankingScroll {
-        display: flex;
-        gap: 8px;
-      }
+    button{
+      font-size: 18px;
+      padding: 5px;
+      margin-left: 10px;
     }
   }
 
-  .recipeSection {
-    padding-top: 58px;
+  // .rankingSection {
+  //   padding-bottom: 20px;
 
-    .recipeTitle {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+  //   .dayBtn {
+  //     display: flex;
+  //     justify-content: flex-end;
+  //     gap: 4px;
+  //     margin-bottom: 22px;
+  //   }
 
-    .recipeContents {
-      display: flex;
-      gap: 8px;
-    }
-  }
+  //   .rankingContents {
+  //     .rankingScroll {
+  //       display: flex;
+  //       gap: 8px;
+  //     }
+  //   }
+  // }
+
+  // .recipeSection {
+  //   padding-top: 58px;
+
+  //   .recipeTitle {
+  //     display: flex;
+  //     align-items: center;
+  //     gap: 16px;
+  //   }
+
+  //   .recipeContents {
+  //     display: flex;
+  //     gap: 8px;
+  //   }
+  // }
 }

@@ -25,9 +25,9 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     console.log(`인터셉트 응답: ${response}`);
-    const accessToken = response.data.body.accessToken;
-    const refreshToken = response.data.body.refreshToken;
-    const refreshExpired = response.data.body.refreshTokenExpirationMinutes;
+    const accessToken = response.data.accessToken;
+    const refreshToken = response.data.refreshToken;
+    const refreshExpired = response.data.refreshTokenExpirationMinutes;
 
     if(accessToken && refreshToken){
       localStorage.setItem("access_token", accessToken);

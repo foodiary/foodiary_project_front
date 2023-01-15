@@ -1,10 +1,10 @@
 import { useRef, useState, useMemo } from "react";
 
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const QuillEditor = () => {
-  const QuillRef = useRef<ReactQuill>();
+  // const QuillRef = useRef<ReactQuill>();
   const [contents, setContents] = useState("");
 
   const imageHandler = () => {
@@ -46,7 +46,7 @@ const QuillEditor = () => {
 
   return (
     <>
-      <ReactQuill
+      {/* <ReactQuill
         ref={(element) => {
           if (element !== null) {
             QuillRef.current = element;
@@ -57,7 +57,7 @@ const QuillEditor = () => {
         modules={modules}
         theme="snow"
         placeholder="내용을 입력해주세요."
-      />
+      /> */}
     </>
   );
 };

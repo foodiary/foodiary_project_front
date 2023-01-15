@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from "../styles/explorePage.module.scss";
 import {GoSearch} from 'react-icons/go';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
+import {BiCommentDetail} from 'react-icons/bi';
 
 interface ResType{
   dailyCreate: string;
@@ -25,23 +27,27 @@ const ExploreDetail = () => {
 
   return (
     <div className={styles.questWrapper}>
-      <div className={styles.titleDiv}>
-        <h3 className={styles.activeTitle}>
-          하루식단
-        </h3>
-        <Link to="/search"><GoSearch/></Link>
-      </div>
+      <section className={styles.title}>
+        <div className={styles.title_div}>
+          <DecoTitle title="하루식단"/>
+        </div>
+        <Link to="/search" className={styles.search_icon}>
+          <GoSearch/>
+        </Link>
+      </section>
+
       <div className={styles.card_container}>
         {list.map((item:ResType)=>{
           return(
-            <Link to= {`/writing/details/${item.dailyId}`} key={item.dailyId}>
+            <Link to= {`/detail/${item.dailyId}`} key={item.dailyId}>
               <div className={styles.card}>
                 <LargeCard 
                   img={item.dailyPath} 
                   info={true}
                   title={item.dailyTitle}
+                  content={"내용내용내용내용내용"}
                   like={item.dailyLike}
-                  scrap={item.dailyView}
+                  view = {item.dailyView}
                   userId={"푸디어리"}/>
               </div>
             </Link>

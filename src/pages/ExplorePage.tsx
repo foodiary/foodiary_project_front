@@ -2,10 +2,11 @@ import { ButtonComp, buttonStyled } from "@components/common";
 import { LargeCard, SmallCard } from "@components/common/Card";
 import { useEffect } from "react";
 import { useState } from "react";
-import styled from "../styles/explorePage.module.scss";
+import styles from "../styles/explorePage.module.scss";
 import axiosConfig from '@utils/axiosConfig';
 import {GoSearch} from 'react-icons/go';
 import { Link } from "react-router-dom";
+import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 
 interface ResType{
   // dailyCreate: string;
@@ -39,18 +40,17 @@ const ExplorePage = () => {
   },[tab]);
 
   return (
-    <article className={styled.questWrapper}>
-      <div className={styled.titleDiv}>
- 
-        {/* <h3 className={tab === "1" ? styled.activeTitle : styled.title}>
-          하루식단
-        </h3> */}
-        <h3 className={styled.activeTitle}>
-          하루식단
-        </h3>
-        <Link to="/search"><GoSearch/></Link>
-      </div>
-      <div className={styled.btnDiv}>
+    <article className={styles.questWrapper}>
+      <section className={styles.title}>
+        <div className={styles.title_div}>
+          <DecoTitle title="하루식단"/>
+        </div>
+        <Link to="/search" className={styles.search_icon}>
+          <GoSearch/>
+        </Link>
+      </section>
+
+      <div className={styles.btnDiv}>
         <ButtonComp
           text="1달"
           btnStyle={tab ==="0"? buttonStyled.buttonActive : buttonStyled.button}
@@ -74,8 +74,8 @@ const ExplorePage = () => {
         />
       </div>
       {/* {tab === "0" && ( */}
-        <section className={styled.recipeSection}>
-          <div className={styled.contents}>
+        <section className={styles.dailySection}>
+          <div className={styles.contents}>
             {dailyList.map((item:ResType, index)=>{
               return(
                 <Link 
@@ -90,8 +90,8 @@ const ExplorePage = () => {
         </section>
       {/* )} */}
       {/* {tab === "1" && (
-        <section className={styled.dailyDietSection}>
-          <div className={styled.dailyDietContents}></div>
+        <section className={styles.dailyDietSection}>
+          <div className={styles.dailyDietContents}></div>
         </section>
       )}
       {

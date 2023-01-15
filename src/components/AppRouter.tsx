@@ -39,6 +39,10 @@ import SignUpPwdConfirm from '@pages/signup/SignUpPwdConfirm';
 import ModifyProfileImg from '@pages/mypage/setting/ModifyProfileImg';
 import PrivateRouter from './PrivateRouter';
 import ScrollRestoration from './ScrollRestoration';
+import RankingPage from '@pages/RankingPage';
+import ExplorePage from '@pages/ExplorePage';
+import ExploreDetail from '@pages/ExploreDetail';
+import WritingDetails from '@pages/WritingDetails';
 
 const AppRouter = () => {
   const [loginUser, setLoginUser] = useState(false);
@@ -65,7 +69,16 @@ const AppRouter = () => {
             {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
             {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
             
+            <Route path='/hot' element={<RankingPage/>}/>
+
+            <Route path='/detail/:id' element={<WritingDetails/>}/>
+
+            <Route path='/explore' element={<ExplorePage/>}/>
+            <Route path='/explore/details' element={<ExploreDetail/>}/>
+
             <Route path='/mypage' element={<MyPageMain/>}/>
+
+
             <Route element={<PrivateRouter/>}>
               <Route path='/mypage/setting' element={<MyPageSetting/>}/>
               <Route path='/mypage/mywriting' element={<MyWriting/>}/>
