@@ -1,8 +1,11 @@
 import Header from '@components/common/Header/Header';
 import styles from '@styles/mypage/contact.module.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useEffect, useState } from 'react';
 import answer_icon from '@img/answer_icon.svg';
 import { useNavigate } from 'react-router';
+import {useLocation} from 'react-router-dom';
+import { useLoginUserStore } from '@store/loginUserStore';
+import axiosConfig from '@utils/axiosConfig';
 import {useLocation} from 'react-router-dom';
 import { useLoginUserStore } from '@store/loginUserStore';
 import axiosConfig from '@utils/axiosConfig';

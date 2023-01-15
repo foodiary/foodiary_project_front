@@ -1,6 +1,6 @@
 import { object } from 'yup';
-import create, { StateCreator } from 'zustand';
-import { persist, PersistOptions } from 'zustand/middleware';
+import create, { StateCreator }, { StateCreator } from 'zustand';
+import { persist, PersistOptions, PersistOptions } from 'zustand/middleware';
 
 // object를 한번에 저장해서 접근하는 방법이 없을까...?
 interface User{

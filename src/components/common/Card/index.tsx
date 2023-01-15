@@ -6,10 +6,12 @@ type cardStyleProps = {
   tag?: string;
   info?: boolean;
   title?: string;
+  content?: string;
   userId?: string;
-  scrap?: string;
-  like?: string | number;
-  comment?: string | number | undefined;
+  scrap?: number;
+  like?: number;
+  comment?: number;
+  view?: number;
   none?: boolean;
 };
 
@@ -19,9 +21,11 @@ export const SmallCard = ({
   info,
   userId,
   title,
+  content,
   scrap,
   like,
   comment,
+  view,
   none,
 }: cardStyleProps) => {
   return (
@@ -36,12 +40,14 @@ export const SmallCard = ({
       )}
       {none && <div className={styled.margin} />}
       <p className={styled.title}>{title}</p>
+      <p className={styled.title}>{content}</p>
 
       {info && (
         <div className={styled.userInfoContainer}>
           <div className={styled.user}>
             <p>{userId}</p>
           </div>
+
           <div className={styled.info}>
             {scrap && (
               <div className={styled.infoContents}>
@@ -60,6 +66,12 @@ export const SmallCard = ({
               <div className={styled.infoContents}>
                 <div className={styled.infoDeco} />
                 <p>{comment}</p>
+              </div>
+            )}
+            {view && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{view}</p>
               </div>
             )}
           </div>
@@ -129,9 +141,11 @@ export const LargeCard = ({
   info,
   userId,
   title,
+  content,
   scrap,
   like,
   comment,
+  view,
   none,
 }: cardStyleProps) => {
   return (
@@ -146,6 +160,7 @@ export const LargeCard = ({
       )}
       {none && <div className={styled.margin} />}
       <p className={styled.title}>{title}</p>
+      <p className={styled.title}>{content}</p>
 
       {info && (
         <div className={styled.userInfoContainer}>
@@ -170,6 +185,12 @@ export const LargeCard = ({
               <div className={styled.infoContents}>
                 <div className={styled.infoDeco} />
                 <p>{comment}</p>
+              </div>
+            )}
+            {view && (
+              <div className={styled.infoContents}>
+                <div className={styled.infoDeco} />
+                <p>{view}</p>
               </div>
             )}
           </div>
