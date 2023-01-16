@@ -1,19 +1,50 @@
-@import './main.module.scss';
+@import "./main.module.scss";
 
-.ranking{
-  .title{
-    margin: 135px 0 30px 20px;
+.menu {
+  width: 90%;
+  margin: 0 auto;
+  .menu_title {
+    position: relative;
+    width: fit-content;
+    @include text-style(30px, 600);
+    margin: 35px 0;
+    .text_deco {
+      @include text-deco();
+    }
   }
-  .tab{
-    @include flexBox($jc: end);
-    padding: 0 20px;
-    gap: 10px;
-  }
-  .card_container{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    width: 95%;
-    margin: 40px auto 0 auto;
-    gap: 15px 10px;
+}
+.week_title {
+  margin-bottom: 15px;
+}
+.week_menu {
+  width: 100%;
+  table {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 100%;
+    border-radius: 30px;
+    // border: 2px solid red;
+    .table_head {
+      td {
+        border-bottom: 3px solid pink;
+      }
+    }
+    tbody {
+      tr:first-child {
+        td:first-child {
+          color: red;
+        }
+      }
+    }
+
+    td {
+      padding: 20px;
+      vertical-align: top;
+      border: 2px solid pink;
+      font-weight: 700;
+    }
+    .menu {
+      width: 100%;
+    }
   }
 }
