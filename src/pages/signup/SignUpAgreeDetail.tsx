@@ -1,18 +1,22 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import styles from "@styles/loginpage/signUpAgree.module.scss";
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 const SignUpAgreeDetail = () => {
-  const {state} = useLocation();
-  const navigate = useNavigate();
-  console.log(state);
-  const getItem = localStorage.getItem("checked");
-  localStorage.setItem("checked", JSON.stringify(([getItem, state.id])));
+  const {search} = useLocation();
+
+  const checked = localStorage.getItem("checkedList");
+  localStorage.setItem("checked", JSON.stringify(JSON.parse(checked!)));
 
   return (
     <div>
-      <p>이용약관 동의</p>
-      <p>이용약관 내용이 들어가는 곳입니당~~~~~~~~~~</p>
-      <button>X</button>
+      <div className={styles.agreeDetail_title}>
+        <DecoTitle title='이용약관 동의'/>
+      </div>
+      <p className={styles.agreeDetail_content}>
+        이용약관 내용이 들어가는 곳입니당~~~~~~~~~~
+      </p>
     </div>
   );
 };

@@ -1,0 +1,94 @@
+// @import '../../../styles/mypage/myWriting.module.scss';
+// @import '../../../styles/mypage/myComments.module.scss';
+@import '../../../styles/main.module.scss';
+
+.contact_container{
+  @include column-flexBox();
+  gap: 25px;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  p{
+    @include text-style(12px, #333333, 700, start);
+    margin-bottom: 5px;
+  }
+  input, textarea{
+    width: 100%;
+    border: 1px solid $main;
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 14px;
+  }
+  .contact_title{
+    input{
+      height: 40px;
+    }
+  }
+  .content{
+    position: relative;
+    textarea{
+      height: 290px;
+      resize: none;
+    }
+    .maxlength{
+      @include text-style(14px, #666666, 400);
+      position: absolute;
+      top: 90%;
+      left: 82%;
+    }
+    
+  }
+  .file{
+    position: relative;
+    input{
+      display: none;
+    }
+    .add_img{
+      @include flexBox($jc: start);
+      @include text-style(16px, #666666, 400, start);
+      height: 50px;
+      border: 1px solid $main;
+      border-radius: 12px;
+      text-indent: 20px;
+    }
+    img{
+      position: absolute;
+      left: 85%;
+      top: 45%;
+    }
+  }
+.preview_container{
+  position: relative;
+  @include flexBox();
+  .preview{
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    // margin: auto;
+  }
+  button{
+    position: absolute;
+    cursor: pointer;
+    width: 30px; height: 30px;
+    font-size: 20px;
+    color: $point;
+    top: 3%;
+    left: 62%;
+  }
+}
+
+
+  .btn_container{
+    @include flexBox();
+    margin: 50px 0 0 0;
+
+    .red{
+      background-color: $point;
+      border-radius: 16px 0 0 0;
+    }
+    .black{
+      background-color: $main;
+      border-radius: 0 16px 0 0;
+    }
+  }
+}

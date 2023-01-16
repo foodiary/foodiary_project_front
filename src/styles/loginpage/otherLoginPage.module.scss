@@ -11,8 +11,8 @@
 .forget_account{
   @include flexBox();
   @include column-flexBox();
-  margin-top: 32px;
-  margin-bottom: 8px;
+  margin-top: 70px;
+  margin-bottom: 20px;
   p{
     @include text-style(12px, #666666, 400, start);
     a{

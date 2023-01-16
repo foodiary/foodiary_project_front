@@ -117,10 +117,12 @@
 }
 .detail{
   background-color: white;
-}
-.detail_container, .answer_container{
-  border-bottom: 2px solid $gray-100;
   width: 90%;
+  margin: auto;
+}
+.detail_text, .answer_container{
+  border-bottom: 2px solid $gray-100;
+  width: 100%;
   margin: auto;
   .detail_title{
     @include text-style(16px, $main, 700, start);
@@ -131,6 +133,12 @@
   }
   .status{
     margin-bottom: 10px;
+  }
+}
+.detail_container{
+  @include flexBox($jc: between);
+  button{
+    font-size: 20px; //수정삭제버튼
   }
 }
 .answer_container{
@@ -168,4 +176,8 @@ button{
     // background-color: #FFA68A;
     background-color: $point;
   }
+}
+
+.title{
+  margin: 135px 0 30px 20px;
 }

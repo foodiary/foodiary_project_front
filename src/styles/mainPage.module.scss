@@ -69,13 +69,16 @@
     align-items: center;
 
     .random_food{
-      border: 1px solid red;
       width: 100%;
       padding: 50px;
       @include flexBox();
 
       .food_card{
-        border: 1px solid green;
+        border: 1px solid rgb(28, 189, 28);
+        background-color: green;
+        @include text-style(20px, 500);
+        @include flexBox();
+        color: white;
         width: 150px;
         height: 50px;
       }

@@ -7,17 +7,29 @@ import { useLoginUserStore } from "@store/loginUserStore";
 import {GoSearch} from 'react-icons/go';
 import { useNavigate } from "react-router-dom";
 import dessert from '@img/dessert.png';
+import { useUpdateUser } from "@hook/useUpdateUser";
 
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+interface User{
+  memberLoginId: string; //로그인 아이디
+  memberId: number; //api 요청시 필요한 멤버시퀀스
+  memberEmail: string;
+  memberNickName: string;
+  memberPath: string; //이미지
+  memberProfile: string; //프메
+}
 const MainPage = () => {
+  useUpdateUser();
   const navigate = useNavigate();
   const nickName = useLoginUserStore(state=>state.userInfo.memberNickName);
 
   const [userName, setUserName] = useState<string>("푸디어리");
   
   // const [daysBtn, setDaysBtn] = useState(days.month);
-  const memberId = 76;
+  const setUserInfo = useLoginUserStore((state)=>state.setUserInfo);
+  const userInfo = useLoginUserStore((state)=>state.userInfo);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   useEffect(()=>{
     if(nickName){
@@ -25,13 +37,6 @@ const MainPage = () => {
     }
   },[]);
 
-  useEffect(()=>{
-    // axiosConfig.get('/member/76').then(res=>{
-    //   console.log(res);
-    // }).catch(err=>{
-    //   console.log(err);
-    // });
-  },[]);
   
   const [menuList, setMenuList] = useState([]);
   const [recommenu, setRecomMenu] = useState([]);

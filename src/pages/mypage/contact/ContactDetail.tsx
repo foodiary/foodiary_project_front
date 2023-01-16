@@ -1,11 +1,15 @@
 import Header from '@components/common/Header/Header';
 import styles from '@styles/mypage/contact.module.scss';
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import answer_icon from '@img/answer_icon.svg';
 import { useNavigate } from 'react-router';
 import {useLocation} from 'react-router-dom';
 import { useLoginUserStore } from '@store/loginUserStore';
 import axiosConfig from '@utils/axiosConfig';
+import {FiMoreVertical} from 'react-icons/fi';
+import { btnStateStore } from '@store/btnStateStore';
+import { HalfButton } from '@components/common/LoginButton/Button';
+import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
 
 interface ResType{
   answerContent: string;
@@ -22,11 +26,14 @@ interface Obj{
 const ContactDetail = () => {
   const [write, setWrite] = useState(false);
   const navigate = useNavigate();
-  const {state} = useLocation();
   const {search} = useLocation();
   
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const [res, setRes] = useState<ResType>();
+  const [viewBtn, setViewBtn] = useState(false);
+
+  const cancel = btnStateStore(state=>state.cancel);
+  const setCancel = btnStateStore(state=>state.setCancel);
 
   useEffect(()=>{
     axiosConfig.get(`/question/${memberId}/${search.slice(1)}`)
@@ -37,6 +44,25 @@ const ContactDetail = () => {
       console.log(err);
     })
   },[]);
+
+
+  const onClick = (e:React.MouseEvent<HTMLDivElement>)=>{
+    navigate(`/mypage/contact/edit?${search.slice(1)}`);
+  }
+  const onSubmit = (e:FormEvent)=>{
+    e.preventDefault();
+    setCancel(true);
+    setViewBtn(false);
+
+    axiosConfig.delete(`/question/${memberId}/${search.slice(1)}`)
+    .then(res=>{
+      console.log(res);
+      setTimeout(()=>navigate(-1), 2000);
+      return(<AlertBox text='삭제되었습니다' type={true}/>)
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
 
   return (
     <div className={styles.mywriting}>
@@ -58,19 +84,25 @@ const ContactDetail = () => {
 
     <div className={styles.detail}>
       <div className={styles.detail_container}>
-       
-        <p className={styles.detail_title}>
-          {res?.questionTitle}
-        </p>
-        <p className={styles.detail_content}>
-          {res?.questionContent}
-        </p>
-        <div className={styles.status}>
-          <p className={styles.state}>
-            {res?.questionAnswerYn==="Y"? "답변완료": "답변대기"}
+        <div className={styles.detail_text}>
+          <p className={styles.detail_title}>
+            {res?.questionTitle}
           </p>
-          <p>{res?.questionCreate.slice(2,10).replaceAll("-","/")}</p>
+          <p className={styles.detail_content}>
+            {res?.questionContent}
+          </p>
+          <div className={styles.status}>
+            <p className={styles.state}>
+              {res?.questionAnswerYn==="Y"? "답변완료": "답변대기"}
+            </p>
+            <p>{res?.questionCreate.slice(2,10).replaceAll("-","/")}</p>
+          </div>
         </div>
+        {res?.questionAnswerYn==="N" && 
+          <button className={styles.more} onClick={()=>setViewBtn(true)}>
+            <FiMoreVertical/>
+          </button>
+        }
       </div>
 
       {res?.answerTitle && 
@@ -83,7 +115,23 @@ const ContactDetail = () => {
             {res?.answerContent}
           </p>
         </div>}
+
       </div>
+
+      {viewBtn && <div className={styles.view_btn}>
+        <div className={styles.black} onClick={onClick}>
+          <HalfButton type='button' text='수정'/>
+        </div>
+        <div className={styles.red} onClick={()=>setCancel(false)}>
+          <HalfButton type='button' text='삭제'/>
+        </div>
+      </div>}
+      {!cancel && 
+      <form onSubmit={onSubmit}>
+        <WarnBox text='정말 삭제하시겠습니까?' btn_txt='삭제'/>
+      </form>
+      }
+
     </div>
   );
 };

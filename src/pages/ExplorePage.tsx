@@ -11,7 +11,7 @@ import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 interface ResType{
   // dailyCreate: string;
   dailyId: number;
-  dailyPath: string;
+  dailyPath1: string;
   // dailyTitle: string;
 }
 
@@ -82,7 +82,7 @@ const ExplorePage = () => {
                   to={`/explore/details`} 
                   state={{list: dailyList.slice(index)}}
                   key={item.dailyId}>
-                  <SmallCard img={item.dailyPath}/>
+                  <SmallCard img={item.dailyPath1}/>
                 </Link>
               )
             })}

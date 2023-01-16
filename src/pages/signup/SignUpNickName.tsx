@@ -10,6 +10,8 @@ import { AlertBox } from '@components/common/AlertBox/AlertBox';
 const SignUpNickName = () => {
   const nickName = useUserStore((state)=>state.nickName);
   const validationErr = useUserStore((state)=>state.validationErr);
+  const setNickNameYn = useUserStore((state)=>state.setNickNameYn);
+
   const [next, setNext] = useState(false);
   const [err, setErr] = useState(false);
 
@@ -26,12 +28,10 @@ const SignUpNickName = () => {
       nickName: nickName,
     }).then(res=>{
       console.log(res);
-      // if(res === undefined){
-      //   setErr(true);
-      // }
       if(res){
         setErr(false);
         setNext(true);
+        setNickNameYn("Y");
       }
       //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{

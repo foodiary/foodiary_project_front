@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import styles from '@styles/mypage/contact.module.scss';
 import clip_icon from '@img/clip_icon.svg';
-import axiosConfig from '../../../core/apis/utils/axiosConfig';
+import axiosConfig from '@utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import { HalfButton } from '@components/common/LoginButton/Button';
 import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
@@ -23,10 +23,6 @@ const Contact = () => {
   const img = useImgFileStore(state=>state.img);
   const fileURL = useImgFileStore(state=>state.fileURL);
   const setFileURL = useImgFileStore(state=>state.setFileURL);
-
-  // const FILE_SIZE_MAX_LIMIT = 3 * 1024 * 1024;  //3MB
-  // const [img, setImg] = useState<File|string>(); //첨부파일
-  // const [fileURL, setFileURL] = useState(""); //파일 미리보기
 
   const cancel = btnStateStore(state=>state.cancel); //작성취소의 취소
   const setCancel = btnStateStore(state=>state.setCancel); //작성취소의 취소
@@ -63,20 +59,6 @@ const Contact = () => {
     setLength(value.length);
     setContent(value);
   }
-  // const onFileChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-  //   const file = e.currentTarget.files![0];
-  //   if(file.size > FILE_SIZE_MAX_LIMIT){
-  //     setImg(undefined);
-  //     // setErr(true);
-  //     // alert("파일용량제한"); //경고문구로 변경하기
-  //   }  
-  //   else{
-  //     // setErr(false);
-  //     setFileURL(URL.createObjectURL(file));
-  //     setImg(e.currentTarget.files![0]); 
-  //   }
-  //   e.target.value = "";
-  // }
 
   const onCancel = ()=>{
     setCancel(false);
@@ -150,10 +132,6 @@ const Contact = () => {
               <p className={styles.add_img}>+ 파일 첨부</p>
             </label>
             <InputFile/>
-            {/* <input type="file" id='file'
-              accept='.jpg, .jpeg, .png'
-              onChange={onFileChange}
-            /> */}
             <img src={clip_icon} alt="첨부파일"/>
           </div>
           {fileURL && 

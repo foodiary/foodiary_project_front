@@ -94,6 +94,7 @@ const Input = React.forwardRef((props:Props, ref)=>{
   return(
     <div className={styles.input_form}>
       <p>{props.label}</p>
+      
       <input 
         type={props.type === "password"? pwdType: props.type}
         id={props.id}

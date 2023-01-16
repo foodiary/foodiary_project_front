@@ -4,7 +4,7 @@ import LoginMainPage from '@pages/login/LoginMainPage';
 import SignUpAgree from '@pages/signup/SignUpAgree';
 import SignUpEmail from '@pages/signup/SignUpEmail';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, } from 'react-router-dom';
 import SignUpId from '@pages/signup/SignUpId';
 import SignUpPwd from '@pages/signup/SignUpPwd';
 import SignUpProfileImage from '@pages/signup/SignUpProfileImage';
@@ -44,18 +44,24 @@ import ExplorePage from '@pages/ExplorePage';
 import ExploreDetail from '@pages/ExploreDetail';
 import WritingDetails from '@pages/WritingDetails';
 import WritingPage from '@pages/WritingPage';
+import ContactEdit from '@pages/mypage/contact/ContactEdit';
+import axiosConfig from '@utils/axiosConfig';
+import { useLoginUserStore } from '@store/loginUserStore';
 
 const AppRouter = () => {
-  const [loginUser, setLoginUser] = useState(false);
+  // const [loginUser, setLoginUser] = useState(false);
   const token = localStorage.getItem("access_token");
-  useEffect(()=>{
-    if(token){
-      setLoginUser(true);
-    }
-    else{
-      setLoginUser(false);
-    }
-  },[]);
+  // const memberId = useUserStore(state=>state.memberId);
+  // const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
+
+  // useEffect(()=>{
+  //   if(token){
+  //     setLoginUser(true);
+  //   }
+  //   else{
+  //     setLoginUser(false);
+  //   }
+  // },[token]);
   const oauthLogin = useUserStore(state=>state.oauthLogin);
 
   return (
@@ -88,21 +94,18 @@ const AppRouter = () => {
               <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
               <Route path='/member/img/change' element={<ModifyProfileImg/>}/>
 
-              <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
-
+              <Route path='/mypage/contact' element={<Contact/>}/>
+              <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
+              <Route path='/mypage/contact/edit' element={<ContactEdit/>}/>
+              
               <Route path='/mypage/mycomments' element={<MyComments/>}/>
               <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/>
               <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
 
               <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
-              {/* <Route path='/mypage/contact' element={<Contact/>}/>
-              <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/> */}
             </Route>
            
             
-            <Route path='/mypage/contact' element={<Contact/>}/>
-            <Route path='/mypage/contact/detail/:id' element={<ContactDetail/>}/>
-
             <Route path='/mypage/notice' element={<Notice/>}/>
             <Route path='/mypage/notice/detail/:id' element={<NoticeDetail/>}/>
             <Route path='/mypage/faq' element={<FAQ/>}/>

@@ -9,7 +9,6 @@ import basic_profile from '@img/basic_profile.svg';
 import go_back_btn from '@img/go_back_btn.svg';
 
 import { useLoginUserStore } from '@store/loginUserStore';
-import axiosConfig from "../../../core/apis/utils/axiosConfig";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -23,21 +22,12 @@ const Header = () => {
   useEffect(()=>{
     if(token){
       setLoginUser(true);
-      // setProfileImg(true);
-      // axiosConfig.get('/member/${id}')
     }
     else{
       setLoginUser(false);
     }
   },[]);
-  const {pathname} = useLocation();
-  let title = "";
-  // switch(pathname){
-  //   case ("/mypage"):
-  //     title = "마이페이지";
-  //     break;
-  //   case("/mypage/setting")
-  // }
+
   return (
       <div className={styles.header}>
         <div className={styles.profile}>
@@ -61,12 +51,6 @@ const Header = () => {
             </div>
           }
         </div>
-        {/* <div className={styles.navbar}>
-          <Link to="/"><img src={home_icon} alt="홈" className={pathname==="/" ? "": styles.no_active}/></Link>  
-          <Link to="/"><img src={hot_icon} alt="랭킹" className={pathname==="/" ? "": styles.no_active}/></Link>
-          <Link to="/"><img src={explore_icon} alt="탐색" className={pathname==="/" ?  "": styles.no_active}/></Link>
-          <Link to="/mypage"><img src={mypage_icon} alt="마이페이지" className={pathname==="/mypage" ? "": styles.no_active}/></Link>
-        </div> */}
         
       </div>
   );

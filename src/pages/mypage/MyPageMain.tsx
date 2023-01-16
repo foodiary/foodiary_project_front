@@ -12,32 +12,25 @@ import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
 import { btnStateStore } from '@store/btnStateStore';
 import { useLoginUserStore } from '@store/loginUserStore';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
+import { useUpdateUser } from '@hook/useUpdateUser';
 
 const MyPageMain = () => {
+  useUpdateUser();
+
   const navigate = useNavigate();
-  // const {memberId, memberEmail, memberPath, memberProfile, memberNickName} = useLoginUserStore();
+
   const userInfo = useLoginUserStore(state=>state.userInfo);
   const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
 
   const [logout, setLogout] = useState(false);
   const [withdraw, setWithdraw] = useState(false);
-  // const logout = btnStateStore(state=>state.logout);
-  // const setLogout = btnStateStore(state=>state.setLogout);
+
   const cancel = btnStateStore(state=>state.cancel);
   const setCancel = btnStateStore(state=>state.setCancel);
-  // const withdraw = btnStateStore(state=>state.withdraw);
-  // const setWithdraw = btnStateStore(state=>state.setWithdraw);
-  const [alert, setAlert] = useState(false);
-  // const [cancel, setCancel] = useState(false);
 
-  useEffect(()=>{
-      axiosConfig.get(`/member/${userInfo.memberId}`)
-      .then(res=>{
-        console.log(res);
-        setUserInfo(res.data);
-      })
-  
-  },[]);
+  const clearUser = useLoginUserStore(state=>state.reset);
+
+  const [alert, setAlert] = useState(false);
 
   useEffect(()=>{
     setLogout(false);
@@ -68,7 +61,11 @@ const MyPageMain = () => {
   const afterRes = ()=>{
     setAlert(true);
     localStorage.clear();
-    setTimeout(()=>navigate("/"),2000);
+    clearUser();
+    setTimeout(()=>{
+      navigate("/");
+      window.location.reload();
+    },2000);
   }
   const onSubmit = (e:FormEvent)=>{
     let url="";
@@ -78,15 +75,15 @@ const MyPageMain = () => {
     else if(withdraw){
       url= `/member/${userInfo.memberId}`
     }
-    setAlert(true);
-    setTimeout(()=>navigate("/"),2000);
+    // setAlert(true);
+    // setTimeout(()=>navigate("/"),2000);
     e.preventDefault();
-    // axiosConfig.get(url).then(res=>{
-    //   console.log(res);
-      // afterRes();
-    // }).catch(err=>{
-    //   console.log(err);
-    // })
+    axiosConfig.get(url).then(res=>{
+      console.log(res);
+      afterRes();
+    }).catch(err=>{
+      console.log(err);
+    })
   }
   // console.log(logout);
   return (

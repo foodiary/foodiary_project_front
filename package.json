@@ -56,5 +56,5 @@
     "@craco/craco": "^7.0.0",
     "craco-alias": "^3.0.1"
   },
-  "proxy": "https://991e-182-220-207-61.jp.ngrok.io/"
+  "proxy": "https://7d61-211-58-204-152.jp.ngrok.io"
 }
