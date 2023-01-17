@@ -8,6 +8,13 @@ import { useLoginUserStore } from "@store/loginUserStore";
 import { GoSearch } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
 import dessert from "@img/dessert.png";
+import japaneseFood from "@img/japanese_food.png";
+import koreanFood from "@img/korean_food.png";
+import westernFood from "@img/western_food.png";
+import chineseFood from "@img/chinese_food.png";
+import etcFood from "@img/etc.png";
+import stewFood from "@img/stew.png";
+import schoolFood from "@img/school_food.png";
 import EmptyText from "@components/common/Text/EmptyText";
 import { SmallCard } from "@components/common/Card";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
@@ -22,6 +29,12 @@ interface ResType {
   recipeWriter: string;
 }
 // 레시피 -> 데일리로 변경하기
+
+interface RandomFoodType {
+  foodCategory: String | undefined;
+  foodId: Number;
+  foodName: String;
+}
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -38,18 +51,8 @@ const MainPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const getRanking = async () => {
-      const result = await axiosConfig.get(
-        "https://7d61-211-58-204-152.jp.ngrok.io/rank/month"
-      );
-      console.log(result);
-    };
-    getRanking();
-  }, []);
-
   const [menuList, setMenuList] = useState([]);
-  const [recommenu, setRecomMenu] = useState([]);
+  const [recommenu, setRecomMenu] = useState<RandomFoodType>();
   const [value, setValue] = useState("");
 
   const recommendMenu = () => {
@@ -80,9 +83,37 @@ const MainPage = () => {
         console.log(err);
       });
   };
+
+  const getRandomFoodImg = (cate: String | undefined) => {
+    if (cate === "일식") {
+      return <img src={japaneseFood} alt="랜덤음식" />;
+    } else if (cate === "양식") {
+      return <img src={westernFood} alt="랜덤음식" />;
+    } else if (cate === "중식") {
+      return <img src={chineseFood} alt="랜덤음식" />;
+    } else if (cate === "분식") {
+      return <img src={schoolFood} alt="랜덤음식" />;
+    } else if (cate === "찜탕찌개") {
+      return <img src={stewFood} alt="랜덤음식" />;
+    } else if (cate === "카페디저트") {
+      return <img src={dessert} alt="랜덤음식" />;
+    } else if (cate === "백반, 면, 죽") {
+      return <img src={koreanFood} alt="랜덤음식" />;
+    } else if (cate === "기타") {
+      return <img src={etcFood} alt="랜덤음식" />;
+    }
+  };
+
+  const getMonthRanking = () => {
+    axiosConfig
+      .get("/rank/month")
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
     recommendMenu();
     weekMenu();
+    getMonthRanking();
   }, []);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -172,8 +203,10 @@ const MainPage = () => {
 
       <section className={styled.recommendeSection}>
         <div className={styled.random_food}>
-          <div className={styled.food_card}>딸기케이크</div>
-          <img src={dessert} alt="랜덤음식" />
+          <div className={styled.food_card}>{recommenu?.foodName}</div>
+          {getRandomFoodImg(recommenu?.foodCategory) || (
+            <img src={etcFood} alt="랜덤음식" />
+          )}
         </div>
 
         <div className={styled.q_btn}>
