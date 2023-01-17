@@ -72,6 +72,7 @@ section {
     // display: flex;
     align-items: center;
 
+
     .random_food {
       width: 100%;
       padding: 30px 10px;
@@ -96,6 +97,7 @@ section {
         font-weight: 500;
         color: #fff;
         @include flexBox($jc: around);
+
       }
       img {
         width: 100px;

@@ -6,8 +6,7 @@ interface User{
   more_pwd: string;
   email: string;
   nickName: string;
-  profileImg: File | string;
-  // profileImg: Blob | string;
+  profileImg: File | string; // null일까?
   profileMsg: string;
 
   choiceTerms: string; // Y or N
@@ -23,7 +22,15 @@ interface User{
   newProfileMsg: string;
   newNickName: string;
   newProfileImg: File | string;
+
+  emailYn: string; // 중복확인 값: Y인지 N인지
+  loginYn: string; //아이디
+  nickNameYn: string;
+  passwordYn: string; //비번 검사 했는지?
+
+  memberId: number; //시퀀스값 초기 저장
 }
+
 interface SetUser{
   setId: (id:User['id'])=>void;
   setPwd: (pwd:User['pwd'])=>void;
@@ -39,14 +46,19 @@ interface SetUser{
 
   setValidationErr: (err:boolean)=>void;
   setMailAuth: (mailauth:User['mailauth'])=>void;
-  // setInfo: (type:string, value:string)=>void;
-  // setInfo: (type:User[{type}], value:string)=>void;
   setDuplicationErr: (duplicationErr:User['duplicationErr'])=>void;
   setOAuthLogin: (oauthLogin:User['oauthLogin'])=>void;
 
   setNewProfileMsg: (newmsg:User['newProfileMsg'])=>void;
   setNewNickName: (newnn:User['newNickName'])=>void;
   setNewProfileImg: (newimg:User['newProfileImg'])=>void;
+
+  setEmailYn: (str:User['emailYn'])=>void;
+  setLoginYn: (str:User['loginYn'])=>void;
+  setNickNameYn: (str:User['nickNameYn'])=>void;
+  setPasswordYn: (str:User['passwordYn'])=>void;
+
+  setMemberId: (num: User['memberId'])=>void;
 }
 export const useUserStore = create<User&SetUser>(set => ({
   id: "",
@@ -71,6 +83,13 @@ export const useUserStore = create<User&SetUser>(set => ({
   newNickName: "",
   newProfileImg: "",
 
+  emailYn: "",
+  loginYn: "",
+  nickNameYn: "",
+  passwordYn: "",
+
+  memberId: 0,
+
   setId: (id)=> set(()=>({id: id})),
   setPwd: (pwd)=> set(()=>({pwd: pwd})),
   setMorePwd: (more_pwd)=> set(()=>({more_pwd: more_pwd})),
@@ -91,4 +110,11 @@ export const useUserStore = create<User&SetUser>(set => ({
   setNewProfileMsg: (msg)=>set(()=>({newProfileMsg:msg})),
   setNewNickName: (name)=>set(()=>({newNickName: name})),
   setNewProfileImg: (img)=>set(()=>({newProfileImg:img})),
+
+  setEmailYn: (str)=>set(()=>({emailYn: str})),
+  setLoginYn: (str)=>set(()=>({loginYn: str})),
+  setNickNameYn: (str)=>set(()=>({nickNameYn: str})),
+  setPasswordYn: (str)=>set(()=>({passwordYn: str})),
+  
+  setMemberId: (num)=>set(()=>({memberId: num})),
 }));

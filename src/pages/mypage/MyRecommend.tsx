@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Intro } from '@components/common/Text/SignUpPageText';
 import Header from '@components/common/Header/Header';
 import arrow_icon from '@img/arrow_icon.svg';
@@ -7,6 +7,7 @@ import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import EmptyText from '@components/common/Text/EmptyText';
 import DecoTitle from '@components/common/DecoTitle/DecoTitle';
+import { ButtonComp, buttonStyled } from '@components/common';
 
 interface ResType{
   foodId: number;
@@ -19,16 +20,37 @@ const MyRecommend = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const page = 1;
   const [menuList, setMenuList] = useState([]);
+  const [newState, setNewState] = useState(false);
 
-  useEffect(()=>{
+  const getMyPreference = ()=>{
     axiosConfig.get(`/member/food/${memberId}`,{
       params: {page: page},
     }).then(res=>{
       setMenuList(res.data);
       console.log(res);
     })
+  }
+
+  useEffect(()=>{
+    getMyPreference();
   },[]);
-  console.log(Boolean(menuList));
+
+  useCallback(()=>{
+    getMyPreference();
+  },[newState]);
+
+  let url = "";
+  const onModifyState = (url:string)=>{
+    axiosConfig.patch(url)
+    .then(res=>{
+      console.log(res);
+      setNewState(true);
+
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
   return (
     <div className={styles.recommend}>
       <div className={styles.title}>
@@ -39,12 +61,19 @@ const MyRecommend = () => {
       <div className={styles.menu_list}>
         {menuList.length > 0 ? 
           menuList.map((menu:ResType)=>{
+            {menu.memberFoodLike==="N"? 
+              url = `/food/like/${memberId}/${menu.memberFoodId}`: 
+              url = `/food/hate/${memberId}/${menu.memberFoodId}`
+            }
             return(
               <div className={styles.menu} key={menu.memberFoodId}>
                 <p>{menu.foodName}</p>
                 <button>
-                  {menu.memberFoodLike==="N"?
-                  "Nope": "Good"}
+                    <ButtonComp
+                      text={menu.memberFoodLike==="N"? "Nope": "Good"}
+                      btnStyle={menu.memberFoodLike==="N"? buttonStyled.button : buttonStyled.buttonActive}
+                      onClick={()=>onModifyState(url)}
+                    />                  
                 </button>
               </div>
             )

@@ -11,7 +11,7 @@ import {BiCommentDetail} from 'react-icons/bi';
 interface ResType{
   dailyCreate: string;
   dailyId: number;
-  dailyPath: string;
+  dailyPath1: string;
   dailyTitle: string;
   dailyView: number;
   dailyLike: number;
@@ -42,7 +42,7 @@ const ExploreDetail = () => {
             <Link to= {`/detail/${item.dailyId}`} key={item.dailyId}>
               <div className={styles.card}>
                 <LargeCard 
-                  img={item.dailyPath} 
+                  img={item.dailyPath1} 
                   info={true}
                   title={item.dailyTitle}
                   content={"내용내용내용내용내용"}

@@ -15,7 +15,12 @@ const SignUpProfileMsg = () => {
 
   const setProfileMsg = useUserStore((state)=>state.setProfileMsg);
   const [msgLength, setMsgLength] = useState(0);
-  const {id, pwd, more_pwd, email, nickName, choiceTerms, requiredTerms, profileImg, profileMsg} = useUserStore();
+
+  const {id, pwd, more_pwd, email, 
+        nickName, choiceTerms, requiredTerms, 
+        profileImg, profileMsg, 
+        emailYn, nickNameYn, passwordYn, loginYn} = useUserStore();
+
   const memberInfo = {
     'loginId': id,
     'password': pwd,
@@ -25,6 +30,10 @@ const SignUpProfileMsg = () => {
     'choiceTerms': choiceTerms,
     'requiredTerms': requiredTerms,
     'profile': profileMsg,
+    'emailYn': emailYn,
+    'nickNameYn': nickNameYn,
+    'passwordYn': passwordYn,
+    'loginYn': loginYn,
   }
 
   let formData = new FormData();
@@ -46,11 +55,8 @@ const SignUpProfileMsg = () => {
       axiosConfig.post("/member/signup", formData ,{headers})
       .then(res=>{
         console.log(res);
-        if(res){
-          setLoading(false);
-          navigate("/signup/welcome");
-        }
-        console.log("가입 완료");
+        setLoading(false);
+        navigate("/signup/welcome");
         //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
       }).catch(err=>{
         console.log(err);

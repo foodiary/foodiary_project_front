@@ -9,6 +9,8 @@ import camera_icon from '@img/camera_icon.svg';
 import basic_profile from '@img/basic_profile.svg';
 import { useImgFileStore } from '@store/fileStore';
 import InputFile from '@components/common/InputFile/InputFile';
+import basic_picture from '@img/basic_picture.jpg';
+import profile from '@img/profile.png';
 
 const SignUpProfileImage = () => {
   const navigate = useNavigate();
@@ -66,7 +68,7 @@ const SignUpProfileImage = () => {
               <div className={styles.text}><ValidationText text='png/jpeg/jpg 용량 3MB 이하' color={err? 'red': 'green'}/></div>
             </>:
             <>
-              <img alt='기본이미지' src={basic_profile} className={styles.basic_profile}/>
+              <img alt='기본이미지' src={profile} className={styles.basic_profile}/>
               <div className={styles.text}><ValidationText text='png/jpeg/jpg 용량 3MB 이하' color='grey'/></div>
             </>
           }

@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
-// import axiosOAuth from '@utils/axiosOAuth';
-import axiosOAuth from '../core/apis/utils/axiosOAuth';
+import axiosOAuth from '@utils/axiosOAuth';
+import axiosConfig from '@utils/axiosConfig';
+
 import axios from 'axios';
 import { useUserStore } from '@store/userStore';
+import { useLoginUserStore } from '@store/loginUserStore';
 
 const OAuthRedirect = () => {
+
   let provider_id = "";
-  // const google_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  // const naver_id = process.env.REACT_APP_NAVER_CLIENT_ID;
 
   const setOAuthLogin = useUserStore(state=>state.setOAuthLogin);
   const setEmail = useUserStore(state=>state.setEmail);
+  const setEmailYn = useUserStore(state=>state.setEmailYn);
+  const setUserInfo = useLoginUserStore((state)=>state.setUserInfo);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,26 +33,29 @@ const OAuthRedirect = () => {
   }
   
   const authLogin = async()=>{
-    axiosOAuth.get(url)
-      .then(res=>{
-        console.log(res);
-        if(res.data.body.newUser === true){
-          setOAuthLogin(true);
-          setEmail(res.data.body.email);
+    axiosConfig.get(url)
+    .then(res=>{
+      if(res.data.newUser === true){
+        setOAuthLogin(true);
+          setEmail(res.data.email);
+          setEmailYn("Y");
           navigate('/signup/agree');
-        }
-        else{
-          setOAuthLogin(false);
-          axiosOAuth.get(`/oauth/${provider_id}/callback?code=${authCode}`).then(res=>{
-            console.log(`oauth로그인: ${res}`);
-          }).catch(err=>{
-            console.log(err);
-          })
-          navigate('/');
-        }
-      }).catch(err=>{
-        console.log(err);
-      })
+      }
+      else{
+        setOAuthLogin(false);
+        const memberId = res.data.memberId;
+        axiosConfig.get(`/member/${memberId}`)
+            .then(res=>{
+              setUserInfo(res.data);
+              navigate("/") ;
+            }).catch(err=>{
+              console.log(`otherLoginPage: ${err}`);
+            })
+      }
+    }).catch(err=>{
+      console.log(err);
+    })
+    
   };
 
   useEffect(()=>{

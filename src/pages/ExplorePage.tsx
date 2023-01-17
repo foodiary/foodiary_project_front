@@ -11,7 +11,7 @@ import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 interface ResType {
   // dailyCreate: string;
   dailyId: number;
-  dailyPath: string;
+  dailyPath1: string;
   // dailyTitle: string;
 }
 
@@ -87,21 +87,20 @@ const ExplorePage = () => {
         />
       </div>
       {/* {tab === "0" && ( */}
-      <section className={styles.dailySection}>
-        <div className={styles.contents}>
-          {dailyList.map((item: ResType, index) => {
-            return (
-              <Link
-                to={`/explore/details`}
-                state={{ list: dailyList.slice(index) }}
-                key={item.dailyId}
-              >
-                <SmallCard img={item.dailyPath} />
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+        <section className={styles.dailySection}>
+          <div className={styles.contents}>
+            {dailyList.map((item:ResType, index)=>{
+              return(
+                <Link 
+                  to={`/explore/details`} 
+                  state={{list: dailyList.slice(index)}}
+                  key={item.dailyId}>
+                  <SmallCard img={item.dailyPath1}/>
+                </Link>
+              )
+            })}
+          </div>
+        </section>
       {/* )} */}
       {/* {tab === "1" && (
         <section className={styles.dailyDietSection}>

@@ -10,8 +10,9 @@ import duplicateCheck from '../../core/apis/utils/duplicateCheck';
 const SignUpId = () => {
   const id = useUserStore((state)=>state.id);
   const validationErr = useUserStore((state)=>state.validationErr);
+  const setLoginYn = useUserStore((state)=>state.setLoginYn);
+
   const [next, setNext] = useState(false);
-  // const duplicationErr = useUserStore(state=>state.duplicationErr);
   const [err, setErr] = useState(false);
   // const {register, handleSubmit, watch, resetField} = useForm();
 
@@ -28,6 +29,7 @@ const SignUpId = () => {
       console.log(`성공의 응답?: ${res}`);
         setErr(false);
         setNext(true);
+        setLoginYn("Y");
       //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{
       if(err.response.data.msg === "아이디가 중복입니다"){

@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/otherLoginPage.module.scss";
 import { Link, useNavigate } from 'react-router-dom';
 import { Intro } from '@components/common/Text/SignUpPageText';
@@ -7,15 +7,18 @@ import axiosConfig from "../../core/apis/utils/axiosConfig";
 import { useUserStore } from '@store/userStore';
 import { useLoginUserStore } from '@store/loginUserStore';
 import { AlertBox } from '@components/common/AlertBox/AlertBox';
-import axios from 'axios';
 import Loading from '@pages/Loading';
+import { useUpdateUser } from '@hook/useUpdateUser';
 
 const OtherLoginPage = () => {
   const navigate = useNavigate();
   const id = useUserStore((state)=>state.id);
   const pwd = useUserStore((state)=>state.pwd);
-  // const {setMemberLoginId, setMemberId, setMemberEmail, setMemberNickName, setMemberPath, setMemberProfile} = useLoginUserStore();
+  
   const setUserInfo = useLoginUserStore((state)=>state.setUserInfo);
+  const setMemberId = useUserStore((state)=>state.setMemberId);
+  const memberId = useUserStore((state)=>state.memberId);
+
   const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState(false);
   const [err, setErr] = useState(false);
@@ -37,19 +40,16 @@ const OtherLoginPage = () => {
       loginId: id,
       password: pwd,
     }).then(res=>{
-      // const memberId = res.data.memberId;
-      const memberId = 76;
-      console.log(res);
-      setLoading(false);
-      
+      const memberId = res.data.memberId;
+      // setMemberId(memberId);
       axiosConfig.get(`/member/${memberId}`)
       .then(res=>{
-        console.log(res);
         setUserInfo(res.data);
         navigate("/") ;
       }).catch(err=>{
-        console.log(err);
-      });
+        console.log(`otherLoginPage: ${err}`);
+      })
+      console.log(res);
 
     }).catch(err=>{
       setLoading(false);
@@ -57,6 +57,7 @@ const OtherLoginPage = () => {
       setErr(true);
     })
 }
+
   return (
     <div className={styles.login_container}>
       <div className={styles.add_margin}>

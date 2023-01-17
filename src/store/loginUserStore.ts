@@ -1,3 +1,4 @@
+import { userInfo } from 'os';
 import { object } from 'yup';
 import create, { StateCreator } from 'zustand';
 import { persist, PersistOptions } from 'zustand/middleware';
@@ -17,6 +18,16 @@ interface UserObj{
 
 interface SetUser{
   setUserInfo: (object: UserObj['userInfo'])=> void;
+  reset: () => void;
+}
+
+const initState: User ={
+  memberId: 0,
+  memberEmail:"",
+  memberLoginId: "",
+  memberNickName: "",
+  memberPath: "",
+  memberProfile: "",
 }
 
 type UserPersist = (
@@ -28,16 +39,19 @@ export const useLoginUserStore = create<UserObj&SetUser>(
   (persist as UserPersist)(
     (set) => ({
 
-  userInfo: {
-    memberId:0,
-    memberEmail:"",
-    memberLoginId: "",
-    memberNickName: "",
-    memberPath: "",
-    memberProfile: "",
-  },
+    userInfo: initState,
+  // userInfo: {
+  //   memberId:0,
+  //   memberEmail:"",
+  //   memberLoginId: "",
+  //   memberNickName: "",
+  //   memberPath: "",
+  //   memberProfile: "",
+  // },
 
   setUserInfo: (obj)=> set(()=>({userInfo: obj})),
+  reset: () => set((state)=>({userInfo: initState})),
+
 }),
   {name: "LoginUserStore"}
 ));

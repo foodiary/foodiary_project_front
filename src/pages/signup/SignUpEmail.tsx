@@ -14,6 +14,8 @@ import axiosConfig from '../../core/apis/utils/axiosConfig';
 const SignUpEmail = () => {
   const navigate = useNavigate();
   const email = useUserStore((state)=>state.email);
+  const setEmailYn = useUserStore((state)=>state.setEmailYn);
+
   const [send, setSend] = useState(false);
   const validationErr = useUserStore(state=>state.validationErr);
   const [err, setErr] = useState(false);
@@ -32,6 +34,7 @@ const SignUpEmail = () => {
       console.log(`성공의 응답?: ${res}`);
       if(res === undefined){
         setErr(true);
+        setEmailYn("Y");
         return;
       }
       else{

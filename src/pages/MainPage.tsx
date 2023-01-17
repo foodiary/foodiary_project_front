@@ -5,6 +5,7 @@ import axiosConfig from "../core/apis/utils/axiosConfig";
 import { ChangeEvent, useEffect, useState } from "react";
 import styled from "../styles/mainPage.module.scss";
 import { useLoginUserStore } from "@store/loginUserStore";
+
 import { GoSearch } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
 import dessert from "@img/dessert.png";
@@ -18,6 +19,9 @@ import schoolFood from "@img/school_food.png";
 import EmptyText from "@components/common/Text/EmptyText";
 import { SmallCard } from "@components/common/Card";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
+import {GoSearch} from 'react-icons/go';
+import { useNavigate } from "react-router-dom";
+import { useUpdateUser } from "@hook/useUpdateUser";
 
 interface ResType {
   recipeComment: number;
@@ -36,20 +40,32 @@ interface RandomFoodType {
   foodName: String;
 }
 
+interface User{
+  memberLoginId: string; //로그인 아이디
+  memberId: number; //api 요청시 필요한 멤버시퀀스
+  memberEmail: string;
+  memberNickName: string;
+  memberPath: string; //이미지
+  memberProfile: string; //프메
+}
 const MainPage = () => {
+  useUpdateUser();
   const navigate = useNavigate();
   const nickName = useLoginUserStore((state) => state.userInfo.memberNickName);
 
   const [userName, setUserName] = useState<string>("푸디어리");
 
   // const [daysBtn, setDaysBtn] = useState(days.month);
-  const memberId = 76;
+  const setUserInfo = useLoginUserStore((state)=>state.setUserInfo);
+  const userInfo = useLoginUserStore((state)=>state.userInfo);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   useEffect(() => {
     if (nickName) {
       setUserName(nickName);
     }
   }, []);
+
 
   const [menuList, setMenuList] = useState([]);
   const [recommenu, setRecomMenu] = useState<RandomFoodType>();

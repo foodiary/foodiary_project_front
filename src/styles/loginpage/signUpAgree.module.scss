@@ -7,17 +7,21 @@
   margin-top: 150px;
   height: 300px;
   background-color: white;
-  .text_container{
-    padding: 12px 0 12px 35px;
+  .underline{
+    border-bottom: 1px solid gray;
+    padding: 12px 0 12px 20px;
     width: 100%;
-    &:first-child{
-      border-bottom: 1px solid gray;
-      padding: 12px 0 12px 20px;
-      width: 100%;
-    }
-    &:last-child{
-      padding: 0;
-      padding-top: 50px;
+  }
+  .bottom{
+    padding-top: 50px;
+  }
+  .agree_container{
+    @include flexBox($jc: between);
+    gap: 5px;
+    width: 95%;
+
+    .text_container{
+      padding: 12px 0 12px 35px;
     }
   }
   input{
@@ -26,7 +30,7 @@
   label{
     // border: 1px solid red;
     @include text-style(16px, #000000, 400, start);
-    margin-left: 14px;
+    margin-left: 12px;
     @include flexBox($jc: start);
     gap: 10px;
     .check_btn{
@@ -41,13 +45,12 @@
     margin-top: 4px;
     margin-left: 41px;
   }
-  // .submit{
-  //   width: 373px;
-  //   height: 56px;
-  //   border: none;
-  //   border-radius: 16px 16px 0px 0px;
-  //   background-color: $gray_100;
-  //   @include text-style(16px, #666666, 700);
-  //   cursor: pointer;
-  // }
+}
+
+.agreeDetail_title{
+  margin: 120px 0 40px 20px;
+  // border: 2px solid #666666;
+}
+.agreeDetail_content{
+  @include text-style(16px, $gray_400, 500);
 }

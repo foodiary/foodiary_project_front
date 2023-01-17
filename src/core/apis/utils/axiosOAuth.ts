@@ -25,6 +25,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     console.log(`인터셉트 응답: ${response}`);
+
     const accessToken = response.data.accessToken;
     const refreshToken = response.data.refreshToken;
     const refreshExpired = response.data.refreshTokenExpirationMinutes;

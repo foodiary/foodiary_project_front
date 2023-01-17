@@ -10,8 +10,11 @@ import { AlertBox } from '@components/common/AlertBox/AlertBox';
 const SignUpAuthMail = () => {
   const email = useUserStore((state)=>state.email);
   const mailauth = useUserStore((state)=>state.mailauth);
+
   const [next, setNext] = useState(false);
   const [err, setErr] = useState(false);
+  const [networkErr, setNetworkErr] = useState(false);
+
   const [alert, setAlert] = useState(false);
   const [timeout, setTimeout] = useState(false);
 
@@ -19,6 +22,7 @@ const SignUpAuthMail = () => {
     setErr(false);
     setAlert(false);
   };
+
   useEffect(()=>{
     init();
   },[mailauth]);
@@ -48,10 +52,16 @@ const SignUpAuthMail = () => {
       }
       else{
         setAlert(true);
+        setNetworkErr(false);
       }
       console.log(res);
     }).catch(err=>{
       console.log(err);
+      const errMsg = err.message;
+      console.log(`컴포넌트에서 : ${errMsg}`);
+      if(errMsg === "Network Error"){
+        setNetworkErr(true);
+      }
       setAlert(false);
     })
   }
@@ -62,10 +72,6 @@ const SignUpAuthMail = () => {
       num: mailauth
     }).then(res=>{
       console.log(res);
-      // if(res === undefined){
-      //   setTimeout(true);
-      //   return;
-      // }
       if(res){
         setTimeout(false);
         setNext(true);
@@ -87,7 +93,7 @@ const SignUpAuthMail = () => {
   return (
     <div className={styles.authmail_container}>
       <Intro intro1={"메일이 발송되었습니다."} span={"인증번호"} intro2={"를 입력해주세요!"}/>
-      <div className={styles.success_logo}></div>
+
         <form className={styles.login_form} onSubmit={onSubmit}>
           <div className={styles.input_container}>
             <Input 
@@ -97,7 +103,7 @@ const SignUpAuthMail = () => {
               placeholder={"인증번호를 입력해주세요"}
               validate={"no"}
             />
-            {/* <DuplicateCheckBtn type="button"/> */}
+
             <div className={styles.remain_time}>
               {Math.floor(seconds/60)}:{String(Math.floor(seconds%60)).padStart(2,"0")}
             </div>
@@ -108,6 +114,7 @@ const SignUpAuthMail = () => {
           <LoginButton type={next? "button" : "submit"} text={next? '인증완료': '인증하기'} 
             active={mailauth?true:false} url={next?'/signup/nickname':""}/>
         </form>
+
         {next && 
           <AlertBox type={true} text="이메일 인증이 완료되었습니다"/>
         }
@@ -120,30 +127,10 @@ const SignUpAuthMail = () => {
         {timeout && 
           <AlertBox type={false} text="인증시간이 초과되었습니다. 메일을 다시 보내주세요"/>
         }
-      {/* <div className={styles.login_container}>
-        <div className={styles.intro}>
-          <p>본인인증을 위해</p>
-          <p><span>이메일을</span> 입력해주세요.</p>
-          <div></div>
-        </div>
-          <form onSubmit={onSubmit} className={styles.login_form}>
-            <div className={`${styles.input_id} ${styles.input_box}`}>
-              <p>이메일</p>
-              <input type="email" 
-                placeholder='이메일을 입력해주세요' 
-                onChange={onChange}
-                value={email}
-                className={styles.input}
-              />
-              {email && <button type='button' className={styles.id_cancel} onClick={()=>setEmail("")}>
-                <MdOutlineCancel/>
-              </button>}
-              <p className={styles.pwd_err}>정확한 비밀번호를 입력해주세요</p>
-            </div>
-            <button type='button'>중복확인</button>
-            <button type='submit'>확인</button>
-          </form> */}
-        </div>
+        {networkErr && 
+          <AlertBox type={false} text="네트워크가 원활하지 않습니다. 다시 확인해주세요"/>
+        }
+    </div>
   );
 };
 
