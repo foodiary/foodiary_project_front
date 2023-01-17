@@ -1,13 +1,13 @@
 import axios from "axios";
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
-axios.defaults.headers.common['Referrer-Policy']='no-referrer-when-downgrade';
+axios.defaults.headers.common["Referrer-Policy"] = "no-referrer-when-downgrade";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  headers:{
+  headers: {
     "Access-Control-Allow-Origin": "*",
-    'Access-Control-Allow-Credentials':"true"
+    "Access-Control-Allow-Credentials": "true",
   },
   timeout: 20000
 });
@@ -30,12 +30,12 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     // console.log(response);
-    console.log('인터셉트 응답:' + response.data);
+    console.log("인터셉트 응답:" + response.data);
     const accessToken = response.data.accessToken;
     const refreshToken = response.data.refreshToken;
     const refreshExpired = response.data.refreshTokenExpirationMinutes;
 
-    if(accessToken && refreshToken){
+    if (accessToken && refreshToken) {
       // console.log(response.data.accessToken.slice(7));
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
@@ -58,9 +58,10 @@ instance.interceptors.response.use(
         localStorage.removeItem("access_token");
         // return;
       }
-      try{
-        const headers = {Refresh: `Bearer ${refreshToken}`};
-        const {data} = await axios.get('/auth/reissue', {headers}); //refresh로 access 토큰 재발급
+
+      try {
+        const headers = { Refresh: `${refreshToken}` };
+        const { data } = await axios.get("/auth/reissue", { headers }); //refresh로 access 토큰 재발급
         console.log(data);
         const newAccessToken = data.data.accessToken;
         const newRefreshToken = data.data.refreshToken; //??
@@ -72,13 +73,11 @@ instance.interceptors.response.use(
         localStorage.setItem("access_token", newAccessToken);
         localStorage.setItem("refresh_token", newRefreshToken);
         return await axios(config);
-
-      } catch(err){
+      } catch (err) {
         return Promise.reject(err);
       }
     }
     return Promise.reject(err);
-
   }
 );
 

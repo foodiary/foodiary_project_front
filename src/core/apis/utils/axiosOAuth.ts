@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  headers:{
+  headers: {
     "ngrok-skip-browser-warning": "12345",
-    'Access-Control-Allow-Origin': '*',
+    "Access-Control-Allow-Origin": "*",
   },
 });
 
@@ -30,7 +30,7 @@ instance.interceptors.response.use(
     const refreshToken = response.data.refreshToken;
     const refreshExpired = response.data.refreshTokenExpirationMinutes;
 
-    if(accessToken && refreshToken){
+    if (accessToken && refreshToken) {
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
       localStorage.setItem("refresh_expired", refreshExpired);
@@ -48,9 +48,10 @@ instance.interceptors.response.use(
         localStorage.removeItem("access_token");
         // return;
       }
-      try{
-        const {data} = await axios.post('/member/reissue', {
-          accessToken, refreshToken
+      try {
+        const { data } = await axios.post("/member/reissue", {
+          accessToken,
+          refreshToken,
         });
         const newAccessToken = data.data.accessToken;
         const newRefreshToken = data.data.refreshToken;
@@ -62,13 +63,11 @@ instance.interceptors.response.use(
         localStorage.setItem("access_token", newAccessToken);
         localStorage.setItem("refresh_token", newRefreshToken);
         return await axios(config);
-
-      } catch(err){
+      } catch (err) {
         return err;
       }
     }
     return Promise.reject(err);
-
   }
 );
 
