@@ -10,6 +10,7 @@
     width: 32px; height: 32px;
     border-radius: 50px;
     margin-right: 8px;
+    border: 1px solid black;
   }
   .more_btn{
     @include row-flexBox();

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './commentBox.module.scss';
-import basic_profile from '@img/basic_profile.svg';
+import basic_profile from '@img/basic_profile.png';
 import {FiMoreVertical} from 'react-icons/fi';
 import { useLoginUserStore } from '@store/loginUserStore';
 

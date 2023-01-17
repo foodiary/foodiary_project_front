@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '@styles/loading.module.scss';
 import { HashLoader } from 'react-spinners';
 
+// type Loading = {loading: boolean};
 const Loading = () => {
   return (
     <div className={styles.loading}>

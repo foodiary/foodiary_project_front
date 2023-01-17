@@ -52,7 +52,7 @@ const FAQ = () => {
                 <>
                 <button className={styles.q_container} key={index} onClick={()=>{onTitleClick(index);}}>
                   <p className={styles.num}>{faqId}</p>
-                  <p className={styles.title}>{item.faqTitle}</p>
+                  <p className={styles.q_title}>{item.faqTitle}</p>
                     <img src={top_arrow} alt="화살표"/>
                 </button>
                 {open && 

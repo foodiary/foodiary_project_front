@@ -8,6 +8,7 @@ import {GoSearch} from 'react-icons/go';
 import { useNavigate } from "react-router-dom";
 import dessert from '@img/dessert.png';
 import { useUpdateUser } from "@hook/useUpdateUser";
+import { useLoadingStore } from "@store/loadingStore";
 
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -21,6 +22,7 @@ interface User{
 }
 const MainPage = () => {
   useUpdateUser();
+
   const navigate = useNavigate();
   const nickName = useLoginUserStore(state=>state.userInfo.memberNickName);
 

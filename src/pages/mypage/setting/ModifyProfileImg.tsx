@@ -6,7 +6,7 @@ import { LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 import { useNavigate } from 'react-router-dom';
 import camera_icon from '@img/camera_icon.svg';
-import basic_profile from '@img/basic_profile.svg';
+import basic_profile from '@img/basic_profile.png';
 import axiosConfig from '../../../core/apis/utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 

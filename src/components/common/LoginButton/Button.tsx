@@ -25,6 +25,7 @@ interface DupliButton{
 interface HalfBtn{
   text: string; //버튼 텍스트
   type: 'button' | 'submit' ;
+  onClick?: ()=>void;
 }
 interface HalfAlertBtn{
   btn_txt?: string;
@@ -58,7 +59,7 @@ export const LoginButton = ({text, type, url, active=false}:Button) => {
     </div>
   );
 };
-export const HalfButton = ({text, type}:HalfBtn)=>{
+export const HalfButton = ({text, type, onClick}:HalfBtn)=>{
   const navigate = useNavigate();
   const [warn, setWarn] = useState(false);
 
@@ -68,15 +69,10 @@ export const HalfButton = ({text, type}:HalfBtn)=>{
         <button
           type={type} 
           className={styles.half_btn}
+          onClick={onClick}
         >
           {text}
         </button>
-        {/* <button
-          type={type2} 
-          className={styles.half_btn}
-        >
-          {text2}
-        </button> */}
       </div>
     </div>
   );

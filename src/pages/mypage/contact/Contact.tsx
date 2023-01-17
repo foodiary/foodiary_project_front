@@ -11,14 +11,16 @@ import { useNavigate } from 'react-router-dom';
 import {MdCancel} from 'react-icons/md';
 import { useImgFileStore } from '@store/fileStore';
 import InputFile from '@components/common/InputFile/InputFile';
+import { useWritingFormStore } from '@store/writingFormStore';
+import WritingForm from '@components/common/WrtingForm/WritingForm';
 
 const Contact = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId); //멤버시퀀스
   const navigate = useNavigate();
 
   const [write, setWrite] = useState(true); //탭 모드
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [content, setContent] = useState("");
   const [length, setLength] = useState(0); //내용 길이
   const img = useImgFileStore(state=>state.img);
   const fileURL = useImgFileStore(state=>state.fileURL);
@@ -26,6 +28,10 @@ const Contact = () => {
 
   const cancel = btnStateStore(state=>state.cancel); //작성취소의 취소
   const setCancel = btnStateStore(state=>state.setCancel); //작성취소의 취소
+
+  const title = useWritingFormStore(state=>state.title);
+  const content = useWritingFormStore(state=>state.content);
+
 
   const questionInfo = {
     memberId: memberId,
@@ -50,15 +56,15 @@ const Contact = () => {
     
   },[forbidden]);
 
-  const onTitleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-    const {value} = e.target;
-    setTitle(value);
-  }
-  const onContentChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
-    const {value} = e.target;
-    setLength(value.length);
-    setContent(value);
-  }
+  // const onTitleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+  //   const {value} = e.target;
+  //   setTitle(value);
+  // }
+  // const onContentChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
+  //   const {value} = e.target;
+  //   setLength(value.length);
+  //   setContent(value);
+  // }
 
   const onCancel = ()=>{
     setCancel(false);
@@ -114,51 +120,29 @@ const Contact = () => {
       
       {write? 
         <div className={styles.contact_container}>
-          <div className={styles.contact_title}>
-            <p>제목</p>
-            <input type="text" maxLength={50} onChange={onTitleChange}
-              placeholder="제목을 입력해주세요."/>
-          </div>
-          <div className={styles.content}>
-            <p>문의 내용</p>
-            <textarea maxLength={1000} onChange={onContentChange}
-              placeholder="오류화면 캡쳐, PC 정보 제공과 함께 오류 현상을 자세히 기재해 주세요."/>
-            <p className={styles.maxlength}>{length}/1000</p>
-
-          </div>
-          <div className={styles.file}>
-            <p>파일 첨부</p>
-            <label htmlFor='file'>
-              <p className={styles.add_img}>+ 파일 첨부</p>
-            </label>
-            <InputFile/>
-            <img src={clip_icon} alt="첨부파일"/>
-          </div>
-          {fileURL && 
-            <div className={styles.preview_container}>
-              <img alt='첨부사진' src={fileURL} className={styles.preview}/>
-              <button onClick={onFileInit}>
-                <MdCancel/>
-              </button>
-            </div>
-          }
-          <div className={styles.btn_container}>
+          <WritingForm 
+            maxLength={1000} 
+            label="문의 내용"
+            url='/question'
+            edit={false}
+          />
+          {/* <div className={styles.btn_container}>
             <form onClick={onSubmit} className={styles.red}>
               <HalfButton text='작성완료' type='submit'/>
             </form>
             <div onClick={onCancel} className={styles.black}>
               <HalfButton text='취소' type='button'/>
             </div>
-          </div>
+          </div> */}
         </div>:
         <MyContact/>
       }
-      {alert && !cancel &&
+      {/* {alert && !cancel &&
         <form onSubmit={onWriteCancel}>
           <WarnBox text='작성을 취소하시겠습니까?' btn_txt='예'/>
         </form>
       }
-      {forbidden && <AlertBox text='내용을 작성해주세요' type={false}/>}
+      {forbidden && <AlertBox text='내용을 작성해주세요' type={false}/>} */}
     </div>
   );
 };

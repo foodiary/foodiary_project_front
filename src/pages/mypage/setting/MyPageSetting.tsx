@@ -4,7 +4,7 @@ import styles from '@styles/mypage/myPageSetting.module.scss';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import pen_icon from '@img/pen_icon.svg';
-import basic_profile from '@img/basic_profile.svg';
+import basic_profile from '@img/basic_profile.png';
 import { AlertBox, WarnBox } from '@components/common/AlertBox/AlertBox';
 import { btnStateStore } from '@store/btnStateStore';
 import { useLoginUserStore } from '@store/loginUserStore';

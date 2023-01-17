@@ -12,20 +12,6 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
   border-bottom: 2px solid $gray-100;
   background-color: white;
 
-  // .navbar{
-  //   position: fixed;
-  //   bottom: 0;
-  //   width: 372px;
-  //   background-color: white;
-  //   height: 100px;
-  //   @include flexBox($jc: around);
-  //   @include row-flexBox();  
-  //   @include text-style(30px, $main, 400); 
-  //   .no_active{
-  //     filter: $grey-color;
-  //   }
-  // }
- 
   .profile{
     // @include flexBox();
     margin-right: 20px;
@@ -67,6 +53,7 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
           height: 50px;
           border-radius: 50px;
           margin-top: 5px;
+          border: 1px solid black;
         }
       }
     }
@@ -75,20 +62,16 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
 
 // LoginHeader.tsx
 .login_header{
-  // position: relative;
   position: fixed;
-  // border: 1px solid red;
   z-index: 100;
   // width: 90%;
-  width: 350px;
+  width: 373px;
   height: 60px;
-  margin-left: 10px;
   @include flexBox($jc: between);
   background-color: white;
 
   button{
-    background: none;
-    border: none;
-    cursor: pointer;
+    
+    padding: 0 10px;
   }
 }

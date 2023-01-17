@@ -9,8 +9,12 @@ const LoginHeader = () => {
 
   return (
     <div className={styles.login_header}>
-      <button onClick={()=>{navigate(-1)}}><img src={go_back_btn} alt='뒤로가기'/></button>
-      <button onClick={()=>{navigate("/")}}><img src={x_btn} alt='창끄기'/></button>
+      <button onClick={()=>{navigate(-1)}}>
+        <img src={go_back_btn} alt='뒤로가기'/>
+      </button>
+      <button onClick={()=>{navigate("/")}}>
+        <img src={x_btn} alt='창끄기'/>
+      </button>
     </div>
   );
 };

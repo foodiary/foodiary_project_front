@@ -52,5 +52,14 @@
   // border: 2px solid #666666;
 }
 .agreeDetail_content{
-  @include text-style(16px, $gray_400, 500);
+  @include column-flexBox();
+  width: 95%;
+  margin: auto;
+
+  .promise_container{
+    margin-bottom: 15px;
+    p{
+      @include text-style(16px, $gray_400, 400, start);
+    }
+  }
 }

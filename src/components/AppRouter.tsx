@@ -47,21 +47,11 @@ import WritingPage from '@pages/WritingPage';
 import ContactEdit from '@pages/mypage/contact/ContactEdit';
 import axiosConfig from '@utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
+import axios from 'axios';
+import Loading from '@pages/Loading';
 
 const AppRouter = () => {
-  // const [loginUser, setLoginUser] = useState(false);
   const token = localStorage.getItem("access_token");
-  // const memberId = useUserStore(state=>state.memberId);
-  // const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
-
-  // useEffect(()=>{
-  //   if(token){
-  //     setLoginUser(true);
-  //   }
-  //   else{
-  //     setLoginUser(false);
-  //   }
-  // },[token]);
   const oauthLogin = useUserStore(state=>state.oauthLogin);
 
   return (

@@ -3,7 +3,7 @@ import {AiOutlineSetting} from 'react-icons/ai';
 import {BiChevronRight} from 'react-icons/bi';
 import styles from '@styles/mypage/myPageMain.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import basic_profile from '@img/basic_profile.svg';
+import basic_profile from '@img/basic_profile.png';
 import myComments from '@img/myComments.png';
 import myGood from '@img/myGood.png';
 import myWriting from '@img/myWriting.png';
@@ -48,16 +48,7 @@ const MyPageMain = () => {
     setWithdraw(true);
     setCancel(false);
   }
-  // const onClick = ()=>{
-  //   console.log("클릭됨"); //취소 버튼
-  //   setCancel(true);
-  //   if(logout){
-  //     setLogout(false);
-  //   }
-  //   else if(withdraw){
-  //     setWithdraw(false);
-  //   }
-  // }
+ 
   const afterRes = ()=>{
     setAlert(true);
     localStorage.clear();
@@ -68,39 +59,66 @@ const MyPageMain = () => {
     },2000);
   }
   const onSubmit = (e:FormEvent)=>{
+    e.preventDefault();
+    console.log(withdraw);
     let url="";
+    let METHOD = "";
     if(logout){
       url = '/auth/logout'
+      METHOD = 'get';
     }
     else if(withdraw){
       url= `/member/${userInfo.memberId}`
+      METHOD = 'delete';
     }
-    // setAlert(true);
-    // setTimeout(()=>navigate("/"),2000);
-    e.preventDefault();
-    axiosConfig.get(url).then(res=>{
+    console.log(url, METHOD);
+
+    axiosConfig({
+      method: METHOD,
+      url: url,
+    }).then(res=>{
       console.log(res);
       afterRes();
     }).catch(err=>{
       console.log(err);
     })
+
+    // axiosConfig.delete(url).then(res=>{
+    //   console.log(res);
+    //   afterRes();
+    // }).catch(err=>{
+    //   console.log(err);
+    // })
   }
-  // console.log(logout);
   return (
     <div className={styles.mypage}>
       <div className={styles.profile_container}>
-      <img src={userInfo.memberPath? userInfo.memberPath: basic_profile} alt="기본이미지" className={styles.profile_image}/>
+
+      {userInfo.memberId ?
+        <>
+        <img 
+        src={userInfo.memberPath? userInfo.memberPath: basic_profile} 
+        alt="기본이미지" 
+        className={styles.profile_image}/>
+
         <div className={styles.user_info}>
           <p>{userInfo.memberNickName}</p>
           <p>{userInfo.memberEmail}</p>
         </div>
 
-          <Link to="/mypage/setting">
-            <div className={styles.setting}>
-              <AiOutlineSetting/>
-            </div>
-          </Link>
+        <Link to="/mypage/setting">
+          <div className={styles.setting}>
+            <AiOutlineSetting/>
+          </div>
+        </Link>
+        </>:
+          <div className={styles.no_member}>
+          <p>로그인이 필요합니다</p>
+          <p>푸디어리와 함께 해요!</p>
+          </div>}
       </div>
+      
+
       <p className={styles.profile_msg}>
         {userInfo.memberProfile}
       </p>

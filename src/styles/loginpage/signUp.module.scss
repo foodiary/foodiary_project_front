@@ -183,17 +183,23 @@
 //SignUpWelcome.tsx
 .welcome_container{
   position: relative;
-  height: 100vh;
-  background: url('../../img/welcome_background.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
+  img{
+    @include flexBox();
+    width: 90%;
+    height: 150px;
+    // border: 1px solid red;
+    margin: 250px auto 50px auto;
+    // transform: rotate(10deg);
+  }
   p{
-    @include text-style(28px, $main, 700);
-    position: absolute;
-    top: 40%; left: 40%;
+    @include text-style(25px, $main, 500);
+    padding: 5px;
+    span{
+      @include text-style(25px, $point 700);
+    }
   }
   button{
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    bottom: 10px;
   }
 }

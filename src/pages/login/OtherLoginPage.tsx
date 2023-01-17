@@ -42,7 +42,7 @@ const OtherLoginPage = () => {
     }).then(res=>{
       const memberId = res.data.memberId;
       // setMemberId(memberId);
-      axiosConfig.get(`/member/${memberId}`)
+      axiosConfig.get(`/member/${76}`)
       .then(res=>{
         setUserInfo(res.data);
         navigate("/") ;

@@ -3,7 +3,7 @@
 .faq_container{
   margin-top: 100px;
   .title{
-    margin: 135px 0 30px 20px;
+    margin: 135px 0 50px 20px;
   }
   
   .board{
@@ -14,12 +14,13 @@
     width: 90%;
     height: 70px;
     margin: auto;
+
     @include flexBox($jc: between);
     border-bottom: 2px solid $gray-100;
     .num{
       @include text-style(12px, $point, 700);
     }
-    .title{
+    .q_title{
       @include text-style(16px, $main, 500);
     }
   }
@@ -31,6 +32,5 @@
     @include column-flexBox();
     width: 90%;
     margin: 10px auto ;
-    border: 1px solid red;
     padding: 10px;
 }

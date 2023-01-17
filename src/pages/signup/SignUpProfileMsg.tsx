@@ -5,7 +5,7 @@ import { Intro } from '@components/common/Text/SignUpPageText';
 import { LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
-import basic_profile from '@img/basic_profile.svg';
+import basic_profile from '@img/basic_profile.png';
 import Loading from '@pages/Loading';
 
 const SignUpProfileMsg = () => {

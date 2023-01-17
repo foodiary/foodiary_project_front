@@ -5,7 +5,7 @@ import {AiOutlineHeart} from 'react-icons/ai';
 import {FaRegBookmark} from 'react-icons/fa';
 import { HalfAlertButton, HalfButton, LoginButton } from '@components/common/LoginButton/Button';
 import {AlertBox, WarnBox} from '@components/common/AlertBox/AlertBox';
-import basic_profile from '@img/basic_profile.svg';
+import basic_profile from '@img/basic_profile.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { btnStateStore } from '@store/btnStateStore';
 import Input from '@components/common/Input/Input';

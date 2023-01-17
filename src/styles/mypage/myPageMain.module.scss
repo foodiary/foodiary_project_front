@@ -8,6 +8,7 @@
     width: 96px;
     height: 96px;
     border-radius: 10px;
+    border: 1px solid black;
   }
   .user_info{
     @include column-flexBox();
@@ -21,6 +22,11 @@
     p:nth-child(2){
       @include text-style(14px, #666666, 400, start);
       margin-top: 12px;
+    }
+  }
+  .no_member{
+    p{
+      @include text-style(20px, 500);
     }
   }
   .setting{

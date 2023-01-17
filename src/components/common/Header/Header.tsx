@@ -5,7 +5,7 @@ import home_icon from '@img/home_icon.svg';
 import hot_icon from '@img/hot_icon.svg';
 import explore_icon from '@img/explore_icon.svg';
 import mypage_icon from '@img/mypage_icon.svg';
-import basic_profile from '@img/basic_profile.svg';
+import basic_profile from '@img/basic_profile.png';
 import go_back_btn from '@img/go_back_btn.svg';
 
 import { useLoginUserStore } from '@store/loginUserStore';

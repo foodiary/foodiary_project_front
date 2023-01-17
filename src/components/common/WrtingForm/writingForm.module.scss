@@ -1,16 +1,12 @@
-// @import '../../../styles/mypage/myWriting.module.scss';
-// @import '../../../styles/mypage/myComments.module.scss';
 @import '../../../styles/main.module.scss';
 
-.contact_container{
+.writing_container{
   @include column-flexBox();
-  gap: 25px;
   width: 90%;
   height: 100%;
   margin: auto;
   p{
     @include text-style(12px, #333333, 700, start);
-    margin-bottom: 5px;
   }
   input, textarea{
     width: 100%;
@@ -18,23 +14,34 @@
     border-radius: 12px;
     padding: 20px;
     font-size: 14px;
+    margin-bottom: 30px;
   }
-  .contact_title{
+  .title{
     input{
       height: 40px;
     }
   }
   .content{
     position: relative;
+    .textarea_container{
+      border: 1px solid $main;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      height: 350px;
+    }
     textarea{
-      height: 290px;
+      height: 300px;
       resize: none;
+      border: none;
+      // border: 1px solid red;
+      &::-webkit-scrollbar{ display: none}
+      &:focus{ outline: none}
     }
     .maxlength{
       @include text-style(14px, #666666, 400);
       position: absolute;
       top: 90%;
-      left: 82%;
+      left: 75%;
     }
     
   }
@@ -43,6 +50,7 @@
     input{
       display: none;
     }
+   
     .add_img{
       @include flexBox($jc: start);
       @include text-style(16px, #666666, 400, start);
