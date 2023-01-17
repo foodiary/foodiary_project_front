@@ -3,12 +3,12 @@ import { LargeCard, SmallCard } from "@components/common/Card";
 import { useEffect } from "react";
 import { useState } from "react";
 import styles from "../styles/explorePage.module.scss";
-import axiosConfig from '@utils/axiosConfig';
-import {GoSearch} from 'react-icons/go';
+import axiosConfig from "@utils/axiosConfig";
+import { GoSearch } from "react-icons/go";
 import { Link } from "react-router-dom";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 
-interface ResType{
+interface ResType {
   // dailyCreate: string;
   dailyId: number;
   dailyPath1: string;
@@ -22,52 +22,65 @@ const ExplorePage = () => {
 
   const [dailyList, setDailyList] = useState([]);
 
-  const getDaily = ()=>{
-    if(tab === "0"){ url = '/dailys/month' }
-    else if(tab === "1"){ url = '/dailys/week' }
-    else{ url = '/dailys/today'}
+  const getDaily = () => {
+    if (tab === "0") {
+      url = "/dailys/month";
+    } else if (tab === "1") {
+      url = "/dailys/week";
+    } else {
+      url = "/dailys/today";
+    }
 
-    axiosConfig.get(url, {params:{page: page}}).then(res=>{
-      console.log(res);
-      setDailyList(res.data);
-    }).catch(err=>{
-      console.log(err);
-    });
-  }
+    axiosConfig
+      .get(url, { params: { page: page } })
+      .then((res) => {
+        console.log(res);
+        setDailyList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getDaily();
-  },[tab]);
+  }, [tab]);
 
   return (
     <article className={styles.questWrapper}>
       <section className={styles.title}>
         <div className={styles.title_div}>
-          <DecoTitle title="하루식단"/>
+          <DecoTitle title="하루식단" />
         </div>
         <Link to="/search" className={styles.search_icon}>
-          <GoSearch/>
+          <GoSearch />
         </Link>
       </section>
 
       <div className={styles.btnDiv}>
         <ButtonComp
           text="1달"
-          btnStyle={tab ==="0"? buttonStyled.buttonActive : buttonStyled.button}
+          btnStyle={
+            tab === "0" ? buttonStyled.buttonActive : buttonStyled.button
+          }
           onClick={() => {
             setTab("0");
           }}
         />
         <ButtonComp
           text="1주"
-          btnStyle={tab ==="1"? buttonStyled.buttonActive : buttonStyled.button}
+          btnStyle={
+            tab === "1" ? buttonStyled.buttonActive : buttonStyled.button
+          }
           onClick={() => {
             setTab("1");
           }}
         />
         <ButtonComp
           text="오늘"
-          btnStyle={tab ==="2"? buttonStyled.buttonActive : buttonStyled.button}
+          btnStyle={
+            tab === "2" ? buttonStyled.buttonActive : buttonStyled.button
+          }
           onClick={() => {
             setTab("2");
           }}

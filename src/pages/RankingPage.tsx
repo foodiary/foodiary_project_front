@@ -1,81 +1,83 @@
-import React, { useEffect } from 'react';
-import styles from '@styles/rankingPage.module.scss';
-import { MediumCard, SmallCard } from '@components/common/Card';
-import { Link } from 'react-router-dom';
-import axiosConfig from '@utils/axiosConfig';
-import { useState } from 'react';
-import { ButtonComp, buttonStyled } from '@components/common';
-import DecoTitle from '@components/common/DecoTitle/DecoTitle';
-import EmptyText from '@components/common/Text/EmptyText';
+import React, { useEffect, useState } from "react";
+import styles from "@styles/rankingPage.module.scss";
+import axiosConfig from "../core/apis/utils/axiosConfig";
+import { useLoginUserStore } from "@store/loginUserStore";
 
-interface ResType{
-  recipeComment: number
-  recipeId: number; 
-  recipeLike: number;
-  recipePath1: string;
-  recipeTitle: string;
-  recipeView: number;
-  recipeWriter: string;
-}
-// 레시피 -> 데일리로 변경하기
+const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const RankingPage = () => {
-  const [rankingList, setRankingList] = useState([]);
-  const [month, setMonth] = useState(true);
-  let url = "";
+  const [menuList, setMenuList] = useState([]);
+  const memberId = useLoginUserStore((state) => state.userInfo.memberId);
 
-  const getRankList = ()=>{
-    if(month){
-      url = '/rank/month';
-    }
-    else{
-      url = '/rank/week';
-    }
-    axiosConfig.get(url).then(res=>{
-      console.log(res);
-      setRankingList(res.data);
-    }).catch(err=>{
-      console.log(err);
-    })
-  }
-  
-  useEffect(()=>{
-    getRankList();
-  },[month]);
-  
+  useEffect(() => {
+    weekMenu();
+  }, []);
+
+  const weekMenu = () => {
+    //일주일 식단 추천
+    axiosConfig
+      .get(`/food/menu/week`, { params: { memberId: memberId } })
+      .then((res) => {
+        console.log(res);
+        setMenuList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  console.log(menuList);
+
   return (
-    <div className={styles.ranking}>
-      <div className={styles.title}>
-        <DecoTitle title='랭킹'/>
-      </div>
-      <div className={styles.tab}>
-          <ButtonComp
-           text={"1달"}
-           btnStyle={month? buttonStyled.buttonActive: buttonStyled.button}
-           onClick={()=>setMonth(true)}
-          />
-          <ButtonComp
-            text={"1주"}
-            btnStyle={month? buttonStyled.button: buttonStyled.buttonActive}
-            onClick={()=>setMonth(false)}
-          />
-      </div>
+    <section>
+      <div className={styles.menu}>
+        <div className={styles.menu_title}>
+          식단
+          <div className={styles.text_deco}></div>
+        </div>
 
-      <div className={styles.card_container}>
-        {rankingList.length > 0?
-          rankingList.map((item:ResType)=>{
-            return(
-              <Link to={`/detail/${item.recipeId}`}> 
-                <SmallCard img={item.recipePath1}/>
-              </Link>
-            )
-          }):
-          <EmptyText text='랭킹이 없습니다'/>
-        }
-
-      
+        <h2 className={styles.week_title}>1월 2주차</h2>
+        <div className={styles.week_menu}>
+          <table>
+            <thead className={styles.table_head}>
+              <tr>
+                <td>요일</td>
+                <td>일</td>
+                <td>음식</td>
+              </tr>
+            </thead>
+            <tbody>
+              {DATE.map((day, index) => {
+                return (
+                  <React.Fragment key={index}>
+                    <tr>
+                      <td rowSpan={2}>{day}</td>
+                      <td rowSpan={2}>{index + 1}</td>
+                      <td className={styles.menu}>☀️ 김치찌개</td>
+                    </tr>
+                    <tr>
+                      <td className={styles.menu}>🌛 카레</td>
+                    </tr>
+                  </React.Fragment>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        {/* {menuList.map((item) => {
+        return (
+          <div>
+            <table>
+              <tr>
+                <td>월욜</td>
+                <td>음식</td>
+              </tr>
+            </table>
+          </div>
+        );
+      })} */}
       </div>
-    </div>
+    </section>
   );
 };
 

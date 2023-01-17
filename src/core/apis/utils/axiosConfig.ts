@@ -1,15 +1,14 @@
-import { useLoadingStore } from "@store/loadingStore";
 import axios from "axios";
 
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
-axios.defaults.headers.common['Referrer-Policy']='no-referrer-when-downgrade';
+axios.defaults.headers.common["Referrer-Policy"] = "no-referrer-when-downgrade";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  headers:{
+  headers: {
     "Access-Control-Allow-Origin": "*",
-    'Access-Control-Allow-Credentials':"true"
+    "Access-Control-Allow-Credentials": "true",
   },
   timeout: 20000
 });
@@ -60,9 +59,10 @@ instance.interceptors.response.use(
         localStorage.removeItem("access_token");
         // return;
       }
-      try{
-        const headers = {Refresh: `Bearer ${refreshToken}`};
-        const {data} = await axios.get('/auth/reissue', {headers}); //refresh로 access 토큰 재발급
+
+      try {
+        const headers = { Refresh: `${refreshToken}` };
+        const { data } = await axios.get("/auth/reissue", { headers }); //refresh로 access 토큰 재발급
         console.log(data);
         const newAccessToken = data.data.accessToken;
         const newRefreshToken = data.data.refreshToken; //??
@@ -74,13 +74,11 @@ instance.interceptors.response.use(
         localStorage.setItem("access_token", newAccessToken);
         localStorage.setItem("refresh_token", newRefreshToken);
         return await axios(config);
-
-      } catch(err){
+      } catch (err) {
         return Promise.reject(err);
       }
     }
     return Promise.reject(err);
-
   }
 );
 
