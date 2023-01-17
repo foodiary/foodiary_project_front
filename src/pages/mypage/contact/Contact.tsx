@@ -39,22 +39,25 @@ const Contact = () => {
     questionTitle: title,
   }
   let formData = new FormData();
-  formData.append('memberImage', img!);
+  // formData.append('memberImage', img!);
+  for(let i=0; i<img.length; i++){
+    formData.append('memberImage', img[i]);
+  }
   formData.append('memberQuestionWriteResponseDto', new Blob([JSON.stringify(questionInfo)], {
     type: "application/json"
   }));
   
-  const [alert, setAlert] = useState(false); //작성취소 알럿창
-  const [forbidden, setForbidden] = useState(false); //내용이 비었을때 경고창
+  // const [alert, setAlert] = useState(false); //작성취소 알럿창
+  // const [forbidden, setForbidden] = useState(false); //내용이 비었을때 경고창
 
-  useEffect(()=>{
-    let id:ReturnType<typeof setTimeout>;
-    if(forbidden){
-      id = setTimeout(()=>setForbidden(false),2000);
-      // return clearTimeout(id);
-    }
+  // useEffect(()=>{
+  //   let id:ReturnType<typeof setTimeout>;
+  //   if(forbidden){
+  //     id = setTimeout(()=>setForbidden(false),2000);
+  //     // return clearTimeout(id);
+  //   }
     
-  },[forbidden]);
+  // },[forbidden]);
 
   // const onTitleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
   //   const {value} = e.target;
@@ -66,66 +69,68 @@ const Contact = () => {
   //   setContent(value);
   // }
 
-  const onCancel = ()=>{
-    setCancel(false);
-    setAlert(true);
-  }
+  // const onCancel = ()=>{
+  //   setCancel(false);
+  //   setAlert(true);
+  // }
 
-  const onSubmit = (e:FormEvent)=>{
-    e.preventDefault();
-    if(!title || !content){
-      setForbidden(true);
-      console.log("제출");
-    }
-    else{
-      const headers = {"Content-Type": "multipart/form-data"};
-      axiosConfig.post("/question", formData ,{headers})
-        .then(res=>{
-          console.log(res);
-          if(res){
-            window.alert("완료되었습니다");
-          }
-        }).catch(err=>{
-          console.log(err);
-      })
-    }
-  }
-  const onWriteCancel = (e:FormEvent)=>{
-    e.preventDefault();
-    navigate("/mypage");
-  }
-  const onFileInit = ()=>{
-    setFileURL("");
+  // const onSubmit = (e:FormEvent)=>{
+  //   e.preventDefault();
+  //   if(!title || !content){
+  //     setForbidden(true);
+  //     console.log("제출");
+  //   }
+  //   else{
+  //     const headers = {"Content-Type": "multipart/form-data"};
+  //     axiosConfig.post("/question", formData ,{headers})
+  //       .then(res=>{
+  //         console.log(res);
+  //         if(res){
+  //           window.alert("완료되었습니다");
+  //         }
+  //       }).catch(err=>{
+  //         console.log(err);
+  //     })
+  //   }
+  // }
+  // const onWriteCancel = (e:FormEvent)=>{
+  //   e.preventDefault();
+  //   navigate("/mypage");
+  // }
+  // const onFileInit = ()=>{
+  //   setFileURL("");
 
-  }
+  // }
   
   return (
     <div className={styles.mywriting}>
       <div className={`${styles.tab} ${styles.contact_tab}`}>
         <button 
-          className={write? styles.active: styles.non_active}
-          onClick={()=>{setWrite(true)}}
+          className={styles.active}
+          onClick={()=>{navigate('/mypage/contact')}}
         >
           1:1 문의하기
-          {write && <div className={styles.text_deco}></div>}
+          <div className={styles.text_deco}></div>
         </button>
         <button 
-          className={!write? styles.active: styles.non_active}
-          onClick={()=>{setWrite(false)}}
+          className={styles.non_active}
+          onClick={()=>{navigate('/mypage/mycontact')}}
         >
           문의내역 확인
-          {!write && <div className={styles.text_deco}></div>}
+          {/* {!write && <div className={styles.text_deco}></div>} */}
         </button>
       </div>
       
-      {write? 
+      {/* {write?  */}
         <div className={styles.contact_container}>
           <WritingForm 
             maxLength={1000} 
             label="문의 내용"
             url='/question'
             edit={false}
+            dtoType='memberQuestionWriteResponseDto'
           />
+          </div>
           {/* <div className={styles.btn_container}>
             <form onClick={onSubmit} className={styles.red}>
               <HalfButton text='작성완료' type='submit'/>
@@ -134,9 +139,9 @@ const Contact = () => {
               <HalfButton text='취소' type='button'/>
             </div>
           </div> */}
-        </div>:
+        {/* </div>:
         <MyContact/>
-      }
+      } */}
       {/* {alert && !cancel &&
         <form onSubmit={onWriteCancel}>
           <WarnBox text='작성을 취소하시겠습니까?' btn_txt='예'/>

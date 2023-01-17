@@ -21,7 +21,7 @@ const MyComments = () => {
   const [commentList, setCommentList] = useState([]);
   const page = 1;
   // const memberId = useLoginUserStore(state=>state.userInfo.memberId);
-  const memberId = 76;
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   // let url = '';
   const url = `/member/comment/daily/${memberId}`;

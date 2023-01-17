@@ -48,7 +48,7 @@ const WritingPage = () => {
   }
 
   let formData = new FormData();
-  formData.append('dailyImage', img);
+  formData.append('dailyImage', img[0]);
   formData.append('dailyWrite', new Blob([JSON.stringify(writeInfo)], {
     type: "application/json"
   }));  
@@ -96,7 +96,7 @@ const WritingPage = () => {
           } */}
         </div>
         {fileURL?
-            <img src={fileURL} alt="첨부파일" className={styles.attach_img}/>: null
+            <img src={fileURL[0]} alt="첨부파일" className={styles.attach_img}/>: null
           }
       </div>
       <form onSubmit={onSubmit}>

@@ -49,6 +49,7 @@ import axiosConfig from '@utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import axios from 'axios';
 import Loading from '@pages/Loading';
+import MyContact from '@pages/mypage/contact/MyContact';
 
 const AppRouter = () => {
   const token = localStorage.getItem("access_token");
@@ -85,6 +86,7 @@ const AppRouter = () => {
               <Route path='/member/img/change' element={<ModifyProfileImg/>}/>
 
               <Route path='/mypage/contact' element={<Contact/>}/>
+              <Route path='/mypage/mycontact' element={<MyContact/>}/>
               <Route path='/mypage/contact/detail' element={<ContactDetail/>}/>
               <Route path='/mypage/contact/edit' element={<ContactEdit/>}/>
               

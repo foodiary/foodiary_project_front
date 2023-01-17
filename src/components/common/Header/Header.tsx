@@ -9,14 +9,16 @@ import basic_profile from '@img/basic_profile.png';
 import go_back_btn from '@img/go_back_btn.svg';
 
 import { useLoginUserStore } from "@store/loginUserStore";
+import { useUpdateUser } from '@hook/useUpdateUser';
 
 const Header = () => {
   const navigate = useNavigate();
+  // useUpdateUser();
   const [loginUser, setLoginUser] = useState(false);
   const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
   // const userInfo = useLoginUserStore((state)=>state.userInfo);
   const [profileImg, setProfileImg] = useState(false);
-
+  console.log(`헤더에서: ${loginUser}`);
   const token = localStorage.getItem("access_token");
   useEffect(() => {
     if (token) {

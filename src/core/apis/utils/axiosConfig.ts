@@ -10,7 +10,7 @@ const instance = axios.create({
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": "true",
   },
-  timeout: 20000
+  // timeout: 20000
 });
 
 instance.interceptors.request.use(

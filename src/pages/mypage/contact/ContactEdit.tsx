@@ -13,7 +13,8 @@ interface ResType{
 }
 
 const ContactEdit = () => {
-  const {search} = useLocation();
+  const {search, state} = useLocation();
+
   const questionId = search.slice(1);
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const [detail, setDetail] = useState([]);
@@ -30,11 +31,14 @@ const ContactEdit = () => {
           <DecoTitle title='문의 내역 수정'/>
         </div>
         <WritingForm 
-          storedTitle='문의 타이틀 수정 테스트 ' 
-          storedContent='문의 컨텐츠 수정 테스트'
+          storedTitle={state.title}
+          storedContent={state.content}
           edit={true}
+          maxLength={1000}
+          label='문의 내용'
           url={`/question/${memberId}/${questionId}`}
           existingPath="" //기존 파일
+          dtoType='memberQuestionEditResponseDto'
         />
       </div>
   );

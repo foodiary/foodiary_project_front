@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
 import axiosOAuth from '@utils/axiosOAuth';
@@ -7,6 +7,7 @@ import axiosConfig from '@utils/axiosConfig';
 import axios from 'axios';
 import { useUserStore } from '@store/userStore';
 import { useLoginUserStore } from '@store/loginUserStore';
+import { AlertBox } from '@components/common/AlertBox/AlertBox';
 
 const OAuthRedirect = () => {
 
@@ -19,17 +20,18 @@ const OAuthRedirect = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
+  const [notMember, setNotMember] = useState(false);
 
   let authCode = location.search.slice(6);;
   let url = "";
 
   if(location.pathname === "/oauth/google/callback"){
     url = `/oauth/google/callback?code=${authCode}`;
-    provider_id = process.env.REACT_APP_GOOGLE_CLIENT_ID!;
   }
   else if(location.pathname === "/oauth/naver/callback"){
     url = `/oauth/naver/callback?code=${authCode}`;
-    provider_id = process.env.REACT_APP_NAVER_CLIENT_ID!;
   }
   
   const authLogin = async()=>{
@@ -43,17 +45,30 @@ const OAuthRedirect = () => {
       }
       else{
         setOAuthLogin(false);
+        console.log(res);
+        setNotMember(false);
+        // setLoading(true);
         const memberId = res.data.memberId;
+        console.log(memberId);
         axiosConfig.get(`/member/${memberId}`)
-            .then(res=>{
-              setUserInfo(res.data);
-              navigate("/") ;
-            }).catch(err=>{
-              console.log(`otherLoginPage: ${err}`);
-            })
+          .then(res=>{
+            setUserInfo(res.data);
+            // setLoading(false);
+            navigate("/") ;
+            window.location.reload();
+          }).catch(err=>{
+            console.log(`otherLoginPage: ${err}`);
+          })
       }
     }).catch(err=>{
-      console.log(err);
+      if(err.response.data.msg === '탈퇴한 회원입니다.'){
+        setNotMember(true);
+        setTimeout(()=>navigate('/login'),2000);
+      }
+      else{
+        setNotMember(false);
+      }
+      console.log(err.response.data.msg);
     })
     
   };
@@ -66,7 +81,10 @@ const OAuthRedirect = () => {
   
    return (
     <div>
+      {/* {loading && <Loading/>} */}
       <Loading/>
+
+      {notMember && <AlertBox text='탈퇴한 계정입니다' type={false}/>}
     </div>
   );
 };

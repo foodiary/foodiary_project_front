@@ -8,8 +8,9 @@ interface PropType{
   text1: string;
   text2: string;
   state?: object;
+  onClick?: ()=>void;
 }
-const WritingLink = ({url, text1, text2, state}:PropType) => {
+const WritingLink = ({url, text1, text2, state, onClick}:PropType) => {
   return (
     <div>
       <Link to={url} state={state} className={styles.container}>
@@ -17,7 +18,9 @@ const WritingLink = ({url, text1, text2, state}:PropType) => {
           <p>{text1}</p>
           <p>{text2}</p>
         </div>
-        <BiChevronRight/>
+        <button onClick={onClick}>
+          <BiChevronRight/>
+        </button>
       </Link>
     </div>
   );

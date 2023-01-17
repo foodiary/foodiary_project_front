@@ -20,7 +20,7 @@ export const useUpdateUser = ()=>{
       })
     }
 
-  },[]);
+  },[memberId]);
   
   return;
 }

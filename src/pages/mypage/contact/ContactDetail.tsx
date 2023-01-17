@@ -3,7 +3,7 @@ import styles from '@styles/mypage/contact.module.scss';
 import React, { FormEvent, useEffect, useState } from 'react';
 import answer_icon from '@img/answer_icon.svg';
 import { useNavigate } from 'react-router';
-import {useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import { useLoginUserStore } from '@store/loginUserStore';
 import axiosConfig from '@utils/axiosConfig';
 import {FiMoreVertical} from 'react-icons/fi';
@@ -19,6 +19,7 @@ interface ResType{
   questionCreate: string;
   questionTitle: string;
   questionAnswerYn: string;
+  questionPath: string;
 }
 interface Obj{
   resobj: ResType
@@ -36,6 +37,7 @@ const ContactDetail = () => {
   const setCancel = btnStateStore(state=>state.setCancel);
 
   useEffect(()=>{
+    setCancel(true);
     axiosConfig.get(`/question/${memberId}/${search.slice(1)}`)
     .then(res=>{
       console.log(res);
@@ -63,22 +65,22 @@ const ContactDetail = () => {
       console.log(err);
     })
   }
-
+console.log(viewBtn, cancel);
   return (
     <div className={styles.mywriting}>
       <div className={`${styles.tab} ${styles.contact_tab}`}>
         <button 
           className={write? styles.active: styles.non_active}
-          onClick={()=>{navigate(-1)}}
+          onClick={()=>{navigate('/mypage/contact')}}
         >
           1:1 문의하기
-          {write && <div className={styles.text_deco}></div>}
+          {/* {write && <div className={styles.text_deco}></div>} */}
         </button>
         <button 
-          className={!write? styles.active: styles.non_active}
+          className={styles.active}
         >
           문의내역 확인
-          {!write && <div className={styles.text_deco}></div>}
+          <div className={styles.text_deco}></div>
         </button>
       </div>
 
@@ -99,12 +101,16 @@ const ContactDetail = () => {
           </div>
         </div>
         {res?.questionAnswerYn==="N" && 
-          <button className={styles.more} onClick={()=>setViewBtn(true)}>
+          <button className={styles.more} onClick={()=>setViewBtn(prev=>!prev)}>
             <FiMoreVertical/>
           </button>
         }
       </div>
-
+      {res?.questionPath && 
+      <div className={styles.attach_file}>
+        <img src={res?.questionPath} alt='첨부사진'/>
+      </div>
+      }
       {res?.answerTitle && 
         <div className={styles.answer_container}>
           <p className={styles.detail_title}>
@@ -119,9 +125,16 @@ const ContactDetail = () => {
       </div>
 
       {viewBtn && <div className={styles.view_btn}>
-        <div className={styles.black} onClick={onClick}>
+        <Link to={`/mypage/contact/edit?${search.slice(1)}`} 
+          className={styles.black}
+          state={{
+            title: res?.questionTitle,
+            content: res?.questionContent,
+            // existingPath: res.
+          }}
+        >
           <HalfButton type='button' text='수정'/>
-        </div>
+        </Link>
         <div className={styles.red} onClick={()=>setCancel(false)}>
           <HalfButton type='button' text='삭제'/>
         </div>

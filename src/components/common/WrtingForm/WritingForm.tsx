@@ -29,6 +29,8 @@ interface PropsType{
   label?: string; //'문의내용' / '내용' 라벨 구분
   url?: string; //서버 api
   existingPath?: string;
+  formData?: FormData;
+  dtoType?: string;
 }
 
 const WritingForm = ({
@@ -37,6 +39,8 @@ const WritingForm = ({
   maxLength,
   url,
   existingPath,
+  formData,
+  dtoType,
   edit=false,
   label='내용'
 }:PropsType) => {
@@ -70,35 +74,43 @@ const WritingForm = ({
   const setCancel = btnStateStore(state=>state.setCancel); //작성취소의 취소
   const [alert, setAlert] = useState(false); //작성취소 알럿창
 
+  const [success, setSuccess] = useState(false); //작성완료 알럿창
+
   const onFileInit = ()=>{
-    setFileURL("");
-    setImg("");
+    setFileURL([]);
+    setImg([]);
   }
-
-  console.log(img);
-
   const onSubmit = (data:Form)=>{
     console.log(data.writingTitle);
     // setTitle(data.writingTitle);
     // setContent(data.writingContent);
+    
     const writeInfo = {
       memberId: memberId,
       questionContent: data.writingContent,
       questionTitle: data.writingTitle,
       questionPath: existingPath, //없으면 빈값
     }
+    console.log(edit, writeInfo, dtoType, url);
+
     let formData = new FormData();
     if(img){
-      formData.append('memberImage', img);
+      for(let i=0; i<img.length; i++){
+        formData.append('memberImage', img[i]);
+      }
+      // formData.append('memberImage', img);
     }
-    formData.append('memberQuestionWriteResponseDto', new Blob([JSON.stringify(writeInfo)], {
+  
+    formData.append(dtoType!, new Blob([JSON.stringify(writeInfo)], {
       type: "application/json"
     }));
+    
 
     if(!watch('writingTitle') || !watch('writingContent')){
       setForbidden(true);
       console.log("제출");
     }
+
     else{
       const headers = {"Content-Type": "multipart/form-data"};
       axiosConfig({
@@ -108,25 +120,19 @@ const WritingForm = ({
         headers : headers,
       }).then(res=>{
         console.log(res);
-        setFileURL("");
-        setImg("");
-
+        setFileURL([]);
+        setImg([]);
+        setSuccess(true);
+        setTimeout(()=>navigate("/mypage/mycontact"),2000);
+        // navigate("/mypage/mycontact");
+        reset({
+          writingContent:"",
+          writingTitle: "",
+        })
       }).catch(err=>{
         console.log(err);
       })
-      // axiosConfig(
-
-      //   (url!, formData ,{headers})
-      //   .then(res=>{
-      //     console.log(res);
-      //     if(res){
-      //       window.alert("완료되었습니다");
-      //     }
-      //   }).catch(err=>{
-      //     console.log(err);
-      // })
     }
-
   }
   const onCancel = ()=>{
     setCancel(false);
@@ -182,12 +188,18 @@ const WritingForm = ({
         </div>
       }
       {fileURL && 
-        <div className={styles.preview_container}>
-          <img alt='첨부사진' src={fileURL} className={styles.preview}/>
-          <button onClick={onFileInit}>
-            <MdCancel/>
-          </button>
-        </div>
+        fileURL.map((fileurl:string)=>{
+          return(
+            <div className={styles.preview_container}>
+              <img alt='첨부사진' src={fileurl} className={styles.preview}/>
+              <button onClick={onFileInit}>
+                <MdCancel/>
+              </button>
+            </div>
+          )
+        })
+        
+        
       }
 
       <div className={styles.btn_container}>
@@ -207,6 +219,7 @@ const WritingForm = ({
         </form>
       }
       {forbidden && <AlertBox text='내용을 작성해주세요' type={false}/>}
+      {success && <AlertBox text='완료되었습니다' type={true}/>}
     </div>
 
   );

@@ -44,12 +44,12 @@ const SignUpProfileImage = () => {
   // }
   const handleFile = (e:FormEvent)=>{
     e.preventDefault();
-    setProfileImg(img!);
+    setProfileImg(img[0]);
     navigate('/signup/profileMsg', {state: fileURL});
     // const blob = new Blob([new ArrayBuffer(data)],{type: 'image/jpg'});
   }
   const initFile = ()=>{
-    setFileURL('');
+    setFileURL([]);
     setImg('');
   }
   console.log(img);
@@ -62,7 +62,7 @@ const SignUpProfileImage = () => {
           
           {fileURL?
             <>
-              <img alt='첨부사진' src={fileURL} className={styles.preview}/>
+              <img alt='첨부사진' src={fileURL[0]} className={styles.preview}/>
               <div className={styles.text}><ValidationText text='png/jpeg/jpg 용량 3MB 이하' color={err? 'red': 'green'}/></div>
             </>:
             <>

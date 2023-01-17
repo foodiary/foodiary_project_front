@@ -11,6 +11,7 @@ import { btnStateStore } from '@store/btnStateStore';
 import Input from '@components/common/Input/Input';
 import CommentBox from '@components/common/CommentBox/CommentBox';
 import axiosConfig from '@utils/axiosConfig';
+import { useLoginUserStore } from '@store/loginUserStore';
 
 
 const MyCommentsDetail = () => {
@@ -20,7 +21,8 @@ const MyCommentsDetail = () => {
   const [viewBtn, setViewBtn] = useState(false);
   const cancel = btnStateStore(state=>state.cancel);
   const setCancel = btnStateStore(state=>state.setCancel);
-  const memberId = 76; //저장된 멤버아이디
+  // const memberId = 76; //저장된 멤버아이디
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const [dailyTitle, setDailyTitle] = useState("");
   const [like, setLike] = useState(0);
   const [scrap, setScrap] = useState(0);

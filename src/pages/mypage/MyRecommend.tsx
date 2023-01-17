@@ -16,11 +16,17 @@ interface ResType{
   memberFoodLike: string;
   memberId: number;
 }
+interface BtnType{
+  idx: number;
+  bool: string;
+}
 const MyRecommend = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const page = 1;
   const [menuList, setMenuList] = useState([]);
-  const [newState, setNewState] = useState(false);
+  const [newState, setNewState] = useState(""); //N, Y
+
+  const [btnState, setBtnState] = useState<BtnType[]>([]); //false가 Nope
 
   const getMyPreference = ()=>{
     axiosConfig.get(`/member/food/${memberId}`,{
@@ -40,17 +46,19 @@ const MyRecommend = () => {
   },[newState]);
 
   let url = "";
-  const onModifyState = (url:string)=>{
-    axiosConfig.patch(url)
-    .then(res=>{
-      console.log(res);
-      setNewState(true);
+  const onModifyState = (index:number, memberId: number, memberFoodId: number)=>{
+    
+    console.log(index);
+    // axiosConfig.patch(url)
+    // .then(res=>{
+    //   console.log(res);
+    //   // setNewState(true);
 
-    }).catch(err=>{
-      console.log(err);
-    })
+    // }).catch(err=>{
+    //   console.log(err);
+    // })
   }
-
+  console.log(btnState);
   return (
     <div className={styles.recommend}>
       <div className={styles.title}>
@@ -60,19 +68,22 @@ const MyRecommend = () => {
       <img src={arrow_icon} alt="화살표"/>
       <div className={styles.menu_list}>
         {menuList.length > 0 ? 
-          menuList.map((menu:ResType)=>{
-            {menu.memberFoodLike==="N"? 
-              url = `/food/like/${memberId}/${menu.memberFoodId}`: 
-              url = `/food/hate/${memberId}/${menu.memberFoodId}`
-            }
+          menuList.map((menu:ResType, index:number)=>{
+            
+            // {(menu.memberFoodLike==="N" && btnState === false) ? 
+            //   url = `/food/like/${memberId}/${menu.memberFoodId}`: 
+            //   url = `/food/hate/${memberId}/${menu.memberFoodId}`
+            // }
             return(
               <div className={styles.menu} key={menu.memberFoodId}>
                 <p>{menu.foodName}</p>
                 <button>
                     <ButtonComp
-                      text={menu.memberFoodLike==="N"? "Nope": "Good"}
-                      btnStyle={menu.memberFoodLike==="N"? buttonStyled.button : buttonStyled.buttonActive}
-                      onClick={()=>onModifyState(url)}
+                      text={menu.memberFoodLike==="N"?
+                           "Nope": "Good"}
+                      btnStyle={menu.memberFoodLike==="N"?
+                               buttonStyled.button : buttonStyled.buttonActive}
+                      onClick={()=>onModifyState(index, memberId, menu.memberFoodId)}
                     />                  
                 </button>
               </div>
