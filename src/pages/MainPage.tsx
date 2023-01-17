@@ -1,11 +1,9 @@
 import React from "react";
 import { ButtonComp, buttonStyled } from "@components/common";
 import axiosConfig from "../core/apis/utils/axiosConfig";
-
 import { ChangeEvent, useEffect, useState } from "react";
 import styled from "../styles/mainPage.module.scss";
 import { useLoginUserStore } from "@store/loginUserStore";
-
 import { Link, useNavigate } from "react-router-dom";
 import dessert from "@img/dessert.png";
 import japaneseFood from "@img/japanese_food.png";
@@ -64,7 +62,6 @@ const MainPage = () => {
     }
   }, []);
 
-  const [menuList, setMenuList] = useState([]);
   const [recommenu, setRecomMenu] = useState<RandomFoodType>();
   const [value, setValue] = useState("");
 
@@ -79,18 +76,6 @@ const MainPage = () => {
       .then((res) => {
         console.log(res);
         setRecomMenu(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const weekMenu = () => {
-    //일주일 식단 추천
-    axiosConfig
-      .get(`/food/menu/week`, { params: { memberId: memberId } })
-      .then((res) => {
-        console.log(res);
-        setMenuList(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -117,16 +102,8 @@ const MainPage = () => {
     }
   };
 
-  const getMonthRanking = () => {
-    axiosConfig
-      .get("/rank/month")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
   useEffect(() => {
     recommendMenu();
-    weekMenu();
-    getMonthRanking();
   }, []);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -167,7 +144,6 @@ const MainPage = () => {
         page: 1,
       };
     }
-    console.log(memberId, value);
     axiosConfig
       .post(`/search/daily/result`, data)
       .then((res) => {
@@ -204,6 +180,7 @@ const MainPage = () => {
   useEffect(() => {
     getRankList();
   }, [month]);
+
   return (
     <article className={styled.mainPageWrapper}>
       <section className={styled.mainPageTitleSection}>

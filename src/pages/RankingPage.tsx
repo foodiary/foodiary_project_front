@@ -1,9 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@styles/rankingPage.module.scss";
+import axiosConfig from "../core/apis/utils/axiosConfig";
+import { useLoginUserStore } from "@store/loginUserStore";
 
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const RankingPage = () => {
+  const [menuList, setMenuList] = useState([]);
+  const memberId = useLoginUserStore((state) => state.userInfo.memberId);
+
+  useEffect(() => {
+    weekMenu();
+  }, []);
+
+  const weekMenu = () => {
+    //일주일 식단 추천
+    axiosConfig
+      .get(`/food/menu/week`, { params: { memberId: memberId } })
+      .then((res) => {
+        console.log(res);
+        setMenuList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  console.log(menuList);
+
   return (
     <section>
       <div className={styles.menu}>
