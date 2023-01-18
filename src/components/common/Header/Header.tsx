@@ -15,7 +15,7 @@ const Header = () => {
   const navigate = useNavigate();
   // useUpdateUser();
   const [loginUser, setLoginUser] = useState(false);
-  const memberPath = useLoginUserStore((state) => state.userInfo);
+  const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
   // const userInfo = useLoginUserStore((state)=>state.userInfo);
   const [profileImg, setProfileImg] = useState(false);
   console.log(`헤더에서: ${loginUser}`);
@@ -49,11 +49,11 @@ const Header = () => {
             </button>
             <div className={styles.user}>
               <Link to="/mypage">
-                {/* {memberPath !== null ? (
+                {memberPath !== null ? (
                   <img src={memberPath} alt="프로필" />
                 ) : (
                   <img src={basic_profile} alt="프로필사진" />
-                )} */}
+                )}
               </Link>
             </div>
           </div>
