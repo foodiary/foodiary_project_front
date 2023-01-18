@@ -58,10 +58,6 @@ const MainPage = () => {
   const userInfo = useLoginUserStore((state) => state.userInfo);
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
 
-  axiosConfig.get(`/member/76`).then((res) => {
-    console.log(res);
-  });
-
   useEffect(() => {
     if (nickName) {
       setUserName(nickName);
@@ -254,6 +250,7 @@ const MainPage = () => {
           <div className={styled.card_container}>
             {rankingList.length > 0 ? (
               rankingList.map((item: ResType) => {
+                console.log(item);
                 return (
                   <Link to={`/detail/${item.dailyId}`}>
                     <SmallCard img={item.dailyPath1} />
