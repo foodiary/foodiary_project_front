@@ -22,10 +22,10 @@ import { useLoadingStore } from "@store/loadingStore";
 
 interface ResType {
   recipeComment: number;
-  recipeId: number;
+  dailyId: number;
   recipeLike: number;
-  recipePath1: string;
-  recipeTitle: string;
+  dailyPath1: string;
+  dailyTitle: string;
   recipeView: number;
   recipeWriter: string;
 }
@@ -57,6 +57,10 @@ const MainPage = () => {
   const setUserInfo = useLoginUserStore((state) => state.setUserInfo);
   const userInfo = useLoginUserStore((state) => state.userInfo);
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
+
+  axiosConfig.get(`/member/76`).then((res) => {
+    console.log(res);
+  });
 
   useEffect(() => {
     if (nickName) {
@@ -251,8 +255,8 @@ const MainPage = () => {
             {rankingList.length > 0 ? (
               rankingList.map((item: ResType) => {
                 return (
-                  <Link to={`/detail/${item.recipeId}`}>
-                    <SmallCard img={item.recipePath1} />
+                  <Link to={`/detail/${item.dailyId}`}>
+                    <SmallCard img={item.dailyPath1} />
                   </Link>
                 );
               })

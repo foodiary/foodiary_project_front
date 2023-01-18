@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import styles from './header.module.scss';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import home_icon from '@img/home_icon.svg';
-import hot_icon from '@img/hot_icon.svg';
-import explore_icon from '@img/explore_icon.svg';
-import mypage_icon from '@img/mypage_icon.svg';
-import basic_profile from '@img/basic_profile.png';
-import go_back_btn from '@img/go_back_btn.svg';
+import React, { useEffect, useState } from "react";
+import styles from "./header.module.scss";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import home_icon from "@img/home_icon.svg";
+import hot_icon from "@img/hot_icon.svg";
+import explore_icon from "@img/explore_icon.svg";
+import mypage_icon from "@img/mypage_icon.svg";
+import basic_profile from "@img/basic_profile.png";
+import go_back_btn from "@img/go_back_btn.svg";
 
 import { useLoginUserStore } from "@store/loginUserStore";
-import { useUpdateUser } from '@hook/useUpdateUser';
+import { useUpdateUser } from "@hook/useUpdateUser";
 
 const Header = () => {
   const navigate = useNavigate();
   // useUpdateUser();
   const [loginUser, setLoginUser] = useState(false);
-  const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
+  const memberPath = useLoginUserStore((state) => state.userInfo);
   // const userInfo = useLoginUserStore((state)=>state.userInfo);
   const [profileImg, setProfileImg] = useState(false);
   console.log(`헤더에서: ${loginUser}`);
@@ -27,6 +27,8 @@ const Header = () => {
       setLoginUser(false);
     }
   }, []);
+
+  console.log(memberPath);
 
   return (
     <div className={styles.header}>
@@ -47,11 +49,11 @@ const Header = () => {
             </button>
             <div className={styles.user}>
               <Link to="/mypage">
-                {memberPath !== null ? (
+                {/* {memberPath !== null ? (
                   <img src={memberPath} alt="프로필" />
                 ) : (
                   <img src={basic_profile} alt="프로필사진" />
-                )}
+                )} */}
               </Link>
             </div>
           </div>

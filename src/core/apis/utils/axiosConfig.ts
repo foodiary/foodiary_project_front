@@ -29,14 +29,13 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-
-    console.log('인터셉트 응답:' + response.data);
+    console.log("인터셉트 응답:" + response.data);
 
     const accessToken = response.data.accessToken;
     const refreshToken = response.data.refreshToken;
     const refreshExpired = response.data.refreshTokenExpirationMinutes;
 
-    if(accessToken && refreshToken){
+    if (accessToken && refreshToken) {
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
       localStorage.setItem("refresh_expired", refreshExpired);
@@ -47,7 +46,7 @@ instance.interceptors.response.use(
   async (err) => {
     const config = err.config;
     console.log(`인터셉트 에러: ${err}`);
-    if(err){
+    if (err) {
       return Promise.reject(err);
     }
     //액세스토큰 만료 시
