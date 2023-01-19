@@ -39,7 +39,7 @@ const Notice= () => {
           noticeList.map((item:ResType)=>{
             let date = item.noticeCreate.slice(4,10);
             const year = item.noticeCreate.slice(2,4);
-            date = date.replaceAll("-", "/");
+            date = date.replaceAll("-", ".");
             const url = `/mypage/notice/detail/${item.noticeId}`;
             return(
               <WritingLink text1={item.noticeTitle} text2={year+date} 

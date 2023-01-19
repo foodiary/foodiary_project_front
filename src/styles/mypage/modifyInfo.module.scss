@@ -3,10 +3,10 @@
 .modify_container{
   // border: 1px solid red;
   position: relative;
-  height: 80vh;
+  height: 75vh;
   .confirm_btn{
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    bottom: 100px;
   }
 }
 
@@ -40,4 +40,7 @@
   width: 93%;
   @include flexBox();
   gap: 5px;
+}
+.dupli_text{
+  // border: 1px solid red;
 }

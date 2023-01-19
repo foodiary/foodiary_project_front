@@ -38,7 +38,7 @@ const NoticeDetail = () => {
       {detail.map((item:ResType, index)=>{
         let date = item.noticeCreate.slice(4,10);
         const year = item.noticeCreate.slice(2,4);
-        date = date.replaceAll("-", "/");
+        date = date.replaceAll("-", ".");
         return(
           <>
             <p  key={index} className={styles.title}>

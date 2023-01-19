@@ -7,6 +7,7 @@ import { DuplicationText, Intro } from '@components/common/Text/SignUpPageText';
 import { useUserStore } from '@store/userStore';
 import { useNavigate } from 'react-router-dom';
 import duplicateCheck from '../../../core/apis/utils/duplicateCheck';
+import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 const ModifyNickName = () => {
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ const ModifyNickName = () => {
   return (
     <div className={styles.modify_container}>
       <Intro intro1={""} span={"닉네임 변경"} intro2={""}/>
+      {/* <DecoTitle title='닉네임 변경'/> */}
       {/* <div className={styles.nickname_input}> */}
         {/* <Input label='새 닉네임' id='nickname' type='text' placeholder='새 닉네임을 입력해주세요'/> */}
         <form onSubmit={onSubmit} className={styles.input_container}>
@@ -66,7 +68,11 @@ const ModifyNickName = () => {
 
           </form>
       {/* </div> */}
-      {err && <DuplicationText text='중복 닉네임입니다. 닉네임을 수정해주세요'/>}
+      {err && 
+        <div className={styles.dupli_text}>
+        <DuplicationText text='중복 닉네임입니다. 닉네임을 수정해주세요'/>
+        </div>
+      }
       <div onClick={onClick} className={styles.confirm_btn}>
         <LoginButton text='확인' type='button' active={next? true: false} url="/mypage/setting"/>
       </div>

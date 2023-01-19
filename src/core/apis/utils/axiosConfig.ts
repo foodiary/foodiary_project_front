@@ -47,9 +47,9 @@ instance.interceptors.response.use(
   async (err) => {
     const config = err.config;
     console.log(`인터셉트 에러: ${err}`);
-    if(err){
-      return Promise.reject(err);
-    }
+    // if(err){
+    //   return Promise.reject(err);
+    // }
     //액세스토큰 만료 시
     if (err.response.status === 401) {
       const accessToken = localStorage.getItem("access_token");

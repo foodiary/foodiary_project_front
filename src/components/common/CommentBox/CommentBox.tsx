@@ -22,7 +22,7 @@ const CommentBox = ({
   dailyCommentWriter,
   isMine,
 }:ResType) => {
-  const date = dailyCommentCreate.slice(0,10).replaceAll("-","/");
+  const date = dailyCommentCreate.slice(0,10).replaceAll("-",".");
   const memberPath = useLoginUserStore(state=>state.userInfo.memberPath);
 
   return (

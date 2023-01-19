@@ -48,7 +48,7 @@ const MyRecommend = () => {
   let url = "";
   const onModifyState = (index:number, memberId: number, memberFoodId: number)=>{
     
-    console.log(index);
+    console.log(index, memberId, memberFoodId);
     // axiosConfig.patch(url)
     // .then(res=>{
     //   console.log(res);
