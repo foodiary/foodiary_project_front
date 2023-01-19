@@ -7,17 +7,21 @@
   margin: 50px 0;
   margin-right: 20px;
 }
-
+.icon_box {
+  a:nth-child(1) {
+    margin-right: 0 !important;
+  }
+}
 .questWrapper {
-  .title{
+  .title {
     @include flexBox($jc: between);
     margin-top: 135px;
 
-    .title_div{
+    .title_div {
       margin-left: 20px;
     }
 
-    .search_icon{
+    .search_icon {
       padding: 10px;
       width: fit-content;
       margin-right: 10px;
@@ -33,10 +37,10 @@
       gap: 20px 8px;
     }
   }
-  .card_container{
+  .card_container {
     width: 90%;
     margin: 80px auto 0 auto;
-    .card{
+    .card {
       @include flexBox();
       margin-bottom: 20px;
     }

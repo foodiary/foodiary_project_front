@@ -11,12 +11,14 @@ const RankingPage = () => {
 
   useEffect(() => {
     weekMenu();
-  }, []);
+  }, [menuList]);
 
   const weekMenu = () => {
     //일주일 식단 추천
     axiosConfig
-      .get(`/food/menu/week`, { params: { memberId: memberId } })
+      .get(`/food/menu/week`, {
+        params: { memberId: memberId, date: "2023-01-16" },
+      })
       .then((res) => {
         console.log(res);
         setMenuList(res.data);

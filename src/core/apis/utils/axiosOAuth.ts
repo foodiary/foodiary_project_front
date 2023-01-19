@@ -13,7 +13,7 @@ instance.interceptors.request.use(
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
       config.headers = {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: accessToken,
       };
     }
 
@@ -57,7 +57,7 @@ instance.interceptors.response.use(
         const newRefreshToken = data.data.refreshToken;
 
         config.headers = {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: accessToken,
         };
 
         localStorage.setItem("access_token", newAccessToken);

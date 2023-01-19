@@ -22,10 +22,10 @@ import { useLoadingStore } from "@store/loadingStore";
 
 interface ResType {
   recipeComment: number;
-  recipeId: number;
+  dailyId: number;
   recipeLike: number;
-  recipePath1: string;
-  recipeTitle: string;
+  dailyPath1: string;
+  dailyTitle: string;
   recipeView: number;
   recipeWriter: string;
 }
@@ -250,9 +250,10 @@ const MainPage = () => {
           <div className={styled.card_container}>
             {rankingList.length > 0 ? (
               rankingList.map((item: ResType) => {
+                console.log(item);
                 return (
-                  <Link to={`/detail/${item.recipeId}`}>
-                    <SmallCard img={item.recipePath1} />
+                  <Link to={`/detail/${item.dailyId}`}>
+                    <SmallCard img={item.dailyPath1} />
                   </Link>
                 );
               })

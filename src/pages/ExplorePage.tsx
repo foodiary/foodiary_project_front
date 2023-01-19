@@ -7,6 +7,7 @@ import axiosConfig from "@utils/axiosConfig";
 import { GoSearch } from "react-icons/go";
 import { Link } from "react-router-dom";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
+import { BsPencilFill } from "react-icons/bs";
 
 interface ResType {
   // dailyCreate: string;
@@ -50,11 +51,16 @@ const ExplorePage = () => {
     <article className={styles.questWrapper}>
       <section className={styles.title}>
         <div className={styles.title_div}>
-          <DecoTitle title="하루식단" />
+          <DecoTitle title="하루공유" />
         </div>
-        <Link to="/search" className={styles.search_icon}>
-          <GoSearch />
-        </Link>
+        <div className={styles.icon_box}>
+          <Link to="/write" className={styles.search_icon}>
+            <BsPencilFill />
+          </Link>
+          <Link to="/search" className={styles.search_icon}>
+            <GoSearch />
+          </Link>
+        </div>
       </section>
 
       <div className={styles.btnDiv}>
@@ -87,20 +93,21 @@ const ExplorePage = () => {
         />
       </div>
       {/* {tab === "0" && ( */}
-        <section className={styles.dailySection}>
-          <div className={styles.contents}>
-            {dailyList.map((item:ResType, index)=>{
-              return(
-                <Link 
-                  to={`/explore/details`} 
-                  state={{list: dailyList.slice(index)}}
-                  key={item.dailyId}>
-                  <SmallCard img={item.dailyPath1}/>
-                </Link>
-              )
-            })}
-          </div>
-        </section>
+      <section className={styles.dailySection}>
+        <div className={styles.contents}>
+          {dailyList.map((item: ResType, index) => {
+            return (
+              <Link
+                to={`/explore/details`}
+                state={{ list: dailyList.slice(index) }}
+                key={item.dailyId}
+              >
+                <SmallCard img={item.dailyPath1} />
+              </Link>
+            );
+          })}
+        </div>
+      </section>
       {/* )} */}
       {/* {tab === "1" && (
         <section className={styles.dailyDietSection}>

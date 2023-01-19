@@ -18,8 +18,8 @@ instance.interceptors.request.use(
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
       config.headers = {
-        Authorization: `Bearer ${accessToken}`,
-        // Authorization: accessToken,
+        // Authorization: `Bearer ${accessToken}`,
+        Authorization: accessToken,
       };
     }
     return config;
@@ -29,14 +29,13 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-
-    console.log('인터셉트 응답:' + response.data);
+    console.log("인터셉트 응답:" + response.data);
 
     const accessToken = response.data.accessToken;
     const refreshToken = response.data.refreshToken;
     const refreshExpired = response.data.refreshTokenExpirationMinutes;
 
-    if(accessToken && refreshToken){
+    if (accessToken && refreshToken) {
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
       localStorage.setItem("refresh_expired", refreshExpired);
@@ -68,7 +67,7 @@ instance.interceptors.response.use(
         const newRefreshToken = data.data.refreshToken; //??
 
         config.headers = {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `${accessToken}`,
         };
 
         localStorage.setItem("access_token", newAccessToken);
