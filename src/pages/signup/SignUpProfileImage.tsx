@@ -45,7 +45,7 @@ const SignUpProfileImage = () => {
   const handleFile = (e:FormEvent)=>{
     e.preventDefault();
     setProfileImg(img[0]);
-    navigate('/signup/profileMsg', {state: fileURL});
+    navigate('/signup/profileMsg', {state: fileURL[0]});
     // const blob = new Blob([new ArrayBuffer(data)],{type: 'image/jpg'});
   }
   const initFile = ()=>{
@@ -60,7 +60,7 @@ const SignUpProfileImage = () => {
           <Intro intro1={"대표 할"} span={"프로필 이미지를"} intro2={"입력해주세요."}/>
           <p className={styles.omit_p}>(생략가능)</p>
           
-          {fileURL?
+          {fileURL[0]?
             <>
               <img alt='첨부사진' src={fileURL[0]} className={styles.preview}/>
               <div className={styles.text}><ValidationText text='png/jpeg/jpg 용량 3MB 이하' color={err? 'red': 'green'}/></div>
@@ -74,23 +74,12 @@ const SignUpProfileImage = () => {
           <form onSubmit={handleFile}>
             <div className={styles.file_container}>
               <label htmlFor='file'>
-                {img === undefined ? 
-                  <>
-                    <img src={camera_icon} alt="카메라아이콘" className={styles.camera_icon}/>
-                    <p>사진 등록하기</p>
-                  </>:
-                  <>
-                    {/* <p>{img?.name}</p> */}
-                  </>
-                }
+                <img src={camera_icon} alt="카메라아이콘" className={styles.camera_icon}/>
+                <p>사진 등록하기</p>
               </label>
               <InputFile/>
-              {/* <input type="file" id='file' 
-                accept='.jpg, .jpeg, .png'
-                onChange={onFileChange}>
-              </input> */}
             </div>
-            {fileURL && 
+            {fileURL[0] && 
               <button type='button' className={styles.init} onClick={initFile}>
                 <MdOutlineCancel/>
               </button>}

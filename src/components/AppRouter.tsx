@@ -36,7 +36,6 @@ import SignUpWelcom from '@pages/signup/SignUpWelcom';
 import OAuthRedirect from '@pages/OAuthRedirect';
 import { useUserStore } from '@store/userStore';
 import SignUpPwdConfirm from '@pages/signup/SignUpPwdConfirm';
-import ModifyProfileImg from '@pages/mypage/setting/ModifyProfileImg';
 import PrivateRouter from './PrivateRouter';
 import ScrollRestoration from './ScrollRestoration';
 import RankingPage from '@pages/RankingPage';
@@ -83,7 +82,6 @@ const AppRouter = () => {
               <Route path='/mypage/myscrap' element={<MyScrap/>}/>
               <Route path='/member/nickname/change' element={<ModifyNickName/>}/>
               <Route path='/member/msg/change' element={<ModifyProfileMsg/>}/>
-              <Route path='/member/img/change' element={<ModifyProfileImg/>}/>
 
               <Route path='/mypage/contact' element={<Contact/>}/>
               <Route path='/mypage/mycontact' element={<MyContact/>}/>

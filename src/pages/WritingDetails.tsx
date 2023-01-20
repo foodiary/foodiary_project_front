@@ -141,7 +141,7 @@ const WritingDetails = () => {
             </button>
           )}
         </div>
-        <p className={styles.created}>{date}</p>
+        {/* <p className={styles.created}>{date}</p> */}
         <p className={styles.writer}>{contents?.dailyWriter}</p>
 
         <div className={styles.people_res}>
