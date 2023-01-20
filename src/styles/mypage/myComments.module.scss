@@ -1,0 +1,33 @@
+@import '../main.module.scss';
+@import '../globals.css';
+
+.title{
+  margin: 135px 0 30px 20px;
+}
+
+.mycomments{
+  
+  .board{
+    background-color: white;
+    .comment_container{
+      margin: 10px;
+      @include flexBox($jc: between);
+      // border: 1px solid red;
+      border-bottom: 2px solid $gray-100;
+      padding: 10px;
+      background-color: white;
+      .comment{
+        @include column-flexBox();
+      }
+      p{
+        @include text-style(16px, $main, 500, start);
+        &:nth-child(2){
+          @include text-style(12px, $main, 400, start);
+          margin-top: 8px;
+        }
+      }
+      
+    }
+    
+  }
+}

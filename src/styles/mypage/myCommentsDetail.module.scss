@@ -1,0 +1,83 @@
+@import '../main.module.scss';
+
+.comment_detail{
+  margin-top: 140px;
+  .writing{
+    margin-bottom: 100px;
+    input{
+      width: 90%;
+      margin-left: 20px;
+      height: 50px;
+      border: 1px solid #999999;
+      border-radius: 12px;
+      text-indent: 20px;
+    }
+    .board_link{
+      @include text-style(20px, $main, 700);
+      margin-left: 20px;
+      margin-bottom: 25px;
+    }
+    .good_scrap{
+      @include row-flexBox();
+      width: fit-content;
+      margin: 30px 0 40px 20px;
+      button{
+        @include text-style(20px, $main, 700);
+      }
+      p{
+        @include text-style(14px, #999999, 500);
+        margin-right: 25px;
+      }
+    }
+  }
+  .comment_container{
+    border-bottom: 2px solid $gray-100;
+    background-color: white;
+    @include flexBox($jc:start, $ai: start);
+    padding: 20px;
+
+    .profile_picture{
+      width: 32px; height: 32px;
+      border-radius: 50px;
+      margin-right: 8px;
+    }
+    .more_btn{
+      @include row-flexBox();
+      border: 1px solid red;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .content{
+      @include column-flexBox();
+      width: 85%;
+      gap: 4px;
+      p:first-child{
+        @include text-style(14px, $main, 700, start);
+      }
+      p:nth-child(2){
+        @include text-style(16px, $main, 400, start);
+      }
+      p:nth-child(3){
+        @include text-style(12px, #666666, 400, start);
+      }
+    }
+  }
+  .view_btn{
+    @include flexBox();
+    position: absolute;
+    // width: inherit;
+    bottom: 62px;
+    // border: 3px solid plum;
+    // border-radius: 12px;
+    
+    .black{
+      background-color: black;
+      border-radius: 16px 0 0 0;
+    }
+    .red{
+      background-color: $point;
+      border-radius: 0 16px 0 0;
+
+    }
+  }
+}

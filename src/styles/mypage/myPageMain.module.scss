@@ -1,0 +1,125 @@
+@import '../main.module.scss';
+@import '../globals.css';
+
+.profile_container{
+  @include flexBox();
+  margin-top: 135px;
+  .profile_image{
+    width: 96px;
+    height: 96px;
+    border-radius: 10px;
+    // border: 1px solid black;
+  }
+  .user_info{
+    @include column-flexBox();
+    margin: 0 60px 0 20px;
+    width: 144px;
+    // width: 40%;
+    // border: 1px solid red;
+    p:first-child{
+      @include text-style(24px, $main, 700, start);
+    }
+    p:nth-child(2){
+      @include text-style(14px, #666666, 400, start);
+      margin-top: 12px;
+    }
+  }
+  .no_member{
+    p{
+      @include text-style(20px, 500);
+    }
+  }
+  .setting{
+    width: 32px;
+    height: 32px;
+    @include flexBox();
+    border-radius: 8px;
+    background-color: #EFEFEF;
+    @include text-style(20px, $main, 400);
+  }
+}
+.profile_msg{
+  @include flexBox($jc:start);
+    width: 90%;
+  @include text-style(14px, $main, 400, start);
+  margin: 54px auto 30px auto;
+}
+.myWriting_btns{
+  @include flexBox($jc: around);
+  // display: grid;
+  // grid-template-columns: repeat(4, 1fr);
+  background-color: white;
+  width: 95%;
+  margin: auto;
+  .img{
+    font-size: 40px;
+    padding: 15px;
+    padding-bottom: 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgb(106, 195, 246);
+
+  }
+
+  .link{
+    
+    &:nth-child(1){
+      transform: rotate(-3.5deg);
+    }
+    &:nth-child(2){
+      transform: rotate(2deg);
+    }
+    &:nth-child(3){
+      transform: rotate(-4deg);
+    }
+    &:nth-child(4){
+      transform: rotate(3.5deg);
+    }
+    p{
+      margin-top: 10px;
+      @include text-style(14px, $main, 400);
+      transform: rotate(0);
+    }
+  }
+  
+}
+.recommend_service{
+  margin-top: 60px;
+}
+.menu{
+  @include flexBox($jc: between);
+  // border: 1px solid red;
+  width: 90%;
+  margin: auto;
+  font-size: 25px;
+  margin-top: 12px;
+
+  p{
+    @include text-style(16px, $main, 700, start);
+  }
+  
+}
+.customer_service, .account_manage{
+  @include column-flexBox();
+  margin-top: 90px;
+  .title{
+      @include text-style(14px, #333333, 400, start);
+      margin-left: 20px;
+  }
+}
+.account_manage{
+  margin-top: 90px;
+
+  button{
+    @include text-style(16px, $main, 700, start);
+    @include column-flexBox();
+    background: none;
+    border: none;
+    margin-top: 12px;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  button:last-child{
+    color: $point;
+  }
+}

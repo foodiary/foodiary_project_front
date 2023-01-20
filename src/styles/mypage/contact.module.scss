@@ -1,0 +1,222 @@
+@import './myWriting.module.scss';
+@import './myComments.module.scss';
+
+.contact_container{
+  @include column-flexBox();
+  // position: relative;
+  // gap: 25px;
+  // width: 90%;
+  height: 100%;
+  margin: auto;
+  p{
+    @include text-style(12px, #333333, 700, start);
+    margin-bottom: 5px;
+  }
+  input, textarea{
+    width: 100%;
+    border: 1px solid $main;
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 14px;
+    
+  }
+  .contact_title{
+    input{
+      height: 40px;
+    }
+  }
+  .content{
+    position: relative;
+    background-color: white;
+    textarea{
+      height: 290px;
+      resize: none;
+    }
+    .maxlength{
+      @include text-style(14px, #666666, 400);
+      position: absolute;
+      top: 90%;
+      left: 82%;
+    }
+    
+  }
+  .file{
+    position: relative;
+    input{
+      display: none;
+    }
+    .add_img{
+      @include flexBox($jc: start);
+      @include text-style(16px, #666666, 400, start);
+      height: 50px;
+      border: 1px solid $main;
+      border-radius: 12px;
+      text-indent: 20px;
+    }
+    img{
+      position: absolute;
+      left: 85%;
+      top: 45%;
+    }
+  }
+.preview_container{
+  position: relative;
+  @include flexBox();
+  .preview{
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    // margin: auto;
+  }
+  button{
+    position: absolute;
+    cursor: pointer;
+    width: 30px; height: 30px;
+    font-size: 20px;
+    color: $point;
+    top: 3%;
+    left: 62%;
+  }
+}
+
+
+  .btn_container{
+    @include flexBox();
+    margin: 50px 0 0 0;
+
+    .red{
+      background-color: $point;
+      border-radius: 16px 0 0 0;
+    }
+    .black{
+      background-color: $main;
+      border-radius: 0 16px 0 0;
+    }
+  }
+}
+
+.board{
+  margin: auto;
+}
+.comment_container{
+  @include flexBox($jc: between);
+  height: 80px;
+  border-bottom: 2px solid $gray-100;
+  .comment{
+    @include column-flexBox();
+  }
+}
+.status{
+  @include row-flexBox();
+  margin-top: 10px;
+  p{
+    @include text-style(12px, #666666, 400, start);
+  }
+  .state{
+    color: $point;
+    margin-right: 12px;
+  }
+}
+.detail{
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 1em;
+  padding: 10px;
+  width: 90%;
+  margin: auto;
+}
+.detail_text, .answer_container{
+  border-bottom: 2px solid $gray-100;
+  width: 100%;
+  margin: auto;
+  .detail_title{
+    @include text-style(16px, $main, 700, start);
+    padding: 16px 0 16px 0;
+    @include flexBox($jc: between);
+    // .question_more{
+    //   border: 1px solid red;
+    // }
+  }
+  .detail_title{
+    p{ 
+      border-bottom: 2px solid $gray-100;
+      width: 100%;
+    }
+  }
+  .detail_content{
+    @include text-style(14px, $main, 400, start);
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .status{
+    margin-bottom: 10px;
+  }
+}
+.detail_container{
+  @include flexBox($jc: between);
+  button{
+    font-size: 20px; //수정삭제버튼
+  }
+}
+.attach_file{
+  margin-top: 30px;
+  img{
+    width: 100%;
+    height: 250px;
+  }
+ 
+}
+.answer_container{
+  position: relative;
+
+  .detail_content{
+    margin-left: 25px;
+    margin-bottom: 20px;
+  }
+}
+
+.tab{
+  width: 80%;
+  margin: 100px 0 85px 20px;
+  @include flexBox($jc:around);
+  .active{
+    @include text-style(28px, $main, 700);
+  }
+  .non_active{
+    @include text-style(20px, #666666, 700);
+  }
+  
+}
+
+button{
+  position: relative;
+
+  .text_deco{
+    position: absolute;
+    width: 100%;
+    height: 13px;
+    top: 60%;
+    opacity: 0.5;
+    transform: rotate(-3.07deg);
+    // background-color: #FFA68A;
+    background-color: $point;
+  }
+}
+
+.title{
+  margin: 135px 0 30px 20px;
+}
+.view_btn{
+  color: white;
+  @include flexBox();
+  position: fixed;
+  bottom: 62px;
+  .black{
+    background-color: black;
+    border-radius: 12px 0 0 0;
+  }
+  .red{
+    background-color: $point;
+    border-radius: 0 12px 0 0;
+  }
+}

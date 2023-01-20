@@ -1,7 +1,9 @@
 @import "../../../styles/main.module.scss";
 
-.button {
-  padding:6px;
+.button , .buttonActive{
+  width: fit-content;
+  height: 30px;
+  padding: 5px 10px;
   color: $gray_400;
   border: 1px solid $gray_200;
   border-radius: 7px;
@@ -9,10 +11,8 @@
 }
 
 .buttonActive {
-  padding:6px;
   color: white;
   font-weight: 700;
   border: 1px solid transparent;
-  border-radius: 7px;
   background: $point;
 }

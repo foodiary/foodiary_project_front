@@ -1,0 +1,41 @@
+@import '../main.module.scss';
+
+.faq_container{
+  margin-top: 100px;
+  .title{
+    margin: 135px 0 50px 20px;
+  }
+  
+  .board{
+    background-color: white;
+    margin-top: 60px;
+  }
+  .q_container{
+    width: 90%;
+    height: 70px;
+    margin: auto;
+
+    @include flexBox($jc: between);
+    border-bottom: 2px solid $gray-100;
+    .num{
+      @include text-style(12px, $point, 700);
+    }
+    .q_title{
+      @include text-style(16px, $main, 500);
+    }
+  }
+}
+.content{
+  display: none;
+}
+.active{
+    @include column-flexBox();
+    width: 90%;
+    margin: 10px auto ;
+    padding: 10px;
+}
+.scroll_target{
+  @include text-style(16px, $gray-400, 500);
+  padding: 20px;
+  margin: 10px;
+}

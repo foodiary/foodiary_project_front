@@ -1,0 +1,23 @@
+@import '../../../styles/main.module.scss';
+
+.container{
+  margin: 10px;
+  @include flexBox($jc: between);
+  // border: 1px solid red;
+  border-bottom: 2px solid $gray-100;
+  padding: 10px;
+  background-color: white;
+  .content{
+    @include column-flexBox();
+  }
+  p{
+    @include text-style(16px, $main, 500, start);
+    &:nth-child(2){
+      @include text-style(12px, $main, 400, start);
+      margin-top: 8px;
+    }
+  }
+  .text2{
+    color: $point;
+  }
+}

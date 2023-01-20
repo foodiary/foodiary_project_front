@@ -1,0 +1,55 @@
+@import "../../../styles/main.module.scss";
+@import "../../../styles/globals.css";
+
+.login_btn, .login_btn_active{
+  // position: fixed;
+  // bottom: 62px;
+  width: 372px;
+  height: 56px;
+  border: none;
+  border-radius: 16px 16px 0px 0px;
+  background-color: $gray_100;
+  @include text-style(16px, #666666, 700);
+  cursor: pointer;
+}
+
+.login_btn_active{
+  background-color: $point;
+  color: white;
+}
+
+.dupliCheck_btn{
+width: 72px;
+height: 48px;
+border: 1px solid $main;
+background-color: white;
+border-radius: 12px;
+cursor: pointer;
+margin-top: 15px;
+}
+
+// .half_alert_container{
+//   width: 100%;
+//   border: 1px solid red;
+// }
+.half_alert_btn{
+width: 125px; //125(alert)
+height: 40px;
+// background-color: $point;
+color: white;
+border-radius: 8px;
+}
+// .red{
+//   background-color: $point;
+// }
+// .black{
+//   background-color: $main;
+// }
+
+.half_btn{
+  width: 187px; //125(alert)
+  height: 56px;
+  // color: white;
+  border-radius: 8px;
+  @include text-style(16px, white, 700);
+}

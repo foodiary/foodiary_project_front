@@ -1,0 +1,35 @@
+@import '../main.module.scss';
+@import '../globals.css';
+
+.notice{
+  margin-top: 100px;
+  .title{
+    margin: 135px 0 30px 20px;
+  }
+}
+.board{
+  margin-top: 60px;
+  background-color: white;
+}
+
+.notice_detail{
+  margin-top: 140px;
+  .title{
+    // border: 1px solid red;
+    width: 245px;
+    height: fit-content;
+    @include text-style(20px, $main, 700, start);
+    margin-top: 62px;
+    margin-left: 20px; //나중에 notice_detail에 적용할 것
+  }
+  .date{
+    @include text-style(12px, #666666, 400, start);
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  .content{
+    @include text-style(14px, $main, 400, start);
+    width: 90%;
+    margin: 35px auto 0 auto;
+  }
+}

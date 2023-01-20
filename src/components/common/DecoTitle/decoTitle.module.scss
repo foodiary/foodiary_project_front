@@ -1,0 +1,12 @@
+@import '../../../styles/main.module.scss';
+
+.main_title{
+  position: relative;
+  width: fit-content;
+  @include text-style(30px, 600);
+  // margin: 135px 0 30px 20px;
+
+  .text_deco{
+    @include text-deco();
+  }
+}

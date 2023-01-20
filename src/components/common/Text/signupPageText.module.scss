@@ -1,0 +1,53 @@
+@import '../../../styles/main.module.scss';
+
+.intro{
+  @include flexBox($jc: start, $ai: start);
+  @include column-flexBox();
+  width: 100%;
+  // margin-top: 50px;
+  margin-left: 20px;
+  letter-spacing: -0.025em;
+  white-space: pre-line;
+  p{
+    padding: 0; margin: 10px 0;
+    position: relative;
+    @include text-style(28px, $main, 600, start);
+    // @include text-style(28px, $main, start);
+    span{
+      position: relative;
+    }
+  }
+}
+.text_deco{
+  width: 100%;
+  height: 13px;
+  position: absolute;
+  top: 20px; //32
+  // left: 20px; //20
+  background-color: $point;
+  opacity: 0.5;
+  transform: rotate(-3.07deg);
+}
+.validation_text, .duplicate_text{
+  @include row-flexBox();
+  .grey{
+    color: #666666;
+  }
+  .red{
+    color: red;
+  }
+  .green{
+    color: #1FD393;
+  }
+  p{
+    @include text-style(12px, #666666, 500, start);
+    margin-left: 5px;
+  }
+}
+.duplicate_text{
+  position: absolute;
+  top: 62%; //77
+  margin-left: 10px;
+  color: red;
+  p{color: red}
+}

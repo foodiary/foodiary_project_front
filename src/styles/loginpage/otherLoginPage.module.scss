@@ -1,0 +1,29 @@
+@import './loginDefault.module.scss';
+
+.input_id{
+  margin-top: 99px;
+  margin-bottom: 48px;
+}
+.add_margin{
+  margin-top: 60px;
+  border: 1px solid transparent;
+}
+.forget_account{
+  @include flexBox();
+  @include column-flexBox();
+  margin-top: 70px;
+  margin-bottom: 20px;
+  p{
+    @include text-style(12px, #666666, 400, start);
+    a{
+      text-decoration: underline;
+      @include text-style(12px, #333333, 700);
+      margin-left: 12px;
+      &:first-child{
+        margin-left: 110px;
+      }
+    }
+   
+  }
+  
+}

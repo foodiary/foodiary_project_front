@@ -1,0 +1,38 @@
+@import '../main.module.scss';
+@import '../globals.css';
+
+.recommend{
+  position: relative;
+  height: 100%;
+  margin-top: 100px;
+
+  .title{
+    margin: 135px 0 30px 20px;
+  }
+
+  .explain{
+    @include text-style(16px, #666666, 500, start);
+    margin: 20px 0 65px 24px;
+    margin-left:24px;
+  }
+  img{
+    position: absolute;
+    top: 80px;
+    left: 70%;
+  }
+  .menu_list{
+    @include column-flexBox();
+    background-color: white;
+    // position: relative;
+  }
+  .menu{
+    width: 90%;
+    height: 58px;
+    margin: auto;
+    @include flexBox($jc: between);
+    border-bottom: 2px solid $gray-100;
+    p{
+      @include text-style(16px, $main, 500, start);
+    }
+  }
+}

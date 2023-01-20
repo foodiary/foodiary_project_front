@@ -1,0 +1,205 @@
+@import '../loginpage/loginDefault.module.scss';
+
+.input_container{
+  @include flexBox();
+  position: relative;
+  width: 95%;
+  gap: 8px;
+  margin: 148px 0 200px 10px;
+}
+
+.pwd_container, .new_pwd_container{
+  margin-top: 150px;
+  margin-bottom: 235px;
+  position: relative;
+  .pwd_confirm{
+    position: absolute;
+    top: 100px;
+    left: 20px;
+  }
+}
+
+.new_pwd_container{
+  margin-top: 230px; //135
+  @include column-flexBox();
+  gap: 50px;
+  .confirm{
+    margin-top: 50px;
+    margin-bottom: 0;
+  }
+}
+
+.omit_p{
+  position: relative;
+  margin-left: 150px;
+  // top: 20%;
+}
+.basic_profile, .preview{
+  width: 220px; 
+  height: 220px; 
+  margin: 86px 0 0 36px;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid black;
+}
+.preview{
+  border-radius: 12px;
+  border: 1px solid $main;
+}
+.file_container{
+  @include flexBox();
+  width: 330px; 
+  height: 56px;
+  margin: 102px 0 100px 20px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: white;
+ 
+  .camera_icon{
+    width: 24px; height: 24px;
+    margin-right: 15px;
+    background-size: contain;
+  }
+  input{
+    display: none;
+    cursor: pointer;
+
+  }
+  label{
+    @include flexBox();
+    @include text-style(16px, $main, 700);
+    width: inherit; height: inherit;
+  }
+}
+.profile{
+  width: 95px;
+  height: 95px;
+  margin: 52px 0 0 20px;
+  border-radius: 12px;
+}
+.remail{
+  @include text-style(12px, #666666, 400);
+  margin-bottom: 16px;
+  button{
+    background: none;
+    border: none;
+    text-decoration: underline;
+    @include text-style(12px, #333333, 700);
+    margin-left: 8px;
+  }
+}
+.authmail_container{
+  position: relative;
+  height: 65vh;
+
+  .remain_time{
+    width: 72px;
+    height: 48px;
+    border: 1px solid red;
+    background-color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    @include text-style(14px, red, 500);
+    @include flexBox();
+  }
+}
+
+.msg_container{
+  // border: 1px solid red;
+  width: 90%;
+  margin: 50px auto 100px auto;
+  position: relative;
+  p{
+    @include text-style(12px, #333333, 700, start);
+  }
+  .msg_length{
+    position: absolute;
+    top: 80%;
+    left: 85%;
+    @include text-style(14px, #666666, 400, start);
+  }
+  textarea{
+    width: 100%;
+    height: 150px;
+    resize: none;
+    border-radius: 12px;
+    @include text-style(16px, #333333, 400, start);
+    text-indent: 5px;
+    &:focus{
+      outline: none;
+    }
+  }
+}
+// .init{
+//   background: none;
+//   border: none;
+//   cursor: pointer;
+//   // z-index: 2;
+//   width: 30px; height: 30px;
+//   font-size: 20px;
+//   @include flexBox();
+//   position: absolute;
+//   top: 73.8%;
+//   left: 80%;
+// }
+.profile_container{
+  position: relative;
+  .text{
+    margin: 10px 0 0 35px;
+  }
+  .init{
+    background: none;
+    border: none;
+    cursor: pointer;
+    // z-index: 2;
+    width: 30px; height: 30px;
+    font-size: 20px;
+    @include flexBox();
+    position: absolute;
+    top: 28%;
+    left: 60%;
+  }
+}
+
+// FindId.tsx
+.findId_container{
+  margin-top: 150px;
+  .findId_btn{
+    margin-top: 50%;
+    margin-bottom: 0;
+  }
+}
+//FindPwd.tsx
+.findPwd_container{
+  margin-top: 150px;
+  @include column-flexBox();
+  gap: 24px;
+  .findPwd_btn{
+    margin-top: 100px;
+  }
+}
+//SignUpWelcome.tsx
+.welcome_container{
+  position: relative;
+  img{
+    @include flexBox();
+    width: 90%;
+    height: 150px;
+    // border: 1px solid red;
+    margin: 250px auto 50px auto;
+    // transform: rotate(10deg);
+  }
+  p{
+    @include text-style(25px, $main, 500);
+    padding: 5px;
+    span{
+      @include text-style(25px, $point 700);
+    }
+  }
+  button{
+    position: fixed;
+    bottom: 10px;
+  }
+}

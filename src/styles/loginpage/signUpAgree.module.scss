@@ -1,0 +1,65 @@
+@import '../loginpage/loginDefault.module.scss';
+
+.agree_check{
+  @include flexBox(start, start);
+  @include column-flexBox();
+  gap: 10px;
+  margin-top: 150px;
+  height: 300px;
+  background-color: white;
+  .underline{
+    border-bottom: 1px solid gray;
+    padding: 12px 0 12px 20px;
+    width: 100%;
+  }
+  .bottom{
+    padding-top: 50px;
+  }
+  .agree_container{
+    @include flexBox($jc: between);
+    gap: 5px;
+    width: 95%;
+
+    .text_container{
+      padding: 12px 0 12px 35px;
+    }
+  }
+  input{
+    display: none;
+  }
+  label{
+    // border: 1px solid red;
+    @include text-style(16px, #000000, 400, start);
+    margin-left: 12px;
+    @include flexBox($jc: start);
+    gap: 10px;
+    .check_btn{
+      color: $point;
+      font-size: 18px;
+
+    }
+  }
+  
+  .more{
+    @include text-style(12px, #666666, 400, start);
+    margin-top: 4px;
+    margin-left: 41px;
+  }
+}
+
+.agreeDetail_title{
+  margin: 120px 0 40px 20px;
+  // border: 2px solid #666666;
+}
+.agreeDetail_content{
+  @include column-flexBox();
+  width: 95%;
+  margin: auto;
+
+  .promise_container{
+    margin-bottom: 15px;
+    p{
+      @include text-style(16px, $gray_400, 400, start);
+    }
+  }
+}
