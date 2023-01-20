@@ -117,7 +117,7 @@ const WritingDetails = () => {
     console.log("삭제ㅇㅇ"); //알럿창
   }
 
-  // const date = contents?.dailyCreate.slice(0,10).replaceAll("-",".");
+  const date = contents?.dailyCreate.slice(0,10).replaceAll("-",".");
 
   // const date = contents?.dailyCreate.slice(0, 10);
   return (
