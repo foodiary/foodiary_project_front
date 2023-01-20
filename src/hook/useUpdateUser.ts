@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 
 export const useUpdateUser = ()=>{
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
-  console.log(memberId);
   const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
 
   useEffect(()=>{

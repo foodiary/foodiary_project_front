@@ -173,6 +173,7 @@ const MyPageMain = () => {
         </Link>
       </div>
 
+      { userInfo.memberId !== 0 &&
       <div className={styles.account_manage}>
         <p className={styles.title}>계정관리</p>
         <Link to="/member/password/change" className={styles.menu}>
@@ -181,14 +182,14 @@ const MyPageMain = () => {
         </Link>
         <button onClick={handleLogout}>로그아웃</button> 
         <button onClick={handleWithdraw}>탈퇴하기</button> {/*탈퇴하시겠습니까? 알럿창 */}
-      </div>
+      </div>}
       {logout && !cancel &&
         <form className={styles.alert} onSubmit={onSubmit}>
           <WarnBox text='정말 로그아웃하시겠습니까?' btn_txt={'확인'}/>
         </form>}
       {withdraw && !cancel &&
         <form className={styles.alert} onSubmit={onSubmit}>
-          <WarnBox text='정말 탈퇴하시겠습니까?' btn_txt={'확인'}/>
+          <WarnBox text='정말 탈퇴하시겠습니까? *탈퇴시 재가입은 불가합니다*' btn_txt={'확인'}/>
         </form>}
       
       {alert && logout && 

@@ -19,17 +19,13 @@ import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 import { GoSearch } from "react-icons/go";
 import { useUpdateUser } from "@hook/useUpdateUser";
 import { useLoadingStore } from "@store/loadingStore";
+import { AlertBox } from "@components/common/AlertBox/AlertBox";
 
 interface ResType {
-  recipeComment: number;
   dailyId: number;
-  recipeLike: number;
-  dailyPath1: string;
+  dailyThumbnail: string;
   dailyTitle: string;
-  recipeView: number;
-  recipeWriter: string;
 }
-// 레시피 -> 데일리로 변경하기
 
 interface RandomFoodType {
   foodCategory: String | undefined;
@@ -37,26 +33,15 @@ interface RandomFoodType {
   foodName: String;
 }
 
-interface User {
-  memberLoginId: string; //로그인 아이디
-  memberId: number; //api 요청시 필요한 멤버시퀀스
-  memberEmail: string;
-  memberNickName: string;
-  memberPath: string; //이미지
-  memberProfile: string; //프메
-}
 const MainPage = () => {
   useUpdateUser();
-
   const navigate = useNavigate();
   const nickName = useLoginUserStore((state) => state.userInfo.memberNickName);
 
   const [userName, setUserName] = useState<string>("푸디어리");
-
-  // const [daysBtn, setDaysBtn] = useState(days.month);
-  const setUserInfo = useLoginUserStore((state) => state.setUserInfo);
-  const userInfo = useLoginUserStore((state) => state.userInfo);
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
+
+  const [alert, setAlert] = useState(false); //음식추천버튼누를때
 
   useEffect(() => {
     if (nickName) {
@@ -114,24 +99,33 @@ const MainPage = () => {
   };
 
   const onFoodLike = () => {
-    // axiosConfig.patch(`/food/like/${memberId}/${memberFoodId}`)
-    // .then(res=>{
-    //   console.log(res);
-    //   return(alert("반영되었습니다")); //알럿박스로 바꾸기
-    // }).catch(err=>{
-    //   console.log(err);
-    // });
+    axiosConfig.post(`/food/like`, {
+      foodId: recommenu?.foodId,
+      memberId: memberId,
+    })
+    .then(res=>{
+      console.log(res);
+      setAlert(true); //음식추천 새로고침할때 같이 false로 만들기
+    }).catch(err=>{
+      console.log(err);
+      setAlert(false);
+    });
   };
 
   const onFoodHate = () => {
-    // axiosConfig.patch(`/food/hate/${memberId}/${memberFoodId}`)
-    // .then(res=>{
-    //   console.log(res);
-    //   return(alert("반영되었습니다")); //알럿박스로 바꾸기
-    // }).catch(err=>{
-    //   console.log(err);
-    // });
+    axiosConfig.post(`/food/hate`, {
+      foodId: recommenu?.foodId,
+      memberId: memberId,
+    })
+    .then(res=>{
+      console.log(res);
+      setAlert(true); //음식추천 새로고침할때 같이 false로 만들기
+    }).catch(err=>{
+      console.log(err);
+      setAlert(false);
+    });
   };
+
   const onSearch = () => {
     let data = {};
     if (memberId) {
@@ -150,7 +144,6 @@ const MainPage = () => {
       .post(`/search/daily/result`, data)
       .then((res) => {
         console.log(res);
-        return alert("검색"); //알럿박스로 바꾸기
         // navigate("/search/result");
       })
       .catch((err) => {
@@ -187,7 +180,7 @@ const MainPage = () => {
     <article className={styled.mainPageWrapper}>
       <section className={styled.mainPageTitleSection}>
         <h2 className={styled.title}>
-          안녕하세요, {nickName || "푸디어리"}님! <br /> 오늘 이 메뉴 어떠세요?{" "}
+          안녕하세요,  <br /> {nickName || "푸디어리"}님! <br /> 오늘 이 메뉴 어떠세요?{" "}
         </h2>
       </section>
 
@@ -250,10 +243,10 @@ const MainPage = () => {
           <div className={styled.card_container}>
             {rankingList.length > 0 ? (
               rankingList.map((item: ResType) => {
-                console.log(item);
+                // console.log(item);
                 return (
                   <Link to={`/detail/${item.dailyId}`}>
-                    <SmallCard img={item.dailyPath1} />
+                    <SmallCard img={item.dailyThumbnail} />
                   </Link>
                 );
               })
@@ -263,6 +256,7 @@ const MainPage = () => {
           </div>
         </div>
       </section>
+      {alert && <AlertBox text="등록되었습니다" type={true}/>}
     </article>
   );
 };

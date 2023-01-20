@@ -18,7 +18,7 @@ const Header = () => {
   const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
   // const userInfo = useLoginUserStore((state)=>state.userInfo);
   const [profileImg, setProfileImg] = useState(false);
-  console.log(`헤더에서: ${loginUser}`);
+
   const token = localStorage.getItem("access_token");
   useEffect(() => {
     if (token) {
@@ -27,8 +27,6 @@ const Header = () => {
       setLoginUser(false);
     }
   }, []);
-
-  console.log(memberPath);
 
   return (
     <div className={styles.header}>

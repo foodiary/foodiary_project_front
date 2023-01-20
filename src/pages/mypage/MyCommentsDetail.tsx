@@ -21,8 +21,11 @@ const MyCommentsDetail = () => {
   const [viewBtn, setViewBtn] = useState(false);
   const cancel = btnStateStore(state=>state.cancel);
   const setCancel = btnStateStore(state=>state.setCancel);
-  // const memberId = 76; //저장된 멤버아이디
+
+  const [removeSuccess, setRemoveSuccess] = useState(false);
+
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
+
   const [dailyTitle, setDailyTitle] = useState("");
   const [like, setLike] = useState(0);
   const [scrap, setScrap] = useState(0);
@@ -56,7 +59,6 @@ const MyCommentsDetail = () => {
   const navigate = useNavigate();
 
   const onClick = (e:React.MouseEvent<HTMLDivElement>)=>{
-    // console.log(e.currentTarget.innerText);
     navigate("/mypage/mycomments/edit", {state:{
       content: commentContent,
       dailyId: dailyId,
@@ -73,7 +75,7 @@ const MyCommentsDetail = () => {
     .then(res=>{
       console.log(res);
       setTimeout(()=>navigate(-1),2000);
-      return(<AlertBox type={true} text='삭제되었습니다'/>)
+      setRemoveSuccess(true);
     }).catch(err=>{
       console.log(err);
     })
@@ -128,7 +130,9 @@ const MyCommentsDetail = () => {
         <WarnBox text='정말 삭제하시겠습니까?' btn_txt='삭제'/>
       </form>
       }
-
+      {removeSuccess &&
+        <AlertBox text='삭제되었습니다' type={true}/>
+      }
     </div>
   );
 };

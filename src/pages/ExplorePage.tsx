@@ -12,7 +12,7 @@ import { BsPencilFill } from "react-icons/bs";
 interface ResType {
   // dailyCreate: string;
   dailyId: number;
-  dailyPath1: string;
+  dailyThumbnail: string;
   // dailyTitle: string;
 }
 
@@ -102,7 +102,7 @@ const ExplorePage = () => {
                 state={{ list: dailyList.slice(index) }}
                 key={item.dailyId}
               >
-                <SmallCard img={item.dailyPath1} />
+                <SmallCard img={item.dailyThumbnail} />
               </Link>
             );
           })}

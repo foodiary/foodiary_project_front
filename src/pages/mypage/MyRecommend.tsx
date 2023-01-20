@@ -8,6 +8,7 @@ import { useLoginUserStore } from '@store/loginUserStore';
 import EmptyText from '@components/common/Text/EmptyText';
 import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 import { ButtonComp, buttonStyled } from '@components/common';
+import { useDebounce } from '@hook/useDebounce';
 
 interface ResType{
   foodId: number;
@@ -16,49 +17,47 @@ interface ResType{
   memberFoodLike: string;
   memberId: number;
 }
-interface BtnType{
-  idx: number;
-  bool: string;
-}
+
 const MyRecommend = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const page = 1;
   const [menuList, setMenuList] = useState([]);
-  const [newState, setNewState] = useState(""); //N, Y
+  const [res, setRes] = useState(false); 
 
-  const [btnState, setBtnState] = useState<BtnType[]>([]); //false가 Nope
 
   const getMyPreference = ()=>{
     axiosConfig.get(`/member/food/${memberId}`,{
       params: {page: page},
     }).then(res=>{
       setMenuList(res.data);
-      console.log(res);
     })
   }
 
   useEffect(()=>{
     getMyPreference();
-  },[]);
+    setRes(false);
+  },[res]);
 
-  useCallback(()=>{
-    getMyPreference();
-  },[newState]);
+  const onModifyState = async(index:number, foodId: number, memberFoodLike:string)=>{
+    let url = '';
 
-  let url = "";
-  const onModifyState = (index:number, memberId: number, memberFoodId: number)=>{
-    
-    console.log(index, memberId, memberFoodId);
-    // axiosConfig.patch(url)
-    // .then(res=>{
-    //   console.log(res);
-    //   // setNewState(true);
-
-    // }).catch(err=>{
-    //   console.log(err);
-    // })
+    if(memberFoodLike==="Y"){
+      url = '/food/hate';
+    }
+    else{
+      url = '/food/like';
+    }  
+    await axiosConfig.post(url, {
+      memberId: memberId,
+      foodId: foodId,
+    }).then(res=>{
+      console.log(res);
+      setRes(true);
+    }).catch(err=>{
+      console.log(err);
+    })
   }
-  console.log(btnState);
+
   return (
     <div className={styles.recommend}>
       <div className={styles.title}>
@@ -69,29 +68,21 @@ const MyRecommend = () => {
       <div className={styles.menu_list}>
         {menuList.length > 0 ? 
           menuList.map((menu:ResType, index:number)=>{
-            
-            // {(menu.memberFoodLike==="N" && btnState === false) ? 
-            //   url = `/food/like/${memberId}/${menu.memberFoodId}`: 
-            //   url = `/food/hate/${memberId}/${menu.memberFoodId}`
-            // }
             return(
               <div className={styles.menu} key={menu.memberFoodId}>
                 <p>{menu.foodName}</p>
-                <button>
-                    <ButtonComp
-                      text={menu.memberFoodLike==="N"?
-                           "Nope": "Good"}
-                      btnStyle={menu.memberFoodLike==="N"?
-                               buttonStyled.button : buttonStyled.buttonActive}
-                      onClick={()=>onModifyState(index, memberId, menu.memberFoodId)}
-                    />                  
-                </button>
+                <ButtonComp
+                  text={menu.memberFoodLike==="N"?
+                  "Nope": "Good"}
+                  btnStyle={menu.memberFoodLike==="N"?
+                            buttonStyled.button : buttonStyled.buttonActive}
+                  onClick={()=>onModifyState(index,menu.foodId, menu.memberFoodLike)}
+                />        
               </div>
             )
           }):
           <EmptyText text='내가 추천받은 메뉴가 없습니다.'/>
       }
-
       </div>
     </div>
   );

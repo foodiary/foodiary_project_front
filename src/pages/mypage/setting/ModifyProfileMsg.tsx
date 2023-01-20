@@ -11,6 +11,8 @@ const ModifyProfileMsg = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState("");
   const [msgLength, setMsgLength] = useState(0);
+
+  const newNickName = useUserStore(state=>state.newNickName);
   const newProfileMsg = useUserStore((state)=>state.newProfileMsg);
   const setNewProfileMsg = useUserStore((state)=>state.setNewProfileMsg);
   const memberProfile = useLoginUserStore(state=>state.userInfo.memberProfile);
@@ -33,7 +35,7 @@ const ModifyProfileMsg = () => {
   const onClick = ()=>{
     setNewProfileMsg(value);
     // navigate("/mypage/setting",{state: {newMsg: value}} );
-    navigate("/mypage/setting", {state: {msg: newProfileMsg}});
+    navigate("/mypage/setting", {state: {msg: newProfileMsg, nickname: newNickName}});
 
   }
   return (

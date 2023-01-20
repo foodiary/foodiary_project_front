@@ -22,13 +22,19 @@ const FindPwd = () => {
     }).then(res=>{
       if(res.status === 404){
         setErr(true);
+        setSend(false);
       }
       else{
+        setErr(false);
         setSend(true);
       }
-      console.log(res); //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+      console.log(res); 
+      setTimeout(()=>setSend(false), 3000);
+
     }).catch(err=>{
       console.log(err);
+      setTimeout(()=>setErr(false), 3000);
+
       // setErr(true);
     })
   }

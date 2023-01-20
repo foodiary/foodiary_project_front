@@ -35,6 +35,7 @@ const ContactDetail = () => {
 
   const cancel = btnStateStore(state=>state.cancel);
   const setCancel = btnStateStore(state=>state.setCancel);
+  const [removeSuccess, setRemoveSuccess] = useState(false);
 
   useEffect(()=>{
     setCancel(true);
@@ -48,9 +49,9 @@ const ContactDetail = () => {
   },[]);
 
 
-  const onClick = (e:React.MouseEvent<HTMLDivElement>)=>{
-    navigate(`/mypage/contact/edit?${search.slice(1)}`);
-  }
+  // const onClick = (e:React.MouseEvent<HTMLDivElement>)=>{
+  //   navigate(`/mypage/contact/edit?${search.slice(1)}`);
+  // }
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     setCancel(true);
@@ -59,8 +60,8 @@ const ContactDetail = () => {
     axiosConfig.delete(`/question/${memberId}/${search.slice(1)}`)
     .then(res=>{
       console.log(res);
+      setRemoveSuccess(true);
       setTimeout(()=>navigate(-1), 2000);
-      return(<AlertBox text='삭제되었습니다' type={true}/>)
     }).catch(err=>{
       console.log(err);
     })
@@ -87,24 +88,31 @@ console.log(viewBtn, cancel);
     <div className={styles.detail}>
       <div className={styles.detail_container}>
         <div className={styles.detail_text}>
-          <p className={styles.detail_title}>
-            {res?.questionTitle}
-          </p>
+          <div className={styles.detail_title}>
+            <p>{res?.questionTitle}</p>
+            {res?.questionAnswerYn==="N" && 
+              <button className={styles.question_more} onClick={()=>setViewBtn(prev=>!prev)}>
+                <FiMoreVertical/>
+              </button>
+            }
+          </div>
+          
+
           <p className={styles.detail_content}>
-            {res?.questionContent}
+            <pre>{res?.questionContent}</pre>
           </p>
           <div className={styles.status}>
             <p className={styles.state}>
               {res?.questionAnswerYn==="Y"? "답변완료": "답변대기"}
             </p>
-            <p>{res?.questionCreate.slice(2,10).replaceAll("-","/")}</p>
+            <p>{res?.questionCreate.slice(2,10).replaceAll("-",".")}</p>
           </div>
         </div>
-        {res?.questionAnswerYn==="N" && 
+        {/* {res?.questionAnswerYn==="N" && 
           <button className={styles.more} onClick={()=>setViewBtn(prev=>!prev)}>
             <FiMoreVertical/>
           </button>
-        }
+        } */}
       </div>
       {res?.questionPath && 
       <div className={styles.attach_file}>
@@ -143,6 +151,9 @@ console.log(viewBtn, cancel);
       <form onSubmit={onSubmit}>
         <WarnBox text='정말 삭제하시겠습니까?' btn_txt='삭제'/>
       </form>
+      }
+      {removeSuccess &&
+        <AlertBox text='삭제되었습니다' type={true}/>
       }
 
     </div>

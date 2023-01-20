@@ -119,6 +119,7 @@
 }
 .detail{
   background-color: white;
+  border: 1px solid black;
   width: 90%;
   margin: auto;
 }
@@ -129,6 +130,10 @@
   .detail_title{
     @include text-style(16px, $main, 700, start);
     padding: 16px 0 16px 0;
+    @include flexBox($jc: between);
+    // .question_more{
+    //   border: 1px solid red;
+    // }
   }
   .detail_content{
     @include text-style(14px, $main, 400, start);

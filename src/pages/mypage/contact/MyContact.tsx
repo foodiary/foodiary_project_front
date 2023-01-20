@@ -56,10 +56,12 @@ const MyContact = () => {
     <div className={styles.board}>
           {myQ.length > 0 ?
             myQ.map((item:ResType)=>{
+              const questionAnswerYn = item.questionAnswerYn==="Y"?"답변완료":"답변대기";
+              const date = item.questionCreate.slice(2,10).replaceAll("-",'.');
               return(
                 <WritingLink 
                   text1={item.questionTitle} 
-                  text2={item.questionAnswerYn + item.questionCreate} 
+                  text2={questionAnswerYn + " "+ date} 
                   url={`/mypage/contact/detail?${item.questionId}`}
                   state={{questionId: item.questionId}}
                 />

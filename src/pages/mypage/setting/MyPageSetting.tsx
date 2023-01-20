@@ -1,5 +1,4 @@
 import { HalfButton, LoginButton } from '@components/common/LoginButton/Button';
-import Header from '@components/common/Header/Header';
 import styles from '@styles/mypage/myPageSetting.module.scss';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
@@ -14,7 +13,6 @@ import axiosConfig from '../../../core/apis/utils/axiosConfig';
 const MyPageSetting = () => {
   const navigate = useNavigate();
   const {state} = useLocation();
-  console.log(state);
   const [viewBtn, setViewBtn] = useState(false);
 
   const [alert, setAlert] = useState(false);
@@ -28,22 +26,37 @@ const MyPageSetting = () => {
   const userInfo = useLoginUserStore(state=>state.userInfo);
   const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
 
-  const [newNickName, setNewNickName] = useState("");
-  const [newProfileMsg, setNewProfileMsg] = useState("");
+  // const [newNickName, setNewNickName] = useState("");
+  // const [newProfileMsg, setNewProfileMsg] = useState("");
 
   // let newNickName ="";
   // let newProfileMsg = "";
-  // const newNickName = useUserStore(state=>state.newNickName);
+  const newNickName = useUserStore(state=>state.newNickName);
+  const newProfileMsg = useUserStore(state=>state.newProfileMsg);
+  const setNewNickName = useUserStore(state=>state.setNewNickName);
+  const setNewProfileMsg = useUserStore(state=>state.setNewProfileMsg);
+
+
   useEffect(()=>{
-    if(state){
-      if(state.nickName){
-        setNewNickName(state.nickName);
-      }
-      else{
-        setNewProfileMsg(state.msg);
-      }
+    if(!state){
+      setNewNickName("");
+      setNewProfileMsg("");
     }
   },[]);
+  // useEffect(()=>{
+  //   if(state){
+  //     if(state.nickName){
+  //       setNewNickName(state.nickName);
+  //     }
+  //     else{
+  //       setNewProfileMsg(state.msg);
+  //     }
+  //   }
+  //   else{
+  //     setNewNickName("");
+  //     setNewProfileMsg("");
+  //   }
+  // },[]);
 
   
 
@@ -53,7 +66,7 @@ const MyPageSetting = () => {
 
   const [img, setImg] = useState<File>();
 
-  const [modify, setModify] = useState(false);
+  const [modifyImg, setModifyImg] = useState(false);
   // const [, setFileURL] = useState(""); //파일 미리보기
 
   // useEffect(()=>{
@@ -89,14 +102,15 @@ const MyPageSetting = () => {
     axiosConfig.patch(`/member/image/${userInfo.memberId}`, formData, {headers})
     .then(res=>{
       console.log(res);
-      setModify(true);
-      return(<AlertBox type={true} text='변경되었습니다'/>)
+      setModifyImg(true);
+      setTimeout(()=>navigate("/mypage"),2000);
+      
     }).catch(err=>{
       console.log(err);
     })
     e.target.value = "";
   }
-  console.log(modify);
+
   const removeImg = ()=>{
     setCancel(true);
     setViewBtn(false);
@@ -121,6 +135,9 @@ const MyPageSetting = () => {
     }).then(res=>{
       console.log(res);
       setSuccess(true);
+
+      setNewNickName("");
+      setNewProfileMsg("");
       setTimeout(()=>{navigate('/mypage')},2000);
 
     }).catch(err=>{
@@ -160,7 +177,7 @@ const MyPageSetting = () => {
       </div>
       
       <div className={styles.btn_set}>
-        <button onClick={()=>{setViewBtn(true)}} className={styles.modify_btn}>
+        <button onClick={()=>{setViewBtn(prev=>!prev)}} className={styles.modify_btn}>
           <img src={pen_icon} alt="프로필이미지 수정"/>
         </button>
       
@@ -201,6 +218,8 @@ const MyPageSetting = () => {
       }
 
       {success && <AlertBox text='프로필이 변경되었습니다' type={true}/>}
+      {modifyImg && <AlertBox text='프로필이 변경되었습니다' type={true}/>}
+
     </div>
   );
 };

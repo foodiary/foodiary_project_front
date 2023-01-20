@@ -10,7 +10,7 @@ import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
 interface ResType{
   dailyId: 0;
-  dailyPath: string;
+  dailyThumbnail: string;
 }
 
 const MyScrap = () => {
@@ -39,7 +39,7 @@ const MyScrap = () => {
         {scrapList.length > 0 ? scrapList.map((item:ResType)=>{
           return(
             <Link to="/daily/detail" className={styles.card}>
-              <SmallCard img={item.dailyPath}/>
+              <SmallCard img={item.dailyThumbnail}/>
             </Link>          
           )
         }):

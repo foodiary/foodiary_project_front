@@ -18,10 +18,15 @@ const FindId = () => {
       email: email,
     }).then(res=>{
       setSend(true);
+      setErr(false)
+      setTimeout(()=>setSend(false), 3000);
+
       console.log(res); //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{
       console.log(err);
+      setSend(false);
       setErr(true);
+      setTimeout(()=>setErr(false), 3000);
     })
   }
   return (

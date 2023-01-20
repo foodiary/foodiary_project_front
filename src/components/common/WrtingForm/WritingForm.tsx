@@ -82,6 +82,7 @@ const WritingForm = ({
   }
   const onSubmit = (data:Form)=>{
     console.log(data.writingTitle);
+    // setForbidden(false);
     // setTitle(data.writingTitle);
     // setContent(data.writingContent);
     
@@ -106,12 +107,11 @@ const WritingForm = ({
     }));
     
 
-    if(!watch('writingTitle') || !watch('writingContent')){
-      setForbidden(true);
-      console.log("제출");
-    }
+    // if(!watch('writingTitle') || !watch('writingContent')){
+    //   setForbidden(true);
+    // }
 
-    else{
+    // else{
       const headers = {"Content-Type": "multipart/form-data"};
       axiosConfig({
         url : url,
@@ -132,7 +132,7 @@ const WritingForm = ({
       }).catch(err=>{
         console.log(err);
       })
-    }
+    // }
   }
   const onCancel = ()=>{
     setCancel(false);
@@ -218,7 +218,7 @@ const WritingForm = ({
           <WarnBox text='작성을 취소하시겠습니까?' btn_txt='예'/>
         </form>
       }
-      {forbidden && <AlertBox text='내용을 작성해주세요' type={false}/>}
+      {/* {forbidden && <AlertBox text='내용을 작성해주세요' type={false}/>} */}
       {success && <AlertBox text='완료되었습니다' type={true}/>}
     </div>
 

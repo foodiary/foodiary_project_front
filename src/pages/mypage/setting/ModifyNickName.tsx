@@ -62,7 +62,7 @@ const ModifyNickName = () => {
               type={"text"} 
               label={"새 닉네임"} 
               placeholder={"변경할 닉네임을 입력해주세요"}
-              text={'한글/영어/숫자로 2자리 이상 16자리 이하'}
+              text={'한글/영어/숫자로 2자리 이상 10자리 이하'}
             />
             <DuplicateCheckBtn active={!validationErr?true:false}/> 
 

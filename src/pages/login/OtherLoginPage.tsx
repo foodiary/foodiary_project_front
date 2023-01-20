@@ -7,7 +7,6 @@ import axiosConfig from "../../core/apis/utils/axiosConfig";
 import { useUserStore } from '@store/userStore';
 import { useLoginUserStore } from '@store/loginUserStore';
 import { AlertBox } from '@components/common/AlertBox/AlertBox';
-import Loading from '@pages/Loading';
 import { useUpdateUser } from '@hook/useUpdateUser';
 
 const OtherLoginPage = () => {
@@ -19,7 +18,6 @@ const OtherLoginPage = () => {
   const setMemberId = useUserStore((state)=>state.setMemberId);
   const memberId = useUserStore((state)=>state.memberId);
 
-  const [loading, setLoading] = useState(false);
   const [login, setLogin] = useState(false);
   const [err, setErr] = useState(false);
 
@@ -35,7 +33,6 @@ const OtherLoginPage = () => {
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     console.log(id, pwd);
-    setLoading(true);
     axiosConfig.post("/auth/login", {
       loginId: id,
       password: pwd,
@@ -52,9 +49,9 @@ const OtherLoginPage = () => {
       console.log(res);
 
     }).catch(err=>{
-      setLoading(false);
       console.log(err);
       setErr(true);
+      setTimeout(()=>setErr(false), 3000);
     })
 }
 
@@ -98,8 +95,6 @@ const OtherLoginPage = () => {
         {err && 
           <AlertBox type={false} text="아이디 또는 비밀번호를 다시 확인해주세요."/>
         }
-        {loading && <Loading/>}
-
       </div>
   );
 };

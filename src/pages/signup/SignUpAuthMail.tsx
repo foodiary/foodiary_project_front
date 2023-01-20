@@ -13,7 +13,6 @@ const SignUpAuthMail = () => {
 
   const [next, setNext] = useState(false);
   const [err, setErr] = useState(false);
-  const [networkErr, setNetworkErr] = useState(false);
 
   const [alert, setAlert] = useState(false);
   const [timeout, setTimeout] = useState(false);
@@ -21,11 +20,13 @@ const SignUpAuthMail = () => {
   const init = ()=>{
     setErr(false);
     setAlert(false);
+    setNext(false);
+    setTimeout(false);
   };
 
-  useEffect(()=>{
-    init();
-  },[mailauth]);
+  // useEffect(()=>{
+  //   init();
+  // },[mailauth]);
 
   const [seconds, setSeconds] = useState(300);
   useEffect(()=>{
@@ -41,32 +42,32 @@ const SignUpAuthMail = () => {
   },[seconds]);
 
   const handleSendMailAgain = ()=>{
-    setErr(false);
+    init();
+    // setErr(false);
     setSeconds(300);
     axiosConfig.post("/member/email/send",{
       email: email
     }).then(res=>{
-      if(res === undefined){
-        setAlert(false);
-        return;
-      }
-      else{
+      // if(res === undefined){
+        // setAlert(false);
+      //   return;
+      // }
+      // else{
         setAlert(true);
-        setNetworkErr(false);
-      }
+      // }
       console.log(res);
     }).catch(err=>{
       console.log(err);
       const errMsg = err.message;
       console.log(`컴포넌트에서 : ${errMsg}`);
       if(errMsg === "Network Error"){
-        setNetworkErr(true);
       }
       setAlert(false);
     })
   }
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
+    init();
     axiosConfig.post('/member/email/send/confirm',{
       email: email,
       num: mailauth
@@ -127,9 +128,7 @@ const SignUpAuthMail = () => {
         {timeout && 
           <AlertBox type={false} text="인증시간이 초과되었습니다. 메일을 다시 보내주세요"/>
         }
-        {networkErr && 
-          <AlertBox type={false} text="네트워크가 원활하지 않습니다. 다시 확인해주세요"/>
-        }
+        
     </div>
   );
 };

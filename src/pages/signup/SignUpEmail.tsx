@@ -32,15 +32,16 @@ const SignUpEmail = () => {
       email: email,
     }).then(res=>{
       console.log(`성공의 응답?: ${res}`);
-      if(res === undefined){
-        setErr(true);
-        setEmailYn("Y");
-        return;
-      }
-      else{
+      // if(res === undefined){
+      //   setErr(true);
+      //   // setEmailYn("Y");
+      //   return;
+      // }
+      // else{
         setErr(false);
         setSend(true);
-      }
+        setEmailYn("Y");
+      // }
       //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
     }).catch(err=>{
       setErr(true);
@@ -54,6 +55,7 @@ const SignUpEmail = () => {
       email: email
     }).then(res=>{
       console.log(res);
+
     }).catch(err=>{
       console.log(err);
     })
