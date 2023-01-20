@@ -66,7 +66,6 @@ const ContactDetail = () => {
       console.log(err);
     })
   }
-console.log(viewBtn, cancel);
   return (
     <div className={styles.mywriting}>
       <div className={`${styles.tab} ${styles.contact_tab}`}>
@@ -98,9 +97,9 @@ console.log(viewBtn, cancel);
           </div>
           
 
-          <p className={styles.detail_content}>
-            <pre>{res?.questionContent}</pre>
-          </p>
+          <pre className={styles.detail_content}>
+            <p>{res?.questionContent}</p>
+          </pre>
           <div className={styles.status}>
             <p className={styles.state}>
               {res?.questionAnswerYn==="Y"? "답변완료": "답변대기"}
@@ -138,7 +137,7 @@ console.log(viewBtn, cancel);
           state={{
             title: res?.questionTitle,
             content: res?.questionContent,
-            // existingPath: res.
+            existingPath: res?.questionPath,
           }}
         >
           <HalfButton type='button' text='수정'/>

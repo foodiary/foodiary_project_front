@@ -56,5 +56,5 @@
     "@craco/craco": "^7.0.0",
     "craco-alias": "^3.0.1"
   },
-  "proxy": "https://6ab6-121-153-26-28.jp.ngrok.io"
+  "proxy": "https://www.foodiary.store"
 }

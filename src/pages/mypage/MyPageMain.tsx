@@ -13,6 +13,8 @@ import { btnStateStore } from '@store/btnStateStore';
 import { useLoginUserStore } from '@store/loginUserStore';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useUpdateUser } from '@hook/useUpdateUser';
+import {CgComment} from 'react-icons/cg';
+import {BiBookBookmark, BiHeart} from 'react-icons/bi';
 
 const MyPageMain = () => {
   useUpdateUser();
@@ -124,27 +126,31 @@ const MyPageMain = () => {
       </p>
       <div className={styles.myWriting_btns}>
         <div className={styles.link}>
-          <Link to="/mypage/mywriting">
-            <img src={myWriting} alt="이미지"/>
+          <Link to="/mypage/mywriting" className={styles.img} style={{'backgroundColor': '#03C75A'}}>
+            <CgComment/>
+            {/* <img src={myWriting} alt="이미지"/> */}
           </Link>
           <p>내가 쓴 글</p>
         </div>
         <div className={styles.link}>
-          <Link to="/mypage/mycomments">
-            <img src={myComments} alt="이미지"/>
+          <Link to="/mypage/mycomments" className={styles.img} style={{'backgroundColor': '#FF007F'}}>
+            <CgComment/>
+            {/* <img src={myComments} alt="이미지"/> */}
           </Link>
           <p>내가 쓴 댓글</p>
         </div>
         <div className={styles.link}>
-          <Link to="/mypage/mygood">
-            <img src={myGood} alt="이미지"/>
+          <Link to="/mypage/mygood" className={styles.img} style={{'backgroundColor': 'pink'}}>
+            <BiHeart/>
 
+            {/* <img src={myGood} alt="이미지"/> */}
           </Link>
           <p>좋아요 글</p>
         </div>
         <div className={styles.link}>
-          <Link to="/mypage/myscrap">
-            <img src={myScrap} alt="이미지"/>
+          <Link to="/mypage/myscrap" className={styles.img} style={{'backgroundColor': 'rgb(106, 195, 246)'}}>
+            <BiBookBookmark/>
+            {/* <img src={myScrap} alt="이미지"/> */}
           </Link>
           <p>스크랩 글</p>
         </div>

@@ -68,10 +68,13 @@
 .preview_container{
   position: relative;
   @include flexBox();
+  
   .preview{
     width: 150px;
     height: 150px;
     border-radius: 8px;
+    margin: 30px 0;
+    // margin-bottom: 20px;
     // margin: auto;
   }
   button{

@@ -28,7 +28,7 @@ interface PropsType{
   storedContent?: string; //수정할때 내용 가져오기
   label?: string; //'문의내용' / '내용' 라벨 구분
   url?: string; //서버 api
-  existingPath?: string;
+  existingPath?: string; //기존 이미지
   formData?: FormData;
   dtoType?: string;
 }
@@ -39,7 +39,6 @@ const WritingForm = ({
   maxLength,
   url,
   existingPath,
-  formData,
   dtoType,
   edit=false,
   label='내용'
@@ -52,7 +51,7 @@ const WritingForm = ({
       writingContent: storedContent? storedContent: "",
     }
   });
-
+  console.log(existingPath);
   const [length, setLength] = useState(0); //내용 길이
   const navigate = useNavigate();
 
@@ -76,42 +75,49 @@ const WritingForm = ({
 
   const [success, setSuccess] = useState(false); //작성완료 알럿창
 
+
+  useEffect(()=>{
+    onFileInit();
+  },[]);
+
   const onFileInit = ()=>{
     setFileURL([]);
     setImg([]);
   }
   const onSubmit = (data:Form)=>{
-    console.log(data.writingTitle);
-    // setForbidden(false);
-    // setTitle(data.writingTitle);
-    // setContent(data.writingContent);
-    
-    const writeInfo = {
-      memberId: memberId,
-      questionContent: data.writingContent,
-      questionTitle: data.writingTitle,
-      questionPath: existingPath, //없으면 빈값
+    // let sendPath:string|null;
+    console.log(removeExistingImg);
+    console.log(img);
+    let writeInfo = {};
+    if(removeExistingImg && img.length===0){ //
+      ///sendPath = existingPath!; //기존이미지 삭제시 이미지 경로 보내야함(삭제할수잇게)
+      writeInfo = {
+        memberId: memberId,
+        questionContent: data.writingContent,
+        questionTitle: data.writingTitle,
+        questionPath: existingPath!, //없으면 빈값
+      }
     }
-    console.log(edit, writeInfo, dtoType, url);
-
+    else{
+      writeInfo = {
+        memberId: memberId,
+        questionContent: data.writingContent,
+        questionTitle: data.writingTitle,
+      }    
+    }
+ 
+    
     let formData = new FormData();
     if(img){
       for(let i=0; i<img.length; i++){
         formData.append('memberImage', img[i]);
       }
-      // formData.append('memberImage', img);
     }
-  
+
     formData.append(dtoType!, new Blob([JSON.stringify(writeInfo)], {
       type: "application/json"
     }));
     
-
-    // if(!watch('writingTitle') || !watch('writingContent')){
-    //   setForbidden(true);
-    // }
-
-    // else{
       const headers = {"Content-Type": "multipart/form-data"};
       axiosConfig({
         url : url,
@@ -124,7 +130,6 @@ const WritingForm = ({
         setImg([]);
         setSuccess(true);
         setTimeout(()=>navigate("/mypage/mycontact"),2000);
-        // navigate("/mypage/mycontact");
         reset({
           writingContent:"",
           writingTitle: "",
@@ -132,7 +137,6 @@ const WritingForm = ({
       }).catch(err=>{
         console.log(err);
       })
-    // }
   }
   const onCancel = ()=>{
     setCancel(false);

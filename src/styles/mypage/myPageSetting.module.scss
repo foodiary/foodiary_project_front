@@ -4,7 +4,7 @@
   position: relative;
   .btn, .btn_container{
     position: fixed;
-    bottom: 100px;
+    bottom: 62px;
   }
   .btn_container{
     @include flexBox();

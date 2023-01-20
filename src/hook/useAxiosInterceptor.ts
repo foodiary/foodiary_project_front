@@ -28,13 +28,16 @@ export const useAxiosInterceptor = ()=>{
       if (accessToken) {
         localStorage.removeItem("access_token");
       }
+      if(!refreshToken){
+        return;
+      }
 
       try {
         console.log('리프레시 다시')
         console.log(refreshToken);
 
         const headers = { Refresh: `${refreshToken}` };
-        const res = await axios.get("/auth/reissue", { headers }); //refresh로 access 토큰 재발급
+        const res = await axiosConfig.get("/auth/reissue", { headers }); //refresh로 access 토큰 재발급
         const data = res.data;
         console.log(res);
         const newAccessToken = data.data.accessToken;
@@ -53,7 +56,6 @@ export const useAxiosInterceptor = ()=>{
       }
     }
     return Promise.reject(err);
-    // setErr(true); // 알럿박스를 어떻게 보여줄지...? ts인데? -> 훅으로 만들기?->전역변수?
   }
 
   const requestHandler = (config:AxiosRequestConfig<any>)=>{

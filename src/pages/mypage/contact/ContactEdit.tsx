@@ -9,12 +9,13 @@ import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 interface ResType{
   questionContent: string;
   questionTitle: string;
+  questionPath: string;
   //이미지도 받아야함
 }
 
 const ContactEdit = () => {
   const {search, state} = useLocation();
-
+  console.log(state);
   const questionId = search.slice(1);
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const [detail, setDetail] = useState([]);
@@ -33,11 +34,11 @@ const ContactEdit = () => {
         <WritingForm 
           storedTitle={state.title}
           storedContent={state.content}
+          existingPath = {state.existingPath}
           edit={true}
           maxLength={1000}
           label='문의 내용'
           url={`/question/${memberId}/${questionId}`}
-          existingPath="" //기존 파일
           dtoType='memberQuestionEditResponseDto'
         />
       </div>
