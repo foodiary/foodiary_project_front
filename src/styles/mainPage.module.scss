@@ -185,10 +185,26 @@ section {
     gap: 10px;
   }
   .card_container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
     width: 95%;
     margin: 40px auto 0 auto;
-    gap: 15px 10px;
+    img{
+      width: 130px;
+      height: 120px;
+    }
+  }
+  .rank_card_container{
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    background: white;
+    padding: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    p{
+      font-size: 16px;
+      font-weight: 400;
+      color: #111;
+    }
   }
 }
