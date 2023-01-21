@@ -38,6 +38,7 @@ const ExploreDetail = () => {
 
       <div className={styles.card_container}>
         {list.map((item:ResType)=>{
+          console.log(item)
           return(
             <Link to= {`/detail/${item.dailyId}`} key={item.dailyId}>
               <div className={styles.card}>
@@ -45,10 +46,9 @@ const ExploreDetail = () => {
                   img={item.dailyThumbnail} 
                   info={true}
                   title={item.dailyTitle}
-                  content={"내용내용내용내용내용"}
                   like={item.dailyLike}
                   view = {item.dailyView}
-                  userId={"푸디어리"}/>
+                  userId={item.dailyWriter || "푸디어리"}/>
               </div>
             </Link>
           )

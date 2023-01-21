@@ -147,11 +147,12 @@ export const LargeCard = ({
   comment,
   view,
   none,
+  img
 }: cardStyleProps) => {
   return (
     <div className={styled.cardWrapper} style={{ padding: "8px" }}>
       <div className={styled.img}>
-        <img src={sample_img} alt="img" className={styled.largeSize} />
+        <img src={img || sample_img} alt="img" className={styled.largeSize} />
       </div>
       {tag && (
         <div className={styled.tagContainer}>
@@ -175,7 +176,7 @@ export const LargeCard = ({
               </div>
             )}
 
-            {like && (
+            {like !== 0 && (
               <div className={styled.infoContents}>
                 <div className={styled.infoDeco} />
                 <p>{like}</p>

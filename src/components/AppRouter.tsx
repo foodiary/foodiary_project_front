@@ -49,6 +49,8 @@ import { useLoginUserStore } from '@store/loginUserStore';
 import axios from 'axios';
 import Loading from '@pages/Loading';
 import MyContact from '@pages/mypage/contact/MyContact';
+import Search from '@pages/Search';
+import SearchResult from '@pages/SearchResult';
 
 const AppRouter = () => {
   const token = localStorage.getItem("access_token");
@@ -102,6 +104,8 @@ const AppRouter = () => {
 
             <Route path='/member/password/change' element={<ModifyPwd/>}/>
             <Route path='/write' element={<WritingPage/>}/>
+            <Route path='/search' element={<Search/>}/>
+            <Route path='/search/result' element={<SearchResult/>}/>
 
           </Route>
 

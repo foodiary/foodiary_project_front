@@ -18,7 +18,7 @@ interface ResType {
   dailyComment: number;
   dailyCreate: string;
   dailyLike: number;
-  dailyThumbnail: string;
+  dailyImageList: string[];
   dailyTitle: string;
   dailyView: number;
   dailyWriter: string;
@@ -123,7 +123,7 @@ const WritingDetails = () => {
   return (
     <div className={styles.writing_detail}>
       <div className={styles.img}>
-        <img src={contents?.dailyThumbnail} alt="첨부사진" />
+        <img src={contents?.dailyImageList[0]} alt="첨부사진" />
       </div>
 
       <div className={styles.ranking_container}>
