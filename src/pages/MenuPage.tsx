@@ -5,7 +5,7 @@ import { useLoginUserStore } from "@store/loginUserStore";
 
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const RankingPage = () => {
+const MenuPage = () => {
   const [menuList, setMenuList] = useState([]);
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
 
@@ -13,11 +13,12 @@ const RankingPage = () => {
     weekMenu();
   }, [menuList]);
 
+
   const weekMenu = () => {
     //일주일 식단 추천
     axiosConfig
       .get(`/food/menu/week`, {
-        params: { memberId: memberId, date: "2023-01-16" },
+        params: { memberId: memberId, date: new Date("2023-01-16") },
       })
       .then((res) => {
         console.log(res);
@@ -28,7 +29,7 @@ const RankingPage = () => {
       });
   };
 
-  console.log(menuList);
+  console.log(new Date("2023-01-16"));
 
   return (
     <section>
@@ -83,4 +84,4 @@ const RankingPage = () => {
   );
 };
 
-export default RankingPage;
+export default MenuPage;

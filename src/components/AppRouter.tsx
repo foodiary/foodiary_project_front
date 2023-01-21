@@ -38,7 +38,7 @@ import { useUserStore } from '@store/userStore';
 import SignUpPwdConfirm from '@pages/signup/SignUpPwdConfirm';
 import PrivateRouter from './PrivateRouter';
 import ScrollRestoration from './ScrollRestoration';
-import RankingPage from '@pages/RankingPage';
+import MenuPage from '@pages/MenuPage';
 import ExplorePage from '@pages/ExplorePage';
 import ExploreDetail from '@pages/ExploreDetail';
 import WritingDetails from '@pages/WritingDetails';
@@ -67,7 +67,7 @@ const AppRouter = () => {
             {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
             {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
             
-            <Route path='/hot' element={<RankingPage/>}/>
+            <Route path='/menu' element={<MenuPage/>}/>
 
             <Route path='/detail/:id' element={<WritingDetails/>}/>
 

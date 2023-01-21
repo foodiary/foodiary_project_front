@@ -46,7 +46,7 @@ const WritingDetails = () => {
   const getContents = () => {
     axiosConfig
       .get(`/dailys/details`, {
-        params: { dailyId: "1", memberId: memberId || "0" },
+        params: { dailyId: id, memberId: memberId || "0" },
       })
       .then((res) => {
         console.log(res);
@@ -127,8 +127,8 @@ const WritingDetails = () => {
       </div>
 
       <div className={styles.ranking_container}>
-        <div className={styles.ranking}>Top 20</div>
-        <div className={styles.ranking}>Top 20</div>
+        <div className={styles.ranking}>Month Top 20</div>
+        <div className={styles.ranking}>Week Top 20</div>
       </div>
 
       <div className={styles.writing_container}>
