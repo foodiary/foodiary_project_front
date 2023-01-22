@@ -121,13 +121,14 @@ const isThumbnail = useImgFileStore(state => state.isThumbnail)
     content: content || contents?.dailyBody,
     thumbnailYn : isThumbnail,
     deletePath : [contents?.dailyImageList[0]],
-    thumbnailPath : img[0]
+    // thumbnailPath : img[0]
   }
 
   let editFormData = new FormData();
   editFormData.append("dailyEdit", new Blob([JSON.stringify(editWriteInfo)], {
     type: "application/json"
   }))
+  editFormData.append('dailyImage', img[0]);
 
   const onEdit = (e:FormEvent)=>{
     e.preventDefault();
