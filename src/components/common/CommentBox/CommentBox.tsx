@@ -9,6 +9,7 @@ interface ResType{
   dailyCommentCreate: string;
   // "dailyCommentId": number;
   dailyCommentWriter: string;
+  dailyCommentImg:string;
   // dailyId: number;
   // dailyLike: number;
   // dailyScrap: number;
@@ -20,6 +21,7 @@ const CommentBox = ({
   dailyCommentBody,
   dailyCommentCreate,
   dailyCommentWriter,
+  dailyCommentImg,
   isMine,
 }:ResType) => {
   const date = dailyCommentCreate.slice(0,10).replaceAll("-",".");
@@ -29,7 +31,7 @@ const CommentBox = ({
     <div>
       <div className={styles.comment_container}>
         <img 
-          src={memberPath === null? basic_profile: memberPath} 
+          src={dailyCommentImg || basic_profile} 
           className={styles.profile_picture} 
           alt="프사"/>
         <button className={styles.more_btn}>

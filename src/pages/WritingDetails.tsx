@@ -189,6 +189,7 @@ const WritingDetails = () => {
             console.log(item)
             return (
               <CommentBox
+              dailyCommentImg={item.memberImage}
                 dailyCommentBody={item.dailyCommentBody}
                 dailyCommentCreate={item.dailyCommentCreate.slice(0,10)}
                 dailyCommentWriter={item.dailyCommentWriter}
