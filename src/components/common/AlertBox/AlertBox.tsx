@@ -72,7 +72,7 @@ export const WarnBox = ({text, btn_txt}:WarnType)=>{
           <div className={styles.red}>
             <HalfAlertButton btn_txt={btn_txt} type='submit'/>
           </div>
-          <div onClick={()=>{setCancel(true)}} className={styles.black}>
+          <div onClick={()=>{setCancel(false)}} className={styles.black}>
             <HalfAlertButton btn_txt='취소' type='button'/>
           </div>
         </div>

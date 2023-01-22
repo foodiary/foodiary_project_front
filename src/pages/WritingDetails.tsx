@@ -112,10 +112,15 @@ const WritingDetails = () => {
   };
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    axiosConfig.delete(`/daily/${id}/${memberId}`).then((res) => {
+      console.log(res)
+      navigate("/explore")
+    })
     setCancel(false);
     setViewBtn(false);
     console.log("삭제ㅇㅇ"); //알럿창
   }
+  
 
   const date = contents?.dailyCreate.slice(0,10).replaceAll("-",".");
 
