@@ -38,7 +38,7 @@ import { useUserStore } from '@store/userStore';
 import SignUpPwdConfirm from '@pages/signup/SignUpPwdConfirm';
 import PrivateRouter from './PrivateRouter';
 import ScrollRestoration from './ScrollRestoration';
-import RankingPage from '@pages/RankingPage';
+import MenuPage from '@pages/MenuPage';
 import ExplorePage from '@pages/ExplorePage';
 import ExploreDetail from '@pages/ExploreDetail';
 import WritingDetails from '@pages/WritingDetails';
@@ -49,6 +49,8 @@ import { useLoginUserStore } from '@store/loginUserStore';
 import axios from 'axios';
 import Loading from '@pages/Loading';
 import MyContact from '@pages/mypage/contact/MyContact';
+import Search from '@pages/Search';
+import SearchResult from '@pages/SearchResult';
 
 const AppRouter = () => {
   const token = localStorage.getItem("access_token");
@@ -65,7 +67,7 @@ const AppRouter = () => {
             {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
             {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
             
-            <Route path='/hot' element={<RankingPage/>}/>
+            <Route path='/menu' element={<MenuPage/>}/>
 
             <Route path='/detail/:id' element={<WritingDetails/>}/>
 
@@ -102,6 +104,8 @@ const AppRouter = () => {
 
             <Route path='/member/password/change' element={<ModifyPwd/>}/>
             <Route path='/write' element={<WritingPage/>}/>
+            <Route path='/search' element={<Search/>}/>
+            <Route path='/search/result' element={<SearchResult/>}/>
 
           </Route>
 

@@ -14,7 +14,7 @@ const NavBar = () => {
       <Link to="/">
         <img src={home_icon} alt="홈" className={pathname==="/" ? "": styles.no_active}/>
       </Link>  
-      <Link to="/hot" className={pathname==="/hot" ? "": styles.no_active}>
+      <Link to="/menu" className={pathname==="/menu" ? "": styles.no_active}>
         <MdOutlineRestaurantMenu size={'25px'}/>
         {/* <img src={hot_icon} alt="랭킹" className={pathname==="/hot" ? "": styles.no_active}/> */}
       </Link>

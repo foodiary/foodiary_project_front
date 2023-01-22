@@ -1,0 +1,18 @@
+.search_result_container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.search_result_box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 95%;
+    gap: 20px 8px;
+}
+
+.search_keyword{
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+    padding: 30px 0;
+}

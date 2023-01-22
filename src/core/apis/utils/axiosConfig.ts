@@ -4,7 +4,7 @@ axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["Referrer-Policy"] = "no-referrer-when-downgrade";
 
-const instance = axios.create({
+const axiosConfig = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "Access-Control-Allow-Origin": "*",
@@ -13,7 +13,7 @@ const instance = axios.create({
   // timeout: 20000
 });
 
-// instance.interceptors.request.use(
+// axiosConfig.interceptors.request.use(
 //   (config) => {
 //     const accessToken = localStorage.getItem("access_token");
 //     if (accessToken) {
@@ -27,7 +27,7 @@ const instance = axios.create({
 //   (err) => Promise.reject(err)
 // );
 
-// instance.interceptors.response.use(
+// axiosConfig.interceptors.response.use(
 //   (response) => {
 //     console.log("인터셉트 응답:" + response.data);
 
@@ -89,4 +89,4 @@ export const METHOD = {
   DELETE: "DELETE",
 };
 
-export default instance;
+export default axiosConfig;

@@ -20,6 +20,9 @@ import { GoSearch } from "react-icons/go";
 import { useUpdateUser } from "@hook/useUpdateUser";
 import { useLoadingStore } from "@store/loadingStore";
 import { AlertBox } from "@components/common/AlertBox/AlertBox";
+import oneRank from "@img/rank01.png"
+import twoRank from "@img/rank01.png"
+import threeRank from "@img/rank01.png"
 
 interface ResType {
   dailyId: number;
@@ -155,6 +158,8 @@ const MainPage = () => {
   const [month, setMonth] = useState(true);
   let url = "";
 
+  console.log(rankingList)
+
   const getRankList = () => {
     if (month) {
       url = "/rank/month";
@@ -243,10 +248,12 @@ const MainPage = () => {
           <div className={styled.card_container}>
             {rankingList.length > 0 ? (
               rankingList.map((item: ResType) => {
-                // console.log(item);
                 return (
                   <Link to={`/detail/${item.dailyId}`}>
-                    <SmallCard img={item.dailyThumbnail} />
+                    <div className={styled.rank_card_container}>
+                      <img src={item.dailyThumbnail} alt="" />
+                      <p>{item.dailyTitle}</p>
+                    </div>
                   </Link>
                 );
               })

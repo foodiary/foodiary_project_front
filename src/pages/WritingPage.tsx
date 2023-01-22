@@ -49,33 +49,36 @@ const WritingPage = () => {
 
   let formData = new FormData();
   formData.append('dailyImage', img[0]);
+  formData.append('thumbnail', img[0]);
   formData.append('dailyWrite', new Blob([JSON.stringify(writeInfo)], {
     type: "application/json"
   }));  
 
+  console.log(formData)
+
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
-    console.log(title, content);
-    // const headers = {"Content-Type": "multipart/form-data"};
-    // e.preventDefault();
-    // setLoading(true);
-    // axiosConfig.post("/daily", formData ,{headers})
-    //   .then(res=>{
-    //     console.log(res);
-    //     if(res){
-    //       setLoading(false);
-    //       setTimeout(()=>{navigate("/");},2000); //성공 알럿창 
-    //       // navigate("/");
-    //     }
-    //     console.log("가입 완료");
-    //     //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
-    //   }).catch(err=>{
-    //     console.log(err);
-    //   })
+    const headers = {"Content-Type": "multipart/form-data"};
+    setLoading(true);
+    axiosConfig.post("/daily", formData ,{headers})
+      .then(res=>{
+        console.log(res);
+        if(res){
+          setLoading(false);
+          setTimeout(()=>{navigate("/");},2000); //성공 알럿창 
+          // navigate("/");
+        }
+        console.log("가입 완료");
+        //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
+      }).catch(err=>{
+        console.log(err);
+      })
   }
 
   return (
     <div>
+     
+      <form onSubmit={onSubmit} encType="multipart/form-data">
       <div className={styles.write_container}>
         <p>하루 식단 글 작성</p>
         <input type="text" placeholder='제목' className={styles.title}
@@ -99,7 +102,6 @@ const WritingPage = () => {
             <img src={fileURL[0]} alt="첨부파일" className={styles.attach_img}/>: null
           }
       </div>
-      <form onSubmit={onSubmit}>
           <LoginButton 
             text='작성 완료' 
             type='submit' 

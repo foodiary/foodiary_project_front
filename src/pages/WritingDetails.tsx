@@ -18,7 +18,7 @@ interface ResType {
   dailyComment: number;
   dailyCreate: string;
   dailyLike: number;
-  dailyThumbnail: string;
+  dailyImageList: string[];
   dailyTitle: string;
   dailyView: number;
   dailyWriter: string;
@@ -46,7 +46,7 @@ const WritingDetails = () => {
   const getContents = () => {
     axiosConfig
       .get(`/dailys/details`, {
-        params: { dailyId: "1", memberId: memberId || "0" },
+        params: { dailyId: id, memberId: memberId || "0" },
       })
       .then((res) => {
         console.log(res);
@@ -123,12 +123,12 @@ const WritingDetails = () => {
   return (
     <div className={styles.writing_detail}>
       <div className={styles.img}>
-        <img src={contents?.dailyThumbnail} alt="첨부사진" />
+        <img src={contents?.dailyImageList[0]} alt="첨부사진" />
       </div>
 
       <div className={styles.ranking_container}>
-        <div className={styles.ranking}>Top 20</div>
-        <div className={styles.ranking}>Top 20</div>
+        <div className={styles.ranking}>Month Top 20</div>
+        <div className={styles.ranking}>Week Top 20</div>
       </div>
 
       <div className={styles.writing_container}>

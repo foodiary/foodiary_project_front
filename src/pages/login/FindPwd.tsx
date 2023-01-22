@@ -15,27 +15,25 @@ const FindPwd = () => {
   const [err, setErr] = useState(false);
 
   const onSubmit = (e:FormEvent)=>{
+    setErr(false);
+    setSend(false);
     e.preventDefault();
+
     axiosConfig.post("/member/find/password", {
       email: email,
       loginId: id,
     }).then(res=>{
-      if(res.status === 404){
-        setErr(true);
-        setSend(false);
-      }
-      else{
         setErr(false);
         setSend(true);
-      }
-      console.log(res); 
-      setTimeout(()=>setSend(false), 3000);
+        console.log(res); 
+      // setTimeout(()=>setSend(false), 3000);
 
     }).catch(err=>{
       console.log(err);
-      setTimeout(()=>setErr(false), 3000);
-
-      // setErr(true);
+      if(err.response.status === 404){
+        setErr(true);
+        setSend(false);
+      }    
     })
   }
   return (

@@ -14,6 +14,7 @@ import { useLoginUserStore } from '@store/loginUserStore';
 import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useUpdateUser } from '@hook/useUpdateUser';
 import {CgComment} from 'react-icons/cg';
+import {TfiWrite} from 'react-icons/tfi';
 import {BiBookBookmark, BiHeart} from 'react-icons/bi';
 
 const MyPageMain = () => {
@@ -127,7 +128,7 @@ const MyPageMain = () => {
       <div className={styles.myWriting_btns}>
         <div className={styles.link}>
           <Link to="/mypage/mywriting" className={styles.img} style={{'backgroundColor': '#03C75A'}}>
-            <CgComment/>
+            <TfiWrite/>
             {/* <img src={myWriting} alt="이미지"/> */}
           </Link>
           <p>내가 쓴 글</p>
