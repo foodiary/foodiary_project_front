@@ -5,19 +5,14 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 
 export const useAxiosInterceptor = ()=>{
-  // const [err, setErr] = useState(false);
-  const err = useErrorStore(state=>state.err);
-  const setErr = useErrorStore(state=>state.setErr);
 
   const setLoading = useLoadingStore(state=>state.setLoading);
-  const loading = useLoadingStore(state=>state.loading);
 
   const errorHandler = async(err:AxiosError)=>{ //res에서 넘어온 에러
     setLoading(false);
     
     const config = err.config;
     console.log(`인터셉트 에러: ${err}`);
-    // console.log(`에러 msg: ${err.response}`);
 
     //액세스토큰 만료 시
     if (err.response?.status === 401) {
@@ -58,7 +53,7 @@ export const useAxiosInterceptor = ()=>{
     return Promise.reject(err);
   }
 
-  const requestHandler = (config:AxiosRequestConfig<any>)=>{
+  const requestHandler = (config:AxiosRequestConfig)=>{
     // console.log(config);
     setLoading(true); //리퀘스트시 로딩 켜기
 
@@ -73,7 +68,7 @@ export const useAxiosInterceptor = ()=>{
   }
   const requestInterceptor = axiosConfig.interceptors.request.use(requestHandler);
 
-  const responseHandler = (response:AxiosResponse<any, any>)=>{
+  const responseHandler = (response:AxiosResponse)=>{
     setLoading(false); //응답 후 로딩 끄기
 
     console.log("인터셉트 응답:" + response);

@@ -38,7 +38,7 @@ const OtherLoginPage = () => {
       password: pwd,
     }).then(res=>{
       const memberId = res.data.memberId;
-      // setMemberId(memberId);
+      
       axiosConfig.get(`/member/${memberId}`)
       .then(res=>{
         setUserInfo(res.data);

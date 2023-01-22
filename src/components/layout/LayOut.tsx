@@ -28,6 +28,8 @@ export const MainLayOut = ({children}:LayoutRouteProps) => {
 };
 
 export const LoginLayout = ({children}:LayoutRouteProps) => {
+  useAxiosInterceptor();
+
   return (
     <div className={styles.layout}>
       <LoginHeader/>
