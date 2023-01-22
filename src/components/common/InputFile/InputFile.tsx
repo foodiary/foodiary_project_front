@@ -10,6 +10,7 @@ const InputFile = ({multiple=false}:FileOption) => {
 
   const setFileURL = useImgFileStore(state=>state.setFileURL);
   const setImg = useImgFileStore(state=>state.setImg);
+  const setIsThumbnail = useImgFileStore(state => state.setIsThumbnail)
 
   const [err, setErr] = useState(false);
   const [fileArr, setFileArr] = useState<File[]>([])
@@ -17,6 +18,7 @@ const InputFile = ({multiple=false}:FileOption) => {
   const onFileChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
     const file = e.currentTarget.files!;
     setErr(false);
+    setIsThumbnail(true)
 
     let list = [];
     let urlList = [];

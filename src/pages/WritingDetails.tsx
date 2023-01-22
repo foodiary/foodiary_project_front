@@ -31,17 +31,19 @@ const WritingDetails = () => {
 
   const { pathname } = useLocation();
   const id = pathname.slice(8); // 글 아이디
-  console.log(id);
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
 
   const [contents, setContents] = useState<ResType>();
   const [comments, setComments] = useState([]);
+  const [refetch, setRefetch] = useState(0)
 
   const [value, setValue] = useState("");
   const [viewBtn, setViewBtn] = useState(false);
 
   const cancel = btnStateStore((state) => state.cancel);
   const setCancel = btnStateStore((state) => state.setCancel);
+
+  console.log(comments)
 
   const getContents = () => {
     axiosConfig
@@ -56,23 +58,32 @@ const WritingDetails = () => {
         console.log(err);
       });
   };
-  // const getComments = () => {
-  //   const page = 1;
-  //   axiosConfig
-  //     .get(`/daily/comment`, { params: { dailyId: id, page: page } })
-  //     .then((res) => {
-  //       console.log(res);
-  //       setComments(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  const getComments = () => {
+    const page = 1;
+    axiosConfig
+      .get(`/dailys/comment`, { params: { dailyId: id, memberId: memberId ,page: page } })
+      .then((res) => {
+        console.log(res);
+        setComments(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onDailyLike = () => {
+    axiosConfig.post(`/daily/like/${id}/${memberId}`).then((res) => {
+      setRefetch(prev => prev+1)
+      alert("좋아요 완료")
+    }).catch((err) =>{
+      console.log(err)
+    })
+  }
 
   useEffect(() => {
     getContents();
-    // getComments();
-  }, []);
+    getComments();
+  }, [refetch]);
 
   const onModify = () => {
     setViewBtn((prev) => !prev);
@@ -92,23 +103,16 @@ const WritingDetails = () => {
     axiosConfig
       .post("/daily/comment", data)
       .then((res) => {
-        console.log(res);
-        console.log("성공");
+        setRefetch(prev => prev+1)
         setValue("");
-        // return(<AlertBox text='등록되었습니다' type={true}/>)
-        return alert("완료");
+        // return alert("댓글이 성공적으로 등록되었습니다.");
       })
       .catch((err) => {
         console.log(err);
       });
   };
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // navigate("/daily/modify", {state:{
-    //   content: commentContent,
-    //   dailyId: dailyId,
-    //   commentId: commentId,
-    // }});
-    console.log("수정버튼 클릭");
+    navigate(`/modify/${id}`);
   };
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -118,7 +122,6 @@ const WritingDetails = () => {
     })
     setCancel(false);
     setViewBtn(false);
-    console.log("삭제ㅇㅇ"); //알럿창
   }
   
 
@@ -155,7 +158,7 @@ const WritingDetails = () => {
             <p>{contents?.dailyView}</p>
           </div>
           <div className={styles.res}>
-            <BsSuitHeart />
+            <button type="button" onClick={onDailyLike}><BsSuitHeart /></button>
             <p>{contents?.dailyLike}</p>
           </div>
         </div>
@@ -182,12 +185,13 @@ const WritingDetails = () => {
 
       <div className={styles.comments_container}>
         {comments.length > 0 ? (
-          comments.map((item) => {
+          comments.map((item:any) => {
+            console.log(item)
             return (
               <CommentBox
-                dailyCommentBody="코멘트내용"
-                dailyCommentCreate="23/01/16"
-                dailyCommentWriter="꺄르륵"
+                dailyCommentBody={item.dailyCommentBody}
+                dailyCommentCreate={item.dailyCommentCreate.slice(0,10)}
+                dailyCommentWriter={item.dailyCommentWriter}
               />
             );
           })
