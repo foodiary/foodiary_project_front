@@ -11,14 +11,14 @@ const MenuPage = () => {
 
   useEffect(() => {
     weekMenu();
-  }, [menuList]);
+  }, []);
 
 
   const weekMenu = () => {
     //일주일 식단 추천
     axiosConfig
       .get(`/food/menu/week`, {
-        params: { memberId: memberId, date: new Date("2023-01-16") },
+        params: { memberId: memberId, date: "2023-01-22"},
       })
       .then((res) => {
         console.log(res);
