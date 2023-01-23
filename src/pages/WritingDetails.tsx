@@ -189,10 +189,12 @@ const WritingDetails = () => {
             console.log(item)
             return (
               <CommentBox
-              dailyCommentImg={item.memberImage}
+                dailyCommentImg={item.memberImage}
                 dailyCommentBody={item.dailyCommentBody}
                 dailyCommentCreate={item.dailyCommentCreate.slice(0,10)}
                 dailyCommentWriter={item.dailyCommentWriter}
+                dailyCommentId = {item.dailyCommentId}
+                isMine = {item.userCheck}
               />
             );
           })
@@ -205,12 +207,12 @@ const WritingDetails = () => {
           <div className={styles.black} onClick={onClick}>
             <HalfButton type="button" text="수정" />
           </div>
-          <div className={styles.red} onClick={() => setCancel(true)}>
+          <div className={styles.red} onClick={() => setCancel(false)}>
             <HalfButton type="button" text="삭제" />
           </div>
         </div>
       )}
-      {cancel && (
+      {!cancel && (
         <form onSubmit={onSubmit}>
           <WarnBox text="정말 삭제하시겠습니까?" btn_txt="삭제" />
         </form>

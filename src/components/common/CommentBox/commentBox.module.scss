@@ -32,3 +32,18 @@
     }
   }
 }
+.view_btn{
+  @include flexBox();
+  position: fixed;
+  bottom: 62px;
+  
+  .black{
+    background-color: black;
+    border-radius: 16px 0 0 0;
+  }
+  .red{
+    background-color: $point;
+    border-radius: 0 16px 0 0;
+
+  }
+}

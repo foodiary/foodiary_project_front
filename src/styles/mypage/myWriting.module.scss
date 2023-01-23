@@ -1,6 +1,5 @@
 @import '../main.module.scss';
 @import '../globals.css';
-// @import './myComments.module.scss';
 
 .mywriting{
   position: relative;
@@ -9,6 +8,7 @@
   .title{
     margin: 135px 0 30px 20px;
   }
+
   .card_container{
     display: grid;
     background-color: white;
@@ -16,13 +16,15 @@
     width: 95%;
     margin: auto;
     gap: 10px;
+    
     .card{
-      // margin: 10px;
       width: 98%;
     }
-    // .empty{
-    //   border: 1px solid blue;
-    // }
   }
 
+  .scroll_target{
+    @include text-style(16px, $gray-400, 500);
+    padding: 20px;
+    margin: 10px;
+  }
 }

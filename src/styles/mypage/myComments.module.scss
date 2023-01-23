@@ -6,9 +6,9 @@
 }
 
 .mycomments{
-  
   .board{
     background-color: white;
+
     .comment_container{
       margin: 10px;
       @include flexBox($jc: between);
@@ -16,18 +16,24 @@
       border-bottom: 2px solid $gray-100;
       padding: 10px;
       background-color: white;
+
       .comment{
         @include column-flexBox();
       }
+      
       p{
         @include text-style(16px, $main, 500, start);
         &:nth-child(2){
           @include text-style(12px, $main, 400, start);
           margin-top: 8px;
         }
-      }
-      
-    }
-    
+      }    
+    }  
+  }
+
+  .scroll_target{
+    @include text-style(16px, $gray-400, 500);
+    padding: 20px;
+    margin: 10px;
   }
 }

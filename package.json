@@ -34,6 +34,7 @@
     "test": "craco test",
     "eject": "react-scripts eject"
   },
+  "homepage":"https://foodiary.netlify.app/",
   "eslintConfig": {
     "extends": [
       "react-app",

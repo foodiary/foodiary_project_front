@@ -146,7 +146,7 @@ const WritingForm = ({
   useEffect(()=>{
     setLength((watch('writingContent')).length);
   },[watch('writingContent')]);
-
+  console.log(`전역취소상태: ${cancel}`);
   return (
     <div className={styles.writing_container}>
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -91,7 +91,7 @@ const AppRouter = () => {
               <Route path='/mypage/contact/edit' element={<ContactEdit/>}/>
               
               <Route path='/mypage/mycomments' element={<MyComments/>}/>
-              <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/>
+              {/* <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/> */}
               <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
 
               <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
