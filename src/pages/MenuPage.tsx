@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styles from "@styles/rankingPage.module.scss";
+import styles from "@styles/menuPage.module.scss";
 import axiosConfig from "../core/apis/utils/axiosConfig";
 import { useLoginUserStore } from "@store/loginUserStore";
+import { AlertBox } from "@components/common/AlertBox/AlertBox";
+import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 
 const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -33,10 +35,10 @@ const MenuPage = () => {
 
   return (
     <section>
+      {memberId !== 0 ?
       <div className={styles.menu}>
         <div className={styles.menu_title}>
-          식단
-          <div className={styles.text_deco}></div>
+          <DecoTitle title="식단"/>
         </div>
 
         <h2 className={styles.week_title}>1월 2주차</h2>
@@ -79,7 +81,10 @@ const MenuPage = () => {
           </div>
         );
       })} */}
-      </div>
+      </div>:
+      <AlertBox text="로그인이 필요한 서비스입니다" type={false}/>
+      }
+
     </section>
   );
 };

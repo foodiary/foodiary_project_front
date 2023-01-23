@@ -121,37 +121,39 @@ const MyPageMain = () => {
           </div>}
       </div>
       
-
       <p className={styles.profile_msg}>
         {userInfo.memberProfile}
       </p>
       <div className={styles.myWriting_btns}>
         <div className={styles.link}>
-          <Link to="/mypage/mywriting" className={styles.img} style={{'backgroundColor': '#03C75A'}}>
+          <Link to="/mypage/mywriting" 
+            className={styles.img} 
+            style={{'backgroundColor': 'rgba(95, 239, 79,0.5)'}}>
             <TfiWrite/>
-            {/* <img src={myWriting} alt="이미지"/> */}
           </Link>
           <p>내가 쓴 글</p>
         </div>
         <div className={styles.link}>
-          <Link to="/mypage/mycomments" className={styles.img} style={{'backgroundColor': '#FF007F'}}>
+          <Link to="/mypage/mycomments" 
+            className={styles.img} 
+            style={{'backgroundColor': 'rgba(204, 96, 228, 0.5)'}}>
             <CgComment/>
-            {/* <img src={myComments} alt="이미지"/> */}
           </Link>
           <p>내가 쓴 댓글</p>
         </div>
         <div className={styles.link}>
-          <Link to="/mypage/mygood" className={styles.img} style={{'backgroundColor': 'pink'}}>
+          <Link to="/mypage/mygood" 
+            className={styles.img} 
+            style={{'backgroundColor': 'pink'}}>
             <BiHeart/>
-
-            {/* <img src={myGood} alt="이미지"/> */}
           </Link>
           <p>좋아요 글</p>
         </div>
         <div className={styles.link}>
-          <Link to="/mypage/myscrap" className={styles.img} style={{'backgroundColor': 'rgb(106, 195, 246)'}}>
+          <Link to="/mypage/myscrap" 
+            className={styles.img} 
+            style={{'backgroundColor': 'rgba(106, 195, 246, 0.5)'}}>
             <BiBookBookmark/>
-            {/* <img src={myScrap} alt="이미지"/> */}
           </Link>
           <p>스크랩 글</p>
         </div>

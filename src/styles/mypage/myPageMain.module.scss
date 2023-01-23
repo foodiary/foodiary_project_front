@@ -56,25 +56,23 @@
     padding: 15px;
     padding-bottom: 0;
     border: 1px solid black;
-    border-radius: 5px;
-    background-color: rgb(106, 195, 246);
-
+    border-radius: 10px;
   }
 
   .link{
     
-    &:nth-child(1){
-      transform: rotate(-3.5deg);
-    }
-    &:nth-child(2){
-      transform: rotate(2deg);
-    }
-    &:nth-child(3){
-      transform: rotate(-4deg);
-    }
-    &:nth-child(4){
-      transform: rotate(3.5deg);
-    }
+    // a:nth-child(1){
+    //   transform: rotate(-3.5deg);
+    // }
+    // &:nth-child(2){
+    //   transform: rotate(2deg);
+    // }
+    // &:nth-child(3){
+    //   transform: rotate(-4deg);
+    // }
+    // &:nth-child(4){
+    //   transform: rotate(3.5deg);
+    // }
     p{
       margin-top: 10px;
       @include text-style(14px, $main, 400);

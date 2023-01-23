@@ -45,6 +45,9 @@ const WritingDetails = () => {
 
   console.log(comments)
 
+  useEffect(()=>{
+    setCancel(true);
+  },[]);
   const getContents = () => {
     axiosConfig
       .get(`/dailys/details`, {

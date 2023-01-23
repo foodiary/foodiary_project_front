@@ -171,7 +171,7 @@ const isThumbnail = useImgFileStore(state => state.isThumbnail)
             <img src={fileURL} alt="첨부파일" className={styles.attach_img}/>: null
           } */}
         </div>
-        {fileURL?
+        {fileURL.length > 0?
             <img src={fileURL[0] || contents?.dailyImageList[0]} alt="첨부파일" className={styles.attach_img}/>: null
           }
       </div>
