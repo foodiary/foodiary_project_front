@@ -25,6 +25,8 @@ import twoRank from "@img/rank01.png"
 import threeRank from "@img/rank01.png"
 import { useSearchStore } from "@store/searchStore";
 import {IoReloadCircleSharp} from 'react-icons/io5';
+import {BsTrophyFill} from 'react-icons/bs';
+
 // import cutting_board from '@img/cutting_board.png';
 import menu_board from '@img/menu_board.svg';
 
@@ -267,11 +269,14 @@ const MainPage = () => {
 
           <div className={styled.card_container}>
             {rankingList.length > 0 ? (
-              rankingList.map((item: ResType) => {
+              rankingList.map((item: ResType, index:number) => {
                 return (
                   <Link to={`/detail/${item.dailyId}`}>
                     <div className={styled.rank_card_container}>
                       <img src={item.dailyThumbnail} alt="" />
+                      {index === 0 && <BsTrophyFill color="gold" fontSize={30}/>}
+                      {index === 1 && <BsTrophyFill color="silver" fontSize={30}/>}
+                      {index === 2 && <BsTrophyFill color="#CD7F32" fontSize={30}/>}
                       <p>{item.dailyTitle}</p>
                     </div>
                   </Link>

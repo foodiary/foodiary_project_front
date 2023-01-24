@@ -70,18 +70,13 @@
 
     .info {
       display: flex;
-      gap: 16px;
+      gap: 20px;
 
       .infoContents {
-        display: flex;
-
-        .infoDeco {
-          width: 18px;
-          height: 18px;
-          margin-right: 4px;
-          border-radius: 50%;
-          background: $gray_200;
-        }
+        // display: flex;
+        @include flexBox();
+        gap: 8px;
+        font-size: 15px;
       }
     }
   }

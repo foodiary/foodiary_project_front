@@ -8,14 +8,14 @@ import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 import { useInfiniteScroll } from '@hook/useInfiniteScroll';
 
 interface ResType{
-  dailyId: 0;
+  dailyId: number;
   dailyThumbnail: string;
 }
 
 const MyScrap = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const target = useRef<HTMLDivElement>(null);
-  const scrapList = useInfiniteScroll({target: target, url:`/member/scrap/daily/${memberId}`});
+  const scrapList = useInfiniteScroll({target: target, url:`/member/scrap/${memberId}`});
 
   return (
     <div className={styles.mywriting}>
@@ -27,7 +27,7 @@ const MyScrap = () => {
         {scrapList.items.length > 0 ? 
           scrapList.items.map((item:ResType)=>{
             return(
-              <Link to="/daily/detail" className={styles.card}>
+              <Link to={`/detail/${item.dailyId}`} className={styles.card}>
                 <SmallCard img={item.dailyThumbnail}/>
               </Link>          
             )

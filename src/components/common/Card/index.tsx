@@ -1,5 +1,8 @@
 import styled from "./card.module.scss";
 import sample_img from '@img/sample.png';
+import {BsSuitHeart} from 'react-icons/bs';
+import {MdOutlineRemoveRedEye} from 'react-icons/md';
+import {IoMdHeartEmpty} from 'react-icons/io';
 
 type cardStyleProps = {
   img?: string; //수정예정
@@ -176,24 +179,26 @@ export const LargeCard = ({
               </div>
             )}
 
-            {like !== 0 && (
+            {/* {like &&  */}
               <div className={styled.infoContents}>
-                <div className={styled.infoDeco} />
+                {/* <div className={styled.infoDeco} /> */}
+                <IoMdHeartEmpty />
                 <p>{like}</p>
               </div>
-            )}
+            {/* } */}
             {comment && (
               <div className={styled.infoContents}>
                 <div className={styled.infoDeco} />
                 <p>{comment}</p>
               </div>
             )}
-            {view && (
+            {/* {view && ( */}
               <div className={styled.infoContents}>
-                <div className={styled.infoDeco} />
+                {/* <div className={styled.infoDeco} /> */}
+                <MdOutlineRemoveRedEye />
                 <p>{view}</p>
               </div>
-            )}
+            {/* )} */}
           </div>
         </div>
       )}

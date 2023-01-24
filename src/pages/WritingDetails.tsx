@@ -1,10 +1,10 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, useRef } from "react";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosConfig from "@utils/axiosConfig";
 import { useState } from "react";
 import styles from "@styles/writingDetails.module.scss";
-import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import { BsSuitHeart, BsSuitHeartFill, BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FiSend, FiMoreVertical } from "react-icons/fi";
 import CommentBox from "@components/common/CommentBox/CommentBox";
@@ -45,6 +45,8 @@ const WritingDetails = () => {
   const setCancel = btnStateStore((state) => state.setCancel);
   const [success, setSuccess] = useState(false);
 
+  const [like, setLike] = useState(0);
+  const [likeFill, setLikeFill] = useState(false);
   // console.log(comments)
 
   useEffect(()=>{
@@ -81,7 +83,9 @@ const WritingDetails = () => {
   const onDailyLike = () => {
     axiosConfig.post(`/daily/like/${id}/${memberId}`).then((res) => {
       setRefetch(prev => prev+1)
-      alert("좋아요 완료")
+      // setLike(prev=>prev+1);
+      setLikeFill(prev=>!prev);
+      // alert("좋아요 완료")
     }).catch((err) =>{
       console.log(err)
     })
@@ -136,8 +140,19 @@ const WritingDetails = () => {
       navigate("/explore")
     })
   }
-  
-
+  const onScrap = ()=>{
+    axiosConfig.post(`/daily/scrap/${id}/${memberId}`)
+    .then((res) => {
+      console.log(res);
+    })  
+  }
+  // const moveScroll = ()=>{
+  //   const element = useRef<HTMLDivElement>(null);
+  //   element.current?.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: 'center',
+  //   })
+  // }
   const date = contents?.dailyCreate.slice(0,10).replaceAll("-",".");
   console.log(`글: ${alertCancel}`);
   // const date = contents?.dailyCreate.slice(0, 10);
@@ -150,6 +165,7 @@ const WritingDetails = () => {
       <div className={styles.ranking_container}>
         <div className={styles.ranking}>Month Top 20</div>
         <div className={styles.ranking}>Week Top 20</div>
+        <button onClick={onScrap}><BsBookmark/></button>
       </div>
 
       <div className={styles.writing_container}>
@@ -171,8 +187,12 @@ const WritingDetails = () => {
             <p>{contents?.dailyView}</p>
           </div>
           <div className={styles.res}>
-            <button type="button" onClick={onDailyLike}><BsSuitHeart /></button>
+            <button type="button" onClick={onDailyLike}>
+              {likeFill? <BsSuitHeartFill/> : <BsSuitHeart />}
+            </button>
             <p>{contents?.dailyLike}</p>
+            {/* <p>{like}</p> */}
+
           </div>
         </div>
 

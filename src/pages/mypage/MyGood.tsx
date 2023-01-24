@@ -15,7 +15,7 @@ interface ResType{
 const MyGood = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const target = useRef<HTMLDivElement>(null);
-  const likeList = useInfiniteScroll({target: target, url:`/member/like/daily/${memberId}`});
+  const likeList = useInfiniteScroll({target: target, url:`/member/like/${memberId}`});
 
   return (
     <div className={styles.mywriting}>
