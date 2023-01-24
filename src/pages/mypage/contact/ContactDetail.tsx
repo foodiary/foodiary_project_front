@@ -21,9 +21,7 @@ interface ResType{
   questionAnswerYn: string;
   questionPath: string;
 }
-interface Obj{
-  resobj: ResType
-}
+
 const ContactDetail = () => {
   const [write, setWrite] = useState(false);
   const navigate = useNavigate();
@@ -48,10 +46,6 @@ const ContactDetail = () => {
     })
   },[]);
 
-
-  // const onClick = (e:React.MouseEvent<HTMLDivElement>)=>{
-  //   navigate(`/mypage/contact/edit?${search.slice(1)}`);
-  // }
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
     setCancel(true);
@@ -74,7 +68,6 @@ const ContactDetail = () => {
           onClick={()=>{navigate('/mypage/contact')}}
         >
           1:1 문의하기
-          {/* {write && <div className={styles.text_deco}></div>} */}
         </button>
         <button 
           className={styles.active}
@@ -107,11 +100,6 @@ const ContactDetail = () => {
             <p>{res?.questionCreate.slice(2,10).replaceAll("-",".")}</p>
           </div>
         </div>
-        {/* {res?.questionAnswerYn==="N" && 
-          <button className={styles.more} onClick={()=>setViewBtn(prev=>!prev)}>
-            <FiMoreVertical/>
-          </button>
-        } */}
       </div>
       {res?.questionPath && 
       <div className={styles.attach_file}>
@@ -120,10 +108,10 @@ const ContactDetail = () => {
       }
       {res?.answerTitle && 
         <div className={styles.answer_container}>
-          <p className={styles.detail_title}>
+          <div className={styles.detail_title}>
             <img src={answer_icon} alt="화살표"/>
-            {res?.answerTitle}
-          </p>
+            <p>{res?.answerTitle}</p>
+          </div>
           <p className={styles.detail_content}>
             {res?.answerContent}
           </p>

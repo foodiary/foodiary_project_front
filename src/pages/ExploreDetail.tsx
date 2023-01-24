@@ -29,7 +29,7 @@ const ExploreDetail = () => {
     <div className={styles.questWrapper}>
       <section className={styles.title}>
         <div className={styles.title_div}>
-          <DecoTitle title="하루식단"/>
+          <DecoTitle title="하루공유"/>
         </div>
         <Link to="/search" className={styles.search_icon}>
           <GoSearch/>

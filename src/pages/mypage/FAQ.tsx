@@ -24,8 +24,8 @@ const FAQ = () => {
   // },[items]);
 
   const [open, setOpen] = useState(false);
-  const [faqList, setFaqList] = useState([]);
-  const loading = useLoadingStore(state=>state.loading);
+  // const [faqList, setFaqList] = useState([]);
+  // const loading = useLoadingStore(state=>state.loading);
 
   // useEffect(()=>{
   //   axiosConfig.get('/faq',{params: {page: 3}}).then(res=>{
@@ -53,8 +53,8 @@ const FAQ = () => {
         </div>
 
         <div className={styles.board}>
-          {items.length>0?
-            items.map((item:FAQ, index:number)=>{
+          {items.items.length>0?
+            items.items.map((item:FAQ, index:number)=>{
               const faqId = String(item.faqId).padStart(2, "0");
               const active = (index === clicked) ? styles.active: '';
 
@@ -72,7 +72,7 @@ const FAQ = () => {
             }):
             <EmptyText text='등록된 질문이 없습니다'/>
           }
-          <div  ref={target} className={styles.scroll_target}>
+          <div ref={target} className={styles.scroll_target}>
             <p>마지막 페이지입니다</p>
           </div>
         </div>

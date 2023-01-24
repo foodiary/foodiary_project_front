@@ -7,14 +7,13 @@
     position: relative;
     width: fit-content;
     @include text-style(30px, 600);
-    margin: 35px 0;
-    .text_deco {
-      @include text-deco();
-    }
+    margin: 135px 0 30px 20px;
+    
   }
 }
 .week_title {
   margin-bottom: 15px;
+  text-align: center; // 디자인 고민 좀...
 }
 .week_menu {
   width: 100%;
@@ -22,11 +21,13 @@
     display: table;
     border-collapse: collapse;
     border-spacing: 100%;
-    border-radius: 30px;
-    // border: 2px solid red;
+    border-radius: 20px;
+    border-style: hidden;
+    box-shadow: 0 0 0 2px $point;
+
     .table_head {
       td {
-        border-bottom: 3px solid pink;
+        border-bottom: 3px solid $point;
       }
     }
     tbody {
@@ -40,7 +41,7 @@
     td {
       padding: 20px;
       vertical-align: top;
-      border: 2px solid pink;
+      border: 2px solid $point;
       font-weight: 700;
     }
     .menu {

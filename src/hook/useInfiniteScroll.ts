@@ -76,5 +76,5 @@ export const useInfiniteScroll = ({target, url}:TargetType)=>{
     
   // },[target.current, page]);
   
-  return items;
+  return {items, page};
 }

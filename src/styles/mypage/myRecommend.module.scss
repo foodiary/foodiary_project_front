@@ -35,4 +35,9 @@
       @include text-style(16px, $main, 500, start);
     }
   }
+  .scroll_target{
+    @include text-style(16px, $gray-400, 500);
+    padding: 20px;
+    margin: 10px;
+  }
 }

@@ -23,6 +23,7 @@ import { AlertBox } from "@components/common/AlertBox/AlertBox";
 import oneRank from "@img/rank01.png"
 import twoRank from "@img/rank01.png"
 import threeRank from "@img/rank01.png"
+import { useSearchStore } from "@store/searchStore";
 
 interface ResType {
   dailyId: number;
@@ -40,7 +41,7 @@ const MainPage = () => {
   useUpdateUser();
   const navigate = useNavigate();
   const nickName = useLoginUserStore((state) => state.userInfo.memberNickName);
-
+  const setSearchList = useSearchStore((state)=>state.setSearchList);
   const [userName, setUserName] = useState<string>("푸디어리");
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
 
@@ -146,11 +147,11 @@ const MainPage = () => {
     axiosConfig
       .post(`/search/daily/result`, data)
       .then((res) => {
-        console.log(res);
-        // navigate("/search/result");
+        setSearchList(res.data);
+        navigate(`/search/result?${value}`);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("검색어와 일치하는 게시글이 없습니다.");
       });
   };
 
@@ -219,7 +220,7 @@ const MainPage = () => {
 
       <section className={styled.searchSection}>
         <input
-          placeholder="Fooriend의 다이어리를 검색해보세요!"
+          placeholder="검색어를 입력해주세요."
           onChange={onChange}
         />
         <button onClick={onSearch}>

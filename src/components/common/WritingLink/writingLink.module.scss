@@ -10,14 +10,21 @@
   .content{
     @include column-flexBox();
   }
-  p{
+  .title{
     @include text-style(16px, $main, 500, start);
-    &:nth-child(2){
-      @include text-style(12px, $main, 400, start);
-      margin-top: 8px;
-    }
   }
   .text2{
-    color: $point;
+      @include text-style(12px, $main, 400, start);
+      margin-top: 8px;
+  }
+
+  .contact_case{
+    @include text-style(12px, $main, 400, start);
+    @include flexBox($jc: between);
+    gap: 15px;
+    margin-top: 8px;
+    .point{
+      color: $point;
+    }
   }
 }

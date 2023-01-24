@@ -18,7 +18,7 @@ const MyCommentsEdit = () => {
     setValue(state.content);
   },[]);
 
-  const [msgLength, setMsgLength] = useState(0);
+  const [msgLength, setMsgLength] = useState(state.content.length);
   const onChange = (e:React.ChangeEvent<HTMLTextAreaElement>)=>{
     const {value} = e.target;
     setValue(value);

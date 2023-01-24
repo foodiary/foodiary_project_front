@@ -99,6 +99,7 @@ const MyCommentsDetail = () => {
 
       <div className={styles.comment_box} onClick={()=>{setViewBtn(prev=>!prev)}}>
         <CommentBox 
+        dailyCommentImg={""}
           dailyCommentWriter={writer} 
           dailyCommentBody={commentContent} 
           dailyCommentCreate={date}

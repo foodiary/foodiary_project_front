@@ -91,7 +91,7 @@ const AppRouter = () => {
               <Route path='/mypage/contact/edit' element={<ContactEdit/>}/>
               
               <Route path='/mypage/mycomments' element={<MyComments/>}/>
-              <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/>
+              {/* <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/> */}
               <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
 
               <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
@@ -103,7 +103,8 @@ const AppRouter = () => {
             <Route path='/mypage/faq' element={<FAQ/>}/>
 
             <Route path='/member/password/change' element={<ModifyPwd/>}/>
-            <Route path='/write' element={<WritingPage/>}/>
+            <Route path='/write' element={<WritingPage edit={false}/>}/>
+            <Route path='/modify/:id' element={<WritingPage edit={true}/>}/>
             <Route path='/search' element={<Search/>}/>
             <Route path='/search/result' element={<SearchResult/>}/>
 

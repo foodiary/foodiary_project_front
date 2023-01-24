@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import styles from "@styles/loginpage/signUpAgree.module.scss";
 import { Link, useNavigate } from 'react-router-dom';
 import { Intro } from '@components/common/Text/SignUpPageText';
@@ -28,7 +28,6 @@ const SignUpAgree = () => {
     setAllChecked(prev=>!prev);
     if(!allChecked){
       setCheckedList(idArr);
-      // navigate("/signup/agree/detail");
     }
     else{
       setCheckedList([]);
@@ -39,11 +38,6 @@ const SignUpAgree = () => {
     const id = e.target.id;
     if(checked){
       setCheckedList(prev=>[...prev, id]);
-      // navigate("/signup/agree/detail", {
-      //   state: {
-      //     id: id,
-      //   }
-      // });
     }
     else{
       if(checkedList.includes(id)){
@@ -73,7 +67,6 @@ const SignUpAgree = () => {
     setRequiredTerms("Y");
     navigate("/signup/id");
   }
-  const clickedRef = useRef<HTMLInputElement>(null);
 
   return (
       <div>
@@ -136,7 +129,7 @@ const SignUpAgree = () => {
               <div className={styles.check_btn}>
                 {checkedList.includes('cb4') ? <AiFillCheckCircle/>: <AiOutlineCheckCircle/>}
               </div>
-              <p>E-mail 및 SMS 광고성 정보 수신동의(선택)</p>
+              <p>E-mail 광고성 정보 수신동의(선택)</p>
             </label>
             <p className={styles.more}>다양한 프로모션 소식 및 신규 정보를 보내드립니다.</p>
           </div>
@@ -144,10 +137,8 @@ const SignUpAgree = () => {
               <BsChevronRight/>
             </Link>
           </div>
-        {/* </form> */}
 
         <LoginButton type='submit' text='확인' 
-          // url={next?'/signup/id':undefined} 
           active={next?true:false}/>
       </form>
 

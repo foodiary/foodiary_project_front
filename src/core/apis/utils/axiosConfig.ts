@@ -3,6 +3,8 @@ import axios from "axios";
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["Referrer-Policy"] = "no-referrer-when-downgrade";
+// const PROXY = window.location.hostname === 'localhost'? '': '/proxy';
+// const baseURL = `${PROXY}`;
 
 const axiosConfig = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

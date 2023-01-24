@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import styles from '@styles/mypage/myGood.module.scss';
-import Header from '@components/common/Header/Header';
 import EmptyText from '@components/common/Text/EmptyText';
-import axiosConfig from '../../core/apis/utils/axiosConfig';
 import { useLoginUserStore } from '@store/loginUserStore';
 import { SmallCard } from '@components/common/Card';
 import { Link } from 'react-router-dom';
 import DecoTitle from '@components/common/DecoTitle/DecoTitle';
+import { useInfiniteScroll } from '@hook/useInfiniteScroll';
 
 interface ResType{
   dailyId: 0;
@@ -15,19 +14,8 @@ interface ResType{
 
 const MyScrap = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
-  const [scrapList, setScrapList] = useState([]);
-  const page = 1;
-
-  useEffect(()=>{
-    axiosConfig.get(`/member/scrap/daily/${memberId}`,{
-      params: {page: page}
-    }).then(res=>{
-      console.log(res);
-      setScrapList(res.data);
-    }).catch(err=>{
-      console.log(err);
-    })
-  },[]);
+  const target = useRef<HTMLDivElement>(null);
+  const scrapList = useInfiniteScroll({target: target, url:`/member/scrap/daily/${memberId}`});
 
   return (
     <div className={styles.mywriting}>
@@ -36,18 +24,23 @@ const MyScrap = () => {
       </div>
 
       <div className={styles.card_container}>
-        {scrapList.length > 0 ? scrapList.map((item:ResType)=>{
-          return(
-            <Link to="/daily/detail" className={styles.card}>
-              <SmallCard img={item.dailyThumbnail}/>
-            </Link>          
-          )
-        }):
+        {scrapList.items.length > 0 ? 
+          scrapList.items.map((item:ResType)=>{
+            return(
+              <Link to="/daily/detail" className={styles.card}>
+                <SmallCard img={item.dailyThumbnail}/>
+              </Link>          
+            )
+          }):
             <EmptyText text='내가 스크랩한 글이 없습니다.'/>
         }
       </div>
+      {scrapList.items.length>0 && 
+        <div ref={target} className={styles.scroll_target}>
+          <p>마지막 페이지입니다</p>
+        </div>
+      }
     </div>
-      // {/* 게시판 완성 후 가져오기 */}
   );
 };
 

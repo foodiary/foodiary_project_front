@@ -21,6 +21,7 @@
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.7",
+    "react-transition-group": "^4.4.5",
     "sass": "^1.57.1",
     "swiper": "^8.4.5",
     "typescript": "^4.9.4",
@@ -34,6 +35,7 @@
     "test": "craco test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://foodiary.netlify.app/",
   "eslintConfig": {
     "extends": [
       "react-app",
