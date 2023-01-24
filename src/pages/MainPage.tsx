@@ -24,6 +24,9 @@ import oneRank from "@img/rank01.png"
 import twoRank from "@img/rank01.png"
 import threeRank from "@img/rank01.png"
 import { useSearchStore } from "@store/searchStore";
+import {IoReloadCircleSharp} from 'react-icons/io5';
+// import cutting_board from '@img/cutting_board.png';
+import menu_board from '@img/menu_board.svg';
 
 interface ResType {
   dailyId: number;
@@ -44,6 +47,7 @@ const MainPage = () => {
   const setSearchList = useSearchStore((state)=>state.setSearchList);
   const [userName, setUserName] = useState<string>("푸디어리");
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
+  const [forbidden, setForbidden] = useState(false);
 
   const [alert, setAlert] = useState(false); //음식추천버튼누를때
 
@@ -182,6 +186,11 @@ const MainPage = () => {
     getRankList();
   }, [month]);
 
+  const onForbidden = ()=>{
+    setForbidden(true);
+    setTimeout(()=>setForbidden(false),2000);
+  }
+  console.log(forbidden);
   return (
     <article className={styled.mainPageWrapper}>
       <section className={styled.mainPageTitleSection}>
@@ -194,7 +203,13 @@ const MainPage = () => {
 
       <section className={styled.recommendeSection}>
         <div className={styled.random_food}>
-          <div className={styled.food_card}>{recommenu?.foodName}</div>
+          <div className={styled.food_card}>
+            <img src={menu_board} alt='랜덤추천'/>
+            <button onClick={recommendMenu} className={styled.reloadFood}>
+              <IoReloadCircleSharp/>
+            </button>
+            <p>{recommenu?.foodName}</p>
+          </div>
           {getRandomFoodImg(recommenu?.foodCategory) || (
             <img src={etcFood} alt="랜덤음식" />
           )}
@@ -207,16 +222,20 @@ const MainPage = () => {
             <ButtonComp
               text="Good😘"
               btnStyle={buttonStyled.buttonActive}
-              onClick={onFoodLike}
+              onClick={memberId? onFoodLike: onForbidden}
             />
             <ButtonComp
               text="No, thanks"
               btnStyle={buttonStyled.button}
-              onClick={onFoodHate}
+              onClick={memberId? onFoodHate: onForbidden}
             />
           </div>
         </div>
       </section>
+      {forbidden && 
+        <div>
+          <AlertBox text="로그인 후 이용하실 수 있습니다" type={false}/>
+        </div>}
 
       <section className={styled.searchSection}>
         <input

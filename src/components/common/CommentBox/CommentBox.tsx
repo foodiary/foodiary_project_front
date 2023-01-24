@@ -32,6 +32,8 @@ const CommentBox = ({
 
   const [removeSuccess, setRemoveSuccess] = useState(false);
   const [viewBtn, setViewBtn] = useState(false);
+  const [commentCancel, setCommentCancel] = useState(true);
+
   const cancel = btnStateStore((state) => state.cancel);
   const setCancel = btnStateStore((state) => state.setCancel);
 
@@ -40,11 +42,18 @@ const CommentBox = ({
 
   useEffect(()=>{
     setCancel(true);
+    setCommentCancel(true);
   },[]);
 
   console.log(cancel);
   const onClick = ()=>{
     setViewBtn(prev=>!prev);
+    setCancel(true);
+    setCommentCancel(true);
+  }
+  const onAlert = ()=>{
+    setCommentCancel(false);
+    setCancel(false);
   }
   const onModifyComments = ()=>{
     navigate('/mypage/mycomments/edit', {state: {
@@ -53,21 +62,23 @@ const CommentBox = ({
       commentId: dailyCommentId,
     }});
   }
-  const onSubmit = (e: FormEvent) => {
+  const onRemoveComment = (e: FormEvent) => {
     e.preventDefault();
     setCancel(true);
+    setCommentCancel(true);
     setViewBtn(false);
-
+    console.log("댓글 삭제");
     axiosConfig.delete(`/daily/comment/${dailyId}/${dailyCommentId}/${memberId}`)
     .then((res) => {
       console.log(res);
       setRemoveSuccess(true);
-      setTimeout(()=>navigate(-1), 2000);
+      window.location.reload();
     }).catch(err=>{
       console.log(err);
     })
 
   }
+  console.log(`댓글: ${commentCancel}`);
 
   return (
     <div>
@@ -91,15 +102,15 @@ const CommentBox = ({
       {viewBtn && 
         <div className={styles.view_btn}>
           <div className={styles.black} onClick={onModifyComments}>
-            <HalfButton type="button" text="수정" />
+            <HalfButton type="button" text="댓글 수정" />
           </div>
-          <div className={styles.red} onClick={() => setCancel(false)}>
-            <HalfButton type="button" text="삭제" />
+          <div className={styles.red} onClick={onAlert}>
+            <HalfButton type="button" text="댓글 삭제" />
           </div>
         </div>
       }
-      {!cancel && 
-        <form onSubmit={onSubmit}>
+      {!commentCancel && !cancel &&
+        <form onSubmit={onRemoveComment}>
           <WarnBox text="정말 삭제하시겠습니까?" btn_txt="삭제" />
         </form>
       }

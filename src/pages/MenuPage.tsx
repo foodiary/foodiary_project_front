@@ -35,7 +35,7 @@ const MenuPage = () => {
 
   return (
     <section>
-      {memberId !== 0 ?
+      {/* {memberId !== 0 ? */}
       <div className={styles.menu}>
         <div className={styles.menu_title}>
           <DecoTitle title="식단"/>
@@ -81,9 +81,10 @@ const MenuPage = () => {
           </div>
         );
       })} */}
-      </div>:
+      </div>
+      {/* :
       <AlertBox text="로그인이 필요한 서비스입니다" type={false}/>
-      }
+      } */}
 
     </section>
   );

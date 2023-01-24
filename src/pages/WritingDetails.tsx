@@ -40,14 +40,18 @@ const WritingDetails = () => {
   const [value, setValue] = useState("");
   const [viewBtn, setViewBtn] = useState(false);
 
+  const [alertCancel, setAlertCancel] = useState(true);
   const cancel = btnStateStore((state) => state.cancel);
   const setCancel = btnStateStore((state) => state.setCancel);
+  const [success, setSuccess] = useState(false);
 
-  console.log(comments)
+  // console.log(comments)
 
   useEffect(()=>{
     setCancel(true);
+    setAlertCancel(true);
   },[]);
+
   const getContents = () => {
     axiosConfig
       .get(`/dailys/details`, {
@@ -90,6 +94,8 @@ const WritingDetails = () => {
 
   const onModify = () => {
     setViewBtn((prev) => !prev);
+    setCancel(true);
+    setAlertCancel(true);
   };
 
   const onWriteComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -97,6 +103,8 @@ const WritingDetails = () => {
   };
 
   const onSendComment = () => {
+    setSuccess(false);
+
     const data = {
       content: value,
       dailyId: id,
@@ -108,7 +116,7 @@ const WritingDetails = () => {
       .then((res) => {
         setRefetch(prev => prev+1)
         setValue("");
-        // return alert("댓글이 성공적으로 등록되었습니다.");
+        setSuccess(true); // 댓글 등록완료
       })
       .catch((err) => {
         console.log(err);
@@ -117,19 +125,21 @@ const WritingDetails = () => {
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     navigate(`/modify/${id}`);
   };
-  const onSubmit = (e: FormEvent) => {
+  const onRemoveSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setCancel(true);
+    setAlertCancel(true);
+    setViewBtn(false);
+    console.log('글 삭제')
     axiosConfig.delete(`/daily/${id}/${memberId}`).then((res) => {
       console.log(res)
       navigate("/explore")
     })
-    setCancel(false);
-    setViewBtn(false);
   }
   
 
   const date = contents?.dailyCreate.slice(0,10).replaceAll("-",".");
-
+  console.log(`글: ${alertCancel}`);
   // const date = contents?.dailyCreate.slice(0, 10);
   return (
     <div className={styles.writing_detail}>
@@ -186,6 +196,8 @@ const WritingDetails = () => {
         </button>
       </div>
 
+      {success && <AlertBox text="댓글이 등록되었습니다" type={true}/>}
+
       <div className={styles.comments_container}>
         {comments.length > 0 ? (
           comments.map((item:any) => {
@@ -210,13 +222,13 @@ const WritingDetails = () => {
           <div className={styles.black} onClick={onClick}>
             <HalfButton type="button" text="수정" />
           </div>
-          <div className={styles.red} onClick={() => setCancel(false)}>
+          <div className={styles.red} onClick={() => {setCancel(false); setAlertCancel(false)}}>
             <HalfButton type="button" text="삭제" />
           </div>
         </div>
       )}
-      {!cancel && (
-        <form onSubmit={onSubmit}>
+      {!cancel && !alertCancel && (
+        <form onSubmit={onRemoveSubmit}>
           <WarnBox text="정말 삭제하시겠습니까?" btn_txt="삭제" />
         </form>
       )}

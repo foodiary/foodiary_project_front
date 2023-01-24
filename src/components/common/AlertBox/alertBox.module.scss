@@ -30,7 +30,7 @@
       color: $point;
     }
     .check_icon{
-      color: green;
+      color: rgb(19, 142, 19);
     }
     p{
       @include text-style(16px, #666666, 700);

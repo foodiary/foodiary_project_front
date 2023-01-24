@@ -67,7 +67,7 @@ const AppRouter = () => {
             {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
             {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
             
-            <Route path='/menu' element={<MenuPage/>}/>
+            {/* <Route path='/menu' element={<MenuPage/>}/> */}
 
             <Route path='/detail/:id' element={<WritingDetails/>}/>
 
@@ -78,6 +78,8 @@ const AppRouter = () => {
 
 
             <Route element={<PrivateRouter/>}>
+              <Route path='/menu' element={<MenuPage/>}/>
+
               <Route path='/mypage/setting' element={<MyPageSetting/>}/>
               <Route path='/mypage/mywriting' element={<MyWriting/>}/>
               <Route path='/mypage/mygood' element={<MyGood/>}/>

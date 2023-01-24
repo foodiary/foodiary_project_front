@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 // type Id = {memberId: number};
 
 export const useUpdateUser = ()=>{
+  const token = localStorage.getItem("access_token");
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
 
@@ -18,8 +19,16 @@ export const useUpdateUser = ()=>{
         console.log(`업뎃유저에서: ${err}`);
       })
     }
+    //  if(token){
+    //   axiosConfig.get(`/member/${memberId}`)
+    //   .then(res=>{
+    //     setUserInfo(res.data);
+    //   }).catch(err=>{
+    //     console.log(`업뎃유저에서: ${err}`);
+    //   })
+    // }
 
-  },[memberId]);
+  },[memberId, token]);
   
   return;
 }

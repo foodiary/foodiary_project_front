@@ -15,11 +15,11 @@ const MyWriting = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const target = useRef<HTMLDivElement>(null);
   const writingList = useInfiniteScroll({target: target, url:`/member/post/daily/${memberId}`});
- 
+  
   return (
     <div className={styles.mywriting}>
       <div className={styles.title}>
-        <DecoTitle title='하루 식단'/>
+        <DecoTitle title='하루공유'/>
       </div>
       <div className={styles.card_container}>
         {writingList.items.length > 0 ? 

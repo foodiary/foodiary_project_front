@@ -13,20 +13,18 @@ import { useUpdateUser } from "@hook/useUpdateUser";
 
 const Header = () => {
   const navigate = useNavigate();
-  // useUpdateUser();
   const [loginUser, setLoginUser] = useState(false);
   const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
-  // const userInfo = useLoginUserStore((state)=>state.userInfo);
-  const [profileImg, setProfileImg] = useState(false);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   const token = localStorage.getItem("access_token");
   useEffect(() => {
-    if (token) {
+    if (memberId) {
       setLoginUser(true);
     } else {
       setLoginUser(false);
     }
-  }, []);
+  }, [memberId]);
 
   return (
     <div className={styles.header}>

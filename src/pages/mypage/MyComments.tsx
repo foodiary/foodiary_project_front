@@ -22,7 +22,7 @@ const MyComments = () => {
   return (
     <div className={styles.mycomments}>
       <div className={styles.title}>
-        <DecoTitle title='하루 식단'/>
+        <DecoTitle title='하루공유'/>
       </div>
       <div className={styles.board}>
         {commentList.items.length > 0 ? 
@@ -39,7 +39,7 @@ const MyComments = () => {
         }
       </div>
 
-        {commentList && 
+        {commentList.items.length > 0 && 
           <div ref={target} className={styles.scroll_target}>
               <p>마지막 페이지입니다</p>
           </div>

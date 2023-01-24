@@ -21,8 +21,10 @@
   .contact_case{
     @include text-style(12px, $main, 400, start);
     @include flexBox($jc: between);
-    gap: 15px;
+    width: fit-content;
+    gap: 10px;
     margin-top: 8px;
+
     .point{
       color: $point;
     }

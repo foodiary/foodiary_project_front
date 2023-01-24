@@ -7,6 +7,7 @@ import axiosConfig from '@utils/axiosConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useLoginUserStore } from '@store/loginUserStore';
 import camera_icon from '@img/camera_icon.svg';
+import { AlertBox } from '@components/common/AlertBox/AlertBox';
 
 interface WritingPageProps {
   edit : boolean
@@ -39,17 +40,24 @@ const WritingPage = ({edit}:WritingPageProps) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState<string | undefined>("");
   const [content, setContent] = useState<string | undefined>("");
+
   // const [files, setFiles] = useState<File>();
   const fileURL = useImgFileStore(state=>state.fileURL);
   const img = useImgFileStore(state=>state.img);
+
   const [loading, setLoading] = useState(false);
+
   const memberLoginId = useLoginUserStore(state=>state.userInfo.memberLoginId);
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
+
   const [contents, setContents] = useState<ResType>();
-const isThumbnail = useImgFileStore(state => state.isThumbnail)
+  const isThumbnail = useImgFileStore(state => state.isThumbnail);
+
+  const [success, setSuccess] = useState(false);
+
   const id = useParams().id
 
-  console.log(isThumbnail)
+  // console.log(isThumbnail)
 
   const getContents = () => {
     axiosConfig
@@ -101,15 +109,19 @@ const isThumbnail = useImgFileStore(state => state.isThumbnail)
 
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
+    setSuccess(false);
+
     const headers = {"Content-Type": "multipart/form-data"};
-    setLoading(true);
+    // setLoading(true);
     axiosConfig.post("/daily", formData ,{headers})
       .then(res=>{
         console.log(res);
-        if(res){
-          setLoading(false);
+        setSuccess(true);
+        // setLoading(false);
+        setTimeout(() => {
           navigate("/explore");
-        }
+        }, 2000);
+
         //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
       }).catch(err=>{
         console.log(err);
@@ -152,7 +164,7 @@ const isThumbnail = useImgFileStore(state => state.isThumbnail)
      
       <form onSubmit={edit ? onEdit : onSubmit} encType="multipart/form-data">
       <div className={styles.write_container}>
-        <p>하루 식단 글 {edit ? "수정" : "작성"}</p>
+        <p>하루 공유 글 {edit ? "수정" : "작성"}</p>
         <input type="text" placeholder='제목' className={styles.title}
           name="title" onChange={onChange} value={title || contents?.dailyTitle}/>
         <textarea 
@@ -180,6 +192,7 @@ const isThumbnail = useImgFileStore(state => state.isThumbnail)
             type='submit' 
             active={edit || title && content ?true:false}/>
       </form>
+      {success && <AlertBox text='글이 등록되었습니다' type={true}/>}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import styles from './alertBox.module.scss';
 import {HalfAlertButton, HalfButton, LoginButton} from '../LoginButton/Button';
 import { btnStateStore } from '@store/btnStateStore';
 import {FiAlertTriangle, FiCheckCircle} from 'react-icons/fi';
+import 'animate.css';
 
 interface AlertType{
   type: boolean; // x박스(false)인지 체크박스(true)인지
@@ -20,7 +21,7 @@ export const AlertBox = ({type, text}:AlertType) => {
     <div>
       {!timeout ?
         <div className={styles.modal_back}>
-          <div className={styles.alert_box}>
+          <div className={`${styles.alert_box}`}>
             {type?
               <div className={styles.check_icon}>
                 <FiCheckCircle/>

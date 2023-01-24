@@ -80,21 +80,62 @@ section {
       z-index: 1;
 
       .food_card {
-        position: absolute;
-        top: -3px;
-        left: 55px;
-        z-index: -1;
-        border: 1px solid rgb(1, 42, 1);
-        background: url("/img/today_food.jpg");
-        background-size: cover;
-        background-position: bottom;
-        width: 200px;
-        height: 100px;
-        transform: rotate(-8deg);
-        font-size: 24px;
-        font-weight: 500;
-        color: #fff;
-        @include flexBox($jc: around);
+        // position: absolute;
+        // top: -3px;
+        // left: 55px;
+        // z-index: -1;
+        // border: 1px solid rgb(1, 42, 1);
+        // background: url("/img/today_food.jpg");
+        // background-size: cover;
+        // background-position: bottom;
+        // width: 200px;
+        // height: 100px;
+        // transform: rotate(-8deg);
+        // font-size: 24px;
+        // font-weight: 500;
+        // color: #fff;
+        // @include flexBox($jc: around);
+
+        //내가 함
+        // background: url("/img/cutting_board.png");
+        // background-size: contain;
+        // background-repeat: no-repeat;
+        // background-position: bottom;
+        width: 200px; //200
+        height: 200px;
+        // border: 1px solid red;
+          position: absolute;
+          top: -40%;
+          left: 25%;
+          z-index: -1;
+
+        img{
+          width: 200px; //200
+          height: 200px;
+          // position: absolute;
+          // top: -40%;
+          // left: 25%;
+          transform: rotate(78deg);
+          // z-index: -1;
+          filter: invert(63%) sepia(97%) saturate(426%) hue-rotate(350deg) brightness(93%) contrast(97%);
+          // border: 1px solid red;
+
+        }
+        
+        p{
+          @include flexBox();
+          @include text-style(24px, 500);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-70%, -40%);
+          // border: 1px solid red;
+        }
+        .reloadFood{
+          @include text-style(25px, $point, 400);
+          position: absolute;
+          top: 25%; left: 52%;
+        }
       }
       img {
         width: 100px;
