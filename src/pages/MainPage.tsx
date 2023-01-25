@@ -63,6 +63,8 @@ const MainPage = () => {
   const [value, setValue] = useState("");
 
   const recommendMenu = () => {
+    setAlert(false);
+    setForbidden(false);
     //랜덤메뉴추천
     let params = {};
     if (memberId) {
@@ -115,7 +117,9 @@ const MainPage = () => {
     })
     .then(res=>{
       console.log(res);
-      setAlert(true); //음식추천 새로고침할때 같이 false로 만들기
+      setAlert(true); 
+      setTimeout(recommendMenu,2000);
+      //음식추천 새로고침할때 같이 false로 만들기
     }).catch(err=>{
       console.log(err);
       setAlert(false);
@@ -129,7 +133,9 @@ const MainPage = () => {
     })
     .then(res=>{
       console.log(res);
-      setAlert(true); //음식추천 새로고침할때 같이 false로 만들기
+      setAlert(true);
+      setTimeout(recommendMenu,2000);
+      //음식추천 새로고침할때 같이 false로 만들기
     }).catch(err=>{
       console.log(err);
       setAlert(false);
@@ -191,6 +197,7 @@ const MainPage = () => {
   const onForbidden = ()=>{
     setForbidden(true);
     setTimeout(()=>setForbidden(false),2000);
+    setTimeout(recommendMenu,2000);
   }
   console.log(forbidden);
   return (

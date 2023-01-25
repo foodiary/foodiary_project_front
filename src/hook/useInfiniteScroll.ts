@@ -12,6 +12,8 @@ export const useInfiniteScroll = ({target, url}:TargetType)=>{
   const [ing, setIng] = useState(false);
   const preventRef = useRef(false);
 
+  console.log(page);
+  
   const getData = useCallback(async()=>{
     console.log(`${page} 데이터 불러오기`);
     setIng(true); //setloading

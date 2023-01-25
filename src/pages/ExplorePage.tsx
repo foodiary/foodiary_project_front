@@ -1,6 +1,6 @@
 import { ButtonComp, buttonStyled } from "@components/common";
 import { LargeCard, SmallCard } from "@components/common/Card";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import styles from "../styles/explorePage.module.scss";
 import axiosConfig from "@utils/axiosConfig";
@@ -8,6 +8,7 @@ import { GoSearch } from "react-icons/go";
 import { Link } from "react-router-dom";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 import { BsPencilFill } from "react-icons/bs";
+import { useInfiniteScroll } from "@hook/useInfiniteScroll";
 
 interface ResType {
   // dailyCreate: string;
@@ -19,32 +20,45 @@ interface ResType {
 const ExplorePage = () => {
   const [tab, setTab] = useState("0"); // 1달 1주 오늘
   let url = "";
-  let page = 1;
+  // const [url, setUrl] = useState("");
+  const target = useRef<HTMLDivElement>(null);
+  // let page = 1;
+  // let items = [];
+
+  // const items = useInfiniteScroll({target: target, url:url}).items;
+  const page = useInfiniteScroll({target: target, url:url}).page;
 
   const [dailyList, setDailyList] = useState([]);
 
   const getDaily = () => {
     if (tab === "0") {
       url = "/dailys/month";
+      // setUrl("/dailys/month");
     } else if (tab === "1") {
       url = "/dailys/week";
+      // setUrl("/dailys/week");
+
     } else {
       url = "/dailys/today";
-    }
+      // setUrl("/dailys/today");
 
-    axiosConfig
+    }
+    // if(page !== 1){
+      axiosConfig
       .get(url, { params: { page: page } })
       .then((res) => {
         console.log(res);
-        setDailyList(res.data);
+        setDailyList(prev=> prev.concat(res.data));
       })
       .catch((err) => {
         console.log(err);
       });
+    // }
   };
 
   useEffect(() => {
     getDaily();
+    // setDailyList(items);
   }, [tab]);
 
   return (
@@ -92,7 +106,6 @@ const ExplorePage = () => {
           }}
         />
       </div>
-      {/* {tab === "0" && ( */}
       <section className={styles.dailySection}>
         <div className={styles.contents}>
           {dailyList.map((item: ResType, index) => {
@@ -108,20 +121,11 @@ const ExplorePage = () => {
           })}
         </div>
       </section>
-      {/* )} */}
-      {/* {tab === "1" && (
-        <section className={styles.dailyDietSection}>
-          <div className={styles.dailyDietContents}></div>
-        </section>
-      )}
-      {
-        <section>
-          <LargeCard />
-          <LargeCard />
-          <LargeCard />
-          <LargeCard />
-        </section>
-      } */}
+      {dailyList.length>0 && 
+          <div ref={target} className={styles.scroll_target}>
+              <p>마지막 페이지입니다</p>
+          </div>
+      }
     </article>
   );
 };

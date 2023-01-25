@@ -78,7 +78,7 @@ section {
       justify-content: flex-end;
       position: relative;
       z-index: 1;
-
+      // border: 1px solid blue;
       .food_card {
         // position: absolute;
         // top: -3px;
@@ -96,30 +96,22 @@ section {
         // color: #fff;
         // @include flexBox($jc: around);
 
-        //내가 함
-        // background: url("/img/cutting_board.png");
-        // background-size: contain;
-        // background-repeat: no-repeat;
-        // background-position: bottom;
-        width: 200px; //200
+        width: 200px; 
         height: 200px;
         // border: 1px solid red;
-          position: absolute;
-          top: -40%;
-          left: 25%;
-          z-index: -1;
+        position: absolute;
+        top: -40%;
+        left: 25%;
+        z-index: -1;
 
         img{
-          width: 200px; //200
-          height: 200px;
-          // position: absolute;
-          // top: -40%;
-          // left: 25%;
-          transform: rotate(78deg);
-          // z-index: -1;
+          width: 230px; //200
+          height: 230px;
+          position: absolute;
+          top: -25px;
+          left: 10px;
+          transform: rotate(75deg);
           filter: invert(63%) sepia(97%) saturate(426%) hue-rotate(350deg) brightness(93%) contrast(97%);
-          // border: 1px solid red;
-
         }
         
         p{
@@ -128,13 +120,14 @@ section {
           position: absolute;
           top: 50%;
           left: 50%;
-          transform: translate(-70%, -40%);
+          transform: translate(-50%, -50%);
           // border: 1px solid red;
         }
         .reloadFood{
           @include text-style(25px, $point, 400);
           position: absolute;
-          top: 25%; left: 52%;
+          top: 20%; 
+          left: 65%;
         }
       }
       img {

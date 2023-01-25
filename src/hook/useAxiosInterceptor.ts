@@ -13,6 +13,7 @@ export const useAxiosInterceptor = ()=>{
   const [hours, setHours] = useState(false);
 
   const timeDifference = (present: Date, expire: Date)=>{
+    console.log(present, expire);
 
     if(present.getFullYear() === expire.getFullYear()){
       setYear(true);
@@ -27,48 +28,57 @@ export const useAxiosInterceptor = ()=>{
       setHours(true);
     }
   }
-  const getRefresh = async()=>{
-    const refreshToken = localStorage.getItem("refresh_token");
-    const headers = { Refresh: `${refreshToken}` };
+  // const getRefresh = async()=>{
+  //   const refreshToken = localStorage.getItem("refresh_token");
+  //   const headers = { Refresh: `${refreshToken}` };
 
-    await axiosConfig.get("/auth/reissue", { headers })
-    .then(res=>{
-      console.log(res);
-      const data = res.data;
-      const newAccessToken = data.data.accessToken;
-      localStorage.setItem("access_token", newAccessToken);
+  //   await axiosConfig.get("/auth/reissue", { headers })
+  //   .then(res=>{
+  //     console.log(res);
+  //     const data = res.data;
+  //     const newAccessToken = data.data.accessToken;
+  //     localStorage.setItem("access_token", newAccessToken);
 
-    }).catch(err=>{
-      console.log(err);
-      // localStorage.clear();
-      // window.location.reload();
-    })
+  //   }).catch(err=>{
+  //     console.log(err);
+  //     // localStorage.clear();
+  //     // window.location.reload();
+  //   })
     
     // const newAccessToken = data.data.accessToken;
     // const newRefreshToken = data.data.refreshToken; 
 
     // localStorage.setItem("access_token", newAccessToken);
     // localStorage.setItem("refresh_token", newRefreshToken);
-  }
+  // }
 
-  const errorHandler = async(err:AxiosError)=>{ //res에서 넘어온 에러
+  const errorHandler = async(err:AxiosError<any, any>)=>{ //res에서 넘어온 에러
     setLoading(false);
     
-    const config = err.config;
-    console.log(`인터셉트 에러: ${err}`);
+    const refreshToken = localStorage.getItem("refresh_token");
+    if(!refreshToken){
+      console.log('자동로그아웃');
+      localStorage.clear();
+      window.location.reload();
+    }
 
-    //액세스토큰 만료 시
-    if (err.response?.status === 401) {
-      console.log('401임')
-      const accessToken = localStorage.getItem("access_token");
-      const refreshToken = localStorage.getItem("refresh_token");
+    // else{
+      const config = err.config;
+      console.log(`인터셉트 에러: ${err}`);
+      console.log(`에러: ${err.response?.data.status}`); //UNAUTHORIZED
+
+      //액세스토큰 만료 시
+      if (err.response?.data.status === "UNAUTHORIZED") {
+        console.log('액세스 만료')
+        const accessToken = localStorage.getItem("access_token");
+        const refreshToken = localStorage.getItem("refresh_token");
 
       // if (accessToken) {
       //   localStorage.removeItem("access_token");
       // }
-      if(!refreshToken){
-        return;
-      }
+      // if(!refreshToken){
+      //   return;
+      // }
 
       try {
         console.log('리프레시')
@@ -79,16 +89,12 @@ export const useAxiosInterceptor = ()=>{
         const res = await axiosConfig.get(`/auth/reissue`, { headers }); //refresh로 access 토큰 재발급
         const data = res.data;
         console.log(res); //응답일수도 에러일수도
-        // if(res.status === 401){ //리프레시 만료
-        //   localStorage.removeItem("refreshToken");
-        //   return;
-        // }
+       
         const newAccessToken = data.accessToken;
-        // const newRefreshToken = data.data.refreshToken; //??
         if(newAccessToken){
           console.log('뉴액세스토큰받았다')
           config!.headers = {
-            Authorization: `${accessToken}`,
+            Authorization: `${newAccessToken}`,
           };
         }
         
@@ -101,12 +107,19 @@ export const useAxiosInterceptor = ()=>{
         return Promise.reject(err);
       }
     }
+  // }
     return Promise.reject(err);
   }
 
   const requestHandler = (config:AxiosRequestConfig)=>{
     // console.log(config);
     setLoading(true); //리퀘스트시 로딩 켜기
+
+    const present = new Date();
+    const expire = new Date(localStorage.getItem("refresh_expired")!);
+    if(present === expire){
+      localStorage.removeItem("refresh_token");
+    }
 
     const accessToken = localStorage.getItem("access_token");    
     if (accessToken) {
@@ -156,7 +169,7 @@ export const useAxiosInterceptor = ()=>{
   }
   const responseInterceptor = axiosConfig.interceptors.response.use(
     (res) => responseHandler(res),
-    (err) => errorHandler(err),
+    (err) => {errorHandler(err); console.log(err)},
   );
 
   useEffect(() => {

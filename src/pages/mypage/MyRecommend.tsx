@@ -25,26 +25,30 @@ const MyRecommend = () => {
   const [menuList, setMenuList] = useState([]);
   const [res, setRes] = useState(false); 
   const target = useRef<HTMLDivElement>(null);
-  const items = useInfiniteScroll({target: target, url:`/member/food/${memberId}`});
+  // const items = useInfiniteScroll({target: target, url:`/member/food/${memberId}`});
   // let menuList : ResType;
+  const page = useInfiniteScroll({target: target, url:`/member/food/${memberId}`}).page;
 
   const getMyPreference = ()=>{
+    console.log(page);
     axiosConfig.get(`/member/food/${memberId}`,{
-      params: {page: items.page},
+      params: {page: page},
     }).then(res=>{
-      setMenuList(res.data);
+      setMenuList(prev=> prev.concat(res.data));
+    }).catch(err=>{
+      console.log(err);
     })
   }
 
-  useEffect(()=>{
-    // getMyPreference();
-    setMenuList(items.items);
-  },[items.items]);
+  // useEffect(()=>{
+  //   // getMyPreference();
+  //   setMenuList(items.items);
+  // },[items.items]);
 
   useEffect(()=>{
     getMyPreference();
     setRes(false);
-  },[res]);
+  },[res,page]);
 
   const onModifyState = async(foodId: number, memberFoodLike:string)=>{
     let url = '';

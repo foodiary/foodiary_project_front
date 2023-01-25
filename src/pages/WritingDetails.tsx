@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axiosConfig from "@utils/axiosConfig";
 import { useState } from "react";
 import styles from "@styles/writingDetails.module.scss";
-import { BsSuitHeart, BsSuitHeartFill, BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
+import { BsSuitHeart, BsSuitHeartFill, BsBookmark, BsFillBookmarkFill, BsBookmarkFill } from "react-icons/bs";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FiSend, FiMoreVertical } from "react-icons/fi";
 import CommentBox from "@components/common/CommentBox/CommentBox";
@@ -12,6 +12,7 @@ import { useLoginUserStore } from "@store/loginUserStore";
 import { AlertBox, WarnBox } from "@components/common/AlertBox/AlertBox";
 import { HalfButton } from "@components/common/LoginButton/Button";
 import { btnStateStore } from "@store/btnStateStore";
+import {TbCrown} from 'react-icons/tb';
 
 interface ResType {
   dailyBody: string;
@@ -23,11 +24,16 @@ interface ResType {
   dailyView: number;
   dailyWriter: string;
   memberId: number;
+  monRank: boolean;
+  weekRank: boolean;
+  scrapCheck: boolean;
+  likeCheck: boolean;
   userCheck: boolean; //본인이 쓴 글인지
 }
 
 const WritingDetails = () => {
   const navigate = useNavigate();
+  const target = useRef<HTMLDivElement>(null);
 
   const { pathname } = useLocation();
   const id = pathname.slice(8); // 글 아이디
@@ -45,8 +51,8 @@ const WritingDetails = () => {
   const setCancel = btnStateStore((state) => state.setCancel);
   const [success, setSuccess] = useState(false);
 
-  const [like, setLike] = useState(0);
-  const [likeFill, setLikeFill] = useState(false);
+  // const [like, setLike] = useState(0);
+  // const [likeFill, setLikeFill] = useState(false);
   // console.log(comments)
 
   useEffect(()=>{
@@ -84,7 +90,6 @@ const WritingDetails = () => {
     axiosConfig.post(`/daily/like/${id}/${memberId}`).then((res) => {
       setRefetch(prev => prev+1)
       // setLike(prev=>prev+1);
-      setLikeFill(prev=>!prev);
       // alert("좋아요 완료")
     }).catch((err) =>{
       console.log(err)
@@ -163,11 +168,23 @@ const WritingDetails = () => {
       </div>
 
       <div className={styles.ranking_container}>
-        <div className={styles.ranking}>Month Top 20</div>
-        <div className={styles.ranking}>Week Top 20</div>
-        <button onClick={onScrap}><BsBookmark/></button>
+        {/* <div className={styles.ranking}>
+          <TbCrown color="gold"/> Month Top 20
+        </div>
+        <div className={styles.ranking}>
+          <TbCrown color="gold"/> Week Top 20
+        </div> */}
+
+        {contents?.monRank && 
+          <div className={styles.ranking}><TbCrown color="gold"/> Month Top 20</div>}
+        {contents?.weekRank && 
+          <div className={styles.ranking}><TbCrown color="gold"/> Week Top 20</div>}
       </div>
 
+      <button onClick={onScrap} className={styles.scrap_btn}>
+          {contents?.scrapCheck? <BsBookmarkFill/>: <BsBookmark/>}
+      </button>
+      
       <div className={styles.writing_container}>
         <div className={styles.title_div}>
           <h2>{contents?.dailyTitle}</h2>
@@ -188,7 +205,7 @@ const WritingDetails = () => {
           </div>
           <div className={styles.res}>
             <button type="button" onClick={onDailyLike}>
-              {likeFill? <BsSuitHeartFill/> : <BsSuitHeart />}
+              {contents?.likeCheck? <BsSuitHeartFill/> : <BsSuitHeart />}
             </button>
             <p>{contents?.dailyLike}</p>
             {/* <p>{like}</p> */}

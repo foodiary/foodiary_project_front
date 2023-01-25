@@ -15,24 +15,32 @@
 
   .ranking_container{
     margin-top: 10px;
+    width: fit-content;
     @include flexBox($jc: start);
     gap: 15px;
     margin: 10px 0 0 20px;
+    position: relative;
+    // border: 1px solid red;
     .ranking{
-      background-color: #999999;
-      @include text-style(10px, white, 500);
+      // background-color: #999999;
+      background-color: $point;
+
+      @include text-style(10px, white, 500); //왕관 아이콘
       width: fit-content;
       height: fit-content;
       padding: 5px 10px;
       border-radius: 5px;
-      cursor: pointer;
+      // cursor: pointer;
     }
-    button{
-      font-size: 20px;
-      margin-left: 120px;
-    }
+    
   }
-
+  .scrap_btn{
+    position: absolute;
+    font-size: 20px;
+    left: 90%;
+    top: 380px;
+    // margin-left: 120px;
+  }
   .title_div{
     @include flexBox($jc: between);
 
