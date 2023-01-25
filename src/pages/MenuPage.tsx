@@ -2,14 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "@styles/menuPage.module.scss";
 import axiosConfig from "../core/apis/utils/axiosConfig";
 import { useLoginUserStore } from "@store/loginUserStore";
-import { AlertBox } from "@components/common/AlertBox/AlertBox";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
-
-const DATE = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-interface menuTypes {
-
-}
 
 const MenuPage = () => {
   const [menuList, setMenuList] = useState<any>([]);
@@ -19,12 +12,26 @@ const MenuPage = () => {
     weekMenu();
   }, []);
 
+  const getSunday = (d: any) => {
+    d = new Date(d);
+    let day = d.getDay(),
+      diff = d.getDate() - day + (day === 1 ? -6 : 0);
+    return new Date(d.setDate(diff));
+  };
+
+  const sunDate = getSunday(new Date());
+
+  const year = sunDate.getFullYear();
+  const month = (sunDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = sunDate.getDate().toString().padStart(2, "0");
+
+  const sunday = `${year}-${month}-${day}`;
 
   const weekMenu = () => {
     //일주일 식단 추천
     axiosConfig
       .get(`/food/menu/week`, {
-        params: { memberId: memberId, date: "2023-01-22"},
+        params: { memberId: memberId, date: sunday },
       })
       .then((res) => {
         console.log(res);
@@ -39,13 +46,14 @@ const MenuPage = () => {
 
   return (
     <section>
-      {/* {memberId !== 0 ? */}
       <div className={styles.menu}>
         <div className={styles.menu_title}>
-          <DecoTitle title="식단"/>
+          <DecoTitle title="식단" />
         </div>
 
-        <h2 className={styles.week_title}>1월 4주차</h2>
+        <h2 className={styles.week_title}>{`${
+          sunDate.getMonth() + 1
+        }월 4주차`}</h2>
         <div className={styles.week_menu}>
           <table>
             <thead className={styles.table_head}>
@@ -57,8 +65,12 @@ const MenuPage = () => {
             </thead>
             <tbody>
               <tr>
-                <td rowSpan={2}>일</td>
-                <td rowSpan={2}>22</td>
+                <td style={{ color: "red" }} rowSpan={2}>
+                  일
+                </td>
+                <td style={{ color: "red" }} rowSpan={2}>
+                  {day}
+                </td>
                 <td className={styles.menu}>{menuList.menuSunLunch}</td>
               </tr>
               <tr>
@@ -66,7 +78,9 @@ const MenuPage = () => {
               </tr>
               <tr>
                 <td rowSpan={2}>월</td>
-                <td rowSpan={2}>23</td>
+                <td rowSpan={2}>
+                  {(Number(day) + 1).toString().padStart(2, "0")}
+                </td>
                 <td className={styles.menu}>{menuList.menuMonLunch}</td>
               </tr>
               <tr>
@@ -74,7 +88,9 @@ const MenuPage = () => {
               </tr>
               <tr>
                 <td rowSpan={2}>화</td>
-                <td rowSpan={2}>24</td>
+                <td rowSpan={2}>
+                  {(Number(day) + 2).toString().padStart(2, "0")}
+                </td>
                 <td className={styles.menu}>{menuList.menuTueLunch}</td>
               </tr>
               <tr>
@@ -82,7 +98,9 @@ const MenuPage = () => {
               </tr>
               <tr>
                 <td rowSpan={2}>수</td>
-                <td rowSpan={2}>25</td>
+                <td rowSpan={2}>
+                  {(Number(day) + 3).toString().padStart(2, "0")}
+                </td>
                 <td className={styles.menu}>{menuList.menuWedLunch}</td>
               </tr>
               <tr>
@@ -90,7 +108,9 @@ const MenuPage = () => {
               </tr>
               <tr>
                 <td rowSpan={2}>목</td>
-                <td rowSpan={2}>26</td>
+                <td rowSpan={2}>
+                  {(Number(day) + 4).toString().padStart(2, "0")}
+                </td>
                 <td className={styles.menu}>{menuList.menuThuLunch}</td>
               </tr>
               <tr>
@@ -98,15 +118,21 @@ const MenuPage = () => {
               </tr>
               <tr>
                 <td rowSpan={2}>금</td>
-                <td rowSpan={2}>27</td>
+                <td rowSpan={2}>
+                  {(Number(day) + 5).toString().padStart(2, "0")}
+                </td>
                 <td className={styles.menu}>{menuList.menuFriLunch}</td>
               </tr>
               <tr>
                 <td className={styles.menu}>{menuList.menuFriDinner}</td>
               </tr>
               <tr>
-                <td rowSpan={2}>토</td>
-                <td rowSpan={2}>28</td>
+                <td style={{ color: "blue" }} rowSpan={2}>
+                  토
+                </td>
+                <td style={{ color: "blue" }} rowSpan={2}>
+                  {(Number(day) + 6).toString().padStart(2, "0")}
+                </td>
                 <td className={styles.menu}>{menuList.menuSatLunch}</td>
               </tr>
               <tr>
@@ -119,7 +145,6 @@ const MenuPage = () => {
       {/* :
       <AlertBox text="로그인이 필요한 서비스입니다" type={false}/>
       } */}
-
     </section>
   );
 };
