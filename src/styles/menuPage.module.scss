@@ -8,7 +8,6 @@
     width: fit-content;
     @include text-style(30px, 600);
     margin: 135px 0 30px 20px;
-    
   }
 }
 .week_title {
@@ -28,13 +27,6 @@
     .table_head {
       td {
         border-bottom: 3px solid $point;
-      }
-    }
-    tbody {
-      tr:first-child {
-        td:first-child {
-          color: red;
-        }
       }
     }
 
