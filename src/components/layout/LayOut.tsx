@@ -6,7 +6,7 @@ import Loading from '@pages/Loading';
 import React, { useRef } from 'react';
 import { LayoutRouteProps, Outlet, useLocation } from 'react-router-dom';
 import styles from './layOut.module.scss';
-import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
+// import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
 import './transition.css';
 import { useLoadingStore } from '@store/loadingStore';
 
