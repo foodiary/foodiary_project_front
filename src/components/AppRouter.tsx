@@ -51,6 +51,7 @@ import Loading from '@pages/Loading';
 import MyContact from '@pages/mypage/contact/MyContact';
 import Search from '@pages/Search';
 import SearchResult from '@pages/SearchResult';
+import ProfileView from '@pages/ProfileView';
 
 const AppRouter = () => {
   const token = localStorage.getItem("access_token");
@@ -109,6 +110,7 @@ const AppRouter = () => {
             <Route path='/modify/:id' element={<WritingPage edit={true}/>}/>
             <Route path='/search' element={<Search/>}/>
             <Route path='/search/result' element={<SearchResult/>}/>
+            <Route path='/profile/:id' element={<ProfileView/>}/>
 
           </Route>
 
@@ -132,6 +134,7 @@ const AppRouter = () => {
 
               <Route path='/find/id' element={<FindId/>}/>
               <Route path='/find/pwd' element={<FindPwd/>}/>
+
 
             </Route>
           }
