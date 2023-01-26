@@ -54,12 +54,14 @@ export const useAxiosInterceptor = ()=>{
     console.log(`인터셉트 에러: ${err}`);
     const refreshToken = localStorage.getItem("refresh_token");
 
-    if(!refreshToken){
-      console.log('자동로그아웃');
-      localStorage.clear();
-      window.location.reload();
+    if(config?.url === '/auth/reissue'){
+      if(!refreshToken){
+        console.log('자동로그아웃');
+        localStorage.clear();
+        window.location.reload();
+      }
     }
-
+    
     //액세스토큰 만료 시
     if (err.response?.status === 401 && config?.url !== '/auth/reissue') {
       console.log('401임')
@@ -108,6 +110,7 @@ export const useAxiosInterceptor = ()=>{
         return Promise.reject(err);
       }
     }
+
     return Promise.reject(err);
   }
 
@@ -116,10 +119,9 @@ export const useAxiosInterceptor = ()=>{
     
     const present = new Date();
     const expire = new Date(localStorage.getItem("refresh_expired")!);
-    if(present === expire){
+    if(present.getTime() >= expire.getTime()){
       localStorage.removeItem("refresh_token");
     }
-
     const accessToken = localStorage.getItem("access_token");    
     if (accessToken) {
       config.headers = {
