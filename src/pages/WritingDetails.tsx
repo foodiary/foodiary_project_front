@@ -163,6 +163,7 @@ const WritingDetails = () => {
         console.log(err);
       });
   };
+
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     navigate(`/modify/${id}`);
   };
@@ -231,6 +232,7 @@ const WritingDetails = () => {
       <div className={styles.writing_container}>
         <div className={styles.title_div}>
           <h2>{contents?.dailyTitle}</h2>
+          
           {/* {contents?.userCheck? <button onClick={onModify}><FiMoreVertical/></button>: null} */}
           {contents?.userCheck && (
             <div className={styles.btnBox}>
@@ -242,27 +244,33 @@ const WritingDetails = () => {
               </button>
             </div>
           )}
-          <button onClick={onScrap} className={styles.scrap_btn}>
+          {/* <button onClick={onScrap} className={styles.scrap_btn}>
             {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
-          </button>
+          </button> */}
         </div>
         {/* <p className={styles.created}>{date}</p> */}
-        <Link to={`/profile/${contents?.memberId}`}>
+
+        <div className={styles.writer_profile}>
+          <Link to={`/profile/${contents?.memberId}`}>
           <p className={styles.writer}>{contents?.dailyWriter}</p>
-        </Link>
+          </Link>
+        </div>
 
         <div className={styles.people_res}>
           <div className={styles.res}>
             <MdOutlineRemoveRedEye />
-
             <p>{contents?.dailyView}</p>
           </div>
+
           <div className={styles.res}>
             <button type="button" onClick={onDailyLike}>
               {contents?.likeCheck ? <BsSuitHeartFill /> : <BsSuitHeart />}
             </button>
             <p>{contents?.dailyLike}</p>
           </div>
+          <button onClick={onScrap} className={styles.scrap_btn}>
+            {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
+          </button>
         </div>
 
         <div className={styles.contents}>

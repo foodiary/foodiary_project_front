@@ -13,18 +13,17 @@
   }
 
   .ranking_container {
-    margin-top: 10px;
     width: fit-content;
     @include flexBox($jc: start);
     gap: 15px;
-    margin: 10px 0 0 20px;
+    margin: 40px 0 0 20px;
     position: relative;
     // border: 1px solid red;
     .ranking {
       // background-color: #999999;
       background-color: $point;
 
-      @include text-style(10px, white, 500); //왕관 아이콘
+      @include text-style(10px, white, 500); 
       width: fit-content;
       height: fit-content;
       padding: 5px 10px;
@@ -36,12 +35,7 @@
     display: flex;
     gap: 15px;
   }
-  .scrap_btn {
-    font-size: 20px;
-    position: absolute;
-    left: 80%;
-    // margin-left: 120px;
-  }
+  
   .title_div {
     @include flexBox($jc: between);
 
@@ -57,11 +51,17 @@
     padding-bottom: 10px;
     @include text-style(16px, $gray_400, 500, end);
   }
-  .writer {
-    padding: 15px;
-    padding-left: 0px;
-    @include text-style(16px, $gray_400, 500, start);
+  .writer_profile{
+    width: fit-content;
+    height: fit-content;
+    .writer {
+      padding: 15px;
+      padding-left: 0px;
+      width: fit-content;
+      @include text-style(16px, $gray_400, 500, start);
+    }
   }
+
   .people_res {
     @include flexBox($jc: start);
     gap: 30px;
@@ -71,6 +71,12 @@
     p {
       margin-left: 5px;
       @include text-style(16px, $gray_400, 500);
+    }
+    .scrap_btn {
+      font-size: 20px;
+      position: absolute;
+      left: 90%;
+      // margin-left: 120px;
     }
   }
   .contents {
