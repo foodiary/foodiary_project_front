@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axiosConfig from "@utils/axiosConfig";
 import { useState } from "react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import styles from "@styles/writingDetails.module.scss";
 import {
   BsSuitHeart,
@@ -19,8 +21,6 @@ import { HalfButton } from "@components/common/LoginButton/Button";
 import { btnStateStore } from "@store/btnStateStore";
 import { TbCrown } from "react-icons/tb";
 import { useInfiniteScroll } from "@hook/useInfiniteScroll";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 interface ResType {
@@ -207,7 +207,7 @@ const WritingDetails = () => {
 
   return (
     <div className={styles.writing_detail}>
-      <div className={styles.img}>
+      <div className={styles.slickBox}>
         <Slider {...settings}>
           {contents?.dailyImageList.map((el, index) => {
             return <img src={el} key={index} alt="첨부사진" />;
