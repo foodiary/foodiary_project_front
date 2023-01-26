@@ -60,10 +60,12 @@ export const useAxiosInterceptor = ()=>{
     console.log(err);
     const refreshToken = localStorage.getItem("refresh_token");
     if(!refreshToken){
-      console.log('자동로그아웃');
-      localStorage.clear();
-      window.location.reload();
-      return;
+      if(err.response?.status === 401){
+        console.log('자동로그아웃');
+        localStorage.clear();
+        window.location.reload();
+        return;
+      }
     }
 
     else{

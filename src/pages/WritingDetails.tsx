@@ -55,6 +55,7 @@ const WritingDetails = () => {
   useEffect(()=>{
     setCancel(true);
     setAlertCancel(true);
+    getContents();
   },[]);
 
   const getContents = () => {
@@ -103,6 +104,7 @@ const WritingDetails = () => {
       console.log(err)
     })
   }
+
 
   // useEffect(() => {
   //   // getContents();

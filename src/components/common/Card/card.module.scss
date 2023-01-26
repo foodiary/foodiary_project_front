@@ -3,6 +3,19 @@
 .margin {
   margin: 10px 0;
 }
+.img{
+  position: relative;
+  .tape{
+    position: absolute;
+    // border: 1px solid red;
+    top: -20px;
+    left: 40px;
+    transform: rotate(5deg);
+    opacity: 0.5;
+    width: 80px;
+    height: 25px;
+  }
+}
 
 .smallSize {
   width: 156px;

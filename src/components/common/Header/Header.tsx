@@ -13,6 +13,9 @@ import { useUpdateUser } from "@hook/useUpdateUser";
 
 const Header = () => {
   const navigate = useNavigate();
+  const {pathname} = useLocation();
+  console.log(pathname);
+
   const [loginUser, setLoginUser] = useState(false);
   const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
@@ -40,9 +43,10 @@ const Header = () => {
           </div>
         ) : (
           <div className={styles.after_login}>
-            <button onClick={() => navigate(-1)} className={styles.go_back_btn}>
-              <img src={go_back_btn} alt="뒤로가기" />
-            </button>
+            {pathname==="/" ? <div></div>:
+              <button onClick={() => navigate(-1)} className={styles.go_back_btn}>
+                <img src={go_back_btn} alt="뒤로가기" />
+              </button>}
             <div className={styles.user}>
               <Link to="/mypage">
                 {memberPath !== null ? (
