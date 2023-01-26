@@ -74,6 +74,14 @@
   .contents {
     // min-height: 300px;
     margin: 50px auto;
+    pre {
+      white-space: pre-wrap;
+      overflow: auto;
+    }
+    p {
+      word-break: break-all;
+      line-height: 1.5;
+    }
   }
 
   .input_comment {

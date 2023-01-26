@@ -241,6 +241,7 @@ const WritingDetails = () => {
         <div className={styles.people_res}>
           <div className={styles.res}>
             <MdOutlineRemoveRedEye />
+
             <p>{contents?.dailyView}</p>
           </div>
           <div className={styles.res}>
@@ -252,7 +253,9 @@ const WritingDetails = () => {
         </div>
 
         <div className={styles.contents}>
-          <p>{contents?.dailyBody}</p>
+          <pre>
+            <p>{contents?.dailyBody}</p>
+          </pre>
         </div>
       </div>
 

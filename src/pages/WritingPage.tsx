@@ -39,6 +39,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
 
   // const [files, setFiles] = useState<File>();
   const fileURL = useImgFileStore((state) => state.fileURL);
+  const setFileUrl = useImgFileStore((state) => state.setFileURL);
   const img = useImgFileStore((state) => state.img);
 
   const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
 
   const id = useParams().id;
 
-  console.log(fileURL);
+  console.log(img);
 
   const getContents = () => {
     axiosConfig
@@ -96,7 +97,9 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   };
 
   let formData = new FormData();
-  formData.append("dailyImage", img[0]);
+  for (let i = 0; i < img.length; i++) {
+    formData.append("dailyImage", img[i]);
+  }
   formData.append("thumbnail", img[0]);
   formData.append(
     "dailyWrite",
@@ -116,6 +119,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       .then((res) => {
         console.log(res);
         setSuccess(true);
+        setFileUrl([]);
         // setLoading(false);
         setTimeout(() => {
           navigate("/explore");
@@ -200,15 +204,24 @@ const WritingPage = ({ edit }: WritingPageProps) => {
           <div className={styles.imgBox}>
             {fileURL.length > 0
               ? fileURL.map((el, index) => {
+                  console.log(el);
                   return (
                     <img
-                      src={el || contents?.dailyImageList[index]}
+                      src={el}
                       alt="첨부파일"
                       className={styles.attach_img}
                     />
                   );
                 })
-              : null}
+              : contents?.dailyImageList.map((el) => {
+                  return (
+                    <img
+                      src={el}
+                      alt="첨부파일"
+                      className={styles.attach_img}
+                    />
+                  );
+                })}
           </div>
         </div>
         <LoginButton
