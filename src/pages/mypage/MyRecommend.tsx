@@ -24,19 +24,17 @@ const MyRecommend = () => {
   // const page = 1;
   const [menuList, setMenuList] = useState([]);
   const [res, setRes] = useState(false); 
+  const [idx, setIdx] = useState(0);
   const target = useRef<HTMLDivElement>(null);
-  // const items = useInfiniteScroll({target: target, url:`/member/food/${memberId}`}).items;
-  // console.log(items);
-  // let menuList : ResType;
+
   const page = useInfiniteScroll({target: target, url:`/member/food/${memberId}`}).page;
-  const stop = useInfiniteScroll({target: target, url:`/member/food/${memberId}`}).stop;
   const items = useInfiniteScroll({target: target, url:`/member/food/${memberId}`}).items;
 
 
   useEffect(()=>{
-    getMyPreference();
+    // getMyPreference();
     setMenuList(items);
-  },[]);
+  },[items]);
 
   const getMyPreference = ()=>{
     console.log(page);
@@ -92,12 +90,15 @@ const MyRecommend = () => {
       foodId: foodId,
     }).then(res=>{
       console.log(res);
-      getMyPreference();
+      // getMyPreference();
+      window.location.reload();
+      setIdx(index);
       // setRes(true);
     }).catch(err=>{
       console.log(err);
     })
   }
+
 
   // const clickedRef = useRef(null);
   // console.log(clickedRef.current);

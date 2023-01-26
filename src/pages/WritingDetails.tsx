@@ -59,6 +59,7 @@ const WritingDetails = () => {
   const cancel = btnStateStore((state) => state.cancel);
   const setCancel = btnStateStore((state) => state.setCancel);
   const [success, setSuccess] = useState(false);
+  const [forbidden, setForbidden] = useState(false);
 
   useEffect(() => {
     setCancel(true);
@@ -111,6 +112,10 @@ const WritingDetails = () => {
   };
 
   const onDailyLike = () => {
+    if(memberId === 0){
+      setForbidden(true);
+      setTimeout(()=>setForbidden(false),2000);
+    }
     axiosConfig
       .post(`/daily/like/${id}/${memberId}`)
       .then((res) => {
@@ -172,7 +177,12 @@ const WritingDetails = () => {
       navigate("/explore");
     });
   };
+
   const onScrap = () => {
+    if(memberId === 0){
+      setForbidden(true);
+      setTimeout(()=>setForbidden(false),2000);
+    }
     axiosConfig.post(`/daily/scrap/${id}/${memberId}`).then((res) => {
       console.log(res);
       setRefetch((prev) => prev + 1);
@@ -224,14 +234,17 @@ const WritingDetails = () => {
           {/* {contents?.userCheck? <button onClick={onModify}><FiMoreVertical/></button>: null} */}
           {contents?.userCheck && (
             <div className={styles.btnBox}>
-              <button onClick={onScrap} className={styles.scrap_btn}>
+              {/* <button onClick={onScrap} className={styles.scrap_btn}>
                 {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
-              </button>
+              </button> */}
               <button onClick={onModify}>
                 <FiMoreVertical />
               </button>
             </div>
           )}
+          <button onClick={onScrap} className={styles.scrap_btn}>
+            {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
+          </button>
         </div>
         {/* <p className={styles.created}>{date}</p> */}
         <Link to={`/profile/${contents?.memberId}`}>
@@ -322,6 +335,7 @@ const WritingDetails = () => {
           <WarnBox text="정말 삭제하시겠습니까?" btn_txt="삭제" />
         </form>
       )}
+      {forbidden && <AlertBox text="회원만 가능합니다" type={false}/>}
     </div>
   );
 };

@@ -14,7 +14,6 @@ import { useUpdateUser } from "@hook/useUpdateUser";
 const Header = () => {
   const navigate = useNavigate();
   const {pathname} = useLocation();
-  console.log(pathname);
 
   const [loginUser, setLoginUser] = useState(false);
   const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
