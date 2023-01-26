@@ -75,10 +75,11 @@ const MyContact = () => {
             <EmptyText text='문의 내역이 없습니다.'/>
           }
       </div>
-      {myQ.items.length>0 &&
+      {/* {myQ.items.length>0 && */}
         <div ref={target} className={styles.scroll_target}>
-          <p>마지막 페이지입니다</p>
-        </div>}
+          {/* <p>마지막 페이지입니다</p> */}
+        </div>
+        {/* } */}
     </div>
   );
 };

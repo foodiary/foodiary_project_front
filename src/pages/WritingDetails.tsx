@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axiosConfig from "@utils/axiosConfig";
 import { useState } from "react";
 import styles from "@styles/writingDetails.module.scss";
-import { BsSuitHeart, BsSuitHeartFill, BsBookmark, BsFillBookmarkFill, BsBookmarkFill } from "react-icons/bs";
+import { BsSuitHeart, BsSuitHeartFill, BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FiSend, FiMoreVertical } from "react-icons/fi";
 import CommentBox from "@components/common/CommentBox/CommentBox";
@@ -13,6 +13,7 @@ import { AlertBox, WarnBox } from "@components/common/AlertBox/AlertBox";
 import { HalfButton } from "@components/common/LoginButton/Button";
 import { btnStateStore } from "@store/btnStateStore";
 import {TbCrown} from 'react-icons/tb';
+import { useInfiniteScroll } from "@hook/useInfiniteScroll";
 
 interface ResType {
   dailyBody: string;
@@ -51,10 +52,6 @@ const WritingDetails = () => {
   const setCancel = btnStateStore((state) => state.setCancel);
   const [success, setSuccess] = useState(false);
 
-  // const [like, setLike] = useState(0);
-  // const [likeFill, setLikeFill] = useState(false);
-  // console.log(comments)
-
   useEffect(()=>{
     setCancel(true);
     setAlertCancel(true);
@@ -73,10 +70,22 @@ const WritingDetails = () => {
         console.log(err);
       });
   };
+
+  const params = {
+    dailyId: id, 
+    memberId: memberId,
+  }
+  const items = useInfiniteScroll({target: target, url:`/dailys/comment`, params: params}).items;
+  const reloadRef = useRef<HTMLDivElement>(null);
+  useEffect(()=>{
+    setComments(items);
+  },[items]);
+
   const getComments = () => {
-    const page = 1;
+    // const page = 1;
+    setComments([]);
     axiosConfig
-      .get(`/dailys/comment`, { params: { dailyId: id, memberId: memberId ,page: page } })
+      .get(`/dailys/comment`, { params: { dailyId: id, memberId: memberId , page: 1 } })
       .then((res) => {
         console.log(res);
         setComments(res.data);
@@ -88,18 +97,17 @@ const WritingDetails = () => {
 
   const onDailyLike = () => {
     axiosConfig.post(`/daily/like/${id}/${memberId}`).then((res) => {
-      setRefetch(prev => prev+1)
-      // setLike(prev=>prev+1);
-      // alert("좋아요 완료")
+      // setRefetch(prev => prev+1)
+      getContents();
     }).catch((err) =>{
       console.log(err)
     })
   }
 
-  useEffect(() => {
-    getContents();
-    getComments();
-  }, [refetch]);
+  // useEffect(() => {
+  //   // getContents();
+  //   getComments();
+  // }, [refetch]);
 
   const onModify = () => {
     setViewBtn((prev) => !prev);
@@ -123,7 +131,8 @@ const WritingDetails = () => {
     axiosConfig
       .post("/daily/comment", data)
       .then((res) => {
-        setRefetch(prev => prev+1)
+        // setRefetch(prev => prev+1)
+        getComments();
         setValue("");
         setSuccess(true); // 댓글 등록완료
       })
@@ -158,9 +167,8 @@ const WritingDetails = () => {
   //     block: 'center',
   //   })
   // }
-  const date = contents?.dailyCreate.slice(0,10).replaceAll("-",".");
+  // const date = contents?.dailyCreate.slice(0,10).replaceAll("-",".");
   console.log(`글: ${alertCancel}`);
-  // const date = contents?.dailyCreate.slice(0, 10);
   return (
     <div className={styles.writing_detail}>
       <div className={styles.img}>
@@ -168,13 +176,6 @@ const WritingDetails = () => {
       </div>
 
       <div className={styles.ranking_container}>
-        {/* <div className={styles.ranking}>
-          <TbCrown color="gold"/> Month Top 20
-        </div>
-        <div className={styles.ranking}>
-          <TbCrown color="gold"/> Week Top 20
-        </div> */}
-
         {contents?.monRank && 
           <div className={styles.ranking}><TbCrown color="gold"/> Month Top 20</div>}
         {contents?.weekRank && 
@@ -208,8 +209,6 @@ const WritingDetails = () => {
               {contents?.likeCheck? <BsSuitHeartFill/> : <BsSuitHeart />}
             </button>
             <p>{contents?.dailyLike}</p>
-            {/* <p>{like}</p> */}
-
           </div>
         </div>
 
@@ -235,7 +234,7 @@ const WritingDetails = () => {
 
       {success && <AlertBox text="댓글이 등록되었습니다" type={true}/>}
 
-      <div className={styles.comments_container}>
+      <div className={styles.comments_container} ref={reloadRef}>
         {comments.length > 0 ? (
           comments.map((item:any) => {
             console.log(item)
@@ -254,6 +253,11 @@ const WritingDetails = () => {
           <p className={styles.empty_comment}>댓글이 없습니다</p>
         )}
       </div>
+
+      <div ref={target} className={styles.scroll_target}>
+        {/* <p>마지막 페이지입니다</p> */}
+      </div>
+
       {viewBtn && (
         <div className={styles.view_btn}>
           <div className={styles.black} onClick={onClick}>

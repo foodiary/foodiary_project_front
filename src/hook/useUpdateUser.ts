@@ -11,13 +11,18 @@ export const useUpdateUser = ()=>{
   const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
 
   useEffect(()=>{
-    if(memberId !== 0){
-      axiosConfig.get(`/member/${memberId}`)
-      .then(res=>{
-        setUserInfo(res.data);
-      }).catch(err=>{
-        console.log(`업뎃유저에서: ${err}`);
-      })
+    if(token){
+      if(memberId !== 0){
+        axiosConfig.get(`/member/${memberId}`)
+        .then(res=>{
+          setUserInfo(res.data);
+        }).catch(err=>{
+          console.log(`업뎃유저에서: ${err}`);
+        })
+      }
+    }
+    else{
+      return
     }
     //  if(token){
     //   axiosConfig.get(`/member/${memberId}`)

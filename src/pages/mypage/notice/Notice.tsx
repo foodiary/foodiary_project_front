@@ -52,10 +52,11 @@ const Notice= () => {
           <EmptyText text='등록된 공지사항이 없습니다.'/>
         }
       </div>
-      {noticeList.items.length>0 &&
+      {/* {noticeList.items.length>0 && */}
         <div ref={target} className={styles.scroll_target}>
-          <p>마지막 페이지입니다</p>
-        </div>}
+          {/* <p>마지막 페이지입니다</p> */}
+        </div>
+        {/* } */}
     </div>
   );
 };

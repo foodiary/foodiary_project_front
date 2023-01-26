@@ -163,7 +163,7 @@ const MainPage = () => {
         navigate(`/search/result?${value}`);
       })
       .catch((err) => {
-        console.log("검색어와 일치하는 게시글이 없습니다.");
+        navigate(`/search/result?${value}`);
       });
   };
 
@@ -179,6 +179,9 @@ const MainPage = () => {
     } else {
       url = "/rank/week";
     }
+    console.log(`month인지? ${month}`);
+    console.log(`url은? ${url}`);
+
     axiosConfig
       .get(url)
       .then((res) => {
@@ -189,7 +192,6 @@ const MainPage = () => {
         console.log(err);
       });
   };
-
   useEffect(() => {
     getRankList();
   }, [month]);
@@ -281,9 +283,11 @@ const MainPage = () => {
                   <Link to={`/detail/${item.dailyId}`}>
                     <div className={styled.rank_card_container}>
                       <img src={item.dailyThumbnail} alt="" />
-                      {index === 0 && <BsTrophyFill color="gold" fontSize={30}/>}
-                      {index === 1 && <BsTrophyFill color="silver" fontSize={30}/>}
-                      {index === 2 && <BsTrophyFill color="#CD7F32" fontSize={30}/>}
+                      <div>
+                        {index === 0 && <BsTrophyFill color="gold" fontSize={30}/>}
+                        {index === 1 && <BsTrophyFill color="silver" fontSize={30}/>}
+                        {index === 2 && <BsTrophyFill color="#CD7F32" fontSize={30}/>}
+                      </div>
                       <p>{item.dailyTitle}</p>
                     </div>
                   </Link>

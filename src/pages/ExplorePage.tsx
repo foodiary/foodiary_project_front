@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 import { BsPencilFill } from "react-icons/bs";
 import { useInfiniteScroll } from "@hook/useInfiniteScroll";
+import ExploreCard from "@components/ExploreCard";
 
 interface ResType {
   // dailyCreate: string;
@@ -19,47 +20,79 @@ interface ResType {
 
 const ExplorePage = () => {
   const [tab, setTab] = useState("0"); // 1달 1주 오늘
-  let url = "";
-  // const [url, setUrl] = useState("");
+  // let url = "";
+  const [url, setUrl] = useState("/dailys/month");
+  
   const target = useRef<HTMLDivElement>(null);
-  // let page = 1;
-  // let items = [];
 
   // const items = useInfiniteScroll({target: target, url:url}).items;
-  const page = useInfiniteScroll({target: target, url:url}).page;
+  const scrollPage = useInfiniteScroll({target: target, url:"/dailys/month"}).page;
+  const stop = useInfiniteScroll({target: target, url:`/dailys/month`}).stop; //비구조화할당 안먹음..
 
   const [dailyList, setDailyList] = useState([]);
 
-  const getDaily = () => {
+  const getUrl = ()=>{
     if (tab === "0") {
-      url = "/dailys/month";
-      // setUrl("/dailys/month");
+      // url = "/dailys/month";
+      setUrl('/dailys/month');
     } else if (tab === "1") {
-      url = "/dailys/week";
-      // setUrl("/dailys/week");
-
+      // url = "/dailys/week";
+      setUrl('/dailys/week');
     } else {
-      url = "/dailys/today";
-      // setUrl("/dailys/today");
-
+      // url = "/dailys/today";
+      setUrl('/dailys/today');
     }
-    // if(page !== 1){
-      axiosConfig
-      .get(url, { params: { page: page } })
-      .then((res) => {
-        console.log(res);
-        setDailyList(prev=> prev.concat(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // }
-  };
+  }
+  // const getDaily = (page?: number) => {
+  //   if (tab === "0") {
+  //     url = "/dailys/month";
+  //     // setUrl("/dailys/month");
+  //   } else if (tab === "1") {
+  //     url = "/dailys/week";
+  //     // setUrl("/dailys/week");
 
-  useEffect(() => {
-    getDaily();
-    // setDailyList(items);
-  }, [tab]);
+  //   } else {
+  //     url = "/dailys/today";
+  //     // setUrl("/dailys/today");
+
+  //   }
+  //   if(stop){
+  //     return;
+  //   }
+  //   else{   // if(page !== 1){
+  //     if(page){
+  //       setDailyList([]);
+  //     }
+  //     axiosConfig
+  //     .get(url, { params: { page: page? 1: scrollPage } })
+  //     // .get(url, { params: { page:  } })
+
+  //     .then((res) => {
+  //       console.log(res);
+  //       if(res !== undefined){
+  //       setDailyList(prev=> prev.concat(res.data));
+  //     }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });}
+  //   // }
+  // };
+
+  // useEffect(() => {
+  //   if(scrollPage !== 1){
+  //     getDaily();
+  //   }
+  //   // setDailyList(items);
+  // }, [scrollPage]);
+
+  // useEffect(() => {
+  //   getDaily(1);
+  // }, [tab]);
+
+  useEffect(()=>{
+    getUrl();
+  },[tab]);
 
   return (
     <article className={styles.questWrapper}>
@@ -106,7 +139,8 @@ const ExplorePage = () => {
           }}
         />
       </div>
-      <section className={styles.dailySection}>
+      <ExploreCard url={url}/>
+      {/* <section className={styles.dailySection}>
         <div className={styles.contents}>
           {dailyList.map((item: ResType, index) => {
             return (
@@ -120,12 +154,12 @@ const ExplorePage = () => {
             );
           })}
         </div>
-      </section>
-      {dailyList.length>0 && 
-          <div ref={target} className={styles.scroll_target}>
-              <p>마지막 페이지입니다</p>
-          </div>
-      }
+      </section> */}
+      {/* {dailyList.length>0 &&  */}
+          {/* <div ref={target} className={styles.scroll_target}> */}
+              {/* <p>마지막 페이지입니다</p> */}
+          {/* </div> */}
+      {/* } */}
     </article>
   );
 };

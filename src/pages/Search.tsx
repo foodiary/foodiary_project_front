@@ -18,26 +18,26 @@ interface ResType{
 const Search = () => {
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
   const setSearchList = useSearchStore((state)=>state.setSearchList);
-  // const [keyword, setKeyword] = useState([]);
+  const [keyword, setKeyword] = useState([]);
   const [value, setValue] = useState("");
-  const page = 1;
+  // const page = 1;
   const navigate = useNavigate();
 
-  const target = useRef<HTMLDivElement>(null);
-  const keyword = useInfiniteScroll({target: target, url:'/search/daily'});
+  // const target = useRef<HTMLDivElement>(null);
+  // const keyword = useInfiniteScroll({target: target, url:'/search/daily', memberId: memberId}).items;
 
-  // const getMySearch = ()=>{
-  //   axiosConfig.get('/search/daily',{
-  //     params: {memberId: memberId,}
-  //   }).then(res=>{
-  //     setKeyword(res.data);
-  //   }).catch(err=>{
-  //     console.log(err);
-  //   });
-  // }
-  // useEffect(()=>{
-  //   getMySearch();
-  // },[]);
+  const getMySearch = ()=>{
+    axiosConfig.get('/search/daily',{
+      params: {memberId: memberId,}
+    }).then(res=>{
+      setKeyword(res.data);
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+  useEffect(()=>{
+    getMySearch();
+  },[]);
 
   // console.log(keyword)
 
@@ -46,25 +46,27 @@ const Search = () => {
   };
   const onSearch = (event : React.MouseEvent<HTMLButtonElement>)=>{
     const keywordId = event.currentTarget.id
-    axiosConfig.post('/search/daily/result',{
-      keyword: value || keywordId,
-      memberId: memberId,
-      page: page,
-    }).then(res=>{
-      console.log(keywordId)
-      setSearchList(res.data);
-      navigate(`/search/result?${value || keywordId}`);
-    }).catch(err=>{
-      setSearchList([]);
-      navigate(`/search/result?${value || keywordId}`);
-    })
+    navigate(`/search/result?${value || keywordId}`);
+
+    // axiosConfig.post('/search/daily/result',{
+    //   keyword: value || keywordId,
+    //   memberId: memberId,
+    //   page: 1, //page
+    // }).then(res=>{
+    //   console.log(keywordId)
+    //   setSearchList(res.data);
+    //   navigate(`/search/result?${value || keywordId}`);
+    // }).catch(err=>{
+    //   setSearchList([]);
+    //   navigate(`/search/result?${value || keywordId}`);
+    // })
   }
 
   const onRemove = (keywordId: number)=>{
     axiosConfig.delete(`/search/daily/delete/${memberId}/${keywordId}`)
     .then(res=>{
       console.log(res);
-      // getMySearch();
+      getMySearch();
     }).catch(err=>{
       console.log(err);
     })
@@ -83,7 +85,7 @@ const Search = () => {
       <div className={styled.recent_search_box}>
         <h2>최근 검색어</h2>
         <ul className={styled.recent_search_list}>
-          {keyword.items?.map((keyword:ResType) => {
+          {keyword.map((keyword:ResType) => {
             return (
               <li>
                 <div>
@@ -99,11 +101,6 @@ const Search = () => {
           })}
         </ul>
       </div>
-      {keyword.items.length>0 && 
-          <div ref={target} className={styled.scroll_target}>
-              <p>마지막 페이지입니다</p>
-          </div>
-        }
     </div>
   );
 };

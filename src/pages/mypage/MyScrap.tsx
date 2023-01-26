@@ -35,11 +35,11 @@ const MyScrap = () => {
             <EmptyText text='내가 스크랩한 글이 없습니다.'/>
         }
       </div>
-      {scrapList.items.length>0 && 
+      {/* {scrapList.items.length>0 &&  */}
         <div ref={target} className={styles.scroll_target}>
-          <p>마지막 페이지입니다</p>
+          {/* <p>마지막 페이지입니다</p> */}
         </div>
-      }
+      {/* } */}
     </div>
   );
 };
