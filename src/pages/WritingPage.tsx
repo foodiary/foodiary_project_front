@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useLoginUserStore } from "@store/loginUserStore";
 import camera_icon from "@img/camera_icon.svg";
 import { AlertBox } from "@components/common/AlertBox/AlertBox";
+import { MdCancel } from "react-icons/md";
 
 interface WritingPageProps {
   edit: boolean;
@@ -40,7 +41,8 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   // const [files, setFiles] = useState<File>();
   const fileURL = useImgFileStore((state) => state.fileURL);
   const setFileUrl = useImgFileStore((state) => state.setFileURL);
-  const img = useImgFileStore((state) => state.img);
+  const img = useImgFileStore<any>((state) => state.img);
+  const setImg = useImgFileStore((state) => state.setImg);
 
   const [loading, setLoading] = useState(false);
 
@@ -168,6 +170,14 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       });
   };
 
+  const deleteImage = (url: string, index: number) => () => {
+    const data = [...img];
+    data.splice(index, 1);
+    setFileUrl(fileURL.filter((fileurl) => fileurl !== url));
+    setImg(data);
+    console.log(index);
+  };
+
   return (
     <div>
       <form onSubmit={edit ? onEdit : onSubmit} encType="multipart/form-data">
@@ -206,20 +216,30 @@ const WritingPage = ({ edit }: WritingPageProps) => {
               ? fileURL.map((el, index) => {
                   console.log(el);
                   return (
-                    <img
-                      src={el}
-                      alt="첨부파일"
-                      className={styles.attach_img}
-                    />
+                    <div className={styles.imageFileBox}>
+                      <img
+                        src={el}
+                        alt="첨부파일"
+                        className={styles.attach_img}
+                      />
+                      <button type="button" onClick={deleteImage(el, index)}>
+                        <MdCancel />
+                      </button>
+                    </div>
                   );
                 })
-              : contents?.dailyImageList.map((el) => {
+              : contents?.dailyImageList.map((el, index) => {
                   return (
-                    <img
-                      src={el}
-                      alt="첨부파일"
-                      className={styles.attach_img}
-                    />
+                    <div className={styles.imageFileBox}>
+                      <img
+                        src={el}
+                        alt="첨부파일"
+                        className={styles.attach_img}
+                      />
+                      <button onClick={deleteImage(el, index)}>
+                        <MdCancel />
+                      </button>
+                    </div>
                   );
                 })}
           </div>

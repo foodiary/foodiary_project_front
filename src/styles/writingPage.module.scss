@@ -50,3 +50,14 @@
   overflow-x: auto;
   margin-bottom: 30px;
 }
+
+.imageFileBox {
+  position: relative;
+  button {
+    font-size: 24px;
+    color: $point;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+}
