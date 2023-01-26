@@ -1,19 +1,18 @@
-@import './main.module.scss';
+@import "./main.module.scss";
 
-.writing_detail{
- 
-  .writing_container{
+.writing_detail {
+  .writing_container {
     width: 90%;
     margin: auto;
     gap: 20px;
   }
-  img{
+  img {
     width: 100%;
     height: 300px;
     border-radius: 0 0 12px 12px;
   }
 
-  .ranking_container{
+  .ranking_container {
     margin-top: 10px;
     width: fit-content;
     @include flexBox($jc: start);
@@ -21,7 +20,7 @@
     margin: 10px 0 0 20px;
     position: relative;
     // border: 1px solid red;
-    .ranking{
+    .ranking {
       // background-color: #999999;
       background-color: $point;
 
@@ -32,61 +31,61 @@
       border-radius: 5px;
       // cursor: pointer;
     }
-    
   }
-  .scrap_btn{
-    position: absolute;
+  .btnBox {
+    display: flex;
+    gap: 15px;
+  }
+  .scrap_btn {
     font-size: 20px;
-    left: 90%;
-    top: 380px;
     // margin-left: 120px;
   }
-  .title_div{
+  .title_div {
     @include flexBox($jc: between);
 
-    h2{
+    h2 {
       padding: 20px 0;
     }
-    button{
+    button {
       font-size: 20px;
     }
   }
 
-  .created{
+  .created {
     padding-bottom: 10px;
     @include text-style(16px, $gray_400, 500, end);
   }
-  .writer{
+  .writer {
     padding: 15px;
     padding-left: 0px;
     @include text-style(16px, $gray_400, 500, start);
   }
-  .people_res{
+  .people_res {
     @include flexBox($jc: start);
     gap: 30px;
-    .res{
+    .res {
       @include flexBox($jc: start);
     }
-    p{
+    p {
       margin-left: 5px;
       @include text-style(16px, $gray_400, 500);
     }
   }
-  .contents{
+  .contents {
     // min-height: 300px;
     margin: 50px auto;
   }
 
-  .input_comment{
+  .input_comment {
     width: 90%;
     margin: 80px auto;
     @include flexBox($jc: between);
     gap: 10px;
 
-    .send_icon{
+    .send_icon {
       font-size: 20px;
     }
-    textarea{
+    textarea {
       width: 100%;
       border: 2px solid $main;
       border-radius: 12px;
@@ -96,29 +95,26 @@
       @include text-style(16px, $gray_400, 400, start);
       padding: 10px;
     }
-    
   }
 
-  .empty_comment{
+  .empty_comment {
     @include flexBox();
     margin-top: 50px;
     @include text-style(16px, $gray_400, 400);
   }
 
-  .view_btn{
+  .view_btn {
     @include flexBox();
     position: fixed;
     // margin-top: 50px;
     bottom: 62px;
-    .black{
+    .black {
       background-color: black;
       border-radius: 16px 0 0 0;
     }
-    .red{
+    .red {
       background-color: $point;
       border-radius: 0 16px 0 0;
-
     }
   }
-
 }

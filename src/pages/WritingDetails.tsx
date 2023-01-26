@@ -1,10 +1,15 @@
 import React, { ChangeEvent, FormEvent, useRef } from "react";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axiosConfig from "@utils/axiosConfig";
 import { useState } from "react";
 import styles from "@styles/writingDetails.module.scss";
-import { BsSuitHeart, BsSuitHeartFill, BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import {
+  BsSuitHeart,
+  BsSuitHeartFill,
+  BsBookmark,
+  BsBookmarkFill,
+} from "react-icons/bs";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FiSend, FiMoreVertical } from "react-icons/fi";
 import CommentBox from "@components/common/CommentBox/CommentBox";
@@ -12,8 +17,11 @@ import { useLoginUserStore } from "@store/loginUserStore";
 import { AlertBox, WarnBox } from "@components/common/AlertBox/AlertBox";
 import { HalfButton } from "@components/common/LoginButton/Button";
 import { btnStateStore } from "@store/btnStateStore";
-import {TbCrown} from 'react-icons/tb';
+import { TbCrown } from "react-icons/tb";
 import { useInfiniteScroll } from "@hook/useInfiniteScroll";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 interface ResType {
   dailyBody: string;
@@ -42,7 +50,7 @@ const WritingDetails = () => {
 
   const [contents, setContents] = useState<ResType>();
   const [comments, setComments] = useState([]);
-  const [refetch, setRefetch] = useState(0)
+  const [refetch, setRefetch] = useState(0);
 
   const [value, setValue] = useState("");
   const [viewBtn, setViewBtn] = useState(false);
@@ -52,11 +60,11 @@ const WritingDetails = () => {
   const setCancel = btnStateStore((state) => state.setCancel);
   const [success, setSuccess] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     setCancel(true);
     setAlertCancel(true);
     getContents();
-  },[]);
+  }, [refetch]);
 
   const getContents = () => {
     axiosConfig
@@ -73,20 +81,26 @@ const WritingDetails = () => {
   };
 
   const params = {
-    dailyId: id, 
+    dailyId: id,
     memberId: memberId,
-  }
-  const items = useInfiniteScroll({target: target, url:`/dailys/comment`, params: params}).items;
+  };
+  const items = useInfiniteScroll({
+    target: target,
+    url: `/dailys/comment`,
+    params: params,
+  }).items;
   const reloadRef = useRef<HTMLDivElement>(null);
-  useEffect(()=>{
+  useEffect(() => {
     setComments(items);
-  },[items]);
+  }, [items]);
 
   const getComments = () => {
     // const page = 1;
     setComments([]);
     axiosConfig
-      .get(`/dailys/comment`, { params: { dailyId: id, memberId: memberId , page: 1 } })
+      .get(`/dailys/comment`, {
+        params: { dailyId: id, memberId: memberId, page: 1 },
+      })
       .then((res) => {
         console.log(res);
         setComments(res.data);
@@ -97,14 +111,16 @@ const WritingDetails = () => {
   };
 
   const onDailyLike = () => {
-    axiosConfig.post(`/daily/like/${id}/${memberId}`).then((res) => {
-      // setRefetch(prev => prev+1)
-      getContents();
-    }).catch((err) =>{
-      console.log(err)
-    })
-  }
-
+    axiosConfig
+      .post(`/daily/like/${id}/${memberId}`)
+      .then((res) => {
+        // setRefetch(prev => prev+1)
+        getContents();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   // useEffect(() => {
   //   // getContents();
@@ -150,18 +166,18 @@ const WritingDetails = () => {
     setCancel(true);
     setAlertCancel(true);
     setViewBtn(false);
-    console.log('글 삭제')
+    console.log("글 삭제");
     axiosConfig.delete(`/daily/${id}/${memberId}`).then((res) => {
-      console.log(res)
-      navigate("/explore")
-    })
-  }
-  const onScrap = ()=>{
-    axiosConfig.post(`/daily/scrap/${id}/${memberId}`)
-    .then((res) => {
       console.log(res);
-    })  
-  }
+      navigate("/explore");
+    });
+  };
+  const onScrap = () => {
+    axiosConfig.post(`/daily/scrap/${id}/${memberId}`).then((res) => {
+      console.log(res);
+      setRefetch((prev) => prev + 1);
+    });
+  };
   // const moveScroll = ()=>{
   //   const element = useRef<HTMLDivElement>(null);
   //   element.current?.scrollIntoView({
@@ -170,36 +186,57 @@ const WritingDetails = () => {
   //   })
   // }
   // const date = contents?.dailyCreate.slice(0,10).replaceAll("-",".");
-  console.log(`글: ${alertCancel}`);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div className={styles.writing_detail}>
       <div className={styles.img}>
-        <img src={contents?.dailyImageList[0]} alt="첨부사진" />
+        <Slider {...settings}>
+          {contents?.dailyImageList.map((el) => {
+            return <img src={el} alt="첨부사진" />;
+          })}
+        </Slider>
       </div>
 
       <div className={styles.ranking_container}>
-        {contents?.monRank && 
-          <div className={styles.ranking}><TbCrown color="gold"/> Month Top 20</div>}
-        {contents?.weekRank && 
-          <div className={styles.ranking}><TbCrown color="gold"/> Week Top 20</div>}
+        {contents?.monRank && (
+          <div className={styles.ranking}>
+            <TbCrown color="gold" /> Month Top 20
+          </div>
+        )}
+        {contents?.weekRank && (
+          <div className={styles.ranking}>
+            <TbCrown color="gold" /> Week Top 20
+          </div>
+        )}
       </div>
 
-      <button onClick={onScrap} className={styles.scrap_btn}>
-          {contents?.scrapCheck? <BsBookmarkFill/>: <BsBookmark/>}
-      </button>
-      
       <div className={styles.writing_container}>
         <div className={styles.title_div}>
           <h2>{contents?.dailyTitle}</h2>
           {/* {contents?.userCheck? <button onClick={onModify}><FiMoreVertical/></button>: null} */}
           {contents?.userCheck && (
-            <button onClick={onModify}>
-              <FiMoreVertical />
-            </button>
+            <div className={styles.btnBox}>
+              <button onClick={onScrap} className={styles.scrap_btn}>
+                {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
+              </button>
+              <button onClick={onModify}>
+                <FiMoreVertical />
+              </button>
+            </div>
           )}
         </div>
         {/* <p className={styles.created}>{date}</p> */}
-        <p className={styles.writer}>{contents?.dailyWriter}</p>
+        <Link to={`/profile/${memberId}`}>
+          <p className={styles.writer}>{contents?.dailyWriter}</p>
+        </Link>
 
         <div className={styles.people_res}>
           <div className={styles.res}>
@@ -208,7 +245,7 @@ const WritingDetails = () => {
           </div>
           <div className={styles.res}>
             <button type="button" onClick={onDailyLike}>
-              {contents?.likeCheck? <BsSuitHeartFill/> : <BsSuitHeart />}
+              {contents?.likeCheck ? <BsSuitHeartFill /> : <BsSuitHeart />}
             </button>
             <p>{contents?.dailyLike}</p>
           </div>
@@ -234,20 +271,21 @@ const WritingDetails = () => {
         </button>
       </div>
 
-      {success && <AlertBox text="댓글이 등록되었습니다" type={true}/>}
+      {success && <AlertBox text="댓글이 등록되었습니다" type={true} />}
 
       <div className={styles.comments_container} ref={reloadRef}>
         {comments.length > 0 ? (
-          comments.map((item:any) => {
-            console.log(item)
+          comments.map((item: any) => {
+            console.log(item);
             return (
               <CommentBox
                 dailyCommentImg={item.memberImage}
                 dailyCommentBody={item.dailyCommentBody}
-                dailyCommentCreate={item.dailyCommentCreate.slice(0,10)}
+                dailyCommentCreate={item.dailyCommentCreate.slice(0, 10)}
                 dailyCommentWriter={item.dailyCommentWriter}
-                dailyCommentId = {item.dailyCommentId}
-                isMine = {item.userCheck}
+                dailyCommentId={item.dailyCommentId}
+                isMine={item.userCheck}
+                commentMemberId={item.memberId}
               />
             );
           })
@@ -265,7 +303,13 @@ const WritingDetails = () => {
           <div className={styles.black} onClick={onClick}>
             <HalfButton type="button" text="수정" />
           </div>
-          <div className={styles.red} onClick={() => {setCancel(false); setAlertCancel(false)}}>
+          <div
+            className={styles.red}
+            onClick={() => {
+              setCancel(false);
+              setAlertCancel(false);
+            }}
+          >
             <HalfButton type="button" text="삭제" />
           </div>
         </div>

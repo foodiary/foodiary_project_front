@@ -2,19 +2,25 @@ import { SmallCard } from "@components/common/Card";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 import axiosConfig from "@core/apis/utils/axiosConfig";
 import styles from "@styles/profileView.module.scss";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const ProfileView = () => {
+  const memberId = useParams().id;
+  const [myDailyList, setMyDailyList] = useState([]);
+
   useEffect(() => {
     axiosConfig
-      .get(`/member/search/${116}`, {
-        params: { memberId: 116, page: 1 },
+      .get(`/member/search/${memberId}`, {
+        params: { memberId: memberId, page: 1 },
       })
       .then((res) => {
+        setMyDailyList(res.data);
         console.log(res);
       });
   }, []);
+
+  console.log(memberId);
 
   return (
     <div className={styles.profileView_container}>
@@ -25,13 +31,17 @@ const ProfileView = () => {
       </div>
       <DecoTitle title="하루공유" />
       <div className={styles.item_container}>
-        <Link
-          to={`/explore/details`}
-          //   state={{ list: dailyList.slice(index) }}
-          //   key={item.dailyId}
-        >
-          <SmallCard />
-        </Link>
+        {myDailyList.map((item: any) => {
+          return (
+            <Link
+              to={`/detail/${item.dailyId}`}
+              //   state={{ list: dailyList.slice(index) }}
+              key={item.dailyId}
+            >
+              <SmallCard img={item.dailyThumbnail} />
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
