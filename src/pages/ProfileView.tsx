@@ -5,8 +5,15 @@ import styles from "@styles/profileView.module.scss";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+interface myProfileTypes {
+  memberNickName: string;
+  memberPath: string;
+  memberProfile: string;
+}
+
 const ProfileView = () => {
   const memberId = useParams().id;
+  const [myProfile, setMyProfile] = useState<myProfileTypes>();
   const [myDailyList, setMyDailyList] = useState([]);
 
   useEffect(() => {
@@ -15,19 +22,21 @@ const ProfileView = () => {
         params: { memberId: memberId, page: 1 },
       })
       .then((res) => {
-        setMyDailyList(res.data);
+        setMyDailyList(res.data.memberDailyResponseDtos);
+        setMyProfile(res.data.memberProfileResponseDtos);
         console.log(res);
       });
   }, []);
 
-  console.log(memberId);
+  console.log(myDailyList);
+  console.log(myProfile);
 
   return (
     <div className={styles.profileView_container}>
       <div className={styles.profile_box}>
-        <img src="" alt="" />
-        <p className={styles.nickname}>닉네임</p>
-        <p className={styles.profile_message}>상태메세지</p>
+        <img src={myProfile?.memberPath} alt="" />
+        <p className={styles.nickname}>{myProfile?.memberNickName}</p>
+        <p className={styles.profile_message}>{myProfile?.memberProfile}</p>
       </div>
       <DecoTitle title="하루공유" />
       <div className={styles.item_container}>

@@ -199,8 +199,8 @@ const WritingDetails = () => {
     <div className={styles.writing_detail}>
       <div className={styles.img}>
         <Slider {...settings}>
-          {contents?.dailyImageList.map((el) => {
-            return <img src={el} alt="첨부사진" />;
+          {contents?.dailyImageList.map((el, index) => {
+            return <img src={el} key={index} alt="첨부사진" />;
           })}
         </Slider>
       </div>
@@ -234,7 +234,7 @@ const WritingDetails = () => {
           )}
         </div>
         {/* <p className={styles.created}>{date}</p> */}
-        <Link to={`/profile/${memberId}`}>
+        <Link to={`/profile/${contents?.memberId}`}>
           <p className={styles.writer}>{contents?.dailyWriter}</p>
         </Link>
 
