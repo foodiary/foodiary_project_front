@@ -78,23 +78,57 @@ section {
       justify-content: flex-end;
       position: relative;
       z-index: 1;
-
+      // border: 1px solid blue;
       .food_card {
+        // position: absolute;
+        // top: -3px;
+        // left: 55px;
+        // z-index: -1;
+        // border: 1px solid rgb(1, 42, 1);
+        // background: url("/img/today_food.jpg");
+        // background-size: cover;
+        // background-position: bottom;
+        // width: 200px;
+        // height: 100px;
+        // transform: rotate(-8deg);
+        // font-size: 24px;
+        // font-weight: 500;
+        // color: #fff;
+        // @include flexBox($jc: around);
+
+        width: 200px; 
+        height: 200px;
+        // border: 1px solid red;
         position: absolute;
-        top: -3px;
-        left: 55px;
+        top: -40%;
+        left: 25%;
         z-index: -1;
-        border: 1px solid rgb(1, 42, 1);
-        background: url("/img/today_food.jpg");
-        background-size: cover;
-        background-position: bottom;
-        width: 200px;
-        height: 100px;
-        transform: rotate(-8deg);
-        font-size: 24px;
-        font-weight: 500;
-        color: #fff;
-        @include flexBox($jc: around);
+
+        img{
+          width: 230px; //200
+          height: 230px;
+          position: absolute;
+          top: -25px;
+          left: 10px;
+          transform: rotate(75deg);
+          filter: invert(63%) sepia(97%) saturate(426%) hue-rotate(350deg) brightness(93%) contrast(97%);
+        }
+        
+        p{
+          @include flexBox();
+          @include text-style(24px, 500);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          // border: 1px solid red;
+        }
+        .reloadFood{
+          @include text-style(25px, $point, 400);
+          position: absolute;
+          top: 20%; 
+          left: 65%;
+        }
       }
       img {
         width: 100px;
@@ -187,24 +221,25 @@ section {
   .card_container {
     width: 95%;
     margin: 40px auto 0 auto;
-    img{
-      width: 130px;
-      height: 120px;
-    }
-  }
-  .rank_card_container{
-    width: 100%;
-    border: 1px solid #d9d9d9;
-    background: white;
-    padding: 5px;
-    margin-bottom: 10px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    p{
-      font-size: 16px;
-      font-weight: 400;
-      color: #111;
+  
+    .rank_card_container{
+      width: 100%;
+      border: 1px solid #d9d9d9;
+      background: white;
+      padding: 5px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      img{
+        width: 130px;
+        height: 120px;
+      }
+      p{
+        font-size: 16px;
+        font-weight: 400;
+        color: #111;
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ interface PrivateRouteProps {
   // login : boolean; // true :인증을 반드시 해야하만 접속가능, false : 인증을 반디스 안해야만 접속 가능
 }
 const PrivateRouter = ({children}:PrivateRouteProps):React.ReactElement|null => {
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("refresh_token");
   const navigate = useNavigate();
   if(!token){
     setTimeout(()=>navigate(-1),2000);

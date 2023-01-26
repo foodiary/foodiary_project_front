@@ -24,31 +24,61 @@ const MyRecommend = () => {
   // const page = 1;
   const [menuList, setMenuList] = useState([]);
   const [res, setRes] = useState(false); 
+  const [idx, setIdx] = useState(0);
   const target = useRef<HTMLDivElement>(null);
-  const items = useInfiniteScroll({target: target, url:`/member/food/${memberId}`});
-  // let menuList : ResType;
 
-  const getMyPreference = ()=>{
-    axiosConfig.get(`/member/food/${memberId}`,{
-      params: {page: items.page},
-    }).then(res=>{
-      setMenuList(res.data);
-    })
-  }
+  const page = useInfiniteScroll({target: target, url:`/member/food/${memberId}`}).page;
+  const items = useInfiniteScroll({target: target, url:`/member/food/${memberId}`}).items;
+
 
   useEffect(()=>{
     // getMyPreference();
-    setMenuList(items.items);
-  },[items.items]);
+    setMenuList(items);
+  },[items]);
 
-  useEffect(()=>{
-    getMyPreference();
-    setRes(false);
-  },[res]);
+  const getMyPreference = ()=>{
+    console.log(page);
+    setMenuList([]);
+    axiosConfig.get(`/member/food/${memberId}`,{ params: {page: 1},})
+    .then(res=>{
+        console.log(res);
+        setMenuList(res.data);
+      }).catch(err=>{
+        console.log(err);
+      })
+    // if(stop){
+    //   return;
+    // }
+    // else{
+    //   axiosConfig.get(`/member/food/${memberId}`,{
+    //     params: {page: page},
+    //   }).then(res=>{
+    //     console.log(res);
+    //     setMenuList(prev=> prev.concat(res.data));
+    //   }).catch(err=>{
+    //     console.log(err);
+    //   })
+    // }
+  }
 
-  const onModifyState = async(foodId: number, memberFoodLike:string)=>{
+  // useEffect(()=>{
+  //   // getMyPreference();
+  //   setMenuList(items.items);
+  // },[items.items]);
+
+  // useEffect(()=>{
+  //   getMyPreference();
+  //   setRes(false);
+  // },[page]);
+
+  // useEffect(()=>{
+
+  // },[res]);
+
+  const onModifyState = async(foodId: number, memberFoodLike:string, index:number)=>{
     let url = '';
-
+    console.log(index);
+    
     if(memberFoodLike==="Y"){
       url = '/food/hate';
     }
@@ -60,12 +90,18 @@ const MyRecommend = () => {
       foodId: foodId,
     }).then(res=>{
       console.log(res);
-      setRes(true);
+      // getMyPreference();
+      window.location.reload();
+      setIdx(index);
+      // setRes(true);
     }).catch(err=>{
       console.log(err);
     })
   }
 
+
+  // const clickedRef = useRef(null);
+  // console.log(clickedRef.current);
   return (
     <div className={styles.recommend}>
       <div className={styles.title}>
@@ -75,28 +111,28 @@ const MyRecommend = () => {
       <img src={arrow_icon} alt="화살표"/>
       <div className={styles.menu_list}>
         {menuList.length > 0 ? 
-          menuList.map((menu:ResType)=>{
+          menuList.map((menu:ResType, index:number)=>{
             return(
               <div className={styles.menu} key={menu.memberFoodId}>
                 <p>{menu.foodName}</p>
-                <ButtonComp
-                  text={menu.memberFoodLike==="N"?
-                  "Nope": "Good"}
-                  btnStyle={menu.memberFoodLike==="N"?
-                            buttonStyled.button : buttonStyled.buttonActive}
-                  onClick={()=>onModifyState(menu.foodId, menu.memberFoodLike)}
-                />        
+                  <ButtonComp
+                    text={menu.memberFoodLike==="N"?
+                    "Nope": "Good"}
+                    btnStyle={menu.memberFoodLike==="N"?
+                              buttonStyled.button : buttonStyled.buttonActive}
+                    onClick={()=>onModifyState(menu.foodId, menu.memberFoodLike, index)}
+                  />  
               </div>
             )
           }):
           <EmptyText text='내가 추천받은 메뉴가 없습니다.'/>
       }
       </div>
-      {menuList.length > 0 &&
+      {/* {menuList.length > 0 && */}
         <div ref={target} className={styles.scroll_target}>
-          <p>마지막 페이지입니다</p>
+          {/* <p>마지막 페이지입니다</p> */}
         </div>
-      }
+      {/* } */}
 
     </div>
   );

@@ -1,5 +1,9 @@
 import styled from "./card.module.scss";
 import sample_img from '@img/sample.png';
+import {BsSuitHeart} from 'react-icons/bs';
+import {MdOutlineRemoveRedEye} from 'react-icons/md';
+import {IoMdHeartEmpty} from 'react-icons/io';
+import tape from '@img/tape.png';
 
 type cardStyleProps = {
   img?: string; //수정예정
@@ -31,6 +35,7 @@ export const SmallCard = ({
   return (
     <div className={styled.cardWrapper} style={{ padding: "8px" }}>
       <div className={styled.img}>
+        <img src={tape} alt="마스킹테이프" className={styled.tape}/>
         <img src={img} alt="img" className={styled.smallSize} />
       </div>
       {tag && (
@@ -176,24 +181,26 @@ export const LargeCard = ({
               </div>
             )}
 
-            {like !== 0 && (
+            {/* {like &&  */}
               <div className={styled.infoContents}>
-                <div className={styled.infoDeco} />
+                {/* <div className={styled.infoDeco} /> */}
+                <IoMdHeartEmpty />
                 <p>{like}</p>
               </div>
-            )}
+            {/* } */}
             {comment && (
               <div className={styled.infoContents}>
                 <div className={styled.infoDeco} />
                 <p>{comment}</p>
               </div>
             )}
-            {view && (
+            {/* {view && ( */}
               <div className={styled.infoContents}>
-                <div className={styled.infoDeco} />
+                {/* <div className={styled.infoDeco} /> */}
+                <MdOutlineRemoveRedEye />
                 <p>{view}</p>
               </div>
-            )}
+            {/* )} */}
           </div>
         </div>
       )}

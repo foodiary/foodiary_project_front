@@ -3,6 +3,20 @@
 .margin {
   margin: 10px 0;
 }
+.img{
+  position: relative;
+  .tape{
+    position: absolute;
+    // border: 1px solid red;
+    top: -20px;
+    left: 40px;
+    transform: rotate(5deg);
+    opacity: 0.3;
+    filter: invert(18%) sepia(97%) saturate(7092%) hue-rotate(323deg) brightness(100%) contrast(104%);
+    width: 80px;
+    height: 25px;
+  }
+}
 
 .smallSize {
   width: 156px;
@@ -70,18 +84,13 @@
 
     .info {
       display: flex;
-      gap: 16px;
+      gap: 20px;
 
       .infoContents {
-        display: flex;
-
-        .infoDeco {
-          width: 18px;
-          height: 18px;
-          margin-right: 4px;
-          border-radius: 50%;
-          background: $gray_200;
-        }
+        // display: flex;
+        @include flexBox();
+        gap: 8px;
+        font-size: 15px;
       }
     }
   }

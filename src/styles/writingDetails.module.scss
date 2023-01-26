@@ -1,80 +1,107 @@
-@import './main.module.scss';
+@import "./main.module.scss";
 
-.writing_detail{
- 
-  .writing_container{
+.writing_detail {
+  .writing_container {
     width: 90%;
     margin: auto;
     gap: 20px;
   }
-  img{
+  img {
     width: 100%;
     height: 300px;
     border-radius: 0 0 12px 12px;
   }
 
-  .ranking_container{
-    margin-top: 10px;
+  .ranking_container {
+    width: fit-content;
     @include flexBox($jc: start);
     gap: 15px;
-    margin: 10px 0 0 20px;
-    .ranking{
-      background-color: #999999;
-      @include text-style(10px, white, 500);
+    margin: 40px 0 0 20px;
+    position: relative;
+    // border: 1px solid red;
+    .ranking {
+      // background-color: #999999;
+      background-color: $point;
+
+      @include text-style(10px, white, 500); 
       width: fit-content;
       height: fit-content;
       padding: 5px 10px;
       border-radius: 5px;
-      cursor: pointer;
+      // cursor: pointer;
     }
   }
-
-  .title_div{
+  .btnBox {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .title_div {
     @include flexBox($jc: between);
 
-    h2{
+    h2 {
       padding: 20px 0;
     }
-    button{
+    button {
       font-size: 20px;
     }
   }
 
-  .created{
+  .created {
     padding-bottom: 10px;
     @include text-style(16px, $gray_400, 500, end);
   }
-  .writer{
-    padding: 15px;
-    padding-left: 0px;
-    @include text-style(16px, $gray_400, 500, start);
+  .writer_profile{
+    width: fit-content;
+    height: fit-content;
+    .writer {
+      padding: 15px;
+      padding-left: 0px;
+      width: fit-content;
+      @include text-style(16px, $gray_400, 500, start);
+    }
   }
-  .people_res{
+
+  .people_res {
     @include flexBox($jc: start);
     gap: 30px;
-    .res{
+    .res {
       @include flexBox($jc: start);
     }
-    p{
+    p {
       margin-left: 5px;
       @include text-style(16px, $gray_400, 500);
     }
+    .scrap_btn {
+      font-size: 20px;
+      position: absolute;
+      left: 90%;
+      // margin-left: 120px;
+    }
   }
-  .contents{
+  .contents {
     // min-height: 300px;
     margin: 50px auto;
+    pre {
+      white-space: pre-wrap;
+      overflow: auto;
+    }
+    p {
+      word-break: break-all;
+      line-height: 1.5;
+    }
   }
 
-  .input_comment{
+  .input_comment {
     width: 90%;
     margin: 80px auto;
     @include flexBox($jc: between);
     gap: 10px;
 
-    .send_icon{
+    .send_icon {
       font-size: 20px;
     }
-    textarea{
+    textarea {
       width: 100%;
       border: 2px solid $main;
       border-radius: 12px;
@@ -84,29 +111,26 @@
       @include text-style(16px, $gray_400, 400, start);
       padding: 10px;
     }
-    
   }
 
-  .empty_comment{
+  .empty_comment {
     @include flexBox();
     margin-top: 50px;
     @include text-style(16px, $gray_400, 400);
   }
 
-  .view_btn{
+  .view_btn {
     @include flexBox();
     position: fixed;
     // margin-top: 50px;
     bottom: 62px;
-    .black{
+    .black {
       background-color: black;
       border-radius: 16px 0 0 0;
     }
-    .red{
+    .red {
       background-color: $point;
       border-radius: 0 16px 0 0;
-
     }
   }
-
 }

@@ -15,7 +15,7 @@ interface ResType{
 const MyGood = () => {
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const target = useRef<HTMLDivElement>(null);
-  const likeList = useInfiniteScroll({target: target, url:`/member/like/daily/${memberId}`});
+  const likeList = useInfiniteScroll({target: target, url:`/member/like/${memberId}`});
 
   return (
     <div className={styles.mywriting}>
@@ -34,11 +34,11 @@ const MyGood = () => {
             <EmptyText text='내가 좋아요한 글이 없습니다.'/>
         }
       </div>
-      {likeList.items.length>0 && 
+      {/* {likeList.items.length>0 &&  */}
         <div ref={target} className={styles.scroll_target}>
-          <p>마지막 페이지입니다</p>
+          {/* <p>마지막 페이지입니다</p> */}
         </div>
-      }
+      {/* } */}
     </div>
   );
 };

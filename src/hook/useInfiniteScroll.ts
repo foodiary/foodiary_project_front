@@ -1,27 +1,72 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import axiosConfig from '@utils/axiosConfig';
+import { AxiosInstance } from "axios";
 
 interface TargetType{
   target: React.RefObject<HTMLDivElement>;
   url: string;
+  params?: object;
+  mode?: string; //get, post
+  data?: object; //post일때 body
 }
-export const useInfiniteScroll = ({target, url}:TargetType)=>{
+export const useInfiniteScroll = ({target, url, params, mode, data}:TargetType)=>{
   const [items, setItems] = useState([]);
  
   const [page, setPage] = useState(1);
   const [ing, setIng] = useState(false);
   const preventRef = useRef(false);
 
+  const [stop, setStop] = useState(false);
+
+  console.log(page);
+  console.log(stop);
+  // let params = {};
+
   const getData = useCallback(async()=>{
     console.log(`${page} 데이터 불러오기`);
+    
+    // if(memberId){
+    //   params = {
+    //     page: page,
+    //     memberId: memberId,
+    //   }
+    // }
+    // else{
+    //   params = {
+    //     page: page,
+    //   }
+    // }
+
     setIng(true); //setloading
-    const res = await axiosConfig.get(url,{params:{page: page}})
-    if(res.data){
-      setItems(prev=>prev.concat(res.data));
-      preventRef.current = true;
+    if(mode==="post"){
+      const res = await axiosConfig.post(url, data);
+      if(res.data){
+        if(res.data.length < 1){
+          setStop(true);
+        }
+        setItems(prev=>prev.concat(res.data));
+        preventRef.current = true;
+      }
+      else{
+        console.log(res); //에러
+        setStop(true);
+      }
     }
     else{
-      console.log(res); //에러
+      // let res;
+      
+      const res = await axiosConfig.get(url,{params: params? {...params, page: page}: {page: page}})
+      if(res.data){
+        if(res.data.length < 1){
+          setStop(true);
+        }
+        setItems(prev=>prev.concat(res.data));
+        preventRef.current = true;
+      }
+      else{
+        console.log(res); //에러
+        setStop(true);
+      }
     }
     setIng(false);
   },[page]);
@@ -35,7 +80,9 @@ export const useInfiniteScroll = ({target, url}:TargetType)=>{
   },[]);
 
   useEffect(()=>{
-    getData();
+    if(!stop){
+      getData();
+    }
   },[page]);
 
   const onIntersect = ((entries:IntersectionObserverEntry[])=>{ //콜백함수
@@ -76,5 +123,5 @@ export const useInfiniteScroll = ({target, url}:TargetType)=>{
     
   // },[target.current, page]);
   
-  return {items, page};
+  return {items, page, stop};
 }

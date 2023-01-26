@@ -13,20 +13,20 @@ import { useUpdateUser } from "@hook/useUpdateUser";
 
 const Header = () => {
   const navigate = useNavigate();
-  // useUpdateUser();
+  const {pathname} = useLocation();
+
   const [loginUser, setLoginUser] = useState(false);
   const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
-  // const userInfo = useLoginUserStore((state)=>state.userInfo);
-  const [profileImg, setProfileImg] = useState(false);
+  const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   const token = localStorage.getItem("access_token");
   useEffect(() => {
-    if (token) {
+    if (memberId) {
       setLoginUser(true);
     } else {
       setLoginUser(false);
     }
-  }, []);
+  }, [memberId]);
 
   return (
     <div className={styles.header}>
@@ -42,9 +42,10 @@ const Header = () => {
           </div>
         ) : (
           <div className={styles.after_login}>
-            <button onClick={() => navigate(-1)} className={styles.go_back_btn}>
-              <img src={go_back_btn} alt="뒤로가기" />
-            </button>
+            {pathname==="/" ? <div></div>:
+              <button onClick={() => navigate(-1)} className={styles.go_back_btn}>
+                <img src={go_back_btn} alt="뒤로가기" />
+              </button>}
             <div className={styles.user}>
               <Link to="/mypage">
                 {memberPath !== null ? (

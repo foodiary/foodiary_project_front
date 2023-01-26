@@ -1,20 +1,20 @@
-@import './main.module.scss';
+@import "./main.module.scss";
 
-.write_container{
+.write_container {
   width: 90%;
   margin: auto;
   @include column-flexBox();
   margin-top: 135px;
-  p{
+  p {
     @include text-style(20px, $gray-400, 700, start);
   }
-  .title{
+  .title {
     padding: 15px;
     @include text-style(16px, $gray-400, 400, start);
     border-radius: 12px;
     margin: 30px 0;
   }
-  textarea{
+  textarea {
     resize: none;
     height: 500px;
     @include text-style(16px, $gray-400, 400, start);
@@ -22,23 +22,42 @@
     padding: 15px;
   }
 }
-.file{
+.file {
   border: 1px solid #666666;
   border-radius: 12px;
   margin: 50px 0;
   background-color: white;
-  label{
+  label {
     width: 100%;
     @include flexBox();
     padding: 20px 0;
   }
-  input{
+  input {
     display: none;
   }
 }
-.attach_img{
+.attach_img {
   border: 1px solid #666666;
   border-radius: 8px;
-  width: 150px; height: 150px;
+  width: 150px;
+  height: 150px;
+}
+
+.imgBox {
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
   margin-bottom: 30px;
+}
+
+.imageFileBox {
+  position: relative;
+  button {
+    font-size: 24px;
+    color: $point;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
 }
