@@ -61,6 +61,9 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   const [success, setSuccess] = useState(false);
   const [deleteImages, setDeleteImages] = useState([]);
 
+  const [isImgOver, setImgOver] = useState(false);
+  const [isImg, setIsImg] = useState(false);
+
   const id = useParams().id;
 
   console.log(img);
@@ -129,30 +132,40 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   const cancelError = () => {
     setTimeout(() => {
       setError(false);
+      setImgOver(false);
+      setIsImg(false);
     }, 1000);
   };
 
   const onSubmit = (e: FormEvent) => {
     if (img.length > 0) {
-      e.preventDefault();
-      setSuccess(false);
+      if (fileURL.length > 5) {
+        e.preventDefault();
+        setImgOver(true);
+        setError(true);
+        cancelError();
+      } else {
+        e.preventDefault();
+        setSuccess(false);
 
-      const headers = { "Content-Type": "multipart/form-data" };
-      // setLoading(true);
-      axiosConfig
-        .post("/daily", formData, { headers })
-        .then((res) => {
-          console.log(res);
-          setSuccess(true);
-          setTimeout(() => {
-            navigate("/explore");
-          }, 1000);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        const headers = { "Content-Type": "multipart/form-data" };
+        // setLoading(true);
+        axiosConfig
+          .post("/daily", formData, { headers })
+          .then((res) => {
+            console.log(res);
+            setSuccess(true);
+            setTimeout(() => {
+              navigate("/explore");
+            }, 1000);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } else {
       e.preventDefault();
+      setIsImg(true);
       setError(true);
       cancelError();
     }
@@ -164,8 +177,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     deletePath: deleteImages.length > 0 ? deleteImages : null,
   };
 
-  console.log(editWriteInfo);
-  console.log(deleteImages);
+  console.log(fileURL);
 
   let editFormData = new FormData();
   editFormData.append(
@@ -180,23 +192,31 @@ const WritingPage = ({ edit }: WritingPageProps) => {
 
   const onEdit = (e: FormEvent) => {
     if (fileURL.length > 0) {
-      e.preventDefault();
-      setSuccess(true);
-      const headers = { "Content-Type": "multipart/form-data" };
-      setLoading(true);
-      axiosConfig
-        .post(`/daily/${id}/${memberId}`, editFormData, { headers })
-        .then((res) => {
-          console.log(res);
-          setTimeout(() => {
-            navigate(`/detail/${id}`);
-          }, 1000);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (fileURL.length > 5) {
+        e.preventDefault();
+        setImgOver(true);
+        setError(true);
+        cancelError();
+      } else {
+        e.preventDefault();
+        setSuccess(true);
+        const headers = { "Content-Type": "multipart/form-data" };
+        setLoading(true);
+        axiosConfig
+          .post(`/daily/${id}/${memberId}`, editFormData, { headers })
+          .then((res) => {
+            console.log(res);
+            setTimeout(() => {
+              navigate(`/detail/${id}`);
+            }, 1000);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } else {
       e.preventDefault();
+      setIsImg(true);
       setError(true);
       cancelError();
     }
@@ -284,7 +304,8 @@ const WritingPage = ({ edit }: WritingPageProps) => {
             <div className={styled.alert_icon}>
               <FiAlertTriangle />
             </div>
-            <p>한 장 이상의 이미지를 첨부해주세요!</p>
+            {isImgOver && <p>이미지는 5장 이하로 첨부 가능합니다!</p>}
+            {isImg && <p>한 장 이상의 이미지를 첨부해주세요!</p>}
           </div>
         </div>
       )}
