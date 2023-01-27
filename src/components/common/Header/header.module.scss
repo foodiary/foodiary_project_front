@@ -25,15 +25,26 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
     
     .before_login{
       height: 62px;
-      @include flexBox($jc:end);
-      .login_btn, .signup_btn{
-        width: fit-content; 
-        height: fit-content; 
-        @include text-style(16px, $main, 700);
-        margin-left: 12px;
+      @include flexBox($jc:between);
+      
+      .btn_container{
+        .login_btn, .signup_btn{
+          width: fit-content; 
+          height: fit-content; 
+          @include text-style(16px, $main, 700);
+          margin-left: 12px;
+        }
+        .login_btn{
+          color: $point;
+        }
       }
-      .login_btn{
-        color: $point;
+      .go_back_btn{
+        img{
+          width: 30px;
+          height: 30px;
+          margin-left: 5px;
+        }
+        
       }
     }
     .after_login{

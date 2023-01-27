@@ -26,11 +26,6 @@ const MyPageSetting = () => {
   const userInfo = useLoginUserStore(state=>state.userInfo);
   const setUserInfo = useLoginUserStore(state=>state.setUserInfo);
 
-  // const [newNickName, setNewNickName] = useState("");
-  // const [newProfileMsg, setNewProfileMsg] = useState("");
-
-  // let newNickName ="";
-  // let newProfileMsg = "";
   const newNickName = useUserStore(state=>state.newNickName);
   const newProfileMsg = useUserStore(state=>state.newProfileMsg);
   const setNewNickName = useUserStore(state=>state.setNewNickName);
@@ -42,53 +37,19 @@ const MyPageSetting = () => {
       setNewNickName("");
       setNewProfileMsg("");
     }
+    if(userInfo.memberPath === null){
+      setBasicImg(true);
+    }
   },[]);
-  // useEffect(()=>{
-  //   if(state){
-  //     if(state.nickName){
-  //       setNewNickName(state.nickName);
-  //     }
-  //     else{
-  //       setNewProfileMsg(state.msg);
-  //     }
-  //   }
-  //   else{
-  //     setNewNickName("");
-  //     setNewProfileMsg("");
-  //   }
-  // },[]);
-
-  
-
-  // const newProfileMsg = useUserStore(state=>state.newProfileMsg);
-  // const setNewNickName = useUserStore(state=>state.setNewNickName);
-  // const setNewProfileMsg = useUserStore(state=>state.setNewProfileMsg);
 
   const [img, setImg] = useState<File>();
 
   const [modifyImg, setModifyImg] = useState(false);
-  // const [, setFileURL] = useState(""); //파일 미리보기
-
-  // useEffect(()=>{
-  //   setNewProfileMsg("");
-  //   setNewNickName("");
-  // },[]);
 
   const onClick = ()=>{
     setCancel(false);
     setAlert(true);
   }
-
-  // useEffect(()=>{
-  //   if(modify){
-  //     axiosConfig.get(`/member/${userInfo.memberId}`)
-  //     .then(res=>{
-  //       console.log(res);
-  //       setUserInfo(res.data);
-  //     })
-  //   }
-    
-  // },[modify]);
 
   const onModifyImg = (e:React.ChangeEvent<HTMLInputElement>)=>{
     const img = e.currentTarget.files![0];
@@ -103,7 +64,7 @@ const MyPageSetting = () => {
     .then(res=>{
       console.log(res);
       setModifyImg(true);
-      setTimeout(()=>navigate("/mypage"),2000);
+      setTimeout(()=>navigate("/mypage"),1000);
       
     }).catch(err=>{
       console.log(err);
@@ -138,7 +99,7 @@ const MyPageSetting = () => {
 
       setNewNickName("");
       setNewProfileMsg("");
-      setTimeout(()=>{navigate('/mypage')},2000);
+      setTimeout(()=>{navigate('/mypage')},1000);
 
     }).catch(err=>{
       console.log(err);
@@ -146,12 +107,14 @@ const MyPageSetting = () => {
   }
 
   const clickRef = useRef<HTMLInputElement>(null);
+  console.log(basicImg);
+  console.log(userInfo.memberPath);
 
   return (
     <div className={styles.profile}>
       <div className={styles.profile_container}>
         {basicImg? 
-          <img src={basic_profile} alt="기본이미지"/>:
+          <img src={basic_profile} alt="기본이미지" className={styles.profile_img}/>:
           <img src={userInfo.memberPath? userInfo.memberPath: basic_profile} alt="기본이미지" 
             className={styles.profile_img}/>
         }
@@ -203,8 +166,8 @@ const MyPageSetting = () => {
                 <HalfButton text='수정' type='button'/>
               </div> */}
             </div>
-            <div className={styles.red} onClick={onClick}>
-              <HalfButton text='삭제' type='submit'/>
+            <div className={basicImg? styles.disabled: styles.red} onClick={onClick}>
+              <HalfButton text='삭제' type='submit' disabled={basicImg? true: false}/>
             </div>
           </div>
           {alert && !cancel &&

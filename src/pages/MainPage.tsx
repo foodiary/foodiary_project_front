@@ -118,7 +118,7 @@ const MainPage = () => {
     .then(res=>{
       console.log(res);
       setAlert(true); 
-      setTimeout(recommendMenu,2000);
+      setTimeout(recommendMenu,1000);
       //음식추천 새로고침할때 같이 false로 만들기
     }).catch(err=>{
       console.log(err);
@@ -134,7 +134,7 @@ const MainPage = () => {
     .then(res=>{
       console.log(res);
       setAlert(true);
-      setTimeout(recommendMenu,2000);
+      setTimeout(recommendMenu,1000);
       //음식추천 새로고침할때 같이 false로 만들기
     }).catch(err=>{
       console.log(err);
@@ -143,28 +143,29 @@ const MainPage = () => {
   };
 
   const onSearch = () => {
-    let data = {};
-    if (memberId) {
-      data = {
-        keyword: value,
-        memberId: memberId,
-        page: 1,
-      };
-    } else {
-      data = {
-        keyword: value,
-        page: 1,
-      };
-    }
-    axiosConfig
-      .post(`/search/daily/result`, data)
-      .then((res) => {
-        setSearchList(res.data);
-        navigate(`/search/result?${value}`);
-      })
-      .catch((err) => {
-        navigate(`/search/result?${value}`);
-      });
+    navigate(`/search/result?${value}`);
+    // let data = {};
+    // if (memberId) {
+    //   data = {
+    //     keyword: value,
+    //     memberId: memberId,
+    //     page: 1,
+    //   };
+    // } else {
+    //   data = {
+    //     keyword: value,
+    //     page: 1,
+    //   };
+    // }
+    // axiosConfig
+    //   .post(`/search/daily/result`, data)
+    //   .then((res) => {
+    //     setSearchList(res.data);
+    //     navigate(`/search/result?${value}`);
+    //   })
+    //   .catch((err) => {
+    //     navigate(`/search/result?${value}`);
+    //   });
   };
 
   const [rankingList, setRankingList] = useState([]);
@@ -198,8 +199,8 @@ const MainPage = () => {
 
   const onForbidden = ()=>{
     setForbidden(true);
-    setTimeout(()=>setForbidden(false),2000);
-    setTimeout(recommendMenu,2000);
+    setTimeout(()=>setForbidden(false),1000);
+    setTimeout(recommendMenu,1000);
   }
   console.log(forbidden);
   return (
@@ -248,15 +249,15 @@ const MainPage = () => {
           <AlertBox text="로그인 후 이용하실 수 있습니다" type={false}/>
         </div>}
 
-      <section className={styled.searchSection}>
+      <form className={styled.searchSection}>
         <input
           placeholder="검색어를 입력해주세요."
           onChange={onChange}
         />
-        <button onClick={onSearch}>
+        <button type="submit" onClick={onSearch}>
           <GoSearch />
         </button>
-      </section>
+      </form>
 
       <section>
         <div className={styled.ranking}>

@@ -23,6 +23,7 @@ const ModifyProfileMsg = () => {
     }
     else{
       setValue(memberProfile);
+      setMsgLength(memberProfile.length);
     }
   },[]);
 

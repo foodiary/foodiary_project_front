@@ -98,7 +98,7 @@ const CommentBox = ({
         <div className={styles.more_btn}>
           <div className={styles.content}>
             <p>{dailyCommentWriter}</p>
-            <p>{dailyCommentBody}</p>
+            <pre>{dailyCommentBody}</pre>
             <p>{date}</p>
           </div>
           {isMine && (

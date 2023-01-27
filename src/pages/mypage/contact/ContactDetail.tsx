@@ -55,7 +55,7 @@ const ContactDetail = () => {
     .then(res=>{
       console.log(res);
       setRemoveSuccess(true);
-      setTimeout(()=>navigate(-1), 2000);
+      setTimeout(()=>navigate(-1), 1000);
     }).catch(err=>{
       console.log(err);
     })

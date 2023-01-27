@@ -27,6 +27,7 @@ const SearchResult = () => {
       page: 1, //page
   }
   const result = useInfiniteScroll({target: target, url:'/search/daily/result', mode: "post", data: data}).items;
+  console.log(result);
   // const [result, setResult] = useState([]);
 
   // console.log(keyword);

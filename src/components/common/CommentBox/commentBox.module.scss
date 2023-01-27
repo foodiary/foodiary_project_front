@@ -30,7 +30,13 @@
     p:nth-child(3){
       @include text-style(12px, #666666, 400, start);
     }
+    pre{
+      @include text-style(16px, $main, 400, start);
+        white-space: pre-wrap;
+        overflow: auto;
+    }    
   }
+  
 }
 .view_btn{
   @include flexBox();

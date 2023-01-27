@@ -16,7 +16,7 @@ interface WarnType{
 
 export const AlertBox = ({type, text}:AlertType) => {
   const [timeout, setTimeOut] = useState(false); //true일때 꺼지면 됨
-  setTimeout(()=>{setTimeOut(true)}, 2000);
+  setTimeout(()=>{setTimeOut(true)}, 1000);
   return (
     <div>
       {!timeout ?

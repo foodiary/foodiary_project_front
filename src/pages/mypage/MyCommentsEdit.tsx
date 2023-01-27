@@ -12,6 +12,8 @@ const MyCommentsEdit = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState("");
   const [alert, setAlert] = useState(false);
+  const [err, setErr] = useState(false);
+
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
   useEffect(()=>{
@@ -26,6 +28,10 @@ const MyCommentsEdit = () => {
   }
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();
+    if(msgLength === 0){
+      setErr(true);
+      return;
+    }
     const data = {
       commentId: state.commentId,
       content: value,
@@ -39,7 +45,7 @@ const MyCommentsEdit = () => {
     .then(res=>{
       console.log(res);
       setAlert(true);
-      setTimeout(()=>navigate(-1),2000);
+      setTimeout(()=>navigate(-1),1000);
     }).catch(err=>{
       console.log(err);
     })
@@ -61,6 +67,8 @@ const MyCommentsEdit = () => {
         <LoginButton text='등록' type='submit' active={true}/>
       </form>
       {alert&&<AlertBox text='댓글이 수정되었습니다.' type={true}/>}
+      {err&&<AlertBox text='내용을 입력해주세요' type={false}/>}
+
     </div>
   );
 };

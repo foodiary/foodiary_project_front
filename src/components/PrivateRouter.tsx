@@ -10,7 +10,7 @@ const PrivateRouter = ({children}:PrivateRouteProps):React.ReactElement|null => 
   const token = localStorage.getItem("refresh_token");
   const navigate = useNavigate();
   if(!token){
-    setTimeout(()=>navigate(-1),2000);
+    setTimeout(()=>navigate(-1),1000);
   }
   return (
     <div>
