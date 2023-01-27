@@ -9,6 +9,7 @@ import { useLoginUserStore } from "@store/loginUserStore";
 import camera_icon from "@img/camera_icon.svg";
 import { AlertBox } from "@components/common/AlertBox/AlertBox";
 import { MdCancel } from "react-icons/md";
+import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 
 interface WritingPageProps {
   edit: boolean;
@@ -76,8 +77,11 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   }, []);
 
   useEffect(() => {
-    getContents();
+    if(edit){
+      getContents();
+    }
   }, []);
+
 
   useEffect(() => {
     if (contents) {
@@ -85,7 +89,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     }
   }, [contents]);
 
-  console.log(title, content);
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement> &
@@ -134,7 +137,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
           navigate("/explore");
         }, 2000);
 
-        //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
       })
       .catch((err) => {
         console.log(err);
@@ -172,7 +174,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
           setLoading(false);
           navigate(`/detail/${id}`);
         }
-        //성공이면 그대로 , 실패면(중복) 넘어가면 안됨
       })
       .catch((err) => {
         console.log(err);
@@ -193,7 +194,8 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     <div>
       <form onSubmit={edit ? onEdit : onSubmit} encType="multipart/form-data">
         <div className={styles.write_container}>
-          <p>하루 공유 글 {edit ? "수정" : "작성"}</p>
+          <DecoTitle title={`하루 공유 글 ${edit? '수정': '작성'}`}/>
+          {/* <p>하루 공유 글 {edit ? "수정" : "작성"}</p> */}
           <input
             type="text"
             placeholder="제목"

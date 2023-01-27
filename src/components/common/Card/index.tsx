@@ -3,7 +3,7 @@ import sample_img from '@img/sample.png';
 import {BsSuitHeart} from 'react-icons/bs';
 import {MdOutlineRemoveRedEye} from 'react-icons/md';
 import {IoMdHeartEmpty} from 'react-icons/io';
-import masking from '@img/masking.png';
+import tape from '@img/tape.png';
 
 type cardStyleProps = {
   img?: string; //수정예정
@@ -35,7 +35,7 @@ export const SmallCard = ({
   return (
     <div className={styled.cardWrapper} style={{ padding: "8px" }}>
       <div className={styled.img}>
-        <img src={masking} alt="마스킹테이프" className={styled.tape}/>
+        <img src={tape} alt="마스킹테이프" className={styled.tape}/>
         <img src={img} alt="img" className={styled.smallSize} />
       </div>
       {tag && (
