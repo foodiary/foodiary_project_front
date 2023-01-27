@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import styles from "@styles/writingPage.module.scss";
 import { LoginButton } from "@components/common/LoginButton/Button";
 import InputFile from "@components/common/InputFile/InputFile";
@@ -40,7 +40,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
 
   // const [files, setFiles] = useState<File>();
   const fileURL = useImgFileStore((state) => state.fileURL);
-  const setFileUrl = useImgFileStore((state) => state.setFileURL);
+  const setFileUrl = useImgFileStore<any>((state) => state.setFileURL);
   const img = useImgFileStore<any>((state) => state.img);
   const setImg = useImgFileStore((state) => state.setImg);
 
@@ -55,12 +55,13 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   const isThumbnail = useImgFileStore((state) => state.isThumbnail);
 
   const [success, setSuccess] = useState(false);
+  const [deleteImages, setDeleteImages] = useState([]);
 
   const id = useParams().id;
 
   console.log(img);
 
-  const getContents = () => {
+  const getContents = useCallback(() => {
     axiosConfig
       .get(`/dailys/details`, {
         params: { dailyId: id, memberId: memberId },
@@ -72,11 +73,17 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }, []);
 
   useEffect(() => {
     getContents();
   }, []);
+
+  useEffect(() => {
+    if (contents) {
+      setFileUrl(contents?.dailyImageList);
+    }
+  }, [contents]);
 
   console.log(title, content);
 
@@ -138,9 +145,11 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     title: title || contents?.dailyTitle,
     content: content || contents?.dailyBody,
     thumbnailYn: isThumbnail,
-    deletePath: [contents?.dailyImageList[0]],
-    // thumbnailPath : img[0]
+    deletePath: deleteImages.length > 0 ? deleteImages : null,
+    thumbnailPath: fileURL[0],
   };
+
+  console.log(editWriteInfo);
 
   let editFormData = new FormData();
   editFormData.append(
@@ -149,7 +158,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       type: "application/json",
     })
   );
-  editFormData.append("dailyImage", img[0]);
+  editFormData.append("dailyImage", img);
 
   const onEdit = (e: FormEvent) => {
     e.preventDefault();
@@ -175,7 +184,9 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     data.splice(index, 1);
     setFileUrl(fileURL.filter((fileurl) => fileurl !== url));
     setImg(data);
-    console.log(index);
+    const delImg: any = [...deleteImages];
+    delImg.push(url);
+    setDeleteImages(delImg);
   };
 
   return (
@@ -228,20 +239,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
                     </div>
                   );
                 })
-              : contents?.dailyImageList.map((el, index) => {
-                  return (
-                    <div className={styles.imageFileBox}>
-                      <img
-                        src={el}
-                        alt="첨부파일"
-                        className={styles.attach_img}
-                      />
-                      <button onClick={deleteImage(el, index)}>
-                        <MdCancel />
-                      </button>
-                    </div>
-                  );
-                })}
+              : null}
           </div>
         </div>
         <LoginButton
