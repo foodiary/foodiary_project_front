@@ -1,5 +1,6 @@
 import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import styles from "@styles/writingPage.module.scss";
+import styled from "../components/common/AlertBox/alertBox.module.scss";
 import { LoginButton } from "@components/common/LoginButton/Button";
 import InputFile from "@components/common/InputFile/InputFile";
 import { useImgFileStore } from "@store/fileStore";
@@ -10,6 +11,7 @@ import camera_icon from "@img/camera_icon.svg";
 import { AlertBox } from "@components/common/AlertBox/AlertBox";
 import { MdCancel } from "react-icons/md";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
+import { FiAlertTriangle } from "react-icons/fi";
 
 interface WritingPageProps {
   edit: boolean;
@@ -43,9 +45,10 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   const fileURL = useImgFileStore((state) => state.fileURL);
   const setFileUrl = useImgFileStore<any>((state) => state.setFileURL);
   const img = useImgFileStore<any>((state) => state.img);
-  const setImg = useImgFileStore((state) => state.setImg);
+  const setImg = useImgFileStore<any>((state) => state.setImg);
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const memberLoginId = useLoginUserStore(
     (state) => state.userInfo.memberLoginId
@@ -77,18 +80,24 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   }, []);
 
   useEffect(() => {
-    if(edit){
+    if (edit) {
       getContents();
     }
+    // setTimeout(() => {
+    //   setError(false);
+    // }, 2000);
+    return () => {
+      setFileUrl("");
+      setImg("");
+    };
   }, []);
-
 
   useEffect(() => {
     if (contents) {
       setFileUrl(contents?.dailyImageList);
+      setImg(contents?.dailyImageList);
     }
   }, [contents]);
-
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement> &
@@ -112,35 +121,42 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   for (let i = 0; i < img.length; i++) {
     formData.append("dailyImage", img[i]);
   }
-  formData.append("thumbnail", img[0]);
   formData.append(
     "dailyWrite",
     new Blob([JSON.stringify(writeInfo)], {
       type: "application/json",
     })
   );
+  const cancelError = () => {
+    setTimeout(() => {
+      setError(false);
+    }, 1000);
+  };
 
   const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setSuccess(false);
+    if (img.length > 0) {
+      e.preventDefault();
+      setSuccess(false);
 
-    const headers = { "Content-Type": "multipart/form-data" };
-    // setLoading(true);
-    axiosConfig
-      .post("/daily", formData, { headers })
-      .then((res) => {
-        console.log(res);
-        setSuccess(true);
-        setFileUrl([]);
-        // setLoading(false);
-        setTimeout(() => {
-          navigate("/explore");
-        }, 1000);
-
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      const headers = { "Content-Type": "multipart/form-data" };
+      // setLoading(true);
+      axiosConfig
+        .post("/daily", formData, { headers })
+        .then((res) => {
+          console.log(res);
+          setSuccess(true);
+          setTimeout(() => {
+            navigate("/explore");
+          }, 1000);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      e.preventDefault();
+      setError(true);
+      cancelError();
+    }
   };
 
   const editWriteInfo = {
@@ -152,6 +168,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   };
 
   console.log(editWriteInfo);
+  console.log(img);
 
   let editFormData = new FormData();
   editFormData.append(
@@ -163,21 +180,27 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   editFormData.append("dailyImage", img);
 
   const onEdit = (e: FormEvent) => {
-    e.preventDefault();
-    const headers = { "Content-Type": "multipart/form-data" };
-    setLoading(true);
-    axiosConfig
-      .post(`/daily/${id}/${memberId}`, editFormData, { headers })
-      .then((res) => {
-        console.log(res);
-        if (res) {
-          setLoading(false);
-          navigate(`/detail/${id}`);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (img.length > 0) {
+      e.preventDefault();
+      setSuccess(true);
+      const headers = { "Content-Type": "multipart/form-data" };
+      setLoading(true);
+      axiosConfig
+        .post(`/daily/${id}/${memberId}`, editFormData, { headers })
+        .then((res) => {
+          console.log(res);
+          setTimeout(() => {
+            navigate(`/detail/${id}`);
+          }, 1000);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      e.preventDefault();
+      setError(true);
+      cancelError();
+    }
   };
 
   const deleteImage = (url: string, index: number) => () => {
@@ -194,7 +217,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     <div>
       <form onSubmit={edit ? onEdit : onSubmit} encType="multipart/form-data">
         <div className={styles.write_container}>
-          <DecoTitle title={`하루 공유 글 ${edit? '수정': '작성'}`}/>
+          <DecoTitle title={`하루 공유 글 ${edit ? "수정" : "작성"}`} />
           {/* <p>하루 공유 글 {edit ? "수정" : "작성"}</p> */}
           <input
             type="text"
@@ -250,7 +273,22 @@ const WritingPage = ({ edit }: WritingPageProps) => {
           active={edit || (title && content) ? true : false}
         />
       </form>
-      {success && <AlertBox text="글이 등록되었습니다" type={true} />}
+      {success && (
+        <AlertBox
+          text={`글이 ${edit ? "수정" : "등록"} 되었습니다.`}
+          type={true}
+        />
+      )}
+      {error && (
+        <div className={styled.modal_back}>
+          <div className={`${styled.alert_box}`}>
+            <div className={styled.alert_icon}>
+              <FiAlertTriangle />
+            </div>
+            <p>한 장 이상의 이미지를 첨부해주세요!</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
-@import '../../../styles/main.module.scss';
+@import "../../../styles/main.module.scss";
 
-.modal_back{
+.modal_back {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,38 +9,41 @@
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 9999;
 
-  .alert_box, .warn_box{
+  .alert_box,
+  .warn_box {
     border: 1px solid #000000;
     border-radius: 12px;
     background-color: white;
     @include flexBox();
     @include column-flexBox();
-    width: 252px; height: 174px;
+    width: 252px;
+    height: 174px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
 
-    .alert_icon, .check_icon{
+    .alert_icon,
+    .check_icon {
       font-size: 40px;
       margin-bottom: 16px;
     }
-    .alert_icon{
+    .alert_icon {
       color: $point;
     }
-    .check_icon{
+    .check_icon {
       color: rgb(19, 142, 19);
     }
-    p{
+    p {
       @include text-style(16px, #666666, 700);
       padding: 0 25px;
     }
   }
-  .warn_box{
+  .warn_box {
     height: 202px;
 
-    .small_halfbtn{
+    .small_halfbtn {
       // border: 1px solid blue;
       // background-color: $point;
       border-radius: 8px;
@@ -51,11 +54,11 @@
     }
   }
 }
-.black{
+.black {
   background-color: black;
   border-radius: 0 16px 0 0;
 }
-.red{
+.red {
   background-color: $point;
   border-radius: 16px 0 0 0;
 }
