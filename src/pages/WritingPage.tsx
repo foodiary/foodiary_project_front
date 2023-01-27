@@ -95,7 +95,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   useEffect(() => {
     if (contents) {
       setFileUrl(contents?.dailyImageList);
-      setImg(contents?.dailyImageList);
     }
   }, [contents]);
 
@@ -162,13 +161,11 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   const editWriteInfo = {
     title: title || contents?.dailyTitle,
     content: content || contents?.dailyBody,
-    thumbnailYn: isThumbnail,
     deletePath: deleteImages.length > 0 ? deleteImages : null,
-    thumbnailPath: fileURL[0],
   };
 
   console.log(editWriteInfo);
-  console.log(img);
+  console.log(deleteImages);
 
   let editFormData = new FormData();
   editFormData.append(
@@ -177,10 +174,12 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       type: "application/json",
     })
   );
-  editFormData.append("dailyImage", img);
+  for (let i = 0; i < img.length; i++) {
+    editFormData.append("dailyImage", img[i]);
+  }
 
   const onEdit = (e: FormEvent) => {
-    if (img.length > 0) {
+    if (fileURL.length > 0) {
       e.preventDefault();
       setSuccess(true);
       const headers = { "Content-Type": "multipart/form-data" };
