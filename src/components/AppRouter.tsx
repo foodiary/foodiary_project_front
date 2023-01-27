@@ -68,7 +68,6 @@ const AppRouter = () => {
             {!oauthLogin && <Route path='/oauth/google/callback' element={<OAuthRedirect/>}/>}
             {!oauthLogin && <Route path='/oauth/naver/callback' element={<OAuthRedirect/>}/>}
             
-            {/* <Route path='/menu' element={<MenuPage/>}/> */}
 
             <Route path='/detail/:id' element={<WritingDetails/>}/>
 
@@ -94,10 +93,11 @@ const AppRouter = () => {
               <Route path='/mypage/contact/edit' element={<ContactEdit/>}/>
               
               <Route path='/mypage/mycomments' element={<MyComments/>}/>
-              {/* <Route path='/mypage/mycomments/detail/:id/:id' element={<MyCommentsDetail/>}/> */}
               <Route path='/mypage/mycomments/edit' element={<MyCommentsEdit/>}/>
 
               <Route path='/mypage/myrecommend' element={<MyRecommend/>}/>
+              <Route path='/write' element={<WritingPage edit={false}/>}/>
+              <Route path='/modify/:id' element={<WritingPage edit={true}/>}/>
             </Route>
            
             
@@ -106,8 +106,6 @@ const AppRouter = () => {
             <Route path='/mypage/faq' element={<FAQ/>}/>
 
             <Route path='/member/password/change' element={<ModifyPwd/>}/>
-            <Route path='/write' element={<WritingPage edit={false}/>}/>
-            <Route path='/modify/:id' element={<WritingPage edit={true}/>}/>
             <Route path='/search' element={<Search/>}/>
             <Route path='/search/result' element={<SearchResult/>}/>
             <Route path='/profile/:id' element={<ProfileView/>}/>

@@ -78,7 +78,7 @@ const MyCommentsDetail = () => {
       .delete(`/daily/comment/${dailyId}/${memberId}/${commentId}`)
       .then((res) => {
         console.log(res);
-        setTimeout(() => navigate(-1), 2000);
+        setTimeout(() => navigate(-1), 1000);
         setRemoveSuccess(true);
       })
       .catch((err) => {

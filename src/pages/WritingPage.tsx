@@ -135,7 +135,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
         // setLoading(false);
         setTimeout(() => {
           navigate("/explore");
-        }, 2000);
+        }, 1000);
 
       })
       .catch((err) => {

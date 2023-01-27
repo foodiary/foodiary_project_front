@@ -26,6 +26,7 @@ interface HalfBtn{
   text: string; //버튼 텍스트
   type: 'button' | 'submit' ;
   onClick?: ()=>void;
+  disabled?: boolean;
 }
 interface HalfAlertBtn{
   btn_txt?: string;
@@ -59,7 +60,7 @@ export const LoginButton = ({text, type, url, active=false}:Button) => {
     </div>
   );
 };
-export const HalfButton = ({text, type, onClick}:HalfBtn)=>{
+export const HalfButton = ({text, type, onClick, disabled}:HalfBtn)=>{
   const navigate = useNavigate();
   const [warn, setWarn] = useState(false);
 
@@ -70,6 +71,7 @@ export const HalfButton = ({text, type, onClick}:HalfBtn)=>{
           type={type} 
           className={styles.half_btn}
           onClick={onClick}
+          disabled={disabled}
         >
           {text}
         </button>

@@ -51,7 +51,7 @@ const OtherLoginPage = () => {
     }).catch(err=>{
       console.log(err);
       setErr(true);
-      setTimeout(()=>setErr(false), 3000);
+      setTimeout(()=>setErr(false), 1000);
     })
 }
 

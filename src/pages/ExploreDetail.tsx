@@ -7,6 +7,7 @@ import styles from "../styles/explorePage.module.scss";
 import {GoSearch} from 'react-icons/go';
 import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 import {BiCommentDetail} from 'react-icons/bi';
+import { BsPencilFill } from "react-icons/bs";
 
 interface ResType{
   dailyCreate: string;
@@ -31,9 +32,17 @@ const ExploreDetail = () => {
         <div className={styles.title_div}>
           <DecoTitle title="하루공유"/>
         </div>
-        <Link to="/search" className={styles.search_icon}>
+        <div className={styles.icon_box}>
+          <Link to="/write" className={styles.search_icon}>
+            <BsPencilFill />
+          </Link>
+          <Link to="/search" className={styles.search_icon}>
+            <GoSearch />
+          </Link>
+        </div>
+        {/* <Link to="/search" className={styles.search_icon}>
           <GoSearch/>
-        </Link>
+        </Link> */}
       </section>
 
       <div className={styles.card_container}>

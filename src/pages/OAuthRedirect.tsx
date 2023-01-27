@@ -64,7 +64,7 @@ const OAuthRedirect = () => {
       .catch((err) => {
         if (err.response.data.msg === "탈퇴한 회원입니다.") {
           setNotMember(true);
-          setTimeout(() => navigate("/login"), 2000);
+          setTimeout(() => navigate("/login"), 1000);
         } else {
           setNotMember(false);
         }

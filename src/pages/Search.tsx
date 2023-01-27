@@ -33,6 +33,7 @@ const Search = () => {
       setKeyword(res.data);
     }).catch(err=>{
       console.log(err);
+      setKeyword([]);
     });
   }
   useEffect(()=>{
@@ -73,15 +74,15 @@ const Search = () => {
   }
   return (
     <div className={styled.search_container}>
-      <div className={styled.serach_box}>
+      <form className={styled.serach_box}>
         <input 
           type="text" 
           placeholder='검색어를 입력하세요.' 
           onChange={onChange}/>
-        <button onClick={onSearch}>
+        <button type="submit" onClick={onSearch}>
           <GoSearch/>
         </button>
-      </div>
+      </form>
       <div className={styled.recent_search_box}>
         <h2>최근 검색어</h2>
         <ul className={styled.recent_search_list}>

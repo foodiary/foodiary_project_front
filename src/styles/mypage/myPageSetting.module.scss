@@ -82,10 +82,13 @@
 
   }
 }
-.red{
+.red, .disabled{
   background-color: $point;
   border-radius: 0 16px 0 0;
 
+}
+.disabled{
+  background-color: $gray_200;
 }
 .modal_back{
   // position: fixed;

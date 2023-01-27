@@ -33,12 +33,18 @@ const Header = () => {
       <div className={styles.profile}>
         {!loginUser ? (
           <div className={styles.before_login}>
-            <Link to="/signup/agree" className={styles.signup_btn}>
-              회원가입
-            </Link>
-            <Link to="/login" className={styles.login_btn}>
-              로그인
-            </Link>
+            {pathname==="/" ? <div></div>:
+              <button onClick={() => navigate(-1)} className={styles.go_back_btn}>
+                <img src={go_back_btn} alt="뒤로가기" />
+              </button>}
+              <div className={styles.btn_container}>
+                <Link to="/signup/agree" className={styles.signup_btn}>
+                  회원가입
+                </Link>
+                <Link to="/login" className={styles.login_btn}>
+                  로그인
+                </Link>
+              </div>
           </div>
         ) : (
           <div className={styles.after_login}>

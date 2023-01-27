@@ -114,7 +114,7 @@ const WritingDetails = () => {
   const onDailyLike = () => {
     if(memberId === 0){
       setForbidden(true);
-      setTimeout(()=>setForbidden(false),2000);
+      setTimeout(()=>setForbidden(false),1000);
     }
     axiosConfig
       .post(`/daily/like/${id}/${memberId}`)
@@ -182,7 +182,7 @@ const WritingDetails = () => {
   const onScrap = () => {
     if(memberId === 0){
       setForbidden(true);
-      setTimeout(()=>setForbidden(false),2000);
+      setTimeout(()=>setForbidden(false),1000);
     }
     axiosConfig.post(`/daily/scrap/${id}/${memberId}`).then((res) => {
       console.log(res);
@@ -280,7 +280,7 @@ const WritingDetails = () => {
         </div>
       </div>
 
-      <div className={styles.input_comment}>
+      <form className={styles.input_comment}>
         <textarea
           maxLength={200}
           onChange={onWriteComment}
@@ -290,10 +290,10 @@ const WritingDetails = () => {
           }
           disabled={memberId ? false : true}
         />
-        <button onClick={onSendComment} className={styles.send_icon}>
+        <button type="submit" onClick={onSendComment} className={styles.send_icon}>
           <FiSend />
         </button>
-      </div>
+      </form>
 
       {success && <AlertBox text="댓글이 등록되었습니다" type={true} />}
 

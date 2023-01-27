@@ -24,6 +24,7 @@ const InputFile = ({ multiple = false }: FileOption) => {
     let list = [];
     let urlList = [];
     console.log(file);
+    console.log(`파일 사이즈: ${file[0].size}`); //byte 기준
 
     for (let i = 0; i < file.length; i++) {
       list.push(file[i]);

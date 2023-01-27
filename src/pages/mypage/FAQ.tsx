@@ -15,34 +15,24 @@ interface FAQ{
   faqTitle: string;
 }
 const FAQ = () => {
-  // const [target, setTarget] = useState(null);
   const target = useRef<HTMLDivElement>(null);
-
-  const items = useInfiniteScroll({target: target, url:'/faq'});
-  // useEffect(()=>{
-  //   console.log(items);
-  // },[items]);
+  const faqList = useInfiniteScroll({target: target, url:'/faq'}).items;
 
   const [open, setOpen] = useState(false);
-  // const [faqList, setFaqList] = useState([]);
-  // const loading = useLoadingStore(state=>state.loading);
-
-  // useEffect(()=>{
-  //   axiosConfig.get('/faq',{params: {page: 3}}).then(res=>{
-  //     console.log(res);
-  //     // setFaqList(res.data);
-  //   }).catch(err=>{
-  //     console.log(err);
-  //   })
-  // },[]);
-
-  // useEffect(()=>{
-  //   getFAQ();
-  // },[]);
   const [clicked, setClicked] = useState(0); //클릭된 인덱스
+  const [clickedList, setClickedList] = useState<number[]>([]);
+
+  console.log(`클릭됨: ${clickedList}`);
   const onTitleClick = (index:number)=>{
+    // if(clickedList.includes(index)){
+    //   setClickedList(clickedList.filter((item)=> index !== item));
+    //   setOpen(prev=>!prev);
+    // }
     setClicked(index);
     setOpen(prev=>!prev);
+
+    // setClickedList(prev=>[...prev, index]);
+    // setOpen(true);
   }
 
   return (
@@ -53,11 +43,11 @@ const FAQ = () => {
         </div>
 
         <div className={styles.board}>
-          {items.items.length>0?
-            items.items.map((item:FAQ, index:number)=>{
+          {faqList.length > 0 ?
+            faqList.map((item:FAQ, index:number)=>{
               const faqId = String(item.faqId).padStart(2, "0");
               const active = (index === clicked) ? styles.active: '';
-
+              // const active = (clickedList.includes(index)) ? styles.active: '';
               return(
                 <div key={index}>
                   <button className={styles.q_container} onClick={()=>{onTitleClick(index);}}>
@@ -72,9 +62,7 @@ const FAQ = () => {
             }):
             <EmptyText text='등록된 질문이 없습니다'/>
           }
-          <div ref={target} className={styles.scroll_target}>
-            {/* <p>마지막 페이지입니다</p> */}
-          </div>
+          <div ref={target} className={styles.scroll_target}></div>
         </div>
       </div>
     </div>

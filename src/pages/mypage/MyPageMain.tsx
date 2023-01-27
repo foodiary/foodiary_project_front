@@ -59,7 +59,7 @@ const MyPageMain = () => {
     setTimeout(()=>{
       navigate("/");
       window.location.reload();
-    },2000);
+    },1000);
   }
   const onSubmit = (e:FormEvent)=>{
     e.preventDefault();

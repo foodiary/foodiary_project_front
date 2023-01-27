@@ -129,7 +129,7 @@ const WritingForm = ({
         setFileURL([]);
         setImg([]);
         setSuccess(true);
-        setTimeout(()=>navigate("/mypage/mycontact"),2000);
+        setTimeout(()=>navigate("/mypage/mycontact"),1000);
         reset({
           writingContent:"",
           writingTitle: "",
@@ -178,9 +178,9 @@ const WritingForm = ({
         <p>파일 첨부</p>
         <label htmlFor='file'>
           <p className={styles.add_img}>+ 파일 첨부</p>
+          <img src={clip_icon} alt="첨부파일"/>
         </label>
         <InputFile/>
-        <img src={clip_icon} alt="첨부파일"/>
       </div>
 
       {existingPath && !removeExistingImg && 
@@ -218,7 +218,7 @@ const WritingForm = ({
       
 
       {alert && !cancel &&
-        <form onSubmit={()=>navigate('/')}>
+        <form onSubmit={()=>navigate('/mypage')}>
           <WarnBox text='작성을 취소하시겠습니까?' btn_txt='예'/>
         </form>
       }

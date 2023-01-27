@@ -46,7 +46,7 @@ const ModifyPwd = () => {
         setTimeout(()=>{
           navigate("/login");
           window.location.reload();
-        },2000);
+        },1000);
           // setTimeout(()=>{navigate("/login")},2000);
       }).catch(err=>{
         console.log(err);
@@ -75,7 +75,7 @@ const ModifyPwd = () => {
             setTimeout(()=>{
               navigate("/login");
               window.location.reload();
-            },2000);
+            },1000);
             //로그인 저장된 기록 지우기, 토큰도 지워
             // setTimeout(()=>{navigate("/login")},3000);
           }
