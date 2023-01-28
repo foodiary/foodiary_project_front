@@ -86,13 +86,17 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     if (edit) {
       getContents();
     }
+    else{
+      setFileUrl([]);
+      setImg([]);
+    }
     // setTimeout(() => {
     //   setError(false);
     // }, 2000);
-    return () => {
-      setFileUrl("");
-      setImg("");
-    };
+    // return () => {
+    //   setFileUrl("");
+    //   setImg("");
+    // };
   }, []);
 
   useEffect(() => {
