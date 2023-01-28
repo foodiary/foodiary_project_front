@@ -10,7 +10,7 @@ const InputFile = ({ multiple = false }: FileOption) => {
 
   const fileURL = useImgFileStore((state) => state.fileURL);
   const setFileURL = useImgFileStore<any>((state) => state.setFileURL);
-  const setImg = useImgFileStore((state) => state.setImg);
+  const setImg = useImgFileStore<any>((state) => state.setImg);
   const setIsThumbnail = useImgFileStore((state) => state.setIsThumbnail);
 
   const [err, setErr] = useState(false);
@@ -39,7 +39,7 @@ const InputFile = ({ multiple = false }: FileOption) => {
     } else {
       setErr(false);
       setFileURL([...fileURL, ...urlList]);
-      setImg(list);
+      setImg([...fileURL, ...list]);
     }
     e.target.value = "";
   };
