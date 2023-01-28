@@ -80,6 +80,9 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     if(edit){
       getContents();
     }
+    else{
+      setFileUrl([]);
+    }
   }, []);
 
 
