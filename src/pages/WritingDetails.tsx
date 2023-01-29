@@ -61,6 +61,10 @@ const WritingDetails = () => {
   const [success, setSuccess] = useState(false);
   const [forbidden, setForbidden] = useState(false);
 
+  const [likeCheck, setLikeCheck] = useState(false); //내가 좋아요를 했는지
+  const [likeCount, setLikeCount] = useState(0); // 이 글의 좋아요 갯수
+  const [scrapCheck, setScrapCheck] = useState(false);
+
   useEffect(() => {
     setCancel(true);
     setAlertCancel(true);
@@ -69,6 +73,8 @@ const WritingDetails = () => {
 
   useEffect(()=>{
     getComments();
+    setCancel(true);
+    setAlertCancel(true);
   },[]);
 
   const getContents = () => {
@@ -78,17 +84,21 @@ const WritingDetails = () => {
       })
       .then((res) => {
         console.log(res);
-        setContents(res.data);
+        const data = res.data;
+        setContents(data);
+        setLikeCount(data.dailyLike);
+        setLikeCheck(data.likeCheck);
+        setScrapCheck(data.scrapCheck);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const params = {
-    dailyId: id,
-    memberId: memberId,
-  };
+  // const params = {
+  //   dailyId: id,
+  //   memberId: memberId,
+  // };
   // const items = useInfiniteScroll({
   //   target: target,
   //   url: `/dailys/comment`,
@@ -125,6 +135,9 @@ const WritingDetails = () => {
       .then((res) => {
         // setRefetch(prev => prev+1)
         // getContents();
+        console.log(res);
+        setLikeCheck(prev=>!prev);
+        setLikeCount((prev)=>likeCheck===true?prev-1: prev+1);
       })
       .catch((err) => {
         console.log(err);
@@ -188,12 +201,14 @@ const WritingDetails = () => {
       setForbidden(true);
       setTimeout(() => setForbidden(false), 1000);
     }
-    axiosConfig.post(`/daily/scrap/${id}/${memberId}`).then((res) => {
+    axiosConfig.post(`/daily/scrap/${id}/${memberId}`)
+    .then((res) => {
       console.log(res);
-      setRefetch((prev) => prev + 1);
+      setScrapCheck(prev=>!prev);
+      // setRefetch((prev) => prev + 1);
+
     });
   };
-  console.log(comments);
   // const moveScroll = ()=>{
   //   const element = useRef<HTMLDivElement>(null);
   //   element.current?.scrollIntoView({
@@ -241,17 +256,11 @@ const WritingDetails = () => {
           {/* {contents?.userCheck? <button onClick={onModify}><FiMoreVertical/></button>: null} */}
           {contents?.userCheck && (
             <div className={styles.btnBox}>
-              {/* <button onClick={onScrap} className={styles.scrap_btn}>
-                {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
-              </button> */}
               <button onClick={onModify}>
                 <FiMoreVertical />
               </button>
             </div>
           )}
-          {/* <button onClick={onScrap} className={styles.scrap_btn}>
-            {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
-          </button> */}
         </div>
         {/* <p className={styles.created}>{date}</p> */}
 
@@ -269,12 +278,15 @@ const WritingDetails = () => {
 
           <div className={styles.res}>
             <button type="button" onClick={onDailyLike}>
-              {contents?.likeCheck ? <BsSuitHeartFill /> : <BsSuitHeart />}
+              {/* {contents?.likeCheck ? <BsSuitHeartFill /> : <BsSuitHeart />} */}
+              {likeCheck ? <BsSuitHeartFill /> : <BsSuitHeart />}
             </button>
-            <p>{contents?.dailyLike}</p>
+            {/* <p>{contents?.dailyLike}</p> */}
+            <p>{likeCount}</p>
           </div>
           <button onClick={onScrap} className={styles.scrap_btn}>
-            {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
+            {/* {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />} */}
+            {scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
           </button>
         </div>
 
@@ -329,9 +341,7 @@ const WritingDetails = () => {
         )}
       </div>
 
-      <div ref={target} className={styles.scroll_target}>
-        {/* <p>마지막 페이지입니다</p> */}
-      </div>
+      <div ref={target} className={styles.scroll_target}></div>
 
       {viewBtn && (
         <div className={styles.view_btn}>
