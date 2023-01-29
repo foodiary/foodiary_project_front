@@ -16,7 +16,7 @@ interface ResType {
   dailyCommentImg: string;
   dailyCommentId?: number;
   isMine?: boolean; // 댓글이 본인 것인지(true)
-  commentMemberId: number;
+  commentMemberId?: number;
 }
 
 const CommentBox = ({
