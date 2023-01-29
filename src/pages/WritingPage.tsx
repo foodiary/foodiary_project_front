@@ -83,6 +83,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     setImg([]);
   }, [contents]);
 
+  
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement> &
       React.ChangeEvent<HTMLTextAreaElement>
