@@ -113,6 +113,17 @@
     }
   }
 
+  .comment_count{
+    padding: 0 0 10px 20px;
+    border-bottom: 2px solid $gray_200;
+    p{
+      @include text-style(14px, $gray_400, 400, start);
+      span{
+        @include text-style(14px, $gray_400, 600, start);
+        margin-left: 5px;
+      }
+    }
+  }
   .empty_comment {
     @include flexBox();
     margin-top: 50px;

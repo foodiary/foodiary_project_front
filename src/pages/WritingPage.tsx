@@ -89,6 +89,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     }
   }, [contents]);
 
+  
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement> &
       React.ChangeEvent<HTMLTextAreaElement>

@@ -67,6 +67,10 @@ const WritingDetails = () => {
     getContents();
   }, [refetch]);
 
+  useEffect(()=>{
+    getComments();
+  },[]);
+
   const getContents = () => {
     axiosConfig
       .get(`/dailys/details`, {
@@ -85,15 +89,15 @@ const WritingDetails = () => {
     dailyId: id,
     memberId: memberId,
   };
-  const items = useInfiniteScroll({
-    target: target,
-    url: `/dailys/comment`,
-    params: params,
-  }).items;
-  const reloadRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    setComments(items);
-  }, [items]);
+  // const items = useInfiniteScroll({
+  //   target: target,
+  //   url: `/dailys/comment`,
+  //   params: params,
+  // }).items;
+  // const reloadRef = useRef<HTMLDivElement>(null);
+  // useEffect(() => {
+  //   setComments(items);
+  // }, [items]);
 
   const getComments = () => {
     // const page = 1;
@@ -294,13 +298,15 @@ const WritingDetails = () => {
           <FiSend />
         </button>
       </form>
-
+      <div className={styles.comment_count}>
+        <p>댓글 <span>{contents?.dailyComment}</span></p>
+      </div>    
       {success && <AlertBox text="댓글이 등록되었습니다" type={true} />}
 
-      <div className={styles.comments_container} ref={reloadRef}>
+      <div className={styles.comments_container}>
         {comments.length > 0 ? (
           comments.map((item: any) => {
-            console.log(item);
+            // console.log(item);
             return (
               <CommentBox
                 dailyCommentImg={item.memberImage}
