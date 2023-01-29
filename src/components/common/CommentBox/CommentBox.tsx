@@ -47,7 +47,6 @@ const CommentBox = ({
     setCommentCancel(true);
   }, []);
 
-  console.log(cancel);
   const onClick = () => {
     setViewBtn((prev) => !prev);
     setCancel(true);
@@ -83,7 +82,6 @@ const CommentBox = ({
         console.log(err);
       });
   };
-  console.log(`댓글: ${commentCancel}`);
 
   return (
     <div>

@@ -74,19 +74,13 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       setFileUrl([]);
       setImg([]);
     }
-    // setTimeout(() => {
-    //   setError(false);
-    // }, 2000);
-    // return () => {
-    //   setFileUrl("");
-    //   setImg("");
-    // };
   }, []);
 
   useEffect(() => {
     if (contents) {
       setFileUrl(contents?.dailyImageList);
     }
+    setImg([]);
   }, [contents]);
 
   
@@ -136,7 +130,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       } else {
         e.preventDefault();
         setSuccess(false);
-
         const headers = { "Content-Type": "multipart/form-data" };
         axiosConfig
           .post("/daily", formData, { headers })
@@ -146,12 +139,14 @@ const WritingPage = ({ edit }: WritingPageProps) => {
             setTimeout(() => {
               navigate("/explore");
             }, 1000);
+            setImg([]);
           })
           .catch((err) => {
             console.log(err);
           });
       }
     } else {
+      setImg([]);
       e.preventDefault();
       setIsImg(true);
       setError(true);
@@ -213,10 +208,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   };
 
   const deleteImage = (url: string, index: number) => () => {
-    const data = [...img];
-    data.splice(index, 1);
     setFileUrl(fileURL.filter((fileurl) => fileurl !== url));
-    setImg(data);
     const delImg: any = [...deleteImages];
     delImg.push(url);
     setDeleteImages(delImg);
