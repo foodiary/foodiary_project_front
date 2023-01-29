@@ -112,15 +112,15 @@ const WritingDetails = () => {
   };
 
   const onDailyLike = () => {
-    if(memberId === 0){
+    if (memberId === 0) {
       setForbidden(true);
-      setTimeout(()=>setForbidden(false),1000);
+      setTimeout(() => setForbidden(false), 1000);
     }
     axiosConfig
       .post(`/daily/like/${id}/${memberId}`)
       .then((res) => {
         // setRefetch(prev => prev+1)
-        getContents();
+        // getContents();
       })
       .catch((err) => {
         console.log(err);
@@ -180,15 +180,16 @@ const WritingDetails = () => {
   };
 
   const onScrap = () => {
-    if(memberId === 0){
+    if (memberId === 0) {
       setForbidden(true);
-      setTimeout(()=>setForbidden(false),1000);
+      setTimeout(() => setForbidden(false), 1000);
     }
     axiosConfig.post(`/daily/scrap/${id}/${memberId}`).then((res) => {
       console.log(res);
       setRefetch((prev) => prev + 1);
     });
   };
+  console.log(comments);
   // const moveScroll = ()=>{
   //   const element = useRef<HTMLDivElement>(null);
   //   element.current?.scrollIntoView({
@@ -232,7 +233,7 @@ const WritingDetails = () => {
       <div className={styles.writing_container}>
         <div className={styles.title_div}>
           <h2>{contents?.dailyTitle}</h2>
-          
+
           {/* {contents?.userCheck? <button onClick={onModify}><FiMoreVertical/></button>: null} */}
           {contents?.userCheck && (
             <div className={styles.btnBox}>
@@ -252,7 +253,7 @@ const WritingDetails = () => {
 
         <div className={styles.writer_profile}>
           <Link to={`/profile/${contents?.memberId}`}>
-          <p className={styles.writer}>{contents?.dailyWriter}</p>
+            <p className={styles.writer}>{contents?.dailyWriter}</p>
           </Link>
         </div>
 
@@ -290,7 +291,11 @@ const WritingDetails = () => {
           }
           disabled={memberId ? false : true}
         />
-        <button type="submit" onClick={onSendComment} className={styles.send_icon}>
+        <button
+          type="submit"
+          onClick={onSendComment}
+          className={styles.send_icon}
+        >
           <FiSend />
         </button>
       </form>
@@ -300,7 +305,6 @@ const WritingDetails = () => {
       <div className={styles.comments_container} ref={reloadRef}>
         {comments.length > 0 ? (
           comments.map((item: any) => {
-            console.log(item);
             return (
               <CommentBox
                 dailyCommentImg={item.memberImage}
@@ -343,7 +347,7 @@ const WritingDetails = () => {
           <WarnBox text="정말 삭제하시겠습니까?" btn_txt="삭제" />
         </form>
       )}
-      {forbidden && <AlertBox text="회원만 가능합니다" type={false}/>}
+      {forbidden && <AlertBox text="회원만 가능합니다" type={false} />}
     </div>
   );
 };
