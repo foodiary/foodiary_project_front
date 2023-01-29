@@ -31,42 +31,27 @@ interface ResType {
 }
 
 const WritingPage = ({ edit }: WritingPageProps) => {
-  // memberId*	integer($int32)
-  // 회원 시퀀스
-
-  // path*	string
-  // 이미지 경로1
-
   const navigate = useNavigate();
-  const [title, setTitle] = useState<string | undefined>("");
-  const [content, setContent] = useState<string | undefined>("");
 
-  // const [files, setFiles] = useState<File>();
   const fileURL = useImgFileStore((state) => state.fileURL);
   const setFileUrl = useImgFileStore<any>((state) => state.setFileURL);
   const img = useImgFileStore<any>((state) => state.img);
   const setImg = useImgFileStore<any>((state) => state.setImg);
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
   const memberLoginId = useLoginUserStore(
     (state) => state.userInfo.memberLoginId
   );
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
 
+  const [title, setTitle] = useState<string | undefined>("");
+  const [content, setContent] = useState<string | undefined>("");
+  const [error, setError] = useState(false);
   const [contents, setContents] = useState<ResType>();
-  const isThumbnail = useImgFileStore((state) => state.isThumbnail);
-
   const [success, setSuccess] = useState(false);
   const [deleteImages, setDeleteImages] = useState([]);
-
   const [isImgOver, setImgOver] = useState(false);
   const [isImg, setIsImg] = useState(false);
 
   const id = useParams().id;
-
-  console.log(img);
 
   const getContents = useCallback(() => {
     axiosConfig
@@ -85,8 +70,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
   useEffect(() => {
     if (edit) {
       getContents();
-    }
-    else{
+    } else {
       setFileUrl([]);
       setImg([]);
     }
@@ -153,7 +137,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
         setSuccess(false);
 
         const headers = { "Content-Type": "multipart/form-data" };
-        // setLoading(true);
         axiosConfig
           .post("/daily", formData, { headers })
           .then((res) => {
@@ -201,11 +184,12 @@ const WritingPage = ({ edit }: WritingPageProps) => {
         setImgOver(true);
         setError(true);
         cancelError();
+        setDeleteImages([]);
       } else {
         e.preventDefault();
+        setDeleteImages([]);
         setSuccess(true);
         const headers = { "Content-Type": "multipart/form-data" };
-        setLoading(true);
         axiosConfig
           .post(`/daily/${id}/${memberId}`, editFormData, { headers })
           .then((res) => {
@@ -220,6 +204,7 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       }
     } else {
       e.preventDefault();
+      setDeleteImages([]);
       setIsImg(true);
       setError(true);
       cancelError();
@@ -241,7 +226,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
       <form onSubmit={edit ? onEdit : onSubmit} encType="multipart/form-data">
         <div className={styles.write_container}>
           <DecoTitle title={`하루 공유 글 ${edit ? "수정" : "작성"}`} />
-          {/* <p>하루 공유 글 {edit ? "수정" : "작성"}</p> */}
           <input
             type="text"
             placeholder="제목"
@@ -266,9 +250,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
               사진 등록하기
             </label>
             <InputFile multiple={true} />
-            {/* {fileURL?
-            <img src={fileURL} alt="첨부파일" className={styles.attach_img}/>: null
-          } */}
           </div>
           <div className={styles.imgBox}>
             {fileURL.length > 0
