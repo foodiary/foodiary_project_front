@@ -46,6 +46,7 @@ const WritingDetails = () => {
 
   const { pathname } = useLocation();
   const id = pathname.slice(8); // 글 아이디
+  const userInfo = useLoginUserStore(state=>state.userInfo);
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
 
   const [contents, setContents] = useState<ResType>();
@@ -65,6 +66,8 @@ const WritingDetails = () => {
   const [likeCount, setLikeCount] = useState(0); // 이 글의 좋아요 갯수
   const [scrapCheck, setScrapCheck] = useState(false);
 
+  // const [newComment, setNewComment] = useState<any>([]);
+
   useEffect(() => {
     setCancel(true);
     setAlertCancel(true);
@@ -72,7 +75,7 @@ const WritingDetails = () => {
   }, [refetch]);
 
   useEffect(()=>{
-    getComments();
+    // getComments();
     setCancel(true);
     setAlertCancel(true);
   },[]);
@@ -95,35 +98,35 @@ const WritingDetails = () => {
       });
   };
 
-  // const params = {
-  //   dailyId: id,
-  //   memberId: memberId,
-  // };
-  // const items = useInfiniteScroll({
-  //   target: target,
-  //   url: `/dailys/comment`,
-  //   params: params,
-  // }).items;
-  // const reloadRef = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   setComments(items);
-  // }, [items]);
-
-  const getComments = () => {
-    // const page = 1;
-    setComments([]);
-    axiosConfig
-      .get(`/dailys/comment`, {
-        params: { dailyId: id, memberId: memberId, page: 1 },
-      })
-      .then((res) => {
-        console.log(res);
-        setComments(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const params = {
+    dailyId: id,
+    memberId: memberId,
   };
+  const items = useInfiniteScroll({
+    target: target,
+    url: `/dailys/comment`,
+    params: params,
+  }).items;
+  // const reloadRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setComments(items);
+  }, [items]);
+
+  // const getNewComments = () => {
+  //   // const page = 1;
+  //   setComments([]);
+  //   axiosConfig
+  //     .get(`/dailys/comment`, {
+  //       params: { dailyId: id, memberId: memberId, page: 1 },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       setComments(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const onDailyLike = () => {
     if (memberId === 0) {
@@ -168,13 +171,25 @@ const WritingDetails = () => {
       memberId: memberId,
     };
 
+    // const now = new Date();
+
+    // const newItem = {
+    //   dailyCommentImg: userInfo.memberPath,
+    //   dailyCommentBody: value,
+    //   dailyCommentCreate: now,
+    //   dailyCommentWriter: userInfo.memberNickName,
+    //   isMine: true,
+    // }
     axiosConfig
       .post("/daily/comment", data)
       .then((res) => {
+        console.log(res);
         // setRefetch(prev => prev+1)
-        getComments();
+        // getComments();
         setValue("");
         setSuccess(true); // 댓글 등록완료
+        setTimeout(()=> window.location.reload(),1000);
+        // setNewComment([...newComment, newItem])
       })
       .catch((err) => {
         console.log(err);
@@ -297,7 +312,7 @@ const WritingDetails = () => {
         </div>
       </div>
 
-      <form className={styles.input_comment}>
+      <div className={styles.input_comment}>
         <textarea
           maxLength={200}
           onChange={onWriteComment}
@@ -314,7 +329,7 @@ const WritingDetails = () => {
         >
           <FiSend />
         </button>
-      </form>
+      </div>
       <div className={styles.comment_count}>
         <p>댓글 <span>{contents?.dailyComment}</span></p>
       </div>    
@@ -336,10 +351,26 @@ const WritingDetails = () => {
               />
             );
           })
-        ) : (
+        ) 
+        : (
           <p className={styles.empty_comment}>댓글이 없습니다</p>
         )}
       </div>
+
+      {/* {newComment.length > 0 && 
+          newComment.map((item:any)=>{
+            return (
+              <CommentBox
+                dailyCommentImg={item.dailyCommentImg}
+                dailyCommentBody={item.dailyCommentBody}
+                dailyCommentCreate={item.dailyCommentCreate}
+                dailyCommentWriter={item.dailyCommentWriter}
+                isMine={item.isMine}
+              />
+            );
+          })
+      } */}
+        
 
       <div ref={target} className={styles.scroll_target}></div>
 
