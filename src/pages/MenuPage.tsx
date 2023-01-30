@@ -15,8 +15,15 @@ const MenuPage = () => {
   const getSunday = (d: any) => {
     d = new Date(d);
     let day = d.getDay(),
-      diff = d.getDate() - day + (day === 1 ? -6 : 0);
+      diff = d.getDate() - day + (day === 1 ? 0 : -6);
     return new Date(d.setDate(diff));
+  };
+
+  const getWeek = (date: any) => {
+    const currentDate = date.getDate();
+    const firstDay = new Date(date.setDate(1)).getDay();
+
+    return Math.ceil((currentDate + firstDay) / 7);
   };
 
   const sunDate = getSunday(new Date());
@@ -65,7 +72,7 @@ const MenuPage = () => {
 
         <h2 className={styles.week_title}>{`${
           sunDate.getMonth() + 1
-        }월 4주차`}</h2>
+        }월 ${getWeek(new Date(sunDate))}주차`}</h2>
         <div className={styles.week_menu}>
           <table>
             <thead className={styles.table_head}>
