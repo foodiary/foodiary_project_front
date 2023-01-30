@@ -46,6 +46,7 @@ const WritingDetails = () => {
 
   const { pathname } = useLocation();
   const id = pathname.slice(8); // 글 아이디
+  const userInfo = useLoginUserStore(state=>state.userInfo);
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
 
   const [contents, setContents] = useState<ResType>();
@@ -61,15 +62,24 @@ const WritingDetails = () => {
   const [success, setSuccess] = useState(false);
   const [forbidden, setForbidden] = useState(false);
 
+  const [likeCheck, setLikeCheck] = useState(false); //내가 좋아요를 했는지
+  const [likeCount, setLikeCount] = useState(0); // 이 글의 좋아요 갯수
+  const [scrapCheck, setScrapCheck] = useState(false);
+
+  // const [newComment, setNewComment] = useState<any>([]);
+
   useEffect(() => {
     setCancel(true);
     setAlertCancel(true);
     getContents();
   }, [refetch]);
 
-  useEffect(() => {
-    getComments();
-  }, []);
+  useEffect(()=>{
+    // getComments();
+    setCancel(true);
+    setAlertCancel(true);
+  },[]);
+
 
   const getContents = () => {
     axiosConfig
@@ -78,7 +88,11 @@ const WritingDetails = () => {
       })
       .then((res) => {
         console.log(res);
-        setContents(res.data);
+        const data = res.data;
+        setContents(data);
+        setLikeCount(data.dailyLike);
+        setLikeCheck(data.likeCheck);
+        setScrapCheck(data.scrapCheck);
       })
       .catch((err) => {
         console.log(err);
@@ -89,31 +103,31 @@ const WritingDetails = () => {
     dailyId: id,
     memberId: memberId,
   };
-  // const items = useInfiniteScroll({
-  //   target: target,
-  //   url: `/dailys/comment`,
-  //   params: params,
-  // }).items;
+  const items = useInfiniteScroll({
+    target: target,
+    url: `/dailys/comment`,
+    params: params,
+  }).items;
   // const reloadRef = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   setComments(items);
-  // }, [items]);
+  useEffect(() => {
+    setComments(items);
+  }, [items]);
 
-  const getComments = () => {
-    // const page = 1;
-    setComments([]);
-    axiosConfig
-      .get(`/dailys/comment`, {
-        params: { dailyId: id, memberId: memberId, page: 1 },
-      })
-      .then((res) => {
-        console.log(res);
-        setComments(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getNewComments = () => {
+  //   // const page = 1;
+  //   setComments([]);
+  //   axiosConfig
+  //     .get(`/dailys/comment`, {
+  //       params: { dailyId: id, memberId: memberId, page: 1 },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //       setComments(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const onDailyLike = () => {
     if (memberId === 0) {
@@ -125,6 +139,9 @@ const WritingDetails = () => {
       .then((res) => {
         // setRefetch(prev => prev+1)
         // getContents();
+        console.log(res);
+        setLikeCheck(prev=>!prev);
+        setLikeCount((prev)=>likeCheck===true?prev-1: prev+1);
       })
       .catch((err) => {
         console.log(err);
@@ -155,13 +172,25 @@ const WritingDetails = () => {
       memberId: memberId,
     };
 
+    // const now = new Date();
+
+    // const newItem = {
+    //   dailyCommentImg: userInfo.memberPath,
+    //   dailyCommentBody: value,
+    //   dailyCommentCreate: now,
+    //   dailyCommentWriter: userInfo.memberNickName,
+    //   isMine: true,
+    // }
     axiosConfig
       .post("/daily/comment", data)
       .then((res) => {
+        console.log(res);
         // setRefetch(prev => prev+1)
-        getComments();
+        // getComments();
         setValue("");
         setSuccess(true); // 댓글 등록완료
+        setTimeout(()=> window.location.reload(),1000);
+        // setNewComment([...newComment, newItem])
       })
       .catch((err) => {
         console.log(err);
@@ -187,9 +216,12 @@ const WritingDetails = () => {
       setForbidden(true);
       setTimeout(() => setForbidden(false), 1000);
     }
-    axiosConfig.post(`/daily/scrap/${id}/${memberId}`).then((res) => {
+    axiosConfig.post(`/daily/scrap/${id}/${memberId}`)
+    .then((res) => {
       console.log(res);
-      setRefetch((prev) => prev + 1);
+      setScrapCheck(prev=>!prev);
+      // setRefetch((prev) => prev + 1);
+
     });
   };
   // const moveScroll = ()=>{
@@ -239,17 +271,11 @@ const WritingDetails = () => {
           {/* {contents?.userCheck? <button onClick={onModify}><FiMoreVertical/></button>: null} */}
           {contents?.userCheck && (
             <div className={styles.btnBox}>
-              {/* <button onClick={onScrap} className={styles.scrap_btn}>
-                {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
-              </button> */}
               <button onClick={onModify}>
                 <FiMoreVertical />
               </button>
             </div>
           )}
-          {/* <button onClick={onScrap} className={styles.scrap_btn}>
-            {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
-          </button> */}
         </div>
         {/* <p className={styles.created}>{date}</p> */}
 
@@ -267,12 +293,15 @@ const WritingDetails = () => {
 
           <div className={styles.res}>
             <button type="button" onClick={onDailyLike}>
-              {contents?.likeCheck ? <BsSuitHeartFill /> : <BsSuitHeart />}
+              {/* {contents?.likeCheck ? <BsSuitHeartFill /> : <BsSuitHeart />} */}
+              {likeCheck ? <BsSuitHeartFill /> : <BsSuitHeart />}
             </button>
-            <p>{contents?.dailyLike}</p>
+            {/* <p>{contents?.dailyLike}</p> */}
+            <p>{likeCount}</p>
           </div>
           <button onClick={onScrap} className={styles.scrap_btn}>
-            {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
+            {/* {contents?.scrapCheck ? <BsBookmarkFill /> : <BsBookmark />} */}
+            {scrapCheck ? <BsBookmarkFill /> : <BsBookmark />}
           </button>
         </div>
 
@@ -283,7 +312,7 @@ const WritingDetails = () => {
         </div>
       </div>
 
-      <form className={styles.input_comment}>
+      <div className={styles.input_comment}>
         <textarea
           maxLength={200}
           onChange={onWriteComment}
@@ -300,7 +329,7 @@ const WritingDetails = () => {
         >
           <FiSend />
         </button>
-      </form>
+      </div>
       <div className={styles.comment_count}>
         <p>
           댓글 <span>{contents?.dailyComment}</span>
@@ -323,14 +352,28 @@ const WritingDetails = () => {
               />
             );
           })
-        ) : (
+        ) 
+        : (
           <p className={styles.empty_comment}>댓글이 없습니다</p>
         )}
       </div>
 
-      <div ref={target} className={styles.scroll_target}>
-        {/* <p>마지막 페이지입니다</p> */}
-      </div>
+      {/* {newComment.length > 0 && 
+          newComment.map((item:any)=>{
+            return (
+              <CommentBox
+                dailyCommentImg={item.dailyCommentImg}
+                dailyCommentBody={item.dailyCommentBody}
+                dailyCommentCreate={item.dailyCommentCreate}
+                dailyCommentWriter={item.dailyCommentWriter}
+                isMine={item.isMine}
+              />
+            );
+          })
+      } */}
+        
+
+      <div ref={target} className={styles.scroll_target}></div>
 
       {viewBtn && (
         <div className={styles.view_btn}>
