@@ -43,11 +43,9 @@ const OAuthRedirect = () => {
           navigate("/signup/agree");
         } else {
           setOAuthLogin(false);
-          console.log(res);
           setNotMember(false);
           // setLoading(true);
           const memberId = res.data.memberId;
-          console.log(memberId);
           axiosConfig
             .get(`/member/${memberId}`)
             .then((res) => {

@@ -1,6 +1,7 @@
 import { SmallCard } from "@components/common/Card";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 import axiosConfig from "@core/apis/utils/axiosConfig";
+import basic_profile from "@img/basic_profile.png";
 import styles from "@styles/profileView.module.scss";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -28,13 +29,10 @@ const ProfileView = () => {
       });
   }, []);
 
-  console.log(myDailyList);
-  console.log(myProfile);
-
   return (
     <div className={styles.profileView_container}>
       <div className={styles.profile_box}>
-        <img src={myProfile?.memberPath} alt="" />
+        <img src={myProfile?.memberPath || basic_profile} alt="" />
         <p className={styles.nickname}>{myProfile?.memberNickName}</p>
         <p className={styles.profile_message}>{myProfile?.memberProfile}</p>
       </div>

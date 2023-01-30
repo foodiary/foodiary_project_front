@@ -47,7 +47,6 @@ const CommentBox = ({
     setCommentCancel(true);
   }, []);
 
-  console.log(cancel);
   const onClick = () => {
     setViewBtn((prev) => !prev);
     setCancel(true);
@@ -71,11 +70,9 @@ const CommentBox = ({
     setCancel(true);
     setCommentCancel(true);
     setViewBtn(false);
-    console.log("댓글 삭제");
     axiosConfig
       .delete(`/daily/comment/${dailyId}/${dailyCommentId}/${memberId}`)
       .then((res) => {
-        console.log(res);
         setRemoveSuccess(true);
         window.location.reload();
       })
@@ -83,7 +80,6 @@ const CommentBox = ({
         console.log(err);
       });
   };
-  console.log(`댓글: ${commentCancel}`);
 
   return (
     <div>

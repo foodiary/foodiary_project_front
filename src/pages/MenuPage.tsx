@@ -53,15 +53,12 @@ const MenuPage = () => {
         params: { memberId: memberId, date: sunday },
       })
       .then((res) => {
-        console.log(res);
         setMenuList(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  console.log(menuList);
 
   return (
     <section>
