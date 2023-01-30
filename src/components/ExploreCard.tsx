@@ -1,21 +1,19 @@
-import { useInfiniteScroll } from '@hook/useInfiniteScroll';
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useInfiniteScroll } from "@hook/useInfiniteScroll";
+import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import styles from "../styles/explorePage.module.scss";
-import { SmallCard } from './common/Card';
+import { SmallCard } from "./common/Card";
 
 interface ResType {
   dailyId: number;
   dailyThumbnail: string;
 }
-interface PropsType{
+interface PropsType {
   url: string;
 }
-const ExploreCard = ({url}:PropsType) => {
-  console.log(`url은: ${url}`);
-  
+const ExploreCard = ({ url }: PropsType) => {
   const target = useRef<HTMLDivElement>(null);
-  const dailyList = useInfiniteScroll({target: target, url:url}).items;
+  const dailyList = useInfiniteScroll({ target: target, url: url }).items;
 
   return (
     <div>
@@ -34,7 +32,7 @@ const ExploreCard = ({url}:PropsType) => {
           })}
         </div>
       </section>
-          <div ref={target} className={styles.scroll_target}></div>
+      <div ref={target} className={styles.scroll_target}></div>
     </div>
   );
 };

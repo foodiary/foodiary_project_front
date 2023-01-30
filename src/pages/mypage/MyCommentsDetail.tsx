@@ -73,7 +73,6 @@ const MyCommentsDetail = () => {
     e.preventDefault();
     setCancel(true);
     setViewBtn(false);
-    console.log("삭제ㅇㅇ"); //알럿창
     axiosConfig
       .delete(`/daily/comment/${dailyId}/${memberId}/${commentId}`)
       .then((res) => {

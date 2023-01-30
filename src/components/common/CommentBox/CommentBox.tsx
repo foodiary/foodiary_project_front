@@ -70,11 +70,9 @@ const CommentBox = ({
     setCancel(true);
     setCommentCancel(true);
     setViewBtn(false);
-    console.log("댓글 삭제");
     axiosConfig
       .delete(`/daily/comment/${dailyId}/${dailyCommentId}/${memberId}`)
       .then((res) => {
-        console.log(res);
         setRemoveSuccess(true);
         window.location.reload();
       })
