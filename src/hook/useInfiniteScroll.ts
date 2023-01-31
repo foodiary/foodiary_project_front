@@ -1,30 +1,34 @@
-import { useCallback, useEffect, useRef, useState } from "react"
-import axiosConfig from '@utils/axiosConfig';
+import { useCallback, useEffect, useRef, useState } from "react";
+import axiosConfig from "@utils/axiosConfig";
 import { AxiosInstance } from "axios";
 
-interface TargetType{
+interface TargetType {
   target: React.RefObject<HTMLDivElement>;
   url: string;
   params?: object;
   mode?: string; //get, post
   data?: object; //post일때 body
 }
-export const useInfiniteScroll = ({target, url, params, mode, data}:TargetType)=>{
+export const useInfiniteScroll = ({
+  target,
+  url,
+  params,
+  mode,
+  data,
+}: TargetType) => {
   const [items, setItems] = useState([]);
- 
+
   const [page, setPage] = useState(1);
   const [ing, setIng] = useState(false);
   const preventRef = useRef(false);
 
   const [stop, setStop] = useState(false);
 
-  console.log(page);
-  console.log(stop);
   // let params = {};
 
-  const getData = useCallback(async()=>{
-    console.log(`${page} 데이터 불러오기`);
-    
+  const getData = useCallback(async () => {
+    // console.log(`${page} 데이터 불러오기`);
+
     // if(memberId){
     //   params = {
     //     page: page,
@@ -38,63 +42,65 @@ export const useInfiniteScroll = ({target, url, params, mode, data}:TargetType)=
     // }
 
     setIng(true); //setloading
-    if(mode==="post"){
+    if (mode === "post") {
       const res = await axiosConfig.post(url, data);
-      if(res.data){
-        if(res.data.length < 1){
+      if (res.data) {
+        if (res.data.length < 1) {
           setStop(true);
         }
-        setItems(prev=>prev.concat(res.data));
+        setItems((prev) => prev.concat(res.data));
         preventRef.current = true;
-      }
-      else{
+      } else {
         console.log(res); //에러
         setStop(true);
       }
-    }
-    else{
+    } else {
       // let res;
-      
-      const res = await axiosConfig.get(url,{params: params? {...params, page: page}: {page: page}})
-      if(res.data){
-        if(res.data.length < 1){
+
+      const res = await axiosConfig.get(url, {
+        params: params ? { ...params, page: page } : { page: page },
+      });
+      if (res.data) {
+        if (res.data.length < 1) {
           setStop(true);
         }
-        setItems(prev=>prev.concat(res.data));
+        setItems((prev) => prev.concat(res.data));
         preventRef.current = true;
-      }
-      else{
+      } else {
         console.log(res); //에러
         setStop(true);
       }
     }
     setIng(false);
-  },[page]);
+  }, [page]);
 
-  useEffect(()=>{
-    const observer = new IntersectionObserver(onIntersect, {threshold: 1});
-    if(target.current){
+  useEffect(() => {
+    const observer = new IntersectionObserver(onIntersect, { threshold: 1 });
+    if (target.current) {
       observer.observe(target.current);
-      return ()=>{observer.disconnect()}
+      return () => {
+        observer.disconnect();
+      };
     }
-  },[]);
+  }, []);
 
-  useEffect(()=>{
-    if(!stop){
+  useEffect(() => {
+    if (!stop) {
       getData();
     }
-  },[page]);
+  }, [page]);
 
-  const onIntersect = ((entries:IntersectionObserverEntry[])=>{ //콜백함수
-    if(entries[0].isIntersecting && preventRef.current){
+  const onIntersect = (entries: IntersectionObserverEntry[]) => {
+    //콜백함수
+    if (entries[0].isIntersecting && preventRef.current) {
       preventRef.current = false;
-      setPage(prev=>prev+1);
+      setPage((prev) => prev + 1);
     }
-  })
+  };
 
   // useEffect(()=>{
   //   let observer:IntersectionObserver;
-    
+
   //   if(target?.current && items.length>0){
   //     console.log('target이 바뀜');
   //     console.log(`에러는?: ${err}`);
@@ -112,16 +118,16 @@ export const useInfiniteScroll = ({target, url, params, mode, data}:TargetType)=
   //           }
   //           observer.observe(entry.target);
   //         }
-          
+
   //       }
   //     }
-      
+
   //     observer = new IntersectionObserver(onIntersect, {threshold: 1});
   //     observer.observe(target.current);
   //   }
   //     return ()=> observer && observer.disconnect();
-    
+
   // },[target.current, page]);
-  
-  return {items, page, stop};
-}
+
+  return { items, page, stop };
+};

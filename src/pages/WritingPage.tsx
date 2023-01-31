@@ -83,7 +83,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     setImg([]);
   }, [contents]);
 
-  
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement> &
       React.ChangeEvent<HTMLTextAreaElement>
@@ -159,8 +158,6 @@ const WritingPage = ({ edit }: WritingPageProps) => {
     content: content || contents?.dailyBody,
     deletePath: deleteImages.length > 0 ? deleteImages : null,
   };
-
-  console.log(fileURL);
 
   let editFormData = new FormData();
   editFormData.append(

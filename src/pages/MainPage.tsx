@@ -20,15 +20,15 @@ import { GoSearch } from "react-icons/go";
 import { useUpdateUser } from "@hook/useUpdateUser";
 import { useLoadingStore } from "@store/loadingStore";
 import { AlertBox } from "@components/common/AlertBox/AlertBox";
-import oneRank from "@img/rank01.png"
-import twoRank from "@img/rank01.png"
-import threeRank from "@img/rank01.png"
+import oneRank from "@img/rank01.png";
+import twoRank from "@img/rank01.png";
+import threeRank from "@img/rank01.png";
 import { useSearchStore } from "@store/searchStore";
-import {IoReloadCircleSharp} from 'react-icons/io5';
-import {BsTrophyFill} from 'react-icons/bs';
+import { IoReloadCircleSharp } from "react-icons/io5";
+import { BsTrophyFill } from "react-icons/bs";
 
 // import cutting_board from '@img/cutting_board.png';
-import menu_board from '@img/menu_board.svg';
+import menu_board from "@img/menu_board.svg";
 
 interface ResType {
   dailyId: number;
@@ -46,7 +46,7 @@ const MainPage = () => {
   useUpdateUser();
   const navigate = useNavigate();
   const nickName = useLoginUserStore((state) => state.userInfo.memberNickName);
-  const setSearchList = useSearchStore((state)=>state.setSearchList);
+  const setSearchList = useSearchStore((state) => state.setSearchList);
   const [userName, setUserName] = useState<string>("푸디어리");
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
   const [forbidden, setForbidden] = useState(false);
@@ -73,7 +73,6 @@ const MainPage = () => {
     axiosConfig
       .get(`/food`, { params: params })
       .then((res) => {
-        console.log(res);
         setRecomMenu(res.data);
       })
       .catch((err) => {
@@ -111,35 +110,37 @@ const MainPage = () => {
   };
 
   const onFoodLike = () => {
-    axiosConfig.post(`/food/like`, {
-      foodId: recommenu?.foodId,
-      memberId: memberId,
-    })
-    .then(res=>{
-      console.log(res);
-      setAlert(true); 
-      setTimeout(recommendMenu,1000);
-      //음식추천 새로고침할때 같이 false로 만들기
-    }).catch(err=>{
-      console.log(err);
-      setAlert(false);
-    });
+    axiosConfig
+      .post(`/food/like`, {
+        foodId: recommenu?.foodId,
+        memberId: memberId,
+      })
+      .then((res) => {
+        setAlert(true);
+        setTimeout(recommendMenu, 1000);
+        //음식추천 새로고침할때 같이 false로 만들기
+      })
+      .catch((err) => {
+        console.log(err);
+        setAlert(false);
+      });
   };
 
   const onFoodHate = () => {
-    axiosConfig.post(`/food/hate`, {
-      foodId: recommenu?.foodId,
-      memberId: memberId,
-    })
-    .then(res=>{
-      console.log(res);
-      setAlert(true);
-      setTimeout(recommendMenu,1000);
-      //음식추천 새로고침할때 같이 false로 만들기
-    }).catch(err=>{
-      console.log(err);
-      setAlert(false);
-    });
+    axiosConfig
+      .post(`/food/hate`, {
+        foodId: recommenu?.foodId,
+        memberId: memberId,
+      })
+      .then((res) => {
+        setAlert(true);
+        setTimeout(recommendMenu, 1000);
+        //음식추천 새로고침할때 같이 false로 만들기
+      })
+      .catch((err) => {
+        console.log(err);
+        setAlert(false);
+      });
   };
 
   const onSearch = () => {
@@ -172,21 +173,16 @@ const MainPage = () => {
   const [month, setMonth] = useState(true);
   let url = "";
 
-  console.log(rankingList)
-
   const getRankList = () => {
     if (month) {
       url = "/rank/month";
     } else {
       url = "/rank/week";
     }
-    console.log(`month인지? ${month}`);
-    console.log(`url은? ${url}`);
 
     axiosConfig
       .get(url)
       .then((res) => {
-        console.log(res);
         setRankingList(res.data);
       })
       .catch((err) => {
@@ -197,17 +193,17 @@ const MainPage = () => {
     getRankList();
   }, [month]);
 
-  const onForbidden = ()=>{
+  const onForbidden = () => {
     setForbidden(true);
-    setTimeout(()=>setForbidden(false),1000);
-    setTimeout(recommendMenu,1000);
-  }
-  console.log(forbidden);
+    setTimeout(() => setForbidden(false), 1000);
+    setTimeout(recommendMenu, 1000);
+  };
   return (
     <article className={styled.mainPageWrapper}>
       <section className={styled.mainPageTitleSection}>
         <h2 className={styled.title}>
-          안녕하세요,  <br /> {nickName || "푸디어리"}님! <br /> 오늘 이 메뉴 어떠세요?{" "}
+          안녕하세요, <br /> {nickName || "푸디어리"}님! <br /> 오늘 이 메뉴
+          어떠세요?{" "}
         </h2>
       </section>
 
@@ -216,9 +212,9 @@ const MainPage = () => {
       <section className={styled.recommendeSection}>
         <div className={styled.random_food}>
           <div className={styled.food_card}>
-            <img src={menu_board} alt='랜덤추천'/>
+            <img src={menu_board} alt="랜덤추천" />
             <button onClick={recommendMenu} className={styled.reloadFood}>
-              <IoReloadCircleSharp/>
+              <IoReloadCircleSharp />
             </button>
             <p>{recommenu?.foodName}</p>
           </div>
@@ -234,26 +230,24 @@ const MainPage = () => {
             <ButtonComp
               text="Good😘"
               btnStyle={buttonStyled.buttonActive}
-              onClick={memberId? onFoodLike: onForbidden}
+              onClick={memberId ? onFoodLike : onForbidden}
             />
             <ButtonComp
               text="No, thanks"
               btnStyle={buttonStyled.button}
-              onClick={memberId? onFoodHate: onForbidden}
+              onClick={memberId ? onFoodHate : onForbidden}
             />
           </div>
         </div>
       </section>
-      {forbidden && 
+      {forbidden && (
         <div>
-          <AlertBox text="로그인 후 이용하실 수 있습니다" type={false}/>
-        </div>}
+          <AlertBox text="로그인 후 이용하실 수 있습니다" type={false} />
+        </div>
+      )}
 
       <form className={styled.searchSection}>
-        <input
-          placeholder="검색어를 입력해주세요."
-          onChange={onChange}
-        />
+        <input placeholder="검색어를 입력해주세요." onChange={onChange} />
         <button type="submit" onClick={onSearch}>
           <GoSearch />
         </button>
@@ -279,15 +273,21 @@ const MainPage = () => {
 
           <div className={styled.card_container}>
             {rankingList.length > 0 ? (
-              rankingList.map((item: ResType, index:number) => {
+              rankingList.map((item: ResType, index: number) => {
                 return (
                   <Link to={`/detail/${item.dailyId}`}>
                     <div className={styled.rank_card_container}>
                       <img src={item.dailyThumbnail} alt="" />
                       <div>
-                        {index === 0 && <BsTrophyFill color="gold" fontSize={30}/>}
-                        {index === 1 && <BsTrophyFill color="silver" fontSize={30}/>}
-                        {index === 2 && <BsTrophyFill color="#CD7F32" fontSize={30}/>}
+                        {index === 0 && (
+                          <BsTrophyFill color="gold" fontSize={30} />
+                        )}
+                        {index === 1 && (
+                          <BsTrophyFill color="silver" fontSize={30} />
+                        )}
+                        {index === 2 && (
+                          <BsTrophyFill color="#CD7F32" fontSize={30} />
+                        )}
                       </div>
                       <p>{item.dailyTitle}</p>
                     </div>
@@ -300,7 +300,7 @@ const MainPage = () => {
           </div>
         </div>
       </section>
-      {alert && <AlertBox text="등록되었습니다" type={true}/>}
+      {alert && <AlertBox text="등록되었습니다" type={true} />}
     </article>
   );
 };

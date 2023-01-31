@@ -80,6 +80,7 @@ const WritingDetails = () => {
     setAlertCancel(true);
   },[]);
 
+
   const getContents = () => {
     axiosConfig
       .get(`/dailys/details`, {
@@ -204,7 +205,6 @@ const WritingDetails = () => {
     setCancel(true);
     setAlertCancel(true);
     setViewBtn(false);
-    console.log("글 삭제");
     axiosConfig.delete(`/daily/${id}/${memberId}`).then((res) => {
       console.log(res);
       navigate("/explore");
@@ -331,14 +331,15 @@ const WritingDetails = () => {
         </button>
       </div>
       <div className={styles.comment_count}>
-        <p>댓글 <span>{contents?.dailyComment}</span></p>
-      </div>    
+        <p>
+          댓글 <span>{contents?.dailyComment}</span>
+        </p>
+      </div>
       {success && <AlertBox text="댓글이 등록되었습니다" type={true} />}
 
       <div className={styles.comments_container}>
         {comments.length > 0 ? (
           comments.map((item: any) => {
-
             return (
               <CommentBox
                 dailyCommentImg={item.memberImage}
