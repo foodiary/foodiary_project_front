@@ -15,7 +15,7 @@ const MenuPage = () => {
   const getSunday = (d: any) => {
     d = new Date(d);
     let day = d.getDay(),
-      diff = d.getDate() - day + (day === 1 ? 0 : -6);
+      diff = d.getDate() - day + (day === 1 ? -6 : 0);
     return new Date(d.setDate(diff));
   };
 
