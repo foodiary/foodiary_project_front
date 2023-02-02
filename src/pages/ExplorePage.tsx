@@ -19,34 +19,29 @@ interface ResType {
 }
 
 const ExplorePage = () => {
-  const [tab, setTab] = useState("0"); // 1달 1주 오늘
-  const [url, setUrl] = useState("/dailys/month");
-
-  const target = useRef<HTMLDivElement>(null);
+  // const [tab, setTab] = useState("0"); // 1달 1주 오늘
+  // const [url, setUrl] = useState("/dailys/month");
+  
+  // const target = useRef<HTMLDivElement>(null);
 
   // const items = useInfiniteScroll({target: target, url:url}).items;
+  // const scrollPage = useInfiniteScroll({target: target, url:"/dailys/month"}).page;
+  // const stop = useInfiniteScroll({target: target, url:`/dailys/month`}).stop; //비구조화할당 안먹음..
 
-  const scrollPage = useInfiniteScroll({
-    target: target,
-    url: "/dailys/month",
-  }).page;
-  const stop = useInfiniteScroll({ target: target, url: `/dailys/month` }).stop; //비구조화할당 안먹음..
+  // const [dailyList, setDailyList] = useState([]);
 
-  const [dailyList, setDailyList] = useState([]);
-
-  const getUrl = () => {
-    if (tab === "0") {
-      // url = "/dailys/month";
-      setUrl("/dailys/month");
-    } else if (tab === "1") {
-      // url = "/dailys/week";
-      setUrl("/dailys/week");
-    } else {
-      // url = "/dailys/today";
-      setUrl("/dailys/today");
-    }
-  };
-
+  // const getUrl = ()=>{
+  //   if (tab === "0") {
+  //     // url = "/dailys/month";
+  //     setUrl('/dailys/month');
+  //   } else if (tab === "1") {
+  //     // url = "/dailys/week";
+  //     setUrl('/dailys/week');
+  //   } else {
+  //     // url = "/dailys/today";
+  //     setUrl('/dailys/today');
+  //   }
+  // }
   // const getDaily = (page?: number) => {
   //   if (tab === "0") {
   //     url = "/dailys/month";
@@ -94,11 +89,9 @@ const ExplorePage = () => {
   //   getDaily(1);
   // }, [tab]);
 
-
-  useEffect(() => {
-    getUrl();
-  }, [tab]);
-
+  // useEffect(()=>{
+  //   getUrl();
+  // },[tab]);
 
   return (
     <article className={styles.questWrapper}>
@@ -144,9 +137,8 @@ const ExplorePage = () => {
             setTab("2");
           }}
         />
-      </div>
-      <ExploreCard url={url} />
-
+      </div> */}
+      <ExploreCard url="/dailys/month"/>
       {/* <section className={styles.dailySection}>
         <div className={styles.contents}>
           {dailyList.map((item: ResType, index) => {
