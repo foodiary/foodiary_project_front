@@ -14,7 +14,7 @@ interface PropsType {
 const ExploreCard = ({ url }: PropsType) => {
   const target = useRef<HTMLDivElement>(null);
   const dailyList = useInfiniteScroll({ target: target, url: url }).items;
-
+  console.log(dailyList);
   return (
     <div>
       <section className={styles.dailySection}>
