@@ -68,7 +68,6 @@ section {
   .recommendeSection {
     padding: 22px 0;
     @include column-flexBox();
-    // display: flex;
     align-items: center;
 
     .random_food {
@@ -80,22 +79,6 @@ section {
       z-index: 1;
       // border: 1px solid blue;
       .food_card {
-        // position: absolute;
-        // top: -3px;
-        // left: 55px;
-        // z-index: -1;
-        // border: 1px solid rgb(1, 42, 1);
-        // background: url("/img/today_food.jpg");
-        // background-size: cover;
-        // background-position: bottom;
-        // width: 200px;
-        // height: 100px;
-        // transform: rotate(-8deg);
-        // font-size: 24px;
-        // font-weight: 500;
-        // color: #fff;
-        // @include flexBox($jc: around);
-
         width: 200px; 
         height: 200px;
         // border: 1px solid red;
@@ -104,6 +87,10 @@ section {
         left: 25%;
         z-index: -1;
 
+        @include mobile{
+          left: 50%;
+          transform: translate(-50%);
+        }
         img{
           width: 230px; //200
           height: 230px;
@@ -130,10 +117,17 @@ section {
           left: 65%;
         }
       }
-      img {
-        width: 100px;
-        height: 80px;
-        margin-right: 25px;
+      .food_icon{
+        border: 1px solid red;
+        // @include mobile{
+        //   margin-right: 15%;
+        //   transform: translate(-30%, -10%);
+        // }
+        img {
+          width: 100px;
+          height: 80px;
+          margin-right: 25px;
+        }
       }
     }
 

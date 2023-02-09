@@ -35,6 +35,9 @@
       width: 95%;
       margin: 70px auto 0 auto;
       gap: 20px 8px;
+      @media (min-width: 550px) and (max-width: 767px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
   }
   .card_container {

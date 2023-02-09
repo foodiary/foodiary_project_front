@@ -218,9 +218,11 @@ const MainPage = () => {
             </button>
             <p>{recommenu?.foodName}</p>
           </div>
-          {getRandomFoodImg(recommenu?.foodCategory) || (
-            <img src={etcFood} alt="랜덤음식" />
-          )}
+          <div className={styled.food_icon}>
+            {getRandomFoodImg(recommenu?.foodCategory) || (
+              <img src={etcFood} alt="랜덤음식" />
+            )}
+          </div>
         </div>
 
         <div className={styled.q_btn}>
