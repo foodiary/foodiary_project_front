@@ -14,4 +14,7 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
   .no_active{
     filter: $grey-color;
   }
+  @include mobile{
+    width: 100%;
+  }
 }

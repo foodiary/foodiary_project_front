@@ -103,16 +103,18 @@ const Input = React.forwardRef((props:Props, ref)=>{
         {...register(props.id)}
         // {...props.register}
       />  
-      {(props.type === "text"||"email") && inputValue &&
-        <button type='button' className={styles.init} onClick={()=>resetField(props.id)}>
-            <MdOutlineCancel/>
-        </button>
-      }
-      {props.type === "password" && inputValue &&
-        <button type='button' className={styles.view_pwd} onClick={handleViewPwd}>
-            <IoMdEyeOff/>
-        </button>
-      }
+      <div className={styles.icon_field}>
+        {(props.type === "text"||"email") && inputValue &&
+          <button type='button' className={styles.init} onClick={()=>resetField(props.id)}>
+              <MdOutlineCancel/>
+          </button>
+        }
+        {props.type === "password" && inputValue &&
+          <button type='button' className={styles.view_pwd} onClick={handleViewPwd}>
+              <IoMdEyeOff/>
+          </button>
+        }
+      </div>
 
       {props.validate ? null:
         <div className={styles.validation}>

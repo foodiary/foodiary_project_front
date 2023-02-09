@@ -21,6 +21,10 @@
         padding: 0 12px;
         border-radius: 8px;
         border: none;
+
+        @include mobile{
+          width: 80%;
+        }
       }
       .google{
         background-color:  white;
@@ -55,7 +59,7 @@
 
 .signup{
   margin-top: 32px;
-  margin-bottom: 8px;
+  padding-bottom: 30px;
   p{
     @include text-style(12px, #666666, 400);
   }

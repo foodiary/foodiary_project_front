@@ -1,6 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Intro } from "@components/common/Text/SignUpPageText";
-import Header from "@components/common/Header/Header";
+import React, { useEffect, useRef, useState } from "react";
 import arrow_icon from "@img/arrow_icon.svg";
 import styles from "@styles/mypage/myRecommend.module.scss";
 import axiosConfig from "../../core/apis/utils/axiosConfig";
@@ -8,7 +6,6 @@ import { useLoginUserStore } from "@store/loginUserStore";
 import EmptyText from "@components/common/Text/EmptyText";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 import { ButtonComp, buttonStyled } from "@components/common";
-import { useDebounce } from "@hook/useDebounce";
 import { useInfiniteScroll } from "@hook/useInfiniteScroll";
 
 interface ResType {
@@ -21,23 +18,16 @@ interface ResType {
 
 const MyRecommend = () => {
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
-  // const page = 1;
   const [menuList, setMenuList] = useState([]);
-  const [res, setRes] = useState(false);
   const [idx, setIdx] = useState(0);
   const target = useRef<HTMLDivElement>(null);
 
-  const page = useInfiniteScroll({
-    target: target,
-    url: `/member/food/${memberId}`,
-  }).page;
   const items = useInfiniteScroll({
     target: target,
     url: `/member/food/${memberId}`,
   }).items;
 
   useEffect(() => {
-    // getMyPreference();
     setMenuList(items);
   }, [items]);
 
@@ -52,34 +42,8 @@ const MyRecommend = () => {
       .catch((err) => {
         console.log(err);
       });
-    // if(stop){
-    //   return;
-    // }
-    // else{
-    //   axiosConfig.get(`/member/food/${memberId}`,{
-    //     params: {page: page},
-    //   }).then(res=>{
-    //     console.log(res);
-    //     setMenuList(prev=> prev.concat(res.data));
-    //   }).catch(err=>{
-    //     console.log(err);
-    //   })
-    // }
   };
 
-  // useEffect(()=>{
-  //   // getMyPreference();
-  //   setMenuList(items.items);
-  // },[items.items]);
-
-  // useEffect(()=>{
-  //   getMyPreference();
-  //   setRes(false);
-  // },[page]);
-
-  // useEffect(()=>{
-
-  // },[res]);
 
   const onModifyState = async (
     foodId: number,
@@ -99,19 +63,14 @@ const MyRecommend = () => {
         foodId: foodId,
       })
       .then((res) => {
-        console.log(res);
-        // getMyPreference();
         window.location.reload();
         setIdx(index);
-        // setRes(true);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // const clickedRef = useRef(null);
-  // console.log(clickedRef.current);
   return (
     <div className={styles.recommend}>
       <div className={styles.title}>
@@ -143,11 +102,7 @@ const MyRecommend = () => {
           <EmptyText text="내가 추천받은 메뉴가 없습니다." />
         )}
       </div>
-      {/* {menuList.length > 0 && */}
-      <div ref={target} className={styles.scroll_target}>
-        {/* <p>마지막 페이지입니다</p> */}
-      </div>
-      {/* } */}
+      <div ref={target} className={styles.scroll_target}></div>
     </div>
   );
 };

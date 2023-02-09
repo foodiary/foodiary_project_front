@@ -64,7 +64,7 @@ const SignUpProfileMsg = () => {
     //유저 전체 정보 전송
   }
   return (
-      <div>
+      <div className={styles.login_container}>
         <Intro span={"프로필 메세지를"} intro2={"적어주세요."}/>
         <p className={styles.omit_p}>(생략가능)</p>
         {state?

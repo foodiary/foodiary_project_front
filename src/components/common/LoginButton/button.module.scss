@@ -2,8 +2,6 @@
 @import "../../../styles/globals.css";
 
 .login_btn, .login_btn_active{
-  // position: fixed;
-  // bottom: 62px;
   width: 372px;
   height: 56px;
   border: none;
@@ -11,6 +9,10 @@
   background-color: $gray_100;
   @include text-style(16px, #666666, 700);
   cursor: pointer;
+
+  @include mobile{
+    width: 100vw;
+  }
 }
 
 .login_btn_active{

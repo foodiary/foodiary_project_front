@@ -14,21 +14,32 @@ interface FAQ{
   faqId: number;
   faqTitle: string;
 }
+
+interface ClickObj{
+  index: number;
+  open: boolean;
+}
+// interface Clicked{
+//   clickedList: ClickObj;
+// }
 const FAQ = () => {
   const target = useRef<HTMLDivElement>(null);
   const faqList = useInfiniteScroll({target: target, url:'/faq'}).items;
 
   const [open, setOpen] = useState(false);
   const [clicked, setClicked] = useState(0); //클릭된 인덱스
+  // const [clicked, setClicked] = useState<Clicked>(); //클릭된 인덱스
   const [clickedList, setClickedList] = useState<number[]>([]);
 
+  const [list, setList] = useState([]);
+  // [{index: 0, open: false}]
   console.log(`클릭됨: ${clickedList}`);
   const onTitleClick = (index:number)=>{
     // if(clickedList.includes(index)){
     //   setClickedList(clickedList.filter((item)=> index !== item));
     //   setOpen(prev=>!prev);
     // }
-    setClicked(index);
+
     setOpen(prev=>!prev);
 
     // setClickedList(prev=>[...prev, index]);

@@ -4,36 +4,38 @@
   width: 90%;
   margin: auto;
   position: relative;
-    p{
-      @include text-style(12px, $main, 700, start);
-    }
+
+  p{
+    @include text-style(12px, $main, 700, start);
+  }
     
-    input{
-      position: relative;
-      width: 100%;
-      height: 48px;
-      border-radius: 12px;
-      @include text-style(16px, #666666, 400, start);
-      text-indent: 20px;
-      &:focus{
-        outline: none;
-      }
+  input{
+    position: relative;
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+    @include text-style(16px, #666666, 400, start);
+    text-indent: 20px;
+    &:focus{
+      outline: none;
     }
-    .validation{
-      position: absolute;
-      margin-top: 8px;
-    }
-  .init, .view_pwd{
+  }
+  .validation{
     position: absolute;
-    cursor: pointer;
-    left: 87%; // 240
+    margin-top: 8px;
+  }
+  
+  .icon_field{
+    position: absolute;
+    right: 5%;
     top: 29px;
-    background: none;
-    border: none;
-    width: 24px; height: 24px;
-    @include text-style(20px, #666666, );
+    @include flexBox();
+    gap: 1em;
+
+    .init, .view_pwd{
+      width: 24px; height: 24px;
+      @include text-style(20px, #666666, );
+    }
   }
-  .view_pwd{
-    left: 260px;
-  }
+  
 }

@@ -55,20 +55,20 @@ const SignUpProfileImage = () => {
   console.log(img);
   console.log(fileURL);
   return (
-      <div>
+      <div className={styles.login_container}>
         <div className={styles.profile_container}>
           <Intro intro1={"대표 할"} span={"프로필 이미지를"} intro2={"입력해주세요."}/>
           <p className={styles.omit_p}>(생략가능)</p>
           
           {fileURL[0]?
-            <>
+            <div className={styles.preview_container}>
               <img alt='첨부사진' src={fileURL[0]} className={styles.preview}/>
               <div className={styles.text}><ValidationText text='png/jpeg/jpg 용량 3MB 이하' color={err? 'red': 'green'}/></div>
-            </>:
-            <>
-              <img alt='기본이미지' src={basic_profile} className={styles.basic_profile}/>
+            </div>:
+            <div className={styles.preview_container}>
+            <img alt='기본이미지' src={basic_profile} className={styles.basic_profile}/>
               <div className={styles.text}><ValidationText text='png/jpeg/jpg 용량 3MB 이하' color='grey'/></div>
-            </>
+            </div>
           }
 
           <form onSubmit={handleFile}>

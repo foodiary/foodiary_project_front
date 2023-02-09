@@ -12,10 +12,11 @@
   margin-top: 150px;
   margin-bottom: 235px;
   position: relative;
+  
   .pwd_confirm{
     position: absolute;
     top: 100px;
-    left: 20px;
+    left: 5%; //20px
   }
 }
 
@@ -32,7 +33,16 @@
 .omit_p{
   position: relative;
   margin-left: 150px;
-  // top: 20%;
+}
+
+.preview_container{
+  width: fit-content;
+
+  @include mobile{
+    margin-top: 86px;
+    margin-left: 50%;
+    transform: translate(-50%);
+   }
 }
 .basic_profile, .preview{
   width: 220px; 
@@ -41,11 +51,16 @@
   border-radius: 12px;
   padding: 20px;
   border: 1px solid black;
+
+  @include mobile{
+    margin: 0;
+   }
 }
 .preview{
   border-radius: 12px;
   border: 1px solid $main;
 }
+
 .file_container{
   @include flexBox();
   width: 330px; 
@@ -56,6 +71,12 @@
   border: 1px solid black;
   background-color: white;
  
+  @include mobile{
+   margin-left: 50%;
+   transform: translate(-50%, -50%);
+   width: 60%;
+  }
+
   .camera_icon{
     width: 24px; height: 24px;
     margin-right: 15px;
@@ -117,7 +138,8 @@
   .msg_length{
     position: absolute;
     top: 80%;
-    left: 85%;
+    right: 10%;
+    // left: 85%;
     @include text-style(14px, #666666, 400, start);
   }
   textarea{
@@ -125,25 +147,15 @@
     height: 150px;
     resize: none;
     border-radius: 12px;
+    padding: 20px;
     @include text-style(16px, #333333, 400, start);
-    text-indent: 5px;
+    // text-indent: 5px;
     &:focus{
       outline: none;
     }
   }
 }
-// .init{
-//   background: none;
-//   border: none;
-//   cursor: pointer;
-//   // z-index: 2;
-//   width: 30px; height: 30px;
-//   font-size: 20px;
-//   @include flexBox();
-//   position: absolute;
-//   top: 73.8%;
-//   left: 80%;
-// }
+
 .profile_container{
   position: relative;
   .text{
@@ -153,7 +165,6 @@
     background: none;
     border: none;
     cursor: pointer;
-    // z-index: 2;
     width: 30px; height: 30px;
     font-size: 20px;
     @include flexBox();
