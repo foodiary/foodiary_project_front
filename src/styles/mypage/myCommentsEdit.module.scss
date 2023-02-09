@@ -21,9 +21,10 @@
     }
 
     .word_restrict{
-      position: absolute;
-      top: 330px;
-      left: 280px;
+      // position: absolute;
+      // top: 330px; 
+      // left: 280px;
+      padding: 10px;
       p{
         @include text-style(14px, #666666, 400, end);
       }

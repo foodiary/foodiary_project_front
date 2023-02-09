@@ -18,6 +18,9 @@
     margin-top: 50px;
     gap: 20px 8px;
     
+    @media (min-width: 550px) and (max-width: 767px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
     .card{
       width: 98%;
     }

@@ -33,7 +33,6 @@
       height: 300px;
       resize: none;
       border: none;
-      // border: 1px solid red;
       &::-webkit-scrollbar{ display: none}
       &:focus{ outline: none}
     }
@@ -41,7 +40,7 @@
       @include text-style(14px, #666666, 400);
       position: absolute;
       top: 90%;
-      left: 75%;
+      left: 78%; 
     }
     
   }
@@ -68,14 +67,12 @@
 .preview_container{
   position: relative;
   @include flexBox();
-  
+
   .preview{
     width: 150px;
     height: 150px;
     border-radius: 8px;
     margin: 30px 0;
-    // margin-bottom: 20px;
-    // margin: auto;
   }
   button{
     position: absolute;
@@ -85,11 +82,15 @@
     color: $point;
     top: 15%;
     left: 62%;
+
+    @include mobile{
+      left: 50%;
+      transform: translate(150%);
+    }
   }
 }
 
-
-  .btn_container{
+.btn_container{
     @include flexBox();
     margin: 50px 0 0 0;
 

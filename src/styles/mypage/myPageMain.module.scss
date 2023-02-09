@@ -49,7 +49,7 @@
   // display: grid;
   // grid-template-columns: repeat(4, 1fr);
   background-color: white;
-  width: 95%;
+  width: 100%;
   margin: auto;
   .img{
     font-size: 40px;
@@ -103,6 +103,9 @@
   .title{
       @include text-style(14px, #333333, 400, start);
       margin-left: 20px;
+      @include mobile{
+        margin-left: 5%;
+      }
   }
 }
 .account_manage{
@@ -111,11 +114,8 @@
   button{
     @include text-style(16px, $main, 700, start);
     @include column-flexBox();
-    background: none;
-    border: none;
     margin-top: 12px;
-    cursor: pointer;
-    margin-left: 20px;
+    margin-left: 5%;
   }
   button:last-child{
     color: $point;
