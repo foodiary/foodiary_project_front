@@ -15,7 +15,6 @@ section {
     border-collapse: collapse;
     border-spacing: 100%;
     border-radius: 30px;
-    // border: 2px solid red;
     .table_head {
       td {
         border-bottom: 3px solid pink;
@@ -72,16 +71,15 @@ section {
 
     .random_food {
       width: 100%;
-      padding: 30px 10px;
+      height: 150px;
       display: flex;
       justify-content: flex-end;
       position: relative;
       z-index: 1;
-      // border: 1px solid blue;
+
       .food_card {
         width: 200px; 
         height: 200px;
-        // border: 1px solid red;
         position: absolute;
         top: -40%;
         left: 25%;
@@ -108,7 +106,6 @@ section {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          // border: 1px solid red;
         }
         .reloadFood{
           @include text-style(25px, $point, 400);
@@ -118,15 +115,13 @@ section {
         }
       }
       .food_icon{
-        border: 1px solid red;
-        // @include mobile{
-        //   margin-right: 15%;
-        //   transform: translate(-30%, -10%);
-        // }
+        position: absolute;
+        left: 60%;
+        top: 50px;
+
         img {
           width: 100px;
           height: 80px;
-          margin-right: 25px;
         }
       }
     }
@@ -168,39 +163,6 @@ section {
       margin-left: 10px;
     }
   }
-
-  // .rankingSection {
-  //   padding-bottom: 20px;
-
-  //   .dayBtn {
-  //     display: flex;
-  //     justify-content: flex-end;
-  //     gap: 4px;
-  //     margin-bottom: 22px;
-  //   }
-
-  //   .rankingContents {
-  //     .rankingScroll {
-  //       display: flex;
-  //       gap: 8px;
-  //     }
-  //   }
-  // }
-
-  // .recipeSection {
-  //   padding-top: 58px;
-
-  //   .recipeTitle {
-  //     display: flex;
-  //     align-items: center;
-  //     gap: 16px;
-  //   }
-
-  //   .recipeContents {
-  //     display: flex;
-  //     gap: 8px;
-  //   }
-  // }
 }
 
 .ranking {
