@@ -21,7 +21,7 @@ const SignUpPwdConfirm = () => {
   },[more_pwd]);
 
   return (
-    <div>
+    <div className={styles.login_container}>
       <Intro intro1={"비밀번호를"} span={"한번 더"} intro2={"입력해주세요."}/>
       <div className={styles.pwd_container}>
           <Input

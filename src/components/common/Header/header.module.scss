@@ -12,6 +12,10 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
   border-bottom: 2px solid $gray-100;
   background-color: white;
 
+  @include mobile{
+    width: 100%;
+  }
+  
   .profile{
     // @include flexBox();
     margin-right: 20px;
@@ -75,14 +79,16 @@ $grey-color: invert(67%) sepia(5%) saturate(14%) hue-rotate(339deg) brightness(9
 .login_header{
   position: fixed;
   z-index: 100;
-  // width: 90%;
   width: 373px;
   height: 60px;
   @include flexBox($jc: between);
   background-color: white;
 
+  @include mobile{
+    width: 100%;
+  }
+  
   button{
-    
     padding: 0 10px;
   }
 }

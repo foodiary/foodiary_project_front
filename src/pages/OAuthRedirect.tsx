@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import axiosOAuth from "@utils/axiosOAuth";
 import axiosConfig from "@utils/axiosConfig";
-
-import axios from "axios";
 import { useUserStore } from "@store/userStore";
 import { useLoginUserStore } from "@store/loginUserStore";
 import { AlertBox } from "@components/common/AlertBox/AlertBox";
 
 const OAuthRedirect = () => {
-  let provider_id = "";
-
   const setOAuthLogin = useUserStore((state) => state.setOAuthLogin);
   const setEmail = useUserStore((state) => state.setEmail);
   const setEmailYn = useUserStore((state) => state.setEmailYn);
@@ -19,7 +14,6 @@ const OAuthRedirect = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
 
   const [notMember, setNotMember] = useState(false);
 
@@ -44,13 +38,12 @@ const OAuthRedirect = () => {
         } else {
           setOAuthLogin(false);
           setNotMember(false);
-          // setLoading(true);
           const memberId = res.data.memberId;
+
           axiosConfig
             .get(`/member/${memberId}`)
             .then((res) => {
               setUserInfo(res.data);
-              // setLoading(false);
               navigate("/");
               window.location.reload();
             })
@@ -77,7 +70,6 @@ const OAuthRedirect = () => {
 
   return (
     <div>
-      {/* {loading && <Loading/>} */}
       <Loading />
 
       {notMember && <AlertBox text="탈퇴한 계정입니다" type={false} />}

@@ -11,17 +11,9 @@ interface Button{
   active?: boolean; //버튼 색 (회색, 주황색-true)
 }
 interface DupliButton{
-  // url: string;
-  // value: string; //id, pwd, email 등등
   active?: boolean;
 }
-// interface HalfBtn extends Button{
-//   text2: string;
-//   type2: 'button' | 'submit' ;
-//   url2?: string;
-//   color1?: string;
-//   color2?: string;
-// }
+
 interface HalfBtn{
   text: string; //버튼 텍스트
   type: 'button' | 'submit' ;
@@ -31,11 +23,8 @@ interface HalfBtn{
 interface HalfAlertBtn{
   btn_txt?: string;
   type?: 'button' | 'submit' ;
-  // color: 'red' | 'black';
 }
-interface AlertType{
-  type: string;
-}
+
 export const LoginButton = ({text, type, url, active=false}:Button) => {
   const navigate = useNavigate();
 
@@ -61,9 +50,6 @@ export const LoginButton = ({text, type, url, active=false}:Button) => {
   );
 };
 export const HalfButton = ({text, type, onClick, disabled}:HalfBtn)=>{
-  const navigate = useNavigate();
-  const [warn, setWarn] = useState(false);
-
   return (
     <div>
       <div className={styles.half_container}>
@@ -80,31 +66,14 @@ export const HalfButton = ({text, type, onClick, disabled}:HalfBtn)=>{
   );
 }
 export const HalfAlertButton = ({btn_txt, type}:HalfAlertBtn)=>{
-  const navigate = useNavigate();
-  const [warn, setWarn] = useState(false);
-
   return (
     <div>
-      {/* <div className={styles.half_container}>
-        <button
-          type={type} 
-          className={styles.half_btn}
-        >
-          {btn_txt}
-        </button>
-      </div> */}
       <div className={styles.half_alert_container}>
          <button
           type={type} 
           className={styles.half_alert_btn}>
           {btn_txt}
         </button>
-        {/* <button
-          type='button'
-          className={styles.half_alert_btn}
-        >
-          취소
-        </button> */}
       </div>
     </div>
   );

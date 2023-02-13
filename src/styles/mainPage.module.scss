@@ -15,7 +15,6 @@ section {
     border-collapse: collapse;
     border-spacing: 100%;
     border-radius: 30px;
-    // border: 2px solid red;
     .table_head {
       td {
         border-bottom: 3px solid pink;
@@ -68,42 +67,28 @@ section {
   .recommendeSection {
     padding: 22px 0;
     @include column-flexBox();
-    // display: flex;
     align-items: center;
 
     .random_food {
       width: 100%;
-      padding: 30px 10px;
+      height: 150px;
       display: flex;
       justify-content: flex-end;
       position: relative;
       z-index: 1;
-      // border: 1px solid blue;
-      .food_card {
-        // position: absolute;
-        // top: -3px;
-        // left: 55px;
-        // z-index: -1;
-        // border: 1px solid rgb(1, 42, 1);
-        // background: url("/img/today_food.jpg");
-        // background-size: cover;
-        // background-position: bottom;
-        // width: 200px;
-        // height: 100px;
-        // transform: rotate(-8deg);
-        // font-size: 24px;
-        // font-weight: 500;
-        // color: #fff;
-        // @include flexBox($jc: around);
 
+      .food_card {
         width: 200px; 
         height: 200px;
-        // border: 1px solid red;
         position: absolute;
         top: -40%;
         left: 25%;
         z-index: -1;
 
+        @include mobile{
+          left: 50%;
+          transform: translate(-50%);
+        }
         img{
           width: 230px; //200
           height: 230px;
@@ -121,7 +106,6 @@ section {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          // border: 1px solid red;
         }
         .reloadFood{
           @include text-style(25px, $point, 400);
@@ -130,10 +114,15 @@ section {
           left: 65%;
         }
       }
-      img {
-        width: 100px;
-        height: 80px;
-        margin-right: 25px;
+      .food_icon{
+        position: absolute;
+        left: 60%;
+        top: 50px;
+
+        img {
+          width: 100px;
+          height: 80px;
+        }
       }
     }
 
@@ -174,39 +163,6 @@ section {
       margin-left: 10px;
     }
   }
-
-  // .rankingSection {
-  //   padding-bottom: 20px;
-
-  //   .dayBtn {
-  //     display: flex;
-  //     justify-content: flex-end;
-  //     gap: 4px;
-  //     margin-bottom: 22px;
-  //   }
-
-  //   .rankingContents {
-  //     .rankingScroll {
-  //       display: flex;
-  //       gap: 8px;
-  //     }
-  //   }
-  // }
-
-  // .recipeSection {
-  //   padding-top: 58px;
-
-  //   .recipeTitle {
-  //     display: flex;
-  //     align-items: center;
-  //     gap: 16px;
-  //   }
-
-  //   .recipeContents {
-  //     display: flex;
-  //     gap: 8px;
-  //   }
-  // }
 }
 
 .ranking {

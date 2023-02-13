@@ -5,7 +5,7 @@ import clip_icon from '@img/clip_icon.svg';
 import {MdCancel} from 'react-icons/md';
 import { HalfButton } from '../LoginButton/Button';
 import { useImgFileStore } from '@store/fileStore';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import axiosConfig from '@utils/axiosConfig';
 import { useWritingFormStore } from '@store/writingFormStore';
 import { useLoginUserStore } from '@store/loginUserStore';
@@ -51,7 +51,6 @@ const WritingForm = ({
       writingContent: storedContent? storedContent: "",
     }
   });
-  console.log(existingPath);
   const [length, setLength] = useState(0); //내용 길이
   const navigate = useNavigate();
 
@@ -61,13 +60,8 @@ const WritingForm = ({
   const fileURL = useImgFileStore(state=>state.fileURL);
   const setFileURL = useImgFileStore(state=>state.setFileURL);
 
-  const setTitle = useWritingFormStore(state=>state.setTitle);
-  const setContent = useWritingFormStore(state=>state.setContent);
-
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
   const [removeExistingImg, setRemoveExistingImg] = useState(false);
-
-  const [forbidden, setForbidden] = useState(false); //글, 내용 작성해주세요
 
   const cancel = btnStateStore(state=>state.cancel); //작성취소의 취소
   const setCancel = btnStateStore(state=>state.setCancel); //작성취소의 취소
@@ -85,17 +79,13 @@ const WritingForm = ({
     setImg([]);
   }
   const onSubmit = (data:Form)=>{
-    // let sendPath:string|null;
-    console.log(removeExistingImg);
-    console.log(img);
     let writeInfo = {};
-    if(removeExistingImg && img.length===0){ //
-      ///sendPath = existingPath!; //기존이미지 삭제시 이미지 경로 보내야함(삭제할수잇게)
+    if(removeExistingImg && img.length===0){ 
       writeInfo = {
         memberId: memberId,
         questionContent: data.writingContent,
         questionTitle: data.writingTitle,
-        questionPath: existingPath!, //없으면 빈값
+        questionPath: existingPath!,
       }
     }
     else{
@@ -125,7 +115,6 @@ const WritingForm = ({
         data : formData,
         headers : headers,
       }).then(res=>{
-        console.log(res);
         setFileURL([]);
         setImg([]);
         setSuccess(true);
@@ -141,12 +130,11 @@ const WritingForm = ({
   const onCancel = ()=>{
     setCancel(false);
     setAlert(true);
-    console.log('취소');
   }
   useEffect(()=>{
     setLength((watch('writingContent')).length);
   },[watch('writingContent')]);
-  console.log(`전역취소상태: ${cancel}`);
+
   return (
     <div className={styles.writing_container}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -201,9 +189,7 @@ const WritingForm = ({
               </button>
             </div>
           )
-        })
-        
-        
+        })  
       }
 
       <div className={styles.btn_container}>
@@ -216,7 +202,6 @@ const WritingForm = ({
       </div>      
     </form>
       
-
       {alert && !cancel &&
         <form onSubmit={()=>navigate('/mypage')}>
           <WarnBox text='작성을 취소하시겠습니까?' btn_txt='예'/>

@@ -6,7 +6,6 @@ import { Link, useLocation } from 'react-router-dom';
 import styles from "../styles/explorePage.module.scss";
 import {GoSearch} from 'react-icons/go';
 import DecoTitle from '@components/common/DecoTitle/DecoTitle';
-import {BiCommentDetail} from 'react-icons/bi';
 import { BsPencilFill } from "react-icons/bs";
 
 interface ResType{
@@ -40,14 +39,10 @@ const ExploreDetail = () => {
             <GoSearch />
           </Link>
         </div>
-        {/* <Link to="/search" className={styles.search_icon}>
-          <GoSearch/>
-        </Link> */}
       </section>
 
       <div className={styles.card_container}>
         {list.map((item:ResType)=>{
-          console.log(item)
           return(
             <Link to= {`/detail/${item.dailyId}`} key={item.dailyId}>
               <div className={styles.card}>

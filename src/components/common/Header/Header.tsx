@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./header.module.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import home_icon from "@img/home_icon.svg";
-import hot_icon from "@img/hot_icon.svg";
-import explore_icon from "@img/explore_icon.svg";
-import mypage_icon from "@img/mypage_icon.svg";
 import basic_profile from "@img/basic_profile.png";
 import go_back_btn from "@img/go_back_btn.svg";
-
 import { useLoginUserStore } from "@store/loginUserStore";
-import { useUpdateUser } from "@hook/useUpdateUser";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,7 +13,6 @@ const Header = () => {
   const memberPath = useLoginUserStore((state) => state.userInfo.memberPath);
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
 
-  const token = localStorage.getItem("access_token");
   useEffect(() => {
     if (memberId) {
       setLoginUser(true);

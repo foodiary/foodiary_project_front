@@ -1,31 +1,15 @@
 import { useLoginUserStore } from '@store/loginUserStore';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import axiosConfig from '@utils/axiosConfig';
 import styles from '@styles/mypage/contact.module.scss';
 import WritingForm from '@components/common/WrtingForm/WritingForm';
 import DecoTitle from '@components/common/DecoTitle/DecoTitle';
 
-interface ResType{
-  questionContent: string;
-  questionTitle: string;
-  questionPath: string;
-  //이미지도 받아야함
-}
-
 const ContactEdit = () => {
   const {search, state} = useLocation();
-  console.log(state);
   const questionId = search.slice(1);
   const memberId = useLoginUserStore(state=>state.userInfo.memberId);
-  const [detail, setDetail] = useState([]);
 
-  // useEffect(()=>{
-  //   axiosConfig.get(`/question/${memberId}/${questionId}/`)
-  //   .then(res=>{
-  //     setDetail(res.data);
-  //   })
-  // },[]);
   return (
       <div>
         <div className={styles.title}>

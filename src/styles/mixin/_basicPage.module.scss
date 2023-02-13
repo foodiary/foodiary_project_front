@@ -1,8 +1,20 @@
+@import './responsive.module';
+
 %page-base {
     width: 375px;
     height: 100vh;
+    max-height: 1368px;
     padding-bottom: 100px;
     margin: 0 auto;
     overflow-y: scroll;
     border: 1px solid black;
+    
+  @include mobile{
+    border: none;
+    width: 100%;
   }
+}
+
+// @include tablet{
+//   border: none;
+// }
