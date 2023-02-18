@@ -9,6 +9,7 @@
   }
   main{
     margin-top: 62px;
+    @include background();
   }
   .main{
     margin-top: 150px;

@@ -66,7 +66,7 @@ export const useAxiosInterceptor = ()=>{
       const refreshToken = localStorage.getItem("refresh_token");
       let newAccessToken = "";
       if(!refreshToken){
-        return;
+        return Promise.reject(err);
       }
 
       try {

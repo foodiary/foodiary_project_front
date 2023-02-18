@@ -43,7 +43,7 @@ const FAQ = () => {
                   <button className={styles.q_container} onClick={()=>{onTitleClick(index);}}>
                     <p className={styles.num}>{faqId}</p>
                     <p className={styles.q_title}>{item.faqTitle}</p>
-                      <img src={top_arrow} alt="화살표"/>
+                      <img src={top_arrow} className={active!==''? styles.arrow_active: ''} alt="화살표"/>
                   </button>
                   <p className={`${styles.content} ${active}`}>{item.faqContent}</p>
                 </div>

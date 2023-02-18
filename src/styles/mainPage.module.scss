@@ -108,10 +108,15 @@ section {
           transform: translate(-50%, -50%);
         }
         .reloadFood{
-          @include text-style(25px, $point, 400);
+          // @include text-style(25px, $point, 400);
           position: absolute;
           top: 20%; 
           left: 65%;
+          background-color: $point;
+          color: white;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
         }
       }
       .food_icon{

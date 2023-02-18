@@ -22,20 +22,25 @@
     }
     .q_title{
       @include text-style(16px, $main, 500);
+      .arrow_active{
+        transform: rotate(180deg);
+      }
     }
   }
 }
 .content{
-  display: none;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  height: 0px;
+  visibility: hidden;
+  transition: padding-top 0.5s, padding-bottom 0.5s, height 0.5s, transform 0.5s;
 }
 .active{
     @include column-flexBox();
     width: 90%;
-    margin: 10px auto ;
-    padding: 10px;
-}
-// .scroll_target{
-//   @include text-style(16px, $gray-400, 500);
-//   padding: 20px;
-//   margin: 10px;
-// }
+    margin: 10px auto;
+    height: fit-content;
+    visibility: visible;
+    padding: 1rem;
+    transition: padding-top 0.5s, padding-bottom 0.5s, height 0.5s, transform 0.5s;
+  }

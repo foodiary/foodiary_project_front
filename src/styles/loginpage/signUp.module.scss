@@ -190,22 +190,33 @@
     margin-top: 100px;
   }
 }
+
 //SignUpWelcome.tsx
 .welcome_container{
   position: relative;
+  @keyframes motion {
+    0% {top: 10%;}
+    100% {top: 20%;}
+  }
   img{
     @include flexBox();
+    position: absolute;
     width: 90%;
     height: 150px;
-    // border: 1px solid red;
-    margin: 250px auto 50px auto;
-    // transform: rotate(10deg);
+    // margin: 250px auto 50px auto;
+    left: 50%;
+    transform: translate(-50%, -200%);
+    animation: motion 0.5s linear 0s infinite alternate;
   }
-  p{
-    @include text-style(25px, $main, 500);
-    padding: 5px;
-    span{
-      @include text-style(25px, $point 700);
+  .welcome_p{
+    margin-top: 60vh;
+    p{
+      @include text-style(25px, $main, 500);
+      padding: 5px;
+  
+      span{
+        @include text-style(25px, $point 700);
+      }
     }
   }
   button{

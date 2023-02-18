@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "@styles/search.module.scss";
 import { useEffect } from "react";
 import axiosConfig from "@utils/axiosConfig";
@@ -7,9 +7,6 @@ import { GoSearch } from "react-icons/go";
 import { MdOutlineCancel } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useLoginUserStore } from "@store/loginUserStore";
-import { useSearchStore } from "@store/searchStore";
-import { AlertBox } from "@components/common/AlertBox/AlertBox";
-import { useInfiniteScroll } from "@hook/useInfiniteScroll";
 
 interface ResType {
   keyword: string;
@@ -17,14 +14,9 @@ interface ResType {
 }
 const Search = () => {
   const memberId = useLoginUserStore((state) => state.userInfo.memberId);
-  const setSearchList = useSearchStore((state) => state.setSearchList);
   const [keyword, setKeyword] = useState([]);
   const [value, setValue] = useState("");
-  // const page = 1;
   const navigate = useNavigate();
-
-  // const target = useRef<HTMLDivElement>(null);
-  // const keyword = useInfiniteScroll({target: target, url:'/search/daily', memberId: memberId}).items;
 
   const getMySearch = () => {
     axiosConfig
@@ -49,18 +41,6 @@ const Search = () => {
   const onSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     const keywordId = event.currentTarget.id;
     navigate(`/search/result?${value || keywordId}`);
-
-    // axiosConfig.post('/search/daily/result',{
-    //   keyword: value || keywordId,
-    //   memberId: memberId,
-    //   page: 1, //page
-    // }).then(res=>{
-    //   setSearchList(res.data);
-    //   navigate(`/search/result?${value || keywordId}`);
-    // }).catch(err=>{
-    //   setSearchList([]);
-    //   navigate(`/search/result?${value || keywordId}`);
-    // })
   };
 
   const onRemove = (keywordId: number) => {
