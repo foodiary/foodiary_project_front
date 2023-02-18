@@ -22,6 +22,7 @@ import { btnStateStore } from "@store/btnStateStore";
 import { TbCrown } from "react-icons/tb";
 import { useInfiniteScroll } from "@hook/useInfiniteScroll";
 import Slider from "react-slick";
+import ScrollRestoration from "@components/ScrollRestoration";
 
 interface ResType {
   dailyBody: string;
@@ -243,6 +244,7 @@ const WritingDetails = () => {
 
   return (
     <div className={styles.writing_detail}>
+      <ScrollRestoration/>
       <div className={styles.slickBox}>
         <Slider {...settings}>
           {contents?.dailyImageList.map((el, index) => {

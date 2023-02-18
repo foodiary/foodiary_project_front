@@ -1,3 +1,5 @@
+import {motion} from 'framer-motion';
+
 interface IButtonProps {
   btnStyle: string;
   onClick: () => void;
@@ -6,9 +8,14 @@ interface IButtonProps {
 
 const Button = ({ btnStyle, onClick, text }: IButtonProps) => {
   return (
-    <button className={btnStyle} onClick={onClick}>
+    <motion.button 
+      whileHover={{
+        scale: 1.1,
+        transition: {duration: 0.3}
+      }}
+      className={btnStyle} onClick={onClick}>
       <span>{text}</span>
-    </button>
+    </motion.button>
   );
 };
 

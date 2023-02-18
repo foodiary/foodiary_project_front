@@ -54,6 +54,7 @@ const MenuPage = () => {
       })
       .then((res) => {
         setMenuList(res.data);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);

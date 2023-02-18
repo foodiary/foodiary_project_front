@@ -52,6 +52,7 @@ import MyContact from '@pages/mypage/contact/MyContact';
 import Search from '@pages/Search';
 import SearchResult from '@pages/SearchResult';
 import ProfileView from '@pages/ProfileView';
+import {AnimatePresence} from 'framer-motion';
 
 const AppRouter = () => {
   const token = localStorage.getItem("access_token");
@@ -61,6 +62,7 @@ const AppRouter = () => {
     <div>
       <BrowserRouter>
         <ScrollRestoration/>
+        <AnimatePresence>
         <Routes>
           <Route element={<MainLayOut/>}>
             <Route path='/' element={<MainPage/>}/>
@@ -138,6 +140,7 @@ const AppRouter = () => {
           }
 
         </Routes>
+        </AnimatePresence>
       </BrowserRouter>
     </div>
   );
