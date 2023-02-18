@@ -7,8 +7,10 @@ const SignUpWelcom = () => {
   return (
     <div className={styles.welcome_container}>
       <img src={welcome} alt='환영'/>
-      <p>환영합니다!</p> 
-      <p><span>푸디어리</span>와 함께 해요!</p>
+      <div className={styles.welcome_p}>
+        <p>환영합니다!</p> 
+        <p><span>푸디어리</span>와 함께 해요!</p>
+      </div>
       <LoginButton 
         text='로그인 하러가기' 
         type='button' 
