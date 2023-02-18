@@ -2,19 +2,16 @@ import Header from '@components/common/Header/Header';
 import LoginHeader from '@components/common/Header/LoginHeader';
 import NavBar from '@components/common/NavBar/NavBar';
 import { useAxiosInterceptor } from '@hook/useAxiosInterceptor';
-import Loading from '@pages/Loading';
-import React, { useRef } from 'react';
+import React from 'react';
 import { LayoutRouteProps, Outlet, useLocation } from 'react-router-dom';
 import styles from './layOut.module.scss';
-// import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
-import './transition.css';
 import { useLoadingStore } from '@store/loadingStore';
+import {motion} from 'framer-motion';
+import ScrollRestoration from '@components/ScrollRestoration';
 
-const TIMEOUT = 300;
 export const MainLayOut = ({children}:LayoutRouteProps) => {
   useAxiosInterceptor();
   const location = useLocation();
-  const loading = useLoadingStore(state=>state.loading);
 
   return (
     <div className={styles.layout}>
@@ -22,19 +19,16 @@ export const MainLayOut = ({children}:LayoutRouteProps) => {
         <Header/>
       </header>
       <main>
-        {children || <Outlet/>}
-        {/* {loading && <Loading/> } */}
-        {/* <TransitionGroup className='transition-group'>
-          <CSSTransition
-            key={location.pathname}
-            timeout={{
-              enter: TIMEOUT,
-              exit: TIMEOUT,
-            }}
-            classNames='fade'>
-            {children || <Outlet/>}
-          </CSSTransition>
-        </TransitionGroup> */}
+        <motion.div
+          key={location.pathname}
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          exit={{opacity: 0}}
+          transition={{
+            duration: 0.3,
+          }}>
+          {children || <Outlet/>}
+        </motion.div>
       </main>
       <footer>
         <NavBar/>
@@ -46,23 +40,21 @@ export const MainLayOut = ({children}:LayoutRouteProps) => {
 export const LoginLayout = ({children}:LayoutRouteProps) => {
   useAxiosInterceptor();
   const location = useLocation();
-
   return (
     <div className={styles.layout}>
       <LoginHeader/>
       <main className={styles.main}>
-        {/* <TransitionGroup className='transition-group'>
-          <CSSTransition
-            key={location.pathname}
-            timeout={{
-              enter: TIMEOUT,
-              exit: TIMEOUT,
-            }}
-            classNames='fade'>
-            {children || <Outlet/>}
-          </CSSTransition>
-        </TransitionGroup> */}
-        {children || <Outlet/>}
+        <motion.div
+          key={location.pathname}
+          initial={{x: 100, opacity: 0}}
+          animate={{x: 0, opacity: 1}}
+          exit={{x: -100, opacity: 0}}
+          transition={{
+            duration: 0.3,
+          }}>
+          {children || <Outlet/>}
+        </motion.div>
+
       </main>
     </div>
   );

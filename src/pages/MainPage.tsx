@@ -14,21 +14,17 @@ import etcFood from "@img/etc.png";
 import stewFood from "@img/stew.png";
 import schoolFood from "@img/school_food.png";
 import EmptyText from "@components/common/Text/EmptyText";
-import { SmallCard } from "@components/common/Card";
 import DecoTitle from "@components/common/DecoTitle/DecoTitle";
 import { GoSearch } from "react-icons/go";
 import { useUpdateUser } from "@hook/useUpdateUser";
-import { useLoadingStore } from "@store/loadingStore";
 import { AlertBox } from "@components/common/AlertBox/AlertBox";
-import oneRank from "@img/rank01.png";
-import twoRank from "@img/rank01.png";
-import threeRank from "@img/rank01.png";
 import { useSearchStore } from "@store/searchStore";
 import { IoReloadCircleSharp } from "react-icons/io5";
+import {AiOutlineReload} from 'react-icons/ai';
 import { BsTrophyFill } from "react-icons/bs";
-
-// import cutting_board from '@img/cutting_board.png';
+import {AnimatePresence, motion} from 'framer-motion';
 import menu_board from "@img/menu_board.svg";
+import 'animate.css';
 
 interface ResType {
   dailyId: number;
@@ -118,7 +114,6 @@ const MainPage = () => {
       .then((res) => {
         setAlert(true);
         setTimeout(recommendMenu, 1000);
-        //음식추천 새로고침할때 같이 false로 만들기
       })
       .catch((err) => {
         console.log(err);
@@ -135,7 +130,6 @@ const MainPage = () => {
       .then((res) => {
         setAlert(true);
         setTimeout(recommendMenu, 1000);
-        //음식추천 새로고침할때 같이 false로 만들기
       })
       .catch((err) => {
         console.log(err);
@@ -145,31 +139,9 @@ const MainPage = () => {
 
   const onSearch = () => {
     navigate(`/search/result?${value}`);
-    // let data = {};
-    // if (memberId) {
-    //   data = {
-    //     keyword: value,
-    //     memberId: memberId,
-    //     page: 1,
-    //   };
-    // } else {
-    //   data = {
-    //     keyword: value,
-    //     page: 1,
-    //   };
-    // }
-    // axiosConfig
-    //   .post(`/search/daily/result`, data)
-    //   .then((res) => {
-    //     setSearchList(res.data);
-    //     navigate(`/search/result?${value}`);
-    //   })
-    //   .catch((err) => {
-    //     navigate(`/search/result?${value}`);
-    //   });
   };
 
-  const [rankingList, setRankingList] = useState([]);
+  const [rankingList, setRankingList] = useState<any>([]);
   const [month, setMonth] = useState(true);
   let url = "";
 
@@ -207,22 +179,33 @@ const MainPage = () => {
         </h2>
       </section>
 
-      {/* 음식 아이콘이랑 카드 넣기 */}
-
       <section className={styled.recommendeSection}>
         <div className={styled.random_food}>
           <div className={styled.food_card}>
             <img src={menu_board} alt="랜덤추천" />
-            <button onClick={recommendMenu} className={styled.reloadFood}>
-              <IoReloadCircleSharp />
-            </button>
-            <p>{recommenu?.foodName}</p>
+            <motion.button 
+              whileHover={{
+                rotate: 360,
+                transition: {duration: 0.5}
+              }}
+              onClick={recommendMenu} 
+              className={styled.reloadFood}>
+              {/* <IoReloadCircleSharp /> */}
+              <AiOutlineReload fontSize={18}/>
+            </motion.button>
+            {/* <p className="animate__animated animate__flipInX"> */}
+            <p>
+              {recommenu?.foodName}
+            </p>
           </div>
-          <div className={styled.food_icon}>
+          <motion.div 
+            initial={{y: 10, opacity: 0}}
+            animate={{y: 0, opacity: 1}}
+            className={styled.food_icon}>
             {getRandomFoodImg(recommenu?.foodCategory) || (
               <img src={etcFood} alt="랜덤음식" />
             )}
-          </div>
+          </motion.div>
         </div>
 
         <div className={styled.q_btn}>
@@ -278,7 +261,14 @@ const MainPage = () => {
               rankingList.map((item: ResType, index: number) => {
                 return (
                   <Link to={`/detail/${item.dailyId}`}>
-                    <div className={styled.rank_card_container}>
+                    <AnimatePresence>
+                    <motion.div 
+                      key={rankingList}
+                      initial={{opacity: 0}}
+                      animate={{opacity: 1}}
+                      exit={{opacity: 0, transition:{duration:0}}}
+                      whileHover={{scale:1.02, transition: {duration:0.3}}}
+                      className={styled.rank_card_container}>
                       <img src={item.dailyThumbnail} alt="" />
                       <div>
                         {index === 0 && (
@@ -292,7 +282,8 @@ const MainPage = () => {
                         )}
                       </div>
                       <p>{item.dailyTitle}</p>
-                    </div>
+                    </motion.div>
+                    </AnimatePresence>
                   </Link>
                 );
               })

@@ -1,8 +1,8 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from "./button.module.scss";
 import { useNavigate } from 'react-router-dom';
-import { WarnBox } from '@components/common/AlertBox/AlertBox';
 import { useUserStore } from '@store/userStore';
+import {motion} from 'framer-motion';
 
 interface Button{
   text: string; //로그인, 확인, 다른방법~~
@@ -31,20 +31,22 @@ export const LoginButton = ({text, type, url, active=false}:Button) => {
   return (
     <div>
       {type === "button" ?
-        <button
+        <motion.button
+          whileTap={{scale: 0.9}}
           type={type} 
           className={active? `${styles.login_btn_active}`: `${styles.login_btn}`}
           onClick={()=>{navigate(url!)}}
           disabled={active?false:true}>
           {text}
-        </button>:
+        </motion.button>:
 
-        <button
+        <motion.button
+          whileTap={{scale: 0.9}}
           type="submit"
           className={active? `${styles.login_btn_active}`: `${styles.login_btn}`}
           disabled={active?false:true}>
           {text}
-        </button>
+        </motion.button>
     }
     </div>
   );

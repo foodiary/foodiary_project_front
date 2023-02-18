@@ -1,9 +1,9 @@
 import styled from "./card.module.scss";
 import sample_img from '@img/sample.png';
-import {BsSuitHeart} from 'react-icons/bs';
 import {MdOutlineRemoveRedEye} from 'react-icons/md';
 import {IoMdHeartEmpty} from 'react-icons/io';
 import tape from '@img/tape.png';
+import {motion} from 'framer-motion';
 
 type cardStyleProps = {
   img?: string; //수정예정
@@ -33,7 +33,19 @@ export const SmallCard = ({
   none,
 }: cardStyleProps) => {
   return (
-    <div className={styled.cardWrapper} style={{ padding: "8px" }}>
+    <motion.div 
+      initial={{y:100 ,opacity:0}}
+      animate={{y:0 ,opacity:1}}
+      exit={{y:-100 ,opacity:0}}
+      transition={{
+        duration: 0.5,
+      }}
+      whileHover={{
+        scale: 1.07,
+        transition: {duration: 0.3}
+      }}
+      className={styled.cardWrapper} 
+      style={{ padding: "8px" }}>
       <div className={styled.img}>
         <img src={tape} alt="마스킹테이프" className={styled.tape}/>
         <img src={img} alt="img" className={styled.smallSize} />
@@ -82,7 +94,7 @@ export const SmallCard = ({
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 
@@ -155,7 +167,15 @@ export const LargeCard = ({
   img
 }: cardStyleProps) => {
   return (
-    <div className={styled.cardWrapper} style={{ padding: "8px" }}>
+    <motion.div 
+      initial={{y:100 ,opacity:0}}
+      animate={{y:0 ,opacity:1}}
+      exit={{y:-100 ,opacity:0}}
+      transition={{
+        duration: 0.5,
+      }}
+      className={styled.cardWrapper} 
+      style={{ padding: "8px" }}>
       <div className={styled.img}>
         <img src={img || sample_img} alt="img" className={styled.largeSize} />
       </div>
@@ -204,6 +224,6 @@ export const LargeCard = ({
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
