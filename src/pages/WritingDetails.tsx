@@ -240,11 +240,11 @@ const WritingDetails = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
   };
 
   return (
     <div className={styles.writing_detail}>
-      <ScrollRestoration/>
       <div className={styles.slickBox}>
         <Slider {...settings}>
           {contents?.dailyImageList.map((el, index) => {
