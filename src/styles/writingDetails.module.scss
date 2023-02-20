@@ -23,7 +23,7 @@
     gap: 15px;
     margin: 40px 0 0 20px;
     position: relative;
-    .ranking {
+    .ranking, .no_ranking {
       background-color: $point;
 
       @include text-style(10px, white, 500); 
@@ -31,6 +31,10 @@
       height: fit-content;
       padding: 5px 10px;
       border-radius: 5px;
+    }
+    .no_ranking{
+      background-color: transparent;
+      color: transparent;
     }
   }
   .btnBox {
@@ -43,6 +47,7 @@
 
     h2 {
       padding: 20px 0;
+      // margin-top: 25px;
     }
     button {
       font-size: 20px;
@@ -60,6 +65,7 @@
       padding: 15px;
       padding-left: 0px;
       width: fit-content;
+      margin: 15px 0 10px 0;
       @include text-style(16px, $gray_400, 500, start);
     }
   }
@@ -81,7 +87,7 @@
     }
   }
   .contents {
-    margin: 50px auto;
+    margin: 40px auto;
     pre {
       white-space: pre-wrap;
       overflow: auto;
@@ -94,7 +100,8 @@
 
   .input_comment {
     width: 90%;
-    margin: 80px auto;
+    margin: 90px auto;
+    margin-bottom: 85px;
     @include flexBox($jc: between);
     gap: 10px;
 

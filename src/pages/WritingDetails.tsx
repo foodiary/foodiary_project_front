@@ -254,16 +254,22 @@ const WritingDetails = () => {
       </div>
 
       <div className={styles.ranking_container}>
-        {contents?.monRank && (
+        {contents?.monRank ?
           <div className={styles.ranking}>
             <TbCrown color="gold" /> Month Top 20
+          </div>:
+          <div className={styles.no_ranking}>
+            <TbCrown color="transparent" /> Month Top 20
           </div>
-        )}
-        {contents?.weekRank && (
+        }
+        {contents?.weekRank ? 
           <div className={styles.ranking}>
             <TbCrown color="gold" /> Week Top 20
+          </div>:
+          <div className={styles.no_ranking}>
+            <TbCrown color="transparent" /> Month Top 20
           </div>
-        )}
+        }
       </div>
 
       <div className={styles.writing_container}>

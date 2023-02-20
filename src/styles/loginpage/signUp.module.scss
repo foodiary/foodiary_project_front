@@ -5,9 +5,12 @@
   position: relative;
   width: 95%;
   gap: 8px;
-  margin: 148px 0 200px 10px;
+  margin: 160px 0 200px 10px;
 }
 
+.pwd_intro{
+  margin-top: 30px;
+}
 .pwd_container, .new_pwd_container{
   margin-top: 150px;
   margin-bottom: 235px;
@@ -15,11 +18,14 @@
   
   .pwd_confirm{
     position: absolute;
-    top: 100px;
+    top: 120px;
     left: 5%; //20px
   }
 }
 
+.pwd_container{
+  padding-top: 10px;
+}
 .new_pwd_container{
   @include column-flexBox();
   gap: 50px;
@@ -48,7 +54,7 @@
   height: 220px; 
   margin: 86px 0 0 36px;
   border-radius: 12px;
-  padding: 20px;
+  // padding: 20px;
   border: 1px solid black;
 
   @include mobile{
@@ -119,8 +125,8 @@
     border: 1px solid red;
     background-color: white;
     border-radius: 12px;
-    cursor: pointer;
-    margin-top: 15px;
+    cursor: not-allowed;
+    margin-top: 25px;
     @include text-style(14px, red, 500);
     @include flexBox();
   }
@@ -163,12 +169,11 @@
   .init{
     background: none;
     border: none;
-    cursor: pointer;
     width: 30px; height: 30px;
     font-size: 20px;
     @include flexBox();
     position: absolute;
-    top: 28%;
+    top: 30%;
     left: 60%;
   }
 }

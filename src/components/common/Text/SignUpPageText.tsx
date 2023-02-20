@@ -19,7 +19,7 @@ interface DuplicateTextType{
 export const Intro = ({intro1, span, intro2}:IntroType)=>{
   return(
     <div className={styles.intro}>
-      <p>{intro1}</p> 
+      {intro1? <p>{intro1}</p>: <p><br/></p> }
       <p><span><div className={styles.text_deco}></div>{span}</span> {intro2}</p>
     </div>
   )

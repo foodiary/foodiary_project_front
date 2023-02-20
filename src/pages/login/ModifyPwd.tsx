@@ -77,7 +77,9 @@ const ModifyPwd = () => {
   }
   return (
     <div className={styles.login_container}>
-      <Intro intro1={""} span={"새 비밀번호변경"} intro2={""}/>
+      <div className={styles.new_pwd_title}>
+        <Intro intro1={" "} span={"새 비밀번호변경"} intro2={""}/>
+      </div>
       <form onSubmit={onSubmit} className={styles.new_pwd_container}>
         <Input
           id={"pwd"} 
