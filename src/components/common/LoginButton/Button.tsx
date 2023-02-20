@@ -90,7 +90,7 @@ export const DuplicateCheckBtn = ({active=false}:DupliButton)=>{
         <button 
           type="submit" 
           disabled={active? false: true}
-          className={styles.dupliCheck_btn}>
+          className={active? styles.dupliCheck_btn: styles.no_active}>
             중복확인
         </button>
     </div>

@@ -20,7 +20,7 @@
   color: white;
 }
 
-.dupliCheck_btn{
+.dupliCheck_btn, .no_active{
   width: 72px;
   height: 48px;
   border: 1px solid $main;
@@ -28,7 +28,10 @@
   border-radius: 12px;
   margin-top: 25px;
 }
-
+.dupliCheck_btn{
+  color: $point;
+  border-color: $point;
+}
 .half_alert_btn{
 width: 125px; //125(alert)
 height: 40px;
