@@ -1,18 +1,14 @@
 @import '../../../styles/main.module.scss';
 
 .intro{
-  @include flexBox($jc: start, $ai: start);
   @include column-flexBox();
-  width: 100%;
-  // margin-top: 50px;
-  margin-left: 20px;
+  padding-left: 20px;
   letter-spacing: -0.025em;
-  white-space: pre-line;
+  margin-top: 125px;
   p{
-    padding: 0; margin: 10px 0;
+    margin: 15px 0;
     position: relative;
     @include text-style(28px, $main, 600, start);
-    // @include text-style(28px, $main, start);
     span{
       position: relative;
     }

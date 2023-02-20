@@ -11,7 +11,8 @@
   }
 }
 .week_title {
-  margin-bottom: 15px;
+  margin: 30px auto;
+  padding-top: 15px;
   text-align: center; // 디자인 고민 좀...
 }
 .week_menu {
@@ -23,6 +24,7 @@
     border-radius: 20px;
     border-style: hidden;
     box-shadow: 0 0 0 2px $point;
+    background-color: white;
 
     .table_head {
       td {

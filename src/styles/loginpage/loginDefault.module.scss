@@ -2,16 +2,16 @@
 @import '../globals.css';
 
   .login_container{
-    height: 65vh;
+    height: 65vh; //65vh
     .add_margin{
-      margin-top: 60px;
+      // margin-top: 60px;
       border: 1px solid transparent;
     }
     .btn_container{
       @include flexBox();
       @include column-flexBox();
-      gap: 16px;
-      margin-top: 140px;
+      gap: 20px;
+      margin-top: 130px;
       button{
         cursor:pointer;
       }

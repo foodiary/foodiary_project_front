@@ -3,25 +3,24 @@
 
 .profile_container{
   @include flexBox();
-  margin-top: 135px;
+  margin-top: 130px; //135
+  padding: 10px 0;
+
   .profile_image{
     width: 96px;
     height: 96px;
     border-radius: 10px;
-    // border: 1px solid black;
   }
   .user_info{
     @include column-flexBox();
     margin: 0 60px 0 20px;
     width: 144px;
-    // width: 40%;
-    // border: 1px solid red;
     p:first-child{
       @include text-style(24px, $main, 700, start);
     }
     p:nth-child(2){
       @include text-style(14px, #666666, 400, start);
-      margin-top: 12px;
+      margin-top: 30px;
     }
   }
   .no_member{
@@ -40,14 +39,12 @@
 }
 .profile_msg{
   @include flexBox($jc:start);
-    width: 90%;
+  width: 90%;
   @include text-style(14px, $main, 400, start);
-  margin: 54px auto 30px auto;
+  margin: 30px auto 55px auto;
 }
 .myWriting_btns{
   @include flexBox($jc: around);
-  // display: grid;
-  // grid-template-columns: repeat(4, 1fr);
   background-color: white;
   width: 100%;
   margin: auto;
@@ -60,19 +57,6 @@
   }
 
   .link{
-    
-    // a:nth-child(1){
-    //   transform: rotate(-3.5deg);
-    // }
-    // &:nth-child(2){
-    //   transform: rotate(2deg);
-    // }
-    // &:nth-child(3){
-    //   transform: rotate(-4deg);
-    // }
-    // &:nth-child(4){
-    //   transform: rotate(3.5deg);
-    // }
     p{
       margin-top: 10px;
       @include text-style(14px, $main, 400);
@@ -82,7 +66,7 @@
   
 }
 .recommend_service{
-  margin-top: 60px;
+  margin-top: 90px;
 }
 .menu{
   @include flexBox($jc: between);
@@ -99,13 +83,17 @@
 }
 .customer_service, .account_manage{
   @include column-flexBox();
-  margin-top: 90px;
+  margin-top: 60px; //90
   .title{
+      margin-bottom: 15px;
       @include text-style(14px, #333333, 400, start);
       margin-left: 20px;
       @include mobile{
         margin-left: 5%;
       }
+  }
+  .menu{
+    margin-bottom: 25px;
   }
 }
 .account_manage{
@@ -114,7 +102,7 @@
   button{
     @include text-style(16px, $main, 700, start);
     @include column-flexBox();
-    margin-top: 12px;
+    margin-top: 25px;
     margin-left: 5%;
   }
   button:last-child{

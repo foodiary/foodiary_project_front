@@ -4,14 +4,15 @@ import { Intro } from '@components/common/Text/SignUpPageText';
 import Input from '@components/common/Input/Input';
 import {LoginButton } from '@components/common/LoginButton/Button';
 import { useUserStore } from '@store/userStore';
-import {motion} from 'framer-motion';
 
 const SignUpPwd = () => {
   const validationErr = useUserStore((state)=>state.validationErr);
 
   return (
     <div className={styles.login_container}>
-      <Intro span={"비밀번호를"} intro2={"입력해주세요."}/>
+      <div className={styles.pwd_intro}>
+        <Intro span={"비밀번호를"} intro2={"입력해주세요."}/>
+      </div>
         <form className={styles.pwd_container}>
           <Input
             id={"pwd"} 
