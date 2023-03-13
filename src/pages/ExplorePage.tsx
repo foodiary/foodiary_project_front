@@ -138,7 +138,7 @@ const ExplorePage = () => {
           }}
         />
       </div> */}
-      <ExploreCard url="/dailys/month"/>
+      <ExploreCard url="/dailys"/>
       {/* <section className={styles.dailySection}>
         <div className={styles.contents}>
           {dailyList.map((item: ResType, index) => {
