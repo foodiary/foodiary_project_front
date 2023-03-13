@@ -22,12 +22,14 @@
     border-radius: 12px;
   }
   .user_nickname{
-    margin-top: 55px;
+    margin-top: 35px;
+    margin-bottom: 15px;
     @include text-style(24px, $main, 700);
   }
   .user{
     width: 90%;
     margin-top: 10px;
+    margin-bottom: 30px;
     .info{
       @include row-flexBox();
       @include flexBox($jc: between);
@@ -49,18 +51,18 @@
     cursor: pointer;
   }
   button:first-child{
-    top: 64px;
+    top: 80px;
     left: 203px;
     @include mobile{
       left: 54%;
     }
   }
   a:nth-child(2){
-    top: 155px;
+    top: 140px;
     right: 15px;
   }
   a:nth-child(3){
-    top: 315px;
+    top: 325px;
     right: 15px;
   }
 }
