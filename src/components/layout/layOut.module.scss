@@ -7,11 +7,15 @@
   &::-webkit-scrollbar{
       display: none;
   }
+  float: right;
+  margin-right: 20%;
+
+  @include mobile{
+    margin: 0;
+    clear: right;
+  }
   main{
     margin-top: 62px;
     @include background();
-  }
-  .main{
-    // margin-top: 120px;
   }
 }

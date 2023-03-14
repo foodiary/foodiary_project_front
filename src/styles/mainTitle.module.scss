@@ -1,0 +1,27 @@
+@import '../styles/main.module.scss';
+
+.title{
+  position: absolute;
+  top: 63%;
+  left: 20%;
+  p:first-child{
+    @include text-style(25px, 600);
+    margin-bottom: 10px;
+  }
+  p:nth-child(2){
+    @include text-style(50px, $point, 700);
+  }
+  .diary{
+    position: inherit;
+    left: 20%;
+    width: 150px;
+    height: 100px;
+  }
+}
+.arrow_img{
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 150px;
+  transform: rotate(-70deg);
+}
